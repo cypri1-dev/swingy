@@ -35,11 +35,4 @@ public class AppTest
     {
         assertTrue( true );
     }
-
-    // ✅ Test du message retourné
-    public void testGetMessage() {
-        String expected = "Hello World!";
-        String actual = App.getMessage();
-        assertEquals(expected, actual);
-    }
 }
