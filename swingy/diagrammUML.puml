@@ -1,0 +1,85 @@
+@startuml
+class HeroFactory <<Singleton>> {
+  -static HeroFactory instance
+  -HeroFactory()
+  +static HeroFactory getInstance()
+  'method to create new Hero
+}
+
+class EnemyFactory <<Singleton>> {
+  -static EnemyFactory instance
+  -EnemyFactory()
+  +static EnemyFactory getInstance()
+  'method to create new Enemy
+}
+
+class ArtefactFactory <<Singleton>> {
+  -static ArtefactFactory instance
+  -ArtefactFactory()
+  +static ArtefactFactory getInstance()
+  'method to create new Item
+}
+
+class MapFactory <<Singleton>> {
+  -static MapFactory instance
+  -MapFactory()
+  +static MapFactory getInstance()
+  'method to create new Map
+}
+
+class Hero {
+ -String heroName
+ -String heroClass
+ -int level
+ -int xp
+ -int attack
+ -int defense
+ -int hitPoint
+ -List<Artefact> bag
+ +static setHeroName(String name)
+ +static setHeroClass(String class)
+ +static setLevel(int level)
+ +static setXp(int xp)
+ +static setAttack(int attack)
+ +static setDefense(int defense)
+ +static addArtefact(Artefact item)
+ +static removeArtefact(Artefact item)
+ +static String getName()
+ +static String getClass()
+ +static int getLevel()
+ +static int getXp()
+ +static int getAttack()
+ +static int getDefense()
+ +static int getHitPoint()
+ +static void getArtefacts()
+}
+
+class Enemy {
+ -String name
+ -String class
+ -String level
+ -int attack
+ -int defense
+ -int hitPoint
+ -List<Artefact> bag
+ +static setEnemyName(String name)
+ +static setEnemyClass(String class)
+ +static setLevel(int level)
+ +static setAttack(int attack)
+ +static setDefense(int defense)
+ +static addArtefact(Artefact item)
+ +static removeArtefact(Artefact item)
+ +static String getName()
+ +static String getClass()
+ +static int getLevel()
+ +static int getAttack()
+ +static int getDefense()
+ +static int getHitPoint()
+ +static void getArtefacts()
+}
+
+class Item {
+ -String type
+ -String name
+}
+@enduml
