@@ -17,7 +17,7 @@ package "Model" #LightBlue {
     -int hitPoint
     -List<Artefact> bag
     -Coordinates coord
-    -Characters(String type, String name, String class, Artefact bag)
+    #Characters(String type, String name, String class, Artefact bag)
     #setName(String name)
     #setClass(String class)
     #setLevel(int level)
@@ -35,11 +35,8 @@ package "Model" #LightBlue {
   }
 
   class Hero {
+    -GameMovement movement
     +Hero(String type, String name, String class, Artefact bag)
-    +Coordinates moveNorth(Coordinates currentPosition)
-    +Coordinates moveEast(Coordinates currentPosition)
-    +Coordinates moveSouth(Coordinates currentPosition)
-    +Coordinates moveWest(Coordinates currentPosition)
   }
 
   class Enemy {
@@ -51,7 +48,7 @@ package "Model" #LightBlue {
     -String name
     -int bonus
     -bool isEquipped
-    -Artefact(String type, String name, int bonus)
+    #Artefact(String type, String name, int bonus)
     #setType(String type)
     #setName(String name)
     #setBonus(int bonus)
@@ -153,6 +150,13 @@ package "Controller" #LightGreen {
     +loadSave()
     +save()
   }
+
+  class GameMovement {
+    +void moveNorth(Hero hero)
+    +void moveEast(Hero hero)
+    +void moveSouth(Hero hero)
+    +void moveWest(Hero hero)
+  }
 }
 
 package "View" #LightYellow {
@@ -178,19 +182,16 @@ Artefact <|-- Weapon
 Artefact <|-- Helm
 Characters *-- Artefact
 Characters *-- Coordinates
-HeroFactory ..> Characters : creates
-EnemyFactory ..> Characters : creates
+HeroFactory ..> Hero : creates
+EnemyFactory ..> Enemy : creates
 ArtefactFactory ..> Artefact : creates
 MapFactory ..> Map : creates
 Map *-- Characters
-Game o-- Characters
-Game o-- Map
-Game *-- Menu
-Game .. GameLogic
+Hero --> GameMovement : uses
 
 ' --- Vue <-> Contrôleur ---
-MenuDisplay --> Menu : affiche
-MapDisplay --> Game : rafraîchit affichage
+MenuDisplay --> Menu : affiche options
+MapDisplay --> Game : rafraîchit carte
 
 ' --- Vue <-> Modèle (lecture seule) ---
 MapDisplay ..> Map : lit état
@@ -200,6 +201,7 @@ MenuDisplay ..> Characters : affiche infos
 Game --> GameLogic : utilise
 Game --> Map : gère
 Game --> Characters : contrôle
+Game --> GameMovement : déplace héros
 Menu --> Game : interagit
 Menu --> Characters : sélectionne
 
