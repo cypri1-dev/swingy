@@ -1,5 +1,176 @@
 @startuml
+title Architecture MVC - Jeu RPG
 
+' =======================
+'   COUCHES DU SYSTÈME
+' =======================
+
+package "Model" #LightBlue {
+  class Characters {
+    -String type
+    -String name
+    -String characterClass
+    -int level
+    -int xp
+    -int attack
+    -int defense
+    -int hitPoint
+    -List<Artefact> bag
+    -Coordinates coord
+    -Characters(String type, String name, String class, Artefact bag)
+    #setName(String name)
+    #setClass(String class)
+    #setLevel(int level)
+    #setAttack(int attack)
+    #setDefense(int defense)
+    #addArtefact(Artefact item)
+    #removeArtefact(Artefact item)
+    #String getName()
+    #String getClass()
+    #int getLevel()
+    #int getAttack()
+    #int getDefense()
+    #int getHitPoint()
+    #List<Artefact> getArtefacts()
+  }
+
+  class Hero {
+    +Hero(String type, String name, String class, Artefact bag)
+    +Coordinates moveNorth(Coordinates currentPosition)
+    +Coordinates moveEast(Coordinates currentPosition)
+    +Coordinates moveSouth(Coordinates currentPosition)
+    +Coordinates moveWest(Coordinates currentPosition)
+  }
+
+  class Enemy {
+    +Enemy(String type, String name, String class, Artefact bag)
+  }
+
+  class Artefact {
+    -String type
+    -String name
+    -int bonus
+    -bool isEquipped
+    -Artefact(String type, String name, int bonus)
+    #setType(String type)
+    #setName(String name)
+    #setBonus(int bonus)
+    #setIsEquipped(bool equipped)
+    #String getType()
+    #String getName()
+    #int getBonus()
+    #bool getIsEquipped()
+  }
+
+  class Weapon {
+    +Weapon(String type, String name, int bonus)
+  }
+
+  class Armor {
+    +Armor(String type, String name, int bonus)
+  }
+
+  class Helm {
+    +Helm(String type, String name, int bonus)
+  }
+
+  class Coordinates {
+    -int x
+    -int y
+    -int prevX
+    -int prevY
+    ~Coordinates(int x, int y)
+    +setX()
+    +setY()
+    +setPrevX()
+    +setPrevY()
+    +int getX()
+    +int getY()
+  }
+
+  class Map {
+    -int size
+    -int[][] map
+    -List<Characters*> enemiesList
+    -Characters mainHero
+    #Map(int size, int[][] map)
+    +Characters getEnemies()
+    +setSize(int size)
+    +int getSize()
+    +void displayMap()
+    +void updateMap()
+  }
+
+  class GameLogic {
+    +fight(Characters hero, Characters enemy)
+    +run(Coordinates coor)
+    +Artefact* createLoot()
+    +bool checkLevelComplete(Coordinates coor)
+  }
+
+  class HeroFactory <<Singleton>> {
+    -static HeroFactory instance
+    -HeroFactory()
+    +static HeroFactory getInstance()
+    +Characters* newHero(String type, String name, Artefact bag)
+  }
+
+  class EnemyFactory <<Singleton>> {
+    -static EnemyFactory instance
+    -EnemyFactory()
+    +static EnemyFactory getInstance()
+    +Characters* newEnemy(String type, String name, Artefact bag)
+  }
+
+  class ArtefactFactory <<Singleton>> {
+    -static ArtefactFactory instance
+    -ArtefactFactory()
+    +static ArtefactFactory getInstance()
+    +Artefact* newArtefact(String type, String name, int bonus)
+  }
+
+  class MapFactory <<Singleton>> {
+    -static MapFactory instance
+    -MapFactory()
+    +static MapFactory getInstance()
+    +Map* newMap(int size, int[][] map)
+  }
+}
+
+package "Controller" #LightGreen {
+  class Game {
+    -List<Characters> availableHeros
+    -Menu Menu
+    -Map actualMap
+    +launchGame()
+  }
+
+  class Menu {
+    +displayAvailableHeros()
+    +addHero()
+    +removeHero()
+    +loadCharacter()
+    +loadSave()
+    +save()
+  }
+}
+
+package "View" #LightYellow {
+  class MapDisplay {
+    +displayMap(Map map)
+  }
+
+  class MenuDisplay {
+    +showMenu()
+    +showHeroList()
+  }
+}
+
+' =======================
+'   RELATIONS
+' =======================
+
+' --- Modèle interne ---
 Characters <|-- Hero
 Characters <|-- Enemy
 Artefact <|-- Armor
@@ -17,150 +188,19 @@ Game o-- Map
 Game *-- Menu
 Game .. GameLogic
 
-class HeroFactory <<Singleton>> {
-  -static HeroFactory instance
-  -HeroFactory()
-  +static HeroFactory getInstance()
-  +Characters* newHero(String type, String name, Artefact bag)
-}
+' --- Vue <-> Contrôleur ---
+MenuDisplay --> Menu : affiche
+MapDisplay --> Game : rafraîchit affichage
 
-class EnemyFactory <<Singleton>> {
-  -static EnemyFactory instance
-  -EnemyFactory()
-  +static EnemyFactory getInstance()
-  +Characters* newEnemy(String type, String name, Artefact bag)
-}
+' --- Vue <-> Modèle (lecture seule) ---
+MapDisplay ..> Map : lit état
+MenuDisplay ..> Characters : affiche infos
 
-class ArtefactFactory <<Singleton>> {
-  -static ArtefactFactory instance
-  -ArtefactFactory()
-  +static ArtefactFactory getInstance()
-  +Artefact* newArtefact(String type, String name, int bonus);
-}
-
-class MapFactory <<Singleton>> {
-  -static MapFactory instance
-  -MapFactory()
-  +static MapFactory getInstance()
-  +Map* newMap(int size, int[][] map)
-}
-
-class Artefact {
-  -String type
-  -String name
-  -int bonus
-  -bool isEquipped
-  -Artefact(String type, String name, int bonus)
-  #setType(String type)
-  #setName(String name)
-  #setBonus(int bonus)
-  #setIsEquipped(bool equipped)
-  #String getType()
-  #String getName()
-  #int getBonus()
-  #bool getIsEquipped()
-}
-
-class Weapon {
-  +Weapon(String type, String name, int bonus)
-}
-
-class Armor {
-  +Armor(String type, String name, int bonus)
-}
-
-class Helm {
-  +Helm(String type, String name, int bonus)
-}
-
-class Coordinates {
-  -int x
-  -int y
-  -int prevX
-  -int prevY
-  ~Coordinates(int x, int y)
-  +setX()
-  +setY()
-  +setPrevX()
-  +setPrevY()
-  +int getX()
-  +int getY()
-}
-
-class Characters {
-  -String type
-  -String name
-  -String class
-  -int level
-  -int xp
-  -int attack
-  -int defense
-  -int hitPoint
-  -List<Artefact> bag
-  -Coordinates coord
-  -Characters(String type, String name, String class, Artefact bag)
-  #setName(String name)
-  #setClass(String class)
-  #setLevel(int level)
-  #setAttack(int attack)
-  #setDefense(int defense)
-  #addArtefact(Artefact item)
-  #removeArtefact(Artefact item)
-  #String getName()
-  #String getClass()
-  #int getLevel()
-  #int getAttack()
-  #int getDefense()
-  #int getHitPoint()
-  #void getArtefacts()
-}
-
-class Hero {
-  +Hero(String type, String name, String class, Artefact bag)
-  +Coordinates moveNorth(Coordinates currentPosition)
-  +Coordinates moveEast(Coordinates currentPosition)
-  +Coordinates moveSouth(Coordinates currentPosition)
-  +Coordinates moveWest(Coordinates currentPosition)
-}
-
-class Enemy {
-  +Enemy(String type, String name, String class, Artefact bag)
-}
-
-class Map {
-  -int size
-  -int[][] map
-  -List<Characters*> enemiesList
-  -Characters mainHero
-  #Map(int size, int[][] map)
-  +Characters getEnemies()
-  +setSize(int size)
-  +int getSize()
-  +void displayMap()
-  +void updateMap()
-}
-
-class Game {
-  -List<Characters> availableHeros
-  -Menu Menu
-  -Map actualMap
-  +launchGame()
-}
-
-class Menu {
-  +displayAvailableHeros()
-  +addHero()
-  +removeHero()
-  +loadCharacter()
-  +loadSave()
-  +save()
-}
-
-class GameLogic {
-  +fight(Characters hero, Characters enemy)
-  +run(Coordinates coor)
-  +Artefact* createLoot()
-  +bool checkLevelComplete(Coordinates coor)
-}
+' --- Contrôleur <-> Modèle ---
+Game --> GameLogic : utilise
+Game --> Map : gère
+Game --> Characters : contrôle
+Menu --> Game : interagit
+Menu --> Characters : sélectionne
 
 @enduml
