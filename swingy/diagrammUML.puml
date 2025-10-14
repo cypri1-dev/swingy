@@ -50,15 +50,15 @@ class Artefact {
   -String name
   -int bonus
   -bool isEquipped
-  #Artefact(String type, String name, int bonus)
-  +setType(String type)
-  +setName(String name)
-  +setBonus(int bonus)
-  +setIsEquipped(bool equipped)
-  +String getType()
-  +String getName()
-  +int getBonus()
-  +bool getIsEquipped()
+  -Artefact(String type, String name, int bonus)
+  #setType(String type)
+  #setName(String name)
+  #setBonus(int bonus)
+  #setIsEquipped(bool equipped)
+  #String getType()
+  #String getName()
+  #int getBonus()
+  #bool getIsEquipped()
 }
 
 class Weapon {
@@ -98,21 +98,21 @@ class Characters {
   -int hitPoint
   -List<Artefact> bag
   -Coordinates coord
-  #Characters(String type, String name, String class, Artefact bag)
-  +setName(String name)
-  +setClass(String class)
-  +setLevel(int level)
-  +setAttack(int attack)
-  +setDefense(int defense)
-  +addArtefact(Artefact item)
-  +removeArtefact(Artefact item)
-  +String getName()
-  +String getClass()
-  +int getLevel()
-  +int getAttack()
-  +int getDefense()
-  +int getHitPoint()
-  +void getArtefacts()
+  -Characters(String type, String name, String class, Artefact bag)
+  #setName(String name)
+  #setClass(String class)
+  #setLevel(int level)
+  #setAttack(int attack)
+  #setDefense(int defense)
+  #addArtefact(Artefact item)
+  #removeArtefact(Artefact item)
+  #String getName()
+  #String getClass()
+  #int getLevel()
+  #int getAttack()
+  #int getDefense()
+  #int getHitPoint()
+  #void getArtefacts()
 }
 
 class Hero {
