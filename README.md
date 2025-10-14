@@ -4,4 +4,4 @@ Swingy is a simple Java RPG that follows the MVC pattern. Players create heroes,
 # UML Diagrams
 
 UML diagrams illustrate the class structure and interactions, showing the system architecture and relationships between entities. The diagram is flexible and can evolve as the design changes, allowing adjustments to reflect new requirements or improvements in the system.
-![UML Diagram](diagramUML.png)
+![UML Diagram](diagrammUML.png)
