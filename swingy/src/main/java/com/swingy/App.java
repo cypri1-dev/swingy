@@ -1,9 +1,12 @@
 package com.swingy;
 
+import com.swingy.model.Characters;
+import com.swingy.model.HeroFactory;
+import com.swingy.model.EnemyFactory;
+import static com.swingy.utils.Constants.*;
+import com.swingy.view.DisplayInfos;
+
 import javax.swing.*;
-
-import com.swingy.model.Hero;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -50,6 +53,9 @@ public class App {
 		// });
 
 		// frame.setVisible(true);
-		Hero test = new Hero("hero", null, null)
+		Characters myHero = HeroFactory.getInstance().newHero(HERO_TYPE, "Adshum", MAGE_CLASS);
+		Characters myEnemy = EnemyFactory.getInstance().newEnemy(ENEMY_TYPE, "Bandit", ASSASSIN_CLASS);
+		DisplayInfos.printHero(myHero);
+		DisplayInfos.printEnemy(myEnemy);
 	}
 }

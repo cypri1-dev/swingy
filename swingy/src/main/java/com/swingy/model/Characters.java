@@ -22,6 +22,7 @@ public class Characters {
 		this.bag = new ArrayList<Artefact>();
 		this.coord = new Coordinates(0, 0);
 	}
+
 	protected void setName(String name) {this.name = name;}
 	protected void setClass(String characterClass) {this.characterClass = characterClass;}
 	protected void setLevel(int level) {this.level = level;}
@@ -31,12 +32,14 @@ public class Characters {
 	protected void setDefense(int defense) {this.defense = defense;}
 	protected void addArtefact(Artefact item) {this.bag.add(item);}
 	protected void removeItem(Artefact item) {this.bag.remove(item);}
-	protected String getName() {return this.name;}
-	protected String getCharacterClass() {return this.characterClass;}
-	protected int getLevel() {return this.level;}
-	protected int getXp() {return this.xp;}
-	protected int getAttack() {return this.attack;}
-	protected int getDefense() {return this.defense;}
-	protected int getHitPoint() {return this.hitPoint;}
-	protected List<Artefact> getArtefacts() {return this.bag;}
+	public String getName() {return this.name;}
+	public String getType() {return this.type;}
+	public String getCharacterClass() {return this.characterClass;}
+	public int getLevel() {return this.level;}
+	public int getXp() {return this.xp;}
+	public int getAttack() {return this.attack;}
+	public int getDefense() {return this.defense;}
+	public int getHitPoint() {return this.hitPoint;}
+	public List<Artefact> getArtefacts() {return this.bag;}
+	public Coordinates getCoordinates() {return this.coord;}
 }
