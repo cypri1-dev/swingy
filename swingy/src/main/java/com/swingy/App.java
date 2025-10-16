@@ -78,20 +78,43 @@ public class App {
 
 		/* TESTS CLASS STATS */
 
-		Characters warrior = CharactersFactory.getInstance().newCharacters(HERO_TYPE, "Adshum", WARRIOR_CLASS);
-		Characters mage = CharactersFactory.getInstance().newCharacters(HERO_TYPE, "Adshum", MAGE_CLASS);
-		Characters archer = CharactersFactory.getInstance().newCharacters(HERO_TYPE, "Adshum", ARCHER_CLASS);
-		Characters paladin = CharactersFactory.getInstance().newCharacters(HERO_TYPE, "Adshum", PALADIN_CLASS);
-		Characters assassin = CharactersFactory.getInstance().newCharacters(HERO_TYPE, "Adshum", ASSASSIN_CLASS);
+		// Characters warrior = CharactersFactory.getInstance().newCharacters(HERO_TYPE, "Adshum", WARRIOR_CLASS);
+		// Characters mage = CharactersFactory.getInstance().newCharacters(HERO_TYPE, "Adshum", MAGE_CLASS);
+		// Characters archer = CharactersFactory.getInstance().newCharacters(HERO_TYPE, "Adshum", ARCHER_CLASS);
+		// Characters paladin = CharactersFactory.getInstance().newCharacters(HERO_TYPE, "Adshum", PALADIN_CLASS);
+		// Characters assassin = CharactersFactory.getInstance().newCharacters(HERO_TYPE, "Adshum", ASSASSIN_CLASS);
 
-		DisplayInfos.printHero(warrior);
-		DisplayInfos.printHero(mage);
-		DisplayInfos.printHero(archer);
-		DisplayInfos.printHero(paladin);
-		DisplayInfos.printHero(assassin);
+		// DisplayInfos.printHero(warrior);
+		// DisplayInfos.printHero(mage);
+		// DisplayInfos.printHero(archer);
+		// DisplayInfos.printHero(paladin);
+		// DisplayInfos.printHero(assassin);
 		
-		Characters bandit = CharactersFactory.getInstance().newCharacters(ENEMY_TYPE, "Bandit", ARCHER_CLASS);
-		DisplayInfos.printEnemy(bandit);
+		// Characters bandit = CharactersFactory.getInstance().newCharacters(ENEMY_TYPE, "Bandit", ARCHER_CLASS);
+		// DisplayInfos.printEnemy(bandit);
 
+		/* TESTS ITEM EQUIPPED AND UNEQUIPPED */
+
+		Characters warrior = CharactersFactory.getInstance().newCharacters(HERO_TYPE, "Adshum", WARRIOR_CLASS);
+		Artefact testItem0 = ArtefactFactory.getInstance().newArtefact(WEAPON_TYPE, "Deuillegivre", 10);
+		Artefact sword = ArtefactFactory.getInstance().newArtefact(WEAPON_TYPE, "Sword", 11);
+		Artefact testItem1 = ArtefactFactory.getInstance().newArtefact(HELM_TYPE, "Casque de bronze", 3);
+
+
+		warrior.addArtefact(testItem0);
+		warrior.addArtefact(sword);
+		// warrior.addArtefact(testItem1);
+		warrior.equipArtefact(testItem0);
+		DisplayInfos.printHero(warrior);
+		// warrior.equipArtefact(testItem1);
+		warrior.equipArtefact(sword);
+		DisplayInfos.printHero(warrior);
+		warrior.unequipArtefact(testItem1);
+		warrior.unequipArtefact(testItem0);
+		DisplayInfos.printHero(warrior);
+		warrior.removeArtefact(sword);
+		DisplayInfos.printHero(warrior);
+		// warrior.unequipArtefact(testItem0);
+		// DisplayInfos.printHero(warrior);
 	}
 }
