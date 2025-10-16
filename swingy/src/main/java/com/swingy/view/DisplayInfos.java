@@ -18,7 +18,10 @@ public class DisplayInfos {
 		System.out.println("------- BAG CONTENT -------");
 		// System.out.println(ITALIC + "[bag]: " + RESET + hero.getArtefacts());
 		for (Artefact item : hero.getArtefacts()) {
-			System.out.println(item.getName());
+			if (item.getIsEquipped())
+				System.out.println(item.getName() + "(E)");
+			else
+				System.out.println(item.getName());
 		}
 		System.out.println("------- ----------- -------");
 		System.out.println(ITALIC + "[x]: " + RESET + hero.getCoordinates().getX());
