@@ -1,10 +1,12 @@
 package com.swingy;
 
-import com.swingy.model.Artefact;
 import com.swingy.model.ArtefactFactory;
-import com.swingy.model.Characters;
 import com.swingy.model.CharactersFactory;
+import com.swingy.model.MapFactory;
+import com.swingy.model.Artefact;
+import com.swingy.model.Characters;
 import com.swingy.model.Helm;
+import com.swingy.model.Map;
 
 import static com.swingy.utils.Constants.*;
 import com.swingy.view.DisplayInfos;
@@ -95,26 +97,33 @@ public class App {
 
 		/* TESTS ITEM EQUIPPED AND UNEQUIPPED */
 
-		Characters warrior = CharactersFactory.getInstance().newCharacters(HERO_TYPE, "Adshum", WARRIOR_CLASS);
-		Artefact testItem0 = ArtefactFactory.getInstance().newArtefact(WEAPON_TYPE, "Deuillegivre", 10);
-		Artefact sword = ArtefactFactory.getInstance().newArtefact(WEAPON_TYPE, "Sword", 11);
-		Artefact testItem1 = ArtefactFactory.getInstance().newArtefact(HELM_TYPE, "Casque de bronze", 3);
+		// Characters warrior = CharactersFactory.getInstance().newCharacters(HERO_TYPE, "Adshum", WARRIOR_CLASS);
+		// Artefact testItem0 = ArtefactFactory.getInstance().newArtefact(WEAPON_TYPE, "Deuillegivre", 10);
+		// Artefact sword = ArtefactFactory.getInstance().newArtefact(WEAPON_TYPE, "Sword", 11);
+		// Artefact testItem1 = ArtefactFactory.getInstance().newArtefact(HELM_TYPE, "Casque de bronze", 3);
 
 
-		warrior.addArtefact(testItem0);
-		warrior.addArtefact(sword);
+		// warrior.addArtefact(testItem0);
+		// warrior.addArtefact(sword);
 		// warrior.addArtefact(testItem1);
-		warrior.equipArtefact(testItem0);
-		DisplayInfos.printHero(warrior);
+		// warrior.equipArtefact(testItem0);
+		// DisplayInfos.printHero(warrior);
 		// warrior.equipArtefact(testItem1);
-		warrior.equipArtefact(sword);
-		DisplayInfos.printHero(warrior);
-		warrior.unequipArtefact(testItem1);
-		warrior.unequipArtefact(testItem0);
-		DisplayInfos.printHero(warrior);
-		warrior.removeArtefact(sword);
-		DisplayInfos.printHero(warrior);
+		// warrior.equipArtefact(sword);
+		// DisplayInfos.printHero(warrior);
+		// warrior.unequipArtefact(testItem1);
 		// warrior.unequipArtefact(testItem0);
 		// DisplayInfos.printHero(warrior);
+		// warrior.removeArtefact(sword);
+		// DisplayInfos.printHero(warrior);
+		// warrior.unequipArtefact(testItem0);
+		// DisplayInfos.printHero(warrior);
+
+		/* MAP TESTS */
+
+		Characters warrior = CharactersFactory.getInstance().newCharacters(HERO_TYPE, "Adshum", WARRIOR_CLASS);
+		Map myMap = MapFactory.getInstance().newMap(warrior);
+
+		DisplayInfos.printMap(myMap);
 	}
 }
