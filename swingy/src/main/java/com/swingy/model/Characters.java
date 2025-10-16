@@ -59,11 +59,64 @@ public class Characters {
 	protected void setLevel(int level) {this.level = level;}
 	protected void setXp(int xp) {this.xp = xp;}
 	protected void addXp(int xp) {this.xp += xp;}
-	protected void setAttack(int attack) {this.attack = attack;}
-	protected void setDefense(int defense) {this.defense = defense;}
-	protected void setHitPoint(int hp) {this.hitPoint = hp;}
+	protected void setAttack(int attack) {this.attack += attack;}
+	protected void setDefense(int defense) {this.defense += defense;}
+	protected void setHitPoint(int hp) {this.hitPoint += hp;}
+	
 	public void addArtefact(Artefact item) {this.bag.add(item);}
 	public void removeArtefact(Artefact item) {this.bag.remove(item);}
+
+	public void equipArtefact(Artefact item) {
+
+		for (Artefact artefact : bag) {
+			if (artefact.getIsEquipped() && item.getType() == artefact.getType()) {
+				System.out.println(ORANGE_BOLD + "Artefact type is already equipped!");
+				return;
+			}
+			if (item.getName() == artefact.getName()) {
+				item.setIsEquipped(true);
+				switch (item.getType()) {
+					case ARMOR_TYPE:
+						this.setDefense(item.getBonus());
+						break;
+					case HELM_TYPE:
+						this.setHitPoint(item.getBonus());
+						break;
+					case WEAPON_TYPE:
+						this.setAttack(item.getBonus());
+						break;
+					default:
+						System.out.println(RED_BOLD + "Error: unknown weapon type!");
+				}
+				return;
+			}
+		}
+		System.out.println(ORANGE_BOLD + "Error: no such Artefact!" + RESET);
+	}
+
+	public void unequipArtefact(Artefact item) {
+		for (Artefact artefact : bag) {
+			if (artefact.getName() == item.getName()) {
+				item.setIsEquipped(false);
+				switch (item.getType()) {
+					case ARMOR_TYPE:
+						this.setDefense(-item.getBonus());
+						break;
+					case HELM_TYPE:
+						this.setHitPoint(-item.getBonus());
+						break;
+					case WEAPON_TYPE:
+						this.setAttack(-item.getBonus());
+						break;
+					default:
+						System.out.println(RED_BOLD + "Error: unknown weapon type!");
+				}
+				return;
+			}
+		}
+		System.out.println(ORANGE_BOLD + "Error: no such Artefact!" + RESET);
+	}
+
 	public String getName() {return this.name;}
 	public String getType() {return this.type;}
 	public String getCharacterClass() {return this.characterClass;}
