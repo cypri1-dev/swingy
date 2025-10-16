@@ -56,22 +56,42 @@ public class App {
 		// });
 
 		// frame.setVisible(true);
-		Characters myHero = CharactersFactory.getInstance().newCharacters(HERO_TYPE, "Adshum", MAGE_CLASS);
-		Characters myEnemy = CharactersFactory.getInstance().newCharacters(ENEMY_TYPE, "Bandit", ASSASSIN_CLASS);
-		DisplayInfos.printHero(myHero);
-		DisplayInfos.printEnemy(myEnemy);
-		Artefact testItem0 = ArtefactFactory.getInstance().newArtefact(WEAPON_TYPE, "Deuillegivre", 10);
-		Artefact testItem1 = ArtefactFactory.getInstance().newArtefact(HELM_TYPE, "Casque de bronze", 3);
-		Artefact testItem2 = ArtefactFactory.getInstance().newArtefact(ARMOR_TYPE, "Pastron en cuir", 4);
-		DisplayInfos.printArtefact(testItem0);
-		DisplayInfos.printArtefact(testItem1);
-		DisplayInfos.printArtefact(testItem2);
-		myHero.addArtefact(testItem0);
-		DisplayInfos.printHero(myHero);
-		myHero.addArtefact(testItem1);
-		myHero.addArtefact(testItem2);
-		myHero.removeArtefact(testItem0);
-		DisplayInfos.printHero(myHero);
+
+		/* TESTS HERO - ENEMY - ARTEFACT */
+
+		// Characters myHero = CharactersFactory.getInstance().newCharacters(HERO_TYPE, "Adshum", MAGE_CLASS);
+		// Characters myEnemy = CharactersFactory.getInstance().newCharacters(ENEMY_TYPE, "Bandit", ASSASSIN_CLASS);
+		// DisplayInfos.printHero(myHero);
+		// DisplayInfos.printEnemy(myEnemy);
+		// Artefact testItem0 = ArtefactFactory.getInstance().newArtefact(WEAPON_TYPE, "Deuillegivre", 10);
+		// Artefact testItem1 = ArtefactFactory.getInstance().newArtefact(HELM_TYPE, "Casque de bronze", 3);
+		// Artefact testItem2 = ArtefactFactory.getInstance().newArtefact(ARMOR_TYPE, "Pastron en cuir", 4);
+		// DisplayInfos.printArtefact(testItem0);
+		// DisplayInfos.printArtefact(testItem1);
+		// DisplayInfos.printArtefact(testItem2);
+		// myHero.addArtefact(testItem0);
+		// DisplayInfos.printHero(myHero);
+		// myHero.addArtefact(testItem1);
+		// myHero.addArtefact(testItem2);
+		// myHero.removeArtefact(testItem0);
+		// DisplayInfos.printHero(myHero);
+
+		/* TESTS CLASS STATS */
+
+		Characters warrior = CharactersFactory.getInstance().newCharacters(HERO_TYPE, "Adshum", WARRIOR_CLASS);
+		Characters mage = CharactersFactory.getInstance().newCharacters(HERO_TYPE, "Adshum", MAGE_CLASS);
+		Characters archer = CharactersFactory.getInstance().newCharacters(HERO_TYPE, "Adshum", ARCHER_CLASS);
+		Characters paladin = CharactersFactory.getInstance().newCharacters(HERO_TYPE, "Adshum", PALADIN_CLASS);
+		Characters assassin = CharactersFactory.getInstance().newCharacters(HERO_TYPE, "Adshum", ASSASSIN_CLASS);
+
+		DisplayInfos.printHero(warrior);
+		DisplayInfos.printHero(mage);
+		DisplayInfos.printHero(archer);
+		DisplayInfos.printHero(paladin);
+		DisplayInfos.printHero(assassin);
+		
+		Characters bandit = CharactersFactory.getInstance().newCharacters(ENEMY_TYPE, "Bandit", ARCHER_CLASS);
+		DisplayInfos.printEnemy(bandit);
 
 	}
 }
