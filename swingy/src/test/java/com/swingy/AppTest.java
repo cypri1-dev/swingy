@@ -1,15 +1,14 @@
 package com.swingy;
 
 import com.swingy.model.Characters;
-import com.swingy.model.HeroFactory;
-import com.swingy.model.EnemyFactory;
+import com.swingy.model.CharactersFactory;
 import junit.framework.TestCase;
 
 public class AppTest extends TestCase {
 
 	public void testHeroAndEnemyCreation() {
-		Characters hero = HeroFactory.getInstance().newHero("hero", "Adshum", "mage");
-		Characters enemy = EnemyFactory.getInstance().newEnemy("enemy", "Bandit", "assassin");
+		Characters hero = CharactersFactory.getInstance().newCharacters("hero", "Adshum", "mage");
+		Characters enemy = CharactersFactory.getInstance().newCharacters("enemy", "Bandit", "assassin");
 
 		assertNotNull(hero);
 		assertEquals("Adshum", hero.getName());
