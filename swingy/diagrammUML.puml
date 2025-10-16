@@ -18,25 +18,26 @@ package "Model" #LightBlue {
     -List<Artefact> bag
     -Coordinates coord
     #Characters(String type, String name, String class, Artefact bag)
-    #setName(String name)
-    #setClass(String class)
-    #setLevel(int level)
-    #setAttack(int attack)
-    #setDefense(int defense)
-    #addArtefact(Artefact item)
-    #removeArtefact(Artefact item)
-    #String getName()
-    #String getClass()
-    #int getLevel()
-    #int getAttack()
-    #int getDefense()
-    #int getHitPoint()
-    #List<Artefact> getArtefacts()
+    #void setName(String name)
+    #void setClass(String characterClass)
+    #void setClass(String class)
+    #void setLevel(int level)
+    #void setAttack(int attack)
+    #void setDefense(int defense)
+    +void addArtefact(Artefact item)
+    +void removeArtefact(Artefact item)
+    +String getName()
+    +String getClass()
+    +int getLevel()
+    +int getAttack()
+    +int getDefense()
+    +int getHitPoint()
+    +List<Artefact> getArtefacts()
   }
 
   class Hero {
     -GameMovement movement
-    +Hero(String type, String name, String class, Artefact bag)
+    +Hero(String type, String name, String class)
   }
 
   class Enemy {
@@ -49,14 +50,14 @@ package "Model" #LightBlue {
     -int bonus
     -bool isEquipped
     #Artefact(String type, String name, int bonus)
-    #setType(String type)
-    #setName(String name)
-    #setBonus(int bonus)
-    #setIsEquipped(bool equipped)
-    #String getType()
-    #String getName()
-    #int getBonus()
-    #bool getIsEquipped()
+    #void setType(String type)
+    #void setName(String name)
+    #void setBonus(int bonus)
+    #void setIsEquipped(bool equipped)
+    public String getType()
+    public String getName()
+    public int getBonus()
+    public bool getIsEquipped()
   }
 
   class Weapon {
@@ -77,10 +78,10 @@ package "Model" #LightBlue {
     -int prevX
     -int prevY
     ~Coordinates(int x, int y)
-    +setX()
-    +setY()
-    +setPrevX()
-    +setPrevY()
+    +void setX()
+    +void setY()
+    +void setPrevX()
+    +void setPrevY()
     +int getX()
     +int getY()
   }
@@ -105,18 +106,11 @@ package "Model" #LightBlue {
     +bool checkLevelComplete(Coordinates coor)
   }
 
-  class HeroFactory <<Singleton>> {
-    -static HeroFactory instance
-    -HeroFactory()
-    +static HeroFactory getInstance()
-    +Characters* newHero(String type, String name, Artefact bag)
-  }
-
-  class EnemyFactory <<Singleton>> {
-    -static EnemyFactory instance
-    -EnemyFactory()
-    +static EnemyFactory getInstance()
-    +Characters* newEnemy(String type, String name, Artefact bag)
+  class CharactersFactory <<Singleton>> {
+    -static CharactersFactory instance
+    -CharactersFactory()
+    +static CharactersFactory getInstance()
+    +Characters* newCharacters(String type, String name, String characterClass)
   }
 
   class ArtefactFactory <<Singleton>> {
@@ -182,8 +176,8 @@ Artefact <|-- Weapon
 Artefact <|-- Helm
 Characters *-- Artefact
 Characters *-- Coordinates
-HeroFactory ..> Hero : creates
-EnemyFactory ..> Enemy : creates
+CharactersFactory ..> Hero : creates
+CharactersFactory ..> Enemy : creates
 ArtefactFactory ..> Artefact : creates
 MapFactory ..> Map : creates
 Map *-- Characters
