@@ -2,6 +2,7 @@ package com.swingy.view;
 
 import com.swingy.model.Artefact;
 import com.swingy.model.Characters;
+import com.swingy.model.Map;
 import static com.swingy.utils.Constants.*;
 
 public class DisplayInfos {
@@ -57,4 +58,14 @@ public class DisplayInfos {
 		System.out.println(ITALIC + "[isEquipped]: " + RESET + item.getIsEquipped());
 		System.out.println(DEBUG_BOLD + "--- END ARTEFACT DATA ---" + RESET);
 	}
+
+	public static void printMap(Map map) {
+		for (int i = 0; i < map.getSize(); i++) {
+			for (int j = 0; j < map.getSize(); j++) {
+				System.out.print(map.map[i][j]);
+			}
+			System.out.println();
+		}
+	}
+
 }
