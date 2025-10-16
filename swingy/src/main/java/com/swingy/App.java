@@ -1,8 +1,11 @@
 package com.swingy;
 
+import com.swingy.model.Artefact;
+import com.swingy.model.ArtefactFactory;
 import com.swingy.model.Characters;
-import com.swingy.model.HeroFactory;
-import com.swingy.model.EnemyFactory;
+import com.swingy.model.CharactersFactory;
+import com.swingy.model.Helm;
+
 import static com.swingy.utils.Constants.*;
 import com.swingy.view.DisplayInfos;
 
@@ -53,9 +56,22 @@ public class App {
 		// });
 
 		// frame.setVisible(true);
-		Characters myHero = HeroFactory.getInstance().newHero(HERO_TYPE, "Adshum", MAGE_CLASS);
-		Characters myEnemy = EnemyFactory.getInstance().newEnemy(ENEMY_TYPE, "Bandit", ASSASSIN_CLASS);
+		Characters myHero = CharactersFactory.getInstance().newCharacters(HERO_TYPE, "Adshum", MAGE_CLASS);
+		Characters myEnemy = CharactersFactory.getInstance().newCharacters(ENEMY_TYPE, "Bandit", ASSASSIN_CLASS);
 		DisplayInfos.printHero(myHero);
 		DisplayInfos.printEnemy(myEnemy);
+		Artefact testItem0 = ArtefactFactory.getInstance().newArtefact(WEAPON_TYPE, "Deuillegivre", 10);
+		Artefact testItem1 = ArtefactFactory.getInstance().newArtefact(HELM_TYPE, "Casque de bronze", 3);
+		Artefact testItem2 = ArtefactFactory.getInstance().newArtefact(ARMOR_TYPE, "Pastron en cuir", 4);
+		DisplayInfos.printArtefact(testItem0);
+		DisplayInfos.printArtefact(testItem1);
+		DisplayInfos.printArtefact(testItem2);
+		myHero.addArtefact(testItem0);
+		DisplayInfos.printHero(myHero);
+		myHero.addArtefact(testItem1);
+		myHero.addArtefact(testItem2);
+		myHero.removeArtefact(testItem0);
+		DisplayInfos.printHero(myHero);
+
 	}
 }
