@@ -5,7 +5,5 @@ public class Enemy extends Characters {
 		super(type, name, characterClass);
 		this.setLevel(0);
 		this.setXp(0);
-		this.setAttack(0);
-		this.setDefense(0);
 	}
 }
