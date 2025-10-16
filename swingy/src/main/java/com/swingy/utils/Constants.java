@@ -22,4 +22,8 @@ public final class Constants {
 	public static final String ARCHER_CLASS = "archer";
 	public static final String PALADIN_CLASS = "paladin";
 	public static final String ASSASSIN_CLASS = "assassin";
+	public static final String ARMOR_TYPE = "armor";
+	public static final String HELM_TYPE = "helm";
+	public static final String WEAPON_TYPE = "weapon";
+
 }
