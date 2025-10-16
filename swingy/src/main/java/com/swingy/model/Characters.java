@@ -30,8 +30,8 @@ public class Characters {
 	protected void addXp(int xp) {this.xp += xp;}
 	protected void setAttack(int attack) {this.attack = attack;}
 	protected void setDefense(int defense) {this.defense = defense;}
-	protected void addArtefact(Artefact item) {this.bag.add(item);}
-	protected void removeItem(Artefact item) {this.bag.remove(item);}
+	public void addArtefact(Artefact item) {this.bag.add(item);}
+	public void removeArtefact(Artefact item) {this.bag.remove(item);}
 	public String getName() {return this.name;}
 	public String getType() {return this.type;}
 	public String getCharacterClass() {return this.characterClass;}
