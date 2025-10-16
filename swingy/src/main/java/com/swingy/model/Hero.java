@@ -8,7 +8,7 @@ public class Hero extends Characters {
 
 	public Hero(String type, String name, String characterClass) {
 		super(type, name, characterClass);
-		this.setLevel(0);
+		this.setLevel(1);
 		this.setXp(0);
 		this.movement = new GameMovement();
 	}
