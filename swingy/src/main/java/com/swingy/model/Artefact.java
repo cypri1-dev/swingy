@@ -16,8 +16,8 @@ public class Artefact {
 	protected void setName(String name) {this.name = name;}
 	protected void setBonus(int bonus) {this.bonus = bonus;}
 	protected void setIsEquipped(boolean equipped) {this.isEquipped = equipped;}
-	protected String getType() {return this.type;}
-	protected String getName() {return this.name;}
-	protected int getBonus() {return this.bonus;}
-	protected boolean getIsEquipped() {return this.isEquipped;}
+	public String getType() {return this.type;}
+	public String getName() {return this.name;}
+	public int getBonus() {return this.bonus;}
+	public boolean getIsEquipped() {return this.isEquipped;}
 }
