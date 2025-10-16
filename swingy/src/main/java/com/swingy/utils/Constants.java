@@ -55,4 +55,8 @@ public final class Constants {
 	public static final String HELM_TYPE = "helm";
 	public static final String WEAPON_TYPE = "weapon";
 
+	/* SYMBOLS MAP */
+
+	public static final char SYMBOL_MAIN_HERO = '@';
+
 }
