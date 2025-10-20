@@ -43,10 +43,10 @@ public class DisplayInfos {
 		System.out.println(ITALIC + "[defense]: " + RESET + enemy.getDefense());
 		System.out.println(ITALIC + "[hitPoint]: " + RESET + enemy.getHitPoint());
 		// System.out.println(ITALIC + "[bag]: " + RESET + enemy.getArtefacts());
-		// System.out.println(ITALIC + "[x]: " + RESET + enemy.getCoordinates().getX());
-		// System.out.println(ITALIC + "[y]: " + RESET + enemy.getCoordinates().getY());
-		// System.out.println(ITALIC + "[prevX]: " + RESET + enemy.getCoordinates().getPrevX());
-		// System.out.println(ITALIC + "[prevY]: " + RESET + enemy.getCoordinates().getPrevY());
+		System.out.println(ITALIC + "[x]: " + RESET + enemy.getCoordinates().getX());
+		System.out.println(ITALIC + "[y]: " + RESET + enemy.getCoordinates().getY());
+		System.out.println(ITALIC + "[prevX]: " + RESET + enemy.getCoordinates().getPrevX());
+		System.out.println(ITALIC + "[prevY]: " + RESET + enemy.getCoordinates().getPrevY());
 		System.out.println(DEBUG_BOLD + "--- END ENEMY DATA ---" + RESET);
 	}
 
@@ -65,6 +65,12 @@ public class DisplayInfos {
 				System.out.print(map.map[i][j]);
 			}
 			System.out.println();
+		}
+	}
+
+	public static void printEnemyInMap(Map map) {
+		for (Characters elem : map.getListEnemies()) {
+			printEnemy(elem);
 		}
 	}
 
