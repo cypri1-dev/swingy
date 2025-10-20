@@ -52,7 +52,7 @@ public class Map {
 	}
 
 	private void generateRandomEnemies() {
-		int enemyCount = Math.max(1, (int)(this.size * this.size * DENSITY));
+		int enemyCount = (int)(this.size * this.size * DENSITY);
 		System.out.println(DEBUG_BOLD + "[enemyCount]: " + enemyCount + " | [density]: " + DENSITY + RESET);
 
 		List<String> occupiedCoords = new ArrayList<>();
@@ -79,8 +79,6 @@ public class Map {
 			this.enemiesList.add(tmpEnemy);
 
 			this.map[tmpX][tmpY] = getSymbolEnemy(tmpEnemy);
-
-
 		}
 	}
 
