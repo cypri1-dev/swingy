@@ -125,5 +125,6 @@ public class App {
 		Map myMap = MapFactory.getInstance().newMap(warrior);
 
 		DisplayInfos.printMap(myMap);
+		// DisplayInfos.printEnemyInMap(myMap);
 	}
 }
