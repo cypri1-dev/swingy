@@ -13,8 +13,8 @@ public class Coordinates {
 		this.prevY = y;
 	}
 
-	public void setX(int x) {this.x = x;}
-	public void setY(int y) {this.y = y;}
+	public void setX(int x) {this.x += x;}
+	public void setY(int y) {this.y += y;}
 	public void setPrevX(int x) {this.prevX = x;}
 	public void setPrevY(int y) {this.prevY = y;}
 	public int getX() {return this.x;}
