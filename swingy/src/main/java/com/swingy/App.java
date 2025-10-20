@@ -128,16 +128,28 @@ public class App {
 		// DisplayInfos.printEnemyInMap(myMap);
 		System.out.println("------------------------------------");
 		warrior.getMovement().moveNorth(warrior, myMap);
+		DisplayInfos.printMap(myMap);
+		System.out.println("------------------------------------");
+
 		warrior.getMovement().moveNorth(warrior, myMap);
+		DisplayInfos.printMap(myMap);
+		System.out.println("------------------------------------");
+
+		// warrior.getMovement().moveNorth(warrior, myMap);
+		// DisplayInfos.printMap(myMap);
+		System.out.println("------------------------------------");
+
 		warrior.getMovement().moveNorth(warrior, myMap);
-		warrior.getMovement().moveNorth(warrior, myMap);
-		warrior.getMovement().moveNorth(warrior, myMap);
-		warrior.getMovement().moveNorth(warrior, myMap);
-		warrior.getMovement().moveNorth(warrior, myMap);
-		warrior.getMovement().moveNorth(warrior, myMap);
-		warrior.getMovement().moveNorth(warrior, myMap);
+		warrior.getMovement().moveEast(warrior, myMap);
+		warrior.getMovement().moveEast(warrior, myMap);
+		// warrior.getMovement().moveNorth(warrior, myMap);
+		// warrior.getMovement().moveNorth(warrior, myMap);
+		// warrior.getMovement().moveNorth(warrior, myMap);
+
 
 		DisplayInfos.printMap(myMap);
+		System.out.println("------------------------------------");
+
 		DisplayInfos.printHero(warrior);
 	}
 }
