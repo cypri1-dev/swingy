@@ -12,4 +12,6 @@ public class Hero extends Characters {
 		this.setXp(0);
 		this.movement = new GameMovement();
 	}
+	
+	public GameMovement getMovement() {return this.movement;}
 }

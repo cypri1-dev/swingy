@@ -4,6 +4,8 @@ import static com.swingy.utils.Constants.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.swingy.controller.GameMovement;
+
 public class Characters {
 	private String type;
 	private String name;
@@ -47,7 +49,7 @@ public class Characters {
 				setAttack(ATT_BASE + ATT_PALADIN);
 				setDefense(DEF_BASE + DEF_PALADIN);
 				break;
-				
+
 			case ASSASSIN_CLASS:
 				setHitPoint(HP_BASE + HP_ASSASSIN);
 				setAttack(ATT_BASE + ATT_ASSASSIN);
@@ -190,6 +192,7 @@ public class Characters {
 	public int getAttack() {return this.attack;}
 	public int getDefense() {return this.defense;}
 	public int getHitPoint() {return this.hitPoint;}
+	public GameMovement getMovement() {return null;}
 	public List<Artefact> getArtefacts() {return this.bag;}
 	public Coordinates getCoordinates() {return this.coord;}
 }
