@@ -12,6 +12,8 @@ public final class Constants {
 	public static final String DEBUG_BOLD = "\u001B[1;34m" + "[DEBUG]: " + "\033[0m";
 	public static final String ITALIC = "\033[3m";
 	public static final String RESET = "\033[0m";
+	public static final String RED   = "\u001B[31m";
+	public static final String BLUE  = "\u001B[34m";
 
 	/* TYPES CHARACTERS */
 
@@ -26,7 +28,7 @@ public final class Constants {
 	public static final String PALADIN_CLASS = "paladin";
 	public static final String ASSASSIN_CLASS = "assassin";
 
-	/* STATS CLASS */
+	/* STATS CLASS HERO */
 
 	public static final int HP_BASE = 10;
 	public static final int HP_WARRIOR = 4;
@@ -49,6 +51,78 @@ public final class Constants {
 	public static final int DEF_PALADIN = 3;
 	public static final int DEF_ASSASSIN = -2;
 
+	/* ENEMY STATS */
+
+	public static final int HP_BASE_ENEMY = 8;
+	public static final int ATT_BASE_ENEMY = 4;
+	public static final int DEF_BASE_ENEMY = 4;
+
+	/* --- Enemy archetypes --- */
+
+	public static final String[] ENEMIES_LIST_NAMES = {
+		"Goblin",
+		"Orc",
+		"Skeleton",
+		"Bandit",
+		"Dark Mage",
+		"Troll",
+		"Assassin",
+		"Cultist",
+		"Elemental",
+		"Dragon Whelp"
+	};
+
+	public static final String ENEMY_CLASS_GOBELIN = "Goblin";
+	public static final String ENEMY_CLASS_ORC = "Orc";
+	public static final String ENEMY_CLASS_SKELETON = "Skeleton";
+	public static final String ENEMY_CLASS_BANDIT = "Bandit";
+	public static final String ENEMY_CLASS_DARK_MAGE = "Dark Mage";
+	public static final String ENEMY_CLASS_TROLL = "Troll";
+	public static final String ENEMY_CLASS_ASSASSIN = "Assassin";
+	public static final String ENEMY_CLASS_CULTIST = "Cultist";
+	public static final String ENEMY_CLASS_ELEMENTAL = "Elemental";
+	public static final String ENEMY_CLASS_DRAGON_WHELP  = "Dragon Whelp";
+
+	public static final int HP_GOBLIN = -2;
+	public static final int ATT_GOBLIN = 1;
+	public static final int DEF_GOBLIN = -1;
+
+	public static final int HP_ORC = 3;
+	public static final int ATT_ORC = 3;
+	public static final int DEF_ORC = -1;
+
+	public static final int HP_SKELETON = -1;
+	public static final int ATT_SKELETON = 0;
+	public static final int DEF_SKELETON = 2;
+
+	public static final int HP_BANDIT = 0;
+	public static final int ATT_BANDIT = 1;
+	public static final int DEF_BANDIT = 0;
+
+	public static final int HP_DARK_MAGE = -3;
+	public static final int ATT_DARK_MAGE = 4;
+	public static final int DEF_DARK_MAGE = -2;
+
+	public static final int HP_TROLL = 6;
+	public static final int ATT_TROLL = 1;
+	public static final int DEF_TROLL = 3;
+
+	public static final int HP_ASSASSIN_ENEMY = -2;
+	public static final int ATT_ASSASSIN_ENEMY = 5;
+	public static final int DEF_ASSASSIN_ENEMY = -3;
+
+	public static final int HP_CULTIST = -1;
+	public static final int ATT_CULTIST = 2;
+	public static final int DEF_CULTIST = 1;
+
+	public static final int HP_ELEMENTAL = 2;
+	public static final int ATT_ELEMENTAL = 2;
+	public static final int DEF_ELEMENTAL = 4;
+
+	public static final int HP_DRAGON_WHELP = 5;
+	public static final int ATT_DRAGON_WHELP = 5;
+	public static final int DEF_DRAGON_WHELP = 3;
+
 	/* TYPES ARTEFACTS */
 
 	public static final String ARMOR_TYPE = "armor";
@@ -57,6 +131,22 @@ public final class Constants {
 
 	/* SYMBOLS MAP */
 
-	public static final char SYMBOL_MAIN_HERO = '@';
+	public static final String SYMBOL_MAIN_HERO = BLUE + "@" + RESET;
+	public static final String SYMBOL_ENEMY = RED + "!";
+	public static final String SYMBOL_ENEMY_GOBELIN = RED + "G" + RESET;
+	public static final String SYMBOL_ENEMY_ORC = RED + "O" + RESET;
+	public static final String SYMBOL_ENEMY_SKELETON  = RED + "S" + RESET;
+	public static final String SYMBOL_ENEMY_BANDIT = RED + "B" + RESET;
+	public static final String SYMBOL_ENEMY_DARK_MAGE = RED + "M" + RESET;
+	public static final String SYMBOL_ENEMY_TROLL  = RED + "T" + RESET;
+	public static final String SYMBOL_ENEMY_ASSASSIN  = RED + "A" + RESET;
+	public static final String SYMBOL_ENEMY_CULTIST= RED + "C" + RESET;
+	public static final String SYMBOL_ENEMY_ELEMENTAL = RED + "E" + RESET;
+	public static final String SYMBOL_ENEMY_DRAGON_WHELP = RED + "D" + RESET;
+
+
+	/* MAPS DATA */
+
+	public static final double DENSITY = 0.25;
 
 }
