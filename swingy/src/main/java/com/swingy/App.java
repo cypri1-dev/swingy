@@ -126,5 +126,18 @@ public class App {
 
 		DisplayInfos.printMap(myMap);
 		// DisplayInfos.printEnemyInMap(myMap);
+		System.out.println("------------------------------------");
+		warrior.getMovement().moveNorth(warrior, myMap);
+		warrior.getMovement().moveNorth(warrior, myMap);
+		warrior.getMovement().moveNorth(warrior, myMap);
+		warrior.getMovement().moveNorth(warrior, myMap);
+		warrior.getMovement().moveNorth(warrior, myMap);
+		warrior.getMovement().moveNorth(warrior, myMap);
+		warrior.getMovement().moveNorth(warrior, myMap);
+		warrior.getMovement().moveNorth(warrior, myMap);
+		warrior.getMovement().moveNorth(warrior, myMap);
+
+		DisplayInfos.printMap(myMap);
+		DisplayInfos.printHero(warrior);
 	}
 }
