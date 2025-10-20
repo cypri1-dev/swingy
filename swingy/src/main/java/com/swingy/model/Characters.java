@@ -23,34 +23,99 @@ public class Characters {
 		this.bag = new ArrayList<Artefact>();
 		this.coord = new Coordinates(0, 0);
 
-		switch(characterClass) {
+		switch (characterClass) {
 			case WARRIOR_CLASS:
 				setHitPoint(HP_BASE + HP_WARRIOR);
 				setAttack(ATT_BASE + ATT_WARRIOR);
 				setDefense(DEF_BASE + DEF_WARRIOR);
 				break;
+
 			case MAGE_CLASS:
 				setHitPoint(HP_BASE + HP_MAGE);
 				setAttack(ATT_BASE + ATT_MAGE);
 				setDefense(DEF_BASE + DEF_MAGE);
 				break;
+
 			case ARCHER_CLASS:
 				setHitPoint(HP_BASE + HP_ARCHER);
 				setAttack(ATT_BASE + ATT_ARCHER);
 				setDefense(DEF_BASE + DEF_ARCHER);
 				break;
+
 			case PALADIN_CLASS:
 				setHitPoint(HP_BASE + HP_PALADIN);
 				setAttack(ATT_BASE + ATT_PALADIN);
 				setDefense(DEF_BASE + DEF_PALADIN);
 				break;
+				
 			case ASSASSIN_CLASS:
 				setHitPoint(HP_BASE + HP_ASSASSIN);
 				setAttack(ATT_BASE + ATT_ASSASSIN);
 				setDefense(DEF_BASE + DEF_ASSASSIN);
 				break;
+
+			case ENEMY_CLASS_GOBELIN:
+				setHitPoint(HP_BASE_ENEMY + HP_GOBLIN);
+				setAttack(ATT_BASE_ENEMY + ATT_GOBLIN);
+				setDefense(DEF_BASE_ENEMY + DEF_GOBLIN);
+				break;
+
+			case ENEMY_CLASS_ORC:
+				setHitPoint(HP_BASE_ENEMY + HP_ORC);
+				setAttack(ATT_BASE_ENEMY + ATT_ORC);
+				setDefense(DEF_BASE_ENEMY + DEF_ORC);
+				break;
+
+			case ENEMY_CLASS_SKELETON:
+				setHitPoint(HP_BASE_ENEMY + HP_SKELETON);
+				setAttack(ATT_BASE_ENEMY + ATT_SKELETON);
+				setDefense(DEF_BASE_ENEMY + DEF_SKELETON);
+				break;
+
+			case ENEMY_CLASS_BANDIT:
+				setHitPoint(HP_BASE_ENEMY + HP_BANDIT);
+				setAttack(ATT_BASE_ENEMY + ATT_BANDIT);
+				setDefense(DEF_BASE_ENEMY + DEF_BANDIT);
+				break;
+
+			case ENEMY_CLASS_DARK_MAGE:
+				setHitPoint(HP_BASE_ENEMY + HP_DARK_MAGE);
+				setAttack(ATT_BASE_ENEMY + ATT_DARK_MAGE);
+				setDefense(DEF_BASE_ENEMY + DEF_DARK_MAGE);
+				break;
+
+			case ENEMY_CLASS_TROLL:
+				setHitPoint(HP_BASE_ENEMY + HP_TROLL);
+				setAttack(ATT_BASE_ENEMY + ATT_TROLL);
+				setDefense(DEF_BASE_ENEMY + DEF_TROLL);
+				break;
+
+			case ENEMY_CLASS_ASSASSIN:
+				setHitPoint(HP_BASE_ENEMY + HP_ASSASSIN_ENEMY);
+				setAttack(ATT_BASE_ENEMY + ATT_ASSASSIN_ENEMY);
+				setDefense(DEF_BASE_ENEMY + DEF_ASSASSIN_ENEMY);
+				break;
+
+			case ENEMY_CLASS_CULTIST:
+				setHitPoint(HP_BASE_ENEMY + HP_CULTIST);
+				setAttack(ATT_BASE_ENEMY + ATT_CULTIST);
+				setDefense(DEF_BASE_ENEMY + DEF_CULTIST);
+				break;
+
+			case ENEMY_CLASS_ELEMENTAL:
+				setHitPoint(HP_BASE_ENEMY + HP_ELEMENTAL);
+				setAttack(ATT_BASE_ENEMY + ATT_ELEMENTAL);
+				setDefense(DEF_BASE_ENEMY + DEF_ELEMENTAL);
+				break;
+
+			case ENEMY_CLASS_DRAGON_WHELP:
+				setHitPoint(HP_BASE_ENEMY + HP_DRAGON_WHELP);
+				setAttack(ATT_BASE_ENEMY + ATT_DRAGON_WHELP);
+				setDefense(DEF_BASE_ENEMY + DEF_DRAGON_WHELP);
+				break;
+
 			default:
-				System.out.println(RED_BOLD + "Error: unkown class!" + RESET);
+				System.out.println(RED_BOLD + "Error: unknown class!" + RESET);
 		}
 	}
 
