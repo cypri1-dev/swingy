@@ -1,6 +1,5 @@
 package com.swingy.model;
 
-import java.util.List;
 import com.swingy.controller.GameMovement;
 
 public class Hero extends Characters {
