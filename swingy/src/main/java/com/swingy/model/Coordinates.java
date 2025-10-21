@@ -13,6 +13,13 @@ public class Coordinates {
 		this.prevY = y;
 	}
 
+	public void setStart(int size) {
+		this.x = size / 2;
+		this.y = size / 2;
+		this.prevX = this.x;
+		this.prevY = this.y;
+	}
+
 	public void setX(int x) {this.x += x;}
 	public void setY(int y) {this.y += y;}
 	public void setPrevX(int x) {this.prevX = x;}
