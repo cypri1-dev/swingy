@@ -28,8 +28,8 @@ public class Map {
 				this.map[i][j] = "*";
 			}
 		}
-		mainHero.getCoordinates().setX(start);
-		mainHero.getCoordinates().setY(start);
+		// mainHero.getCoordinates().setX(start);
+		// mainHero.getCoordinates().setY(start);
 		mainHero.getCoordinates().setPrevX(start);
 		mainHero.getCoordinates().setPrevY(start);
 		this.map[mainHero.getCoordinates().getX()][mainHero.getCoordinates().getPrevY()] = SYMBOL_MAIN_HERO;
