@@ -1,10 +1,6 @@
 package com.swingy.model;
 
 import static com.swingy.utils.Constants.*;
-import com.swingy.model.Armor;
-import com.swingy.model.Helm;
-import com.swingy.model.Weapon;
-
 
 public class ArtefactFactory {
 	private static ArtefactFactory instance;

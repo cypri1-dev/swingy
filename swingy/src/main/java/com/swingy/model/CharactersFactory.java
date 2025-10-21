@@ -1,7 +1,5 @@
 package com.swingy.model;
 
-import com.swingy.model.Hero;
-import com.swingy.model.Enemy;
 import static com.swingy.utils.Constants.*;;
 
 public class CharactersFactory {

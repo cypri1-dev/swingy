@@ -1,7 +1,5 @@
 package com.swingy.model;
 
-import com.swingy.model.Map;
-
 public class MapFactory {
 	private static MapFactory instance;
 
