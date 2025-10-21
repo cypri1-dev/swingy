@@ -7,6 +7,7 @@ import com.swingy.model.Artefact;
 import com.swingy.model.Characters;
 import com.swingy.model.Helm;
 import com.swingy.model.Map;
+import com.swingy.controller.Game;
 
 import static com.swingy.utils.Constants.*;
 import com.swingy.view.DisplayInfos;
@@ -121,35 +122,61 @@ public class App {
 
 		/* MAP TESTS */
 
-		Characters warrior = CharactersFactory.getInstance().newCharacters(HERO_TYPE, "Adshum", WARRIOR_CLASS);
-		Map myMap = MapFactory.getInstance().newMap(warrior);
+		// Characters warrior = CharactersFactory.getInstance().newCharacters(HERO_TYPE, "Adshum", WARRIOR_CLASS);
+		// Map myMap = MapFactory.getInstance().newMap(warrior);
 
-		DisplayInfos.printMap(myMap);
-		// DisplayInfos.printEnemyInMap(myMap);
-		System.out.println("------------------------------------");
-		warrior.getMovement().moveNorth(warrior, myMap);
-		DisplayInfos.printMap(myMap);
-		System.out.println("------------------------------------");
-
-		warrior.getMovement().moveNorth(warrior, myMap);
-		DisplayInfos.printMap(myMap);
-		System.out.println("------------------------------------");
+		// DisplayInfos.printMap(myMap);
+		// // DisplayInfos.printEnemyInMap(myMap);
+		// System.out.println("------------------------------------");
+		// warrior.getMovement().moveNorth(warrior, myMap);
+		// DisplayInfos.printMap(myMap);
+		// System.out.println("------------------------------------");
 
 		// warrior.getMovement().moveNorth(warrior, myMap);
 		// DisplayInfos.printMap(myMap);
-		System.out.println("------------------------------------");
+		// System.out.println("------------------------------------");
 
-		warrior.getMovement().moveNorth(warrior, myMap);
-		warrior.getMovement().moveEast(warrior, myMap);
-		warrior.getMovement().moveEast(warrior, myMap);
+		// // warrior.getMovement().moveNorth(warrior, myMap);
+		// // DisplayInfos.printMap(myMap);
 		// warrior.getMovement().moveNorth(warrior, myMap);
-		// warrior.getMovement().moveNorth(warrior, myMap);
-		// warrior.getMovement().moveNorth(warrior, myMap);
+		// // warrior.getMovement().moveEast(warrior, myMap);
+		// // warrior.getMovement().moveEast(warrior, myMap);
+		// // warrior.getMovement().moveWest(warrior, myMap);
+		// // warrior.getMovement().moveWest(warrior, myMap);
+		// // warrior.getMovement().moveWest(warrior, myMap);
+		// DisplayInfos.printMap(myMap);
+
+		// System.out.println("------------------------------------");
+		// System.out.println("------------------------------------");
 
 
-		DisplayInfos.printMap(myMap);
-		System.out.println("------------------------------------");
+		// warrior.getMovement().moveSouth(warrior, myMap);
 
-		DisplayInfos.printHero(warrior);
+		// DisplayInfos.printMap(myMap);
+
+		// System.out.println("------------------------------------");
+
+		// warrior.getMovement().moveSouth(warrior, myMap);
+
+		// DisplayInfos.printMap(myMap);
+		// System.out.println("------------------------------------");
+
+		// warrior.getMovement().moveSouth(warrior, myMap);
+
+		// DisplayInfos.printMap(myMap);
+		// System.out.println("------------------------------------");
+
+		// warrior.getMovement().moveSouth(warrior, myMap);
+
+		// DisplayInfos.printMap(myMap);
+		// System.out.println("------------------------------------");
+
+		// DisplayInfos.printHero(warrior);
+
+		Game rpg = new Game();
+		// rpg.getMenu().createHero();
+		while(true) {
+			rpg.getMenu().launchGame();
+		}
 	}
 }
