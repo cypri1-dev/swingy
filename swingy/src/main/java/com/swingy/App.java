@@ -174,7 +174,7 @@ public class App {
 		// DisplayInfos.printHero(warrior);
 
 		Game rpg = new Game();
-		// rpg.getMenu().createHero();
+
 		while(true) {
 			rpg.getMenu().launchGame();
 		}
