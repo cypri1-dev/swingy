@@ -1,46 +1,87 @@
 package com.swingy.controller;
 
-import static com.swingy.utils.Constants.ARCHER_CLASS;
-import static com.swingy.utils.Constants.ASSASSIN_CLASS;
-import static com.swingy.utils.Constants.HERO_TYPE;
-import static com.swingy.utils.Constants.MAGE_CLASS;
-import static com.swingy.utils.Constants.PALADIN_CLASS;
-import static com.swingy.utils.Constants.WARRIOR_CLASS;
+import static com.swingy.utils.Constants.*;
 
 import java.util.Scanner;
 import java.util.Set;
 
-import com.swingy.model.Characters;
 import com.swingy.model.CharactersFactory;
 import com.swingy.view.DisplayController;
 
 public class Menu {
 
 	private Game ref;
+	private final Scanner scanner = new Scanner(System.in);
 
 	Menu(Game game) {
 		this.ref = game;
 	}
 
 	public void launchGame() {
-		DisplayController.getInstance().printHeader();
-		DisplayController.getInstance().displayMainMenu();
+		DisplayController.getInstance().clearTerminal();
+		DisplayController.getInstance().printSlow(MAIN_HEADER);
+		DisplayController.getInstance().sleepTime(900);
+		DisplayController.getInstance().clearTerminal();
+		DisplayController.getInstance().printSlow(MAIN_MENU);
+
+		String option = "";
+
+		do {
+			DisplayController.getInstance().printSlow(SELECT_OPTION);
+			option = scanner.nextLine();
+		} while (!option.equals("1") && !option.equals("2") && !option.equals("3") && !option.equals("4"));
+
+		switch (option) {
+			case "1":
+				DisplayController.getInstance().clearTerminal();
+				createHero();
+				break;
+			case "4":
+				DisplayController.getInstance().clearTerminal();
+				DisplayController.getInstance().printSlow(OUT_MSG);
+				scanner.close();
+				System.exit(0);
+			default:
+				break;
+		}
 	}
 
 	public void createHero() {
-		Scanner scanner = new Scanner(System.in);
-		Set<String> validClasses = Set.of(WARRIOR_CLASS, MAGE_CLASS, ARCHER_CLASS, PALADIN_CLASS, ASSASSIN_CLASS);
+		Set<String> validOption = Set.of("1", "2", "3", "4", "5");
 
-		System.out.println("Enter name of the new hero: ");
+		DisplayController.getInstance().printSlow(MENU_CREATION);
+		DisplayController.getInstance().printSlow(NAME_HERO);
 		String inputName = scanner.nextLine();
-		String inputClass = "";
+		DisplayController.getInstance().clearTerminal();
+		String optionClass = "";
 		do {
-			System.out.println("Enter a class between: warrior - mage - archer - paladin - assassin");
-			inputClass = scanner.nextLine().trim().toLowerCase();
+			DisplayController.getInstance().printSlow(CHOOSE_CLASS);
+			optionClass = scanner.nextLine().trim().toLowerCase();
 
-		} while (!validClasses.contains(inputClass));
-		ref.getListAvaible().add(CharactersFactory.getInstance().newCharacters(HERO_TYPE, inputName, inputClass));
-		scanner.close();
+		} while (!validOption.contains(optionClass));
+		
+		String characterClass = "";
+		switch (optionClass) {
+			case "1":
+				characterClass = WARRIOR_CLASS;
+				break;
+			case "2":
+				characterClass = MAGE_CLASS;
+				break;
+			case "3":
+				characterClass = ARCHER_CLASS;
+				break;
+			case "4":
+				characterClass = PALADIN_CLASS;
+				break;
+			case "5":
+				characterClass = ASSASSIN_CLASS;
+				break;
+			default:
+				break;
+		}
+		ref.getListAvaible().add(CharactersFactory.getInstance().newCharacters(HERO_TYPE, inputName, characterClass));
+		// scanner.close();
 	}
 
 	static private void removeHero() {}
