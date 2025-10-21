@@ -36,6 +36,13 @@ public class Menu {
 				DisplayController.getInstance().clearTerminal();
 				createHero();
 				break;
+			case "2":
+				DisplayController.getInstance().clearTerminal();
+				DisplayController.getInstance().printSlow(VIEW_HEROS);
+				ViewMyHeros();
+				DisplayController.getInstance().printSlow(ENTER_BACK);
+				scanner.nextLine();
+				break;
 			case "4":
 				DisplayController.getInstance().clearTerminal();
 				DisplayController.getInstance().printSlow(OUT_MSG);
@@ -82,6 +89,10 @@ public class Menu {
 		}
 		ref.getListAvaible().add(CharactersFactory.getInstance().newCharacters(HERO_TYPE, inputName, characterClass));
 		// scanner.close();
+	}
+
+	public void ViewMyHeros() {
+		DisplayController.getInstance().printMyHeros(ref);
 	}
 
 	static private void removeHero() {}
