@@ -19,10 +19,15 @@ public class GameMovement {
 				System.out.println(enemy.getCharacterClass() + " | " + enemy.getCoordinates().getX() + ", " + enemy.getCoordinates().getY());
 
 				map.map[hero.getCoordinates().getX()][hero.getCoordinates().getY()] = BLUE + "!" + RESET;
+				// TEST WIN 
+				map.getListEnemies().remove(enemy);
 				return;
 			}
 		}
-		map.map[hero.getCoordinates().getX()][hero.getCoordinates().getY()] = SYMBOL_MAIN_HERO;
+		if (map.map[hero.getCoordinates().getX()][hero.getCoordinates().getY()].contains("!"))
+			;
+		else
+			map.map[hero.getCoordinates().getX()][hero.getCoordinates().getY()] = SYMBOL_MAIN_HERO;
 	}
 
 	private void checkEndLevel(Characters hero, Map map) {
