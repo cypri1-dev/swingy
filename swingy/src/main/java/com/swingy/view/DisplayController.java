@@ -13,7 +13,12 @@ public class DisplayController {
 
 	public void sleepTime(int time) {
 		try {
-			Thread.sleep(time);
+			if (D_V_M___E) {
+				Thread.sleep(D_V_S___D_T_T);
+				D_V_M___E = false;
+			}
+			else
+				Thread.sleep(time);
 		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
 		}
@@ -30,7 +35,7 @@ public class DisplayController {
 	for (String line : asciiArt.split("\n")) {
 		System.out.println(line);
 		try {
-			Thread.sleep(100);
+			Thread.sleep(70);
 		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
 			}
@@ -45,7 +50,7 @@ public class DisplayController {
 	public void printMyHeros(Game game) {
 		for (Characters hero : game.getListAvaible()) {
 				System.out.println("\n" + DARK_GRAY + "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓" + RESET);
-				System.out.println(DARK_GRAY + "┃" + RESET + BOLD + " ⚔️  " + hero.getName().toUpperCase() + " the " + hero.getCharacterClass().toUpperCase() + RESET);
+				System.out.println(DARK_GRAY + "┃" + RESET + BOLD + " ⚔️  " + hero.getName()+ " the " + hero.getCharacterClass().toUpperCase() + RESET);
 				System.out.println(DARK_GRAY + "┃" + RESET + " " + ITALIC + "Level" + RESET + ": " + YELLOW + hero.getLevel() + RESET + 
 								"   " + ITALIC + "XP" + RESET + ": " + YELLOW + hero.getXp() + RESET);
 				System.out.println(DARK_GRAY + "┃" + RESET + " " + ITALIC + "Attack" + RESET + ": " + GREEN + hero.getAttack() + RESET +
@@ -64,5 +69,23 @@ public class DisplayController {
 
 				System.out.println(DARK_GRAY + "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛" + RESET);
 			}
+	}
+
+	public void displayMap(Game game) {
+		int size = game.getMap().getSize();
+
+		System.out.println();
+		System.out.println("╔" + "═".repeat(size) + "╗");
+
+		for (int i = 0; i < size; i++) {
+			System.out.print("║");
+			for (int j = 0; j < size; j++) {
+				System.out.print(game.getMap().map[i][j]);
+			}
+			System.out.println("║");
+		}
+
+		System.out.println("╚" + "═".repeat(size) + "╝");
+		System.out.println();
 	}
 }
