@@ -8,6 +8,7 @@ import java.util.List;
 
 public class Game {
 	private List<Characters> avaibleHeros;
+	private Characters selectedHero;
 	private Menu menu;
 	private Map actualMap;
 
@@ -18,5 +19,9 @@ public class Game {
 	}
 
 	public Menu getMenu() {return this.menu;}
+	public Map getMap() {return this.actualMap;}
+	public Characters getMainHero() {return this.selectedHero;}
+	public void setSelectedHero(Characters hero) {this.selectedHero = hero;}
+	public void setActualMap(Map map) {this.actualMap = map;}
 	public List<Characters> getListAvaible() {return this.avaibleHeros;}
 }
