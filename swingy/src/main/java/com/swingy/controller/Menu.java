@@ -5,12 +5,12 @@ import static com.swingy.utils.Constants.*;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.List;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import com.swingy.model.CharactersFactory;
 import com.swingy.model.MapFactory;
 import com.swingy.view.DisplayController;
-import com.swingy.view.DisplayInfos;
 import com.swingy.model.Characters;
 
 public class Menu {
@@ -42,35 +42,89 @@ public class Menu {
 	}
 
 	private void arenaOption() {
-		DisplayController.getInstance().clearTerminal();
-		if (this.ref.getListAvaible().isEmpty()) {
-			DisplayController.getInstance().printSlow(WARNING);
-			scanner.nextLine();
-		}
-		else {
-			DisplayController.getInstance().printMyHeros(ref);
-			String selectedHero = "";
-			do {
-				DisplayController.getInstance().printSlow(SELECT_HERO);
-				selectedHero = scanner.nextLine();
-				if (selectedHero.equals("x") || selectedHero.equals("X"))
-					return;
-			} while (!this.herosName.contains(selectedHero));
+		DisplayController display = DisplayController.getInstance();
+		display.clearTerminal();
 
-			for (Characters hero : this.ref.getListAvaible()) {
-				if (selectedHero.equals(hero.getName())) {
-					hero.getCoordinates().setStart((hero.getLevel() - 1) * 5 + 10 - (hero.getLevel() % 2));
-					this.ref.setSelectedHero(hero);
-					this.ref.setActualMap(MapFactory.getInstance().newMap(hero));
-					break;
-				}
-			}
-			DisplayController.getInstance().clearTerminal();
-			DisplayController.getInstance().displayMap(this.ref);
-			DisplayInfos.printHero(this.ref.getMainHero());
+		if (this.ref.getListAvaible().isEmpty()) {
+			display.printSlow(WARNING);
 			scanner.nextLine();
+			return;
 		}
+
+		display.printMyHeros(ref);
+		String selectedHero = "";
+
+		do {
+			display.printSlow(SELECT_HERO);
+			selectedHero = scanner.nextLine();
+
+			if (selectedHero.equalsIgnoreCase("x"))
+				return;
+
+		} while (!this.herosName.contains(selectedHero));
+
+		for (Characters hero : this.ref.getListAvaible()) {
+			if (selectedHero.equals(hero.getName())) {
+				hero.getCoordinates().setStart((hero.getLevel() - 1) * 5 + 10 - (hero.getLevel() % 2));
+				this.ref.setSelectedHero(hero);
+				this.ref.setActualMap(MapFactory.getInstance().newMap(hero));
+				break;
+			}
+		}
+
+		display.clearTerminal();
+		display.displayMap(this.ref);
+		display.printSlow(RULES);
+
+		boolean running = true;
+
+		while (running && !this.ref.getMap().getLevelCompleted()) {
+			try {
+				int c = System.in.read();
+
+				if (c == 27) { // ESC (début séquence ANSI)
+					int next1 = System.in.read();
+					int next2 = System.in.read();
+
+					if (next1 == 91) { // '['
+						switch (next2) {
+							case 'A': // ↑
+								this.ref.getMainHero().getMovement().moveNorth(this.ref.getMainHero(), this.ref.getMap());
+								break;
+							case 'B': // ↓
+								this.ref.getMainHero().getMovement().moveSouth(this.ref.getMainHero(), this.ref.getMap());
+								break;
+							case 'C': // →
+								this.ref.getMainHero().getMovement().moveEast(this.ref.getMainHero(), this.ref.getMap());
+								break;
+							case 'D': // ←
+								this.ref.getMainHero().getMovement().moveWest(this.ref.getMainHero(), this.ref.getMap());
+								break;
+						}
+
+						// --- Affichage après un seul mouvement ---
+						display.clearTerminal();
+						display.displayMap(this.ref);
+
+						// --- Vider le buffer pour ignorer les flèches restantes ---
+						while (System.in.available() > 0) {
+							System.in.read();
+						}
+					}
+				} else if (c == 'x' || c == 'X') {
+					running = false;
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		display.printSlow("🏁 Level completed or game exited.");
+		display.printSlow(ENTER_BACK);
+		scanner.nextLine();
 	}
+
+
 
 	private void exitOption() {
 		DisplayController.getInstance().clearTerminal();
@@ -79,7 +133,7 @@ public class Menu {
 		System.exit(0);
 	}
 
-	private void d_VOption() {
+	private void d_vOption() {
 		DisplayController.getInstance().clearTerminal();
 		String optionSelected = "";
 		do {
@@ -140,7 +194,7 @@ public class Menu {
 			case "4":
 				exitOption();
 			case "S":
-				d_VOption();
+				d_vOption();
 			default:
 				break;
 		}
@@ -212,7 +266,4 @@ public class Menu {
 			}
 		}
 	}
-
-
-	static private void loadHero() {}
 }
