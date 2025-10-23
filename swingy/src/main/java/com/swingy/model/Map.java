@@ -11,12 +11,14 @@ public class Map {
 	public String[][] map;
 	private List<Characters> enemiesList;
 	private Characters mainHero;
+	private boolean levelCompleted;
 
 	protected Map(Characters hero) {
 		this.mainHero = hero;
 		this.size =(hero.getLevel() - 1) * 5 + 10 - (hero.getLevel() % 2);
 		this.map = new String[this.size][this.size];
 		this.enemiesList = new ArrayList<Characters>();
+		this.levelCompleted = false;
 		initMap();
 		generateRandomEnemies();
 	}
@@ -84,6 +86,7 @@ public class Map {
 
 
 	public int getSize() {return this.size;}
-
 	public List<Characters> getListEnemies() { return this.enemiesList;}
+	public boolean getLevelCompleted() {return this.levelCompleted;}
+	public void setLevelCompleted(boolean state) {this.levelCompleted = state;}
 }
