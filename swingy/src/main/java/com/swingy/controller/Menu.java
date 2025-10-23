@@ -67,6 +67,8 @@ public class Menu {
 					do {
 						DisplayController.getInstance().printSlow(SELECT_HERO);
 						selectedHero = scanner.nextLine();
+						if (selectedHero.equals("x") || selectedHero.equals("X"))
+							return;
 					} while (!this.herosName.contains(selectedHero));
 
 					for (Characters hero : this.ref.getListAvaible()) {
@@ -134,13 +136,15 @@ public class Menu {
 			if (inputName.isEmpty() || this.herosName.contains(inputName)) {
 				DisplayController.getInstance().printSlow(ERROR_NAME);
 			}
+			if (inputName.equals("x") || inputName.equals("X"))
+				return;
 		} while (inputName.isEmpty() || this.herosName.contains(inputName));
 		this.herosName.add(inputName);
 		DisplayController.getInstance().clearTerminal();
 		String optionClass = "";
 		do {
 			DisplayController.getInstance().printSlow(CHOOSE_CLASS);
-			optionClass = scanner.nextLine().trim().toLowerCase();
+			optionClass = scanner.nextLine();
 
 		} while (!validOption.contains(optionClass));
 		
@@ -176,7 +180,6 @@ public class Menu {
 		String selectedHero = "";
 		do {
 			DisplayController.getInstance().printSlow(DELETE_HERO);
-			// DisplayController.getInstance().printSlow(SELECT_HERO);
 			selectedHero = scanner.nextLine();
 		} while (!this.herosName.contains(selectedHero) && !selectedHero.equals("X") && !selectedHero.equals("x"));
 
