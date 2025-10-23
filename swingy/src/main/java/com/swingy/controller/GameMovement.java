@@ -31,8 +31,10 @@ public class GameMovement {
 	}
 
 	private void checkEndLevel(Characters hero, Map map) {
-		if (hero.getCoordinates().getX() == 0 || hero.getCoordinates().getX() == map.getSize() - 1 || hero.getCoordinates().getY() == 0 || hero.getCoordinates().getY() == map.getSize() - 1)
-			System.out.println(DEBUG_BOLD + "LVL COMPLETED!" + RESET);
+		if (hero.getCoordinates().getX() == 0 || hero.getCoordinates().getX() == map.getSize() - 1 || hero.getCoordinates().getY() == 0 || hero.getCoordinates().getY() == map.getSize() - 1) {
+			// System.out.println(DEBUG_BOLD + "LVL COMPLETED!" + RESET);
+			map.setLevelCompleted(true);
+		}
 	}
 
 
