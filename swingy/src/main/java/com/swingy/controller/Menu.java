@@ -128,7 +128,13 @@ public class Menu {
 
 		DisplayController.getInstance().printSlow(MENU_CREATION);
 		DisplayController.getInstance().printSlow(NAME_HERO);
-		String inputName = scanner.nextLine();
+		String inputName = "";
+		do {
+			inputName = scanner.nextLine();
+			if (inputName.isEmpty() || this.herosName.contains(inputName)) {
+				DisplayController.getInstance().printSlow(ERROR_NAME);
+			}
+		} while (inputName.isEmpty() || this.herosName.contains(inputName));
 		this.herosName.add(inputName);
 		DisplayController.getInstance().clearTerminal();
 		String optionClass = "";
@@ -159,7 +165,6 @@ public class Menu {
 				break;
 		}
 		ref.getListAvaible().add(CharactersFactory.getInstance().newCharacters(HERO_TYPE, inputName, characterClass));
-		// scanner.close();
 	}
 
 	public void viewMyHeros() {
@@ -167,14 +172,13 @@ public class Menu {
 	}
 
 	public void removeHero() {
-		// DisplayController.getInstance().printMyHeros(ref);
 		
 		String selectedHero = "";
 		do {
 			DisplayController.getInstance().printSlow(DELETE_HERO);
 			// DisplayController.getInstance().printSlow(SELECT_HERO);
 			selectedHero = scanner.nextLine();
-		} while (!this.herosName.contains(selectedHero) && !selectedHero.equals("X"));
+		} while (!this.herosName.contains(selectedHero) && !selectedHero.equals("X") && !selectedHero.equals("x"));
 
 		for (Characters hero : this.ref.getListAvaible()) {
 			if (selectedHero.equals(hero.getName())) {
@@ -185,7 +189,6 @@ public class Menu {
 		}
 	}
 
-	
 
 	static private void loadHero() {}
 }

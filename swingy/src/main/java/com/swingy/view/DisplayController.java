@@ -15,7 +15,6 @@ public class DisplayController {
 		try {
 			if (D_V_M___E) {
 				Thread.sleep(D_V_S___D_T_T);
-				D_V_M___E = false;
 			}
 			else
 				Thread.sleep(time);
@@ -35,7 +34,11 @@ public class DisplayController {
 	for (String line : asciiArt.split("\n")) {
 		System.out.println(line);
 		try {
-			Thread.sleep(70);
+			if (D_V_M___E) {
+				Thread.sleep(D_V_S___D_T_T);
+			}
+			else
+				Thread.sleep(70);
 		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
 			}
