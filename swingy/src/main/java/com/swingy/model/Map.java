@@ -38,19 +38,20 @@ public class Map {
 	}
 
 	private String getSymbolEnemy(Characters enemy) {
-		switch (enemy.getCharacterClass()) {
-			case ENEMY_CLASS_GOBELIN: return SYMBOL_ENEMY_GOBELIN;
-			case ENEMY_CLASS_ORC: return SYMBOL_ENEMY_ORC;
-			case ENEMY_CLASS_SKELETON: return SYMBOL_ENEMY_SKELETON;
-			case ENEMY_CLASS_BANDIT: return SYMBOL_ENEMY_BANDIT;
-			case ENEMY_CLASS_DARK_MAGE:return SYMBOL_ENEMY_DARK_MAGE;
-			case ENEMY_CLASS_TROLL: return SYMBOL_ENEMY_TROLL;
-			case ENEMY_CLASS_ASSASSIN: return SYMBOL_ENEMY_ASSASSIN;
-			case ENEMY_CLASS_CULTIST: return SYMBOL_ENEMY_CULTIST;
-			case ENEMY_CLASS_ELEMENTAL: return SYMBOL_ENEMY_ELEMENTAL;
-			case ENEMY_CLASS_DRAGON_WHELP: return SYMBOL_ENEMY_DRAGON_WHELP;
-			default: return "?";
-		}
+		// switch (enemy.getCharacterClass()) {
+		// 	case ENEMY_CLASS_GOBELIN: return SYMBOL_ENEMY_GOBELIN;
+		// 	case ENEMY_CLASS_ORC: return SYMBOL_ENEMY_ORC;
+		// 	case ENEMY_CLASS_SKELETON: return SYMBOL_ENEMY_SKELETON;
+		// 	case ENEMY_CLASS_BANDIT: return SYMBOL_ENEMY_BANDIT;
+		// 	case ENEMY_CLASS_DARK_MAGE:return SYMBOL_ENEMY_DARK_MAGE;
+		// 	case ENEMY_CLASS_TROLL: return SYMBOL_ENEMY_TROLL;
+		// 	case ENEMY_CLASS_ASSASSIN: return SYMBOL_ENEMY_ASSASSIN;
+		// 	case ENEMY_CLASS_CULTIST: return SYMBOL_ENEMY_CULTIST;
+		// 	case ENEMY_CLASS_ELEMENTAL: return SYMBOL_ENEMY_ELEMENTAL;
+		// 	case ENEMY_CLASS_DRAGON_WHELP: return SYMBOL_ENEMY_DRAGON_WHELP;
+		// 	default: return "?";
+		// }
+		return "*";
 	}
 
 	private void generateRandomEnemies() {

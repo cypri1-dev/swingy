@@ -128,7 +128,7 @@ public class Characters {
 	protected void addXp(int xp) {this.xp += xp;}
 	protected void setAttack(int attack) {this.attack += attack;}
 	protected void setDefense(int defense) {this.defense += defense;}
-	protected void setHitPoint(int hp) {this.hitPoint += hp;}
+	public void setHitPoint(int hp) {this.hitPoint += hp;}
 	
 	public void addArtefact(Artefact item) {this.bag.add(item);}
 	public void removeArtefact(Artefact item) {this.bag.remove(item);}
@@ -195,4 +195,5 @@ public class Characters {
 	public GameMovement getMovement() {return null;}
 	public List<Artefact> getArtefacts() {return this.bag;}
 	public Coordinates getCoordinates() {return this.coord;}
+
 }

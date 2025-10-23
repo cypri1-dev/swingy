@@ -1,5 +1,7 @@
 package com.swingy.utils;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public final class Constants {
 
 	private Constants() {}
