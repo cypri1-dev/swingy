@@ -5,11 +5,9 @@ import static com.swingy.utils.Constants.*;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.List;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import com.swingy.model.CharactersFactory;
-import com.swingy.model.MapFactory;
 import com.swingy.view.DisplayController;
 import com.swingy.model.Characters;
 
@@ -23,6 +21,8 @@ public class Menu {
 		this.ref = game;
 		this.herosName = new ArrayList<String>();
 	}
+
+	/* -------------------------------------------------- MENU OPTIONS -------------------------------------------------- */
 
 	private void creationOption() {
 		DisplayController.getInstance().clearTerminal();
@@ -41,90 +41,19 @@ public class Menu {
 			removeHero();
 	}
 
-	private void arenaOption() {
-		DisplayController display = DisplayController.getInstance();
-		display.clearTerminal();
+	public void arenaOption() {
+		Characters hero = selectHero(ref);
+		if (hero == null) return;
 
-		if (this.ref.getListAvaible().isEmpty()) {
-			display.printSlow(WARNING);
-			scanner.nextLine();
-			return;
-		}
+		ref.placeHero(hero);
 
-		display.printMyHeros(ref);
-		String selectedHero = "";
+		DisplayController.getInstance().clearTerminal();
+		DisplayController.getInstance().displayMap(ref);
 
-		do {
-			display.printSlow(SELECT_HERO);
-			selectedHero = scanner.nextLine();
+		ref.runArenaLoop();
 
-			if (selectedHero.equalsIgnoreCase("x"))
-				return;
-
-		} while (!this.herosName.contains(selectedHero));
-
-		for (Characters hero : this.ref.getListAvaible()) {
-			if (selectedHero.equals(hero.getName())) {
-				hero.getCoordinates().setStart((hero.getLevel() - 1) * 5 + 10 - (hero.getLevel() % 2));
-				this.ref.setSelectedHero(hero);
-				this.ref.setActualMap(MapFactory.getInstance().newMap(hero));
-				break;
-			}
-		}
-
-		display.clearTerminal();
-		display.displayMap(this.ref);
-		display.printSlow(RULES);
-
-		boolean running = true;
-
-		while (running && !this.ref.getMap().getLevelCompleted()) {
-			try {
-				int c = System.in.read();
-
-				if (c == 27) { // ESC (début séquence ANSI)
-					int next1 = System.in.read();
-					int next2 = System.in.read();
-
-					if (next1 == 91) { // '['
-						switch (next2) {
-							case 'A': // ↑
-								this.ref.getMainHero().getMovement().moveNorth(this.ref.getMainHero(), this.ref.getMap());
-								break;
-							case 'B': // ↓
-								this.ref.getMainHero().getMovement().moveSouth(this.ref.getMainHero(), this.ref.getMap());
-								break;
-							case 'C': // →
-								this.ref.getMainHero().getMovement().moveEast(this.ref.getMainHero(), this.ref.getMap());
-								break;
-							case 'D': // ←
-								this.ref.getMainHero().getMovement().moveWest(this.ref.getMainHero(), this.ref.getMap());
-								break;
-						}
-
-						// --- Affichage après un seul mouvement ---
-						display.clearTerminal();
-						display.displayMap(this.ref);
-
-						// --- Vider le buffer pour ignorer les flèches restantes ---
-						while (System.in.available() > 0) {
-							System.in.read();
-						}
-					}
-				} else if (c == 'x' || c == 'X') {
-					running = false;
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
-		display.printSlow("🏁 Level completed or game exited.");
-		display.printSlow(ENTER_BACK);
-		scanner.nextLine();
+		endArena();
 	}
-
-
 
 	private void exitOption() {
 		DisplayController.getInstance().clearTerminal();
@@ -137,7 +66,7 @@ public class Menu {
 		DisplayController.getInstance().clearTerminal();
 		String optionSelected = "";
 		do {
-			DisplayController.getInstance().printSlow(A_SIMPLE);
+			DisplayController.getInstance().printSlow(A_SIMPLE + "\n");
 			optionSelected = scanner.nextLine();
 		} while (!optionSelected.equals("1") && !optionSelected.equals("2"));
 
@@ -149,7 +78,7 @@ public class Menu {
 
 				do {
 					try {
-						DisplayController.getInstance().printSlow(SPEED);
+						DisplayController.getInstance().printSlow(SPEED + "\n");
 						s___d = Integer.parseInt(scanner.nextLine());
 						validInput = true;
 					}
@@ -166,6 +95,8 @@ public class Menu {
 				break;
 		}
 	}
+
+	/* -------------------------------------------------- MAIN MENU -------------------------------------------------- */
 
 	public void launchGame() {
 		DisplayController.getInstance().clearTerminal();
@@ -246,6 +177,38 @@ public class Menu {
 		ref.getListAvaible().add(CharactersFactory.getInstance().newCharacters(HERO_TYPE, inputName, characterClass));
 	}
 
+	/* -------------------------------------------------- METHOD MENU -------------------------------------------------- */
+
+	public Characters selectHero(Game game) {
+		DisplayController display = DisplayController.getInstance();
+		display.clearTerminal();
+		display.printMyHeros(game);
+
+		if (game.getListAvaible().isEmpty()) {
+			display.printSlow(WARNING);
+			scanner.nextLine();
+			return null;
+		}
+
+		Characters selectedHero = null;
+		String input;
+		do {
+			display.printSlow(SELECT_HERO + "\n");
+			input = scanner.nextLine();
+
+			if (input.equalsIgnoreCase("x")) return null;
+
+			for (Characters hero : game.getListAvaible()) {
+				if (hero.getName().equals(input)) {
+					selectedHero = hero;
+					break;
+				}
+			}
+		} while (selectedHero == null);
+
+		return selectedHero;
+	}
+
 	public void viewMyHeros() {
 		DisplayController.getInstance().printMyHeros(ref);
 	}
@@ -254,7 +217,8 @@ public class Menu {
 		
 		String selectedHero = "";
 		do {
-			DisplayController.getInstance().printSlow(DELETE_HERO);
+			DisplayController.getInstance().printSlow(DELETE_HERO + "\n");
+			// System.out.println("\n");
 			selectedHero = scanner.nextLine();
 		} while (!this.herosName.contains(selectedHero) && !selectedHero.equals("X") && !selectedHero.equals("x"));
 
@@ -265,5 +229,12 @@ public class Menu {
 				break;
 			}
 		}
+	}
+
+	public void endArena() {
+		DisplayController display = DisplayController.getInstance();
+		display.printSlow("🏁 Level completed or game exited.\n");
+		display.printSlow("Press ENTER to return.\n");
+		scanner.nextLine();
 	}
 }
