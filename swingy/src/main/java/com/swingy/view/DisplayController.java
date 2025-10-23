@@ -91,4 +91,26 @@ public class DisplayController {
 		System.out.println("╚" + "═".repeat(size) + "╝");
 		System.out.println();
 	}
+
+	public void displaySelelectedHero(Characters hero) {
+		System.out.println("\n" + DARK_GRAY + "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓" + RESET);
+		System.out.println(DARK_GRAY + "┃" + RESET + BOLD + " ⚔️  " + hero.getName()+ " the " + hero.getCharacterClass().toUpperCase() + RESET);
+		System.out.println(DARK_GRAY + "┃" + RESET + " " + ITALIC + "Level" + RESET + ": " + YELLOW + hero.getLevel() + RESET + 
+						"   " + ITALIC + "XP" + RESET + ": " + YELLOW + hero.getXp() + RESET);
+		System.out.println(DARK_GRAY + "┃" + RESET + " " + ITALIC + "Attack" + RESET + ": " + GREEN + hero.getAttack() + RESET +
+						"   " + ITALIC + "Defense" + RESET + ": " + GREEN + hero.getDefense() + RESET);
+		System.out.println(DARK_GRAY + "┃" + RESET + " " + ITALIC + "Hit Points" + RESET + ": " + RED + hero.getHitPoint() + RESET);
+		System.out.println(DARK_GRAY + "┃" + RESET + " " + ITALIC + "Bag contents:" + RESET);
+
+		if (hero.getArtefacts().isEmpty()) {
+			System.out.println(DARK_GRAY + "┃" + RESET + "   " + RED + "Empty bag." + RESET);
+		} else {
+			for (Artefact item : hero.getArtefacts()) {
+				String equippedMark = item.getIsEquipped() ? GREEN + " (E)" + RESET : "";
+				System.out.println(DARK_GRAY + "┃" + RESET + "   • " + item.getName() + equippedMark);
+			}
+		}
+
+		System.out.println(DARK_GRAY + "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛" + RESET);
+	}
 }
