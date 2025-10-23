@@ -6,6 +6,8 @@ import static com.swingy.utils.Constants.*;
 
 public class GameMovement {
 
+	/* -------------------------------------------------- CHECK FIGHT METHOD -------------------------------------------------- */
+
 	private void checkFight(Characters hero, Map map) {
 
 		if (!map.map[hero.getCoordinates().getPrevX()][hero.getCoordinates().getPrevY()].contains("!")) {
@@ -15,8 +17,9 @@ public class GameMovement {
 		for (Characters enemy : map.getListEnemies()) {
 			if (hero.getCoordinates().getX() == enemy.getCoordinates().getX() && hero.getCoordinates().getY() == enemy.getCoordinates().getY()) {
 
-				System.out.println(RED_BOLD + "FIGHT!" + RESET);
-				System.out.println(enemy.getCharacterClass() + " | " + enemy.getCoordinates().getX() + ", " + enemy.getCoordinates().getY());
+				// fight logic !
+				// System.out.println(enemy.getCharacterClass() + " | " + enemy.getCoordinates().getX() + ", " + enemy.getCoordinates().getY());
+				FightLogic.fight(enemy, hero);
 
 				map.map[hero.getCoordinates().getX()][hero.getCoordinates().getY()] = BLUE + "!" + RESET;
 				// TEST WIN 
@@ -30,6 +33,8 @@ public class GameMovement {
 			map.map[hero.getCoordinates().getX()][hero.getCoordinates().getY()] = SYMBOL_MAIN_HERO;
 	}
 
+	/* -------------------------------------------------- CHECK END LEVEL METHOD -------------------------------------------------- */
+
 	private void checkEndLevel(Characters hero, Map map) {
 		if (hero.getCoordinates().getX() == 0 || hero.getCoordinates().getX() == map.getSize() - 1 || hero.getCoordinates().getY() == 0 || hero.getCoordinates().getY() == map.getSize() - 1) {
 			// System.out.println(DEBUG_BOLD + "LVL COMPLETED!" + RESET);
@@ -37,6 +42,7 @@ public class GameMovement {
 		}
 	}
 
+	/* -------------------------------------------------- MOVING METHOD -------------------------------------------------- */
 
 	public void moveNorth(Characters hero, Map map) {
 
