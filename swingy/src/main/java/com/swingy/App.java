@@ -1,20 +1,6 @@
 package com.swingy;
 
-import com.swingy.model.ArtefactFactory;
-import com.swingy.model.CharactersFactory;
-import com.swingy.model.MapFactory;
-import com.swingy.model.Artefact;
-import com.swingy.model.Characters;
-import com.swingy.model.Helm;
-import com.swingy.model.Map;
 import com.swingy.controller.Game;
-
-import static com.swingy.utils.Constants.*;
-import com.swingy.view.DisplayInfos;
-
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class App {
 	public static void main(String[] args) {
@@ -178,5 +164,6 @@ public class App {
 		while(true) {
 			rpg.getMenu().launchGame();
 		}
+
 	}
 }

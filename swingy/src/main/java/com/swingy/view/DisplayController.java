@@ -1,6 +1,9 @@
 package com.swingy.view;
 
 import static com.swingy.utils.Constants.*;
+
+import java.util.Scanner;
+
 import com.swingy.controller.Game;
 import com.swingy.model.Artefact;
 import com.swingy.model.Characters;
@@ -8,6 +11,7 @@ import com.swingy.model.Characters;
 public class DisplayController {
 
 	private static DisplayController instance;
+	private final Scanner scanner = new Scanner(System.in);
 
 	private DisplayController() {}
 
@@ -112,5 +116,13 @@ public class DisplayController {
 		}
 
 		System.out.println(DARK_GRAY + "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛" + RESET);
+	}
+
+	public String getUserInput() {
+		return scanner.nextLine();
+	}
+
+	public void closeScanner() {
+		this.scanner.close();
 	}
 }

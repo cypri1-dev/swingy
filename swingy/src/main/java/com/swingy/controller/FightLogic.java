@@ -6,7 +6,6 @@ import com.swingy.view.DisplayInfos;
 
 import static com.swingy.utils.Constants.*;
 
-import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class FightLogic {
@@ -50,6 +49,6 @@ public class FightLogic {
         }
 
         System.out.println("\nPress Enter to continue...");
-        new Scanner(System.in).nextLine();
+        DisplayController.getInstance().getUserInput();
     }
 }

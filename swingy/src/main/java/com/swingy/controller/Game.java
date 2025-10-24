@@ -11,13 +11,13 @@ import static com.swingy.utils.Constants.RULES;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Game {
 	private List<Characters> avaibleHeros;
 	private Characters selectedHero;
 	private Menu menu;
 	private Map actualMap;
+	private List<String> herosName;
 
 	/* -------------------------------------------------- GAME CONSTRUCTOR -------------------------------------------------- */
 
@@ -25,12 +25,15 @@ public class Game {
 		this.avaibleHeros = new ArrayList<Characters>();
 		this.menu = new Menu(this);
 		this.actualMap = null;
+		this.herosName = new ArrayList<String>();
+
 	}
 
 	/* -------------------------------------------------- GETTERS | SETTERS -------------------------------------------------- */
 
 	public Menu getMenu() {return this.menu;}
 	public Map getMap() {return this.actualMap;}
+	public List<String> getHeroesNameList() {return this.herosName;}
 	public Characters getMainHero() {return this.selectedHero;}
 	public void setSelectedHero(Characters hero) {this.selectedHero = hero;}
 	public void setActualMap(Map map) {this.actualMap = map;}
@@ -47,12 +50,11 @@ public class Game {
 	public void runArenaLoop() {
 		DisplayController display = DisplayController.getInstance();
 		boolean running = true;
-		Scanner scanner = new Scanner(System.in);
 
 		while (running && !this.getMap().getLevelCompleted()) {
 			System.out.println(RULES);
 
-			String input = scanner.nextLine().trim().toUpperCase();
+			String input = display.getUserInput().trim().toUpperCase();
 
 			switch (input) {
 				case "W" -> moveHero('A'); // 'A' = haut
@@ -63,7 +65,7 @@ public class Game {
 					display.clearTerminal();
 					display.displaySelelectedHero(getMainHero());
 					display.printSlow(ENTER_BACK_GAME);
-					scanner.nextLine(); // attend Entrée
+					display.getUserInput();
 				}
 				case "X" -> running = false;
 				default -> display.printSlow("Invalid input!\n");
@@ -73,7 +75,6 @@ public class Game {
 			display.displayMap(this);
 		}
 	}
-
 
 	public void moveHero(char arrow) {
 		switch (arrow) {
@@ -85,5 +86,11 @@ public class Game {
 		}
 	}
 
+	public boolean heroExists(String name) {
+		return this.herosName.contains(name);
+	}
 
+	public void registerHeroName(String name) {
+		this.herosName.add(name);
+	}
 }

@@ -2,7 +2,6 @@ package com.swingy.controller;
 
 import static com.swingy.utils.Constants.*;
 
-import java.util.Scanner;
 import java.util.Set;
 import java.util.List;
 import java.util.ArrayList;
@@ -14,12 +13,9 @@ import com.swingy.model.Characters;
 public class Menu {
 
 	private Game ref;
-	private final Scanner scanner = new Scanner(System.in);
-	private List<String> herosName;
 
 	Menu(Game game) {
 		this.ref = game;
-		this.herosName = new ArrayList<String>();
 	}
 
 	/* -------------------------------------------------- MENU OPTIONS -------------------------------------------------- */
@@ -35,7 +31,7 @@ public class Menu {
 		viewMyHeros();
 		if (this.ref.getListAvaible().isEmpty()) {
 			DisplayController.getInstance().printSlow(ENTER_BACK);
-			scanner.nextLine();
+			DisplayController.getInstance().getUserInput();
 		}
 		else
 			removeHero();
@@ -58,7 +54,7 @@ public class Menu {
 	private void exitOption() {
 		DisplayController.getInstance().clearTerminal();
 		DisplayController.getInstance().printSlow(OUT_MSG);
-		scanner.close();
+		DisplayController.getInstance().closeScanner();
 		System.exit(0);
 	}
 
@@ -67,7 +63,7 @@ public class Menu {
 		String optionSelected = "";
 		do {
 			DisplayController.getInstance().printSlow(A_SIMPLE + "\n");
-			optionSelected = scanner.nextLine();
+			optionSelected = DisplayController.getInstance().getUserInput();
 		} while (!optionSelected.equals("1") && !optionSelected.equals("2"));
 
 		switch (optionSelected) {
@@ -79,7 +75,7 @@ public class Menu {
 				do {
 					try {
 						DisplayController.getInstance().printSlow(SPEED + "\n");
-						s___d = Integer.parseInt(scanner.nextLine());
+						s___d = Integer.parseInt(DisplayController.getInstance().getUserInput());
 						validInput = true;
 					}
 					catch (NumberFormatException e) {
@@ -109,7 +105,7 @@ public class Menu {
 
 		do {
 			DisplayController.getInstance().printSlow(SELECT_OPTION);
-			option = scanner.nextLine();
+			option = DisplayController.getInstance().getUserInput();
 		} while (!option.equals("1") && !option.equals("2") && !option.equals("3") && !option.equals("4") && !option.equals("S"));
 
 		switch (option) {
@@ -124,8 +120,10 @@ public class Menu {
 				break;
 			case "4":
 				exitOption();
+				break;
 			case "S":
 				d_vOption();
+				break;
 			default:
 				break;
 		}
@@ -138,19 +136,19 @@ public class Menu {
 		DisplayController.getInstance().printSlow(NAME_HERO);
 		String inputName = "";
 		do {
-			inputName = scanner.nextLine();
-			if (inputName.isEmpty() || this.herosName.contains(inputName)) {
+			inputName = DisplayController.getInstance().getUserInput();
+			if (inputName.isEmpty() || ref.heroExists(inputName)) {
 				DisplayController.getInstance().printSlow(ERROR_NAME);
 			}
 			if (inputName.equals("x") || inputName.equals("X"))
 				return;
-		} while (inputName.isEmpty() || this.herosName.contains(inputName));
-		this.herosName.add(inputName);
+		} while (inputName.isEmpty() || ref.heroExists(inputName));
+		ref.registerHeroName(inputName);
 		DisplayController.getInstance().clearTerminal();
 		String optionClass = "";
 		do {
 			DisplayController.getInstance().printSlow(CHOOSE_CLASS);
-			optionClass = scanner.nextLine();
+			optionClass = DisplayController.getInstance().getUserInput();
 
 		} while (!validOption.contains(optionClass));
 		
@@ -186,7 +184,7 @@ public class Menu {
 
 		if (game.getListAvaible().isEmpty()) {
 			display.printSlow(WARNING);
-			scanner.nextLine();
+			DisplayController.getInstance().getUserInput();
 			return null;
 		}
 
@@ -194,7 +192,7 @@ public class Menu {
 		String input;
 		do {
 			display.printSlow(SELECT_HERO + "\n");
-			input = scanner.nextLine();
+			input = DisplayController.getInstance().getUserInput();
 
 			if (input.equalsIgnoreCase("x")) return null;
 
@@ -219,15 +217,19 @@ public class Menu {
 		do {
 			DisplayController.getInstance().printSlow(DELETE_HERO + "\n");
 			// System.out.println("\n");
-			selectedHero = scanner.nextLine();
-		} while (!this.herosName.contains(selectedHero) && !selectedHero.equals("X") && !selectedHero.equals("x"));
+			selectedHero = DisplayController.getInstance().getUserInput();
+		} while (!ref.heroExists(selectedHero) && !selectedHero.equals("X") && !selectedHero.equals("x"));
 
+		Characters toRemove = null;
 		for (Characters hero : this.ref.getListAvaible()) {
 			if (selectedHero.equals(hero.getName())) {
-				this.ref.getListAvaible().remove(hero);
-				this.herosName.remove(selectedHero);
+				toRemove = hero;
 				break;
 			}
+		}
+		if (toRemove != null) {
+			this.ref.getListAvaible().remove(toRemove);
+			this.ref.getHeroesNameList().remove(selectedHero);
 		}
 	}
 
@@ -235,6 +237,6 @@ public class Menu {
 		DisplayController display = DisplayController.getInstance();
 		display.printSlow("🏁 Level completed or game exited.\n");
 		display.printSlow("Press ENTER to return.\n");
-		scanner.nextLine();
+		DisplayController.getInstance().getUserInput();
 	}
 }
