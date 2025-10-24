@@ -21,6 +21,8 @@ public class ArtefactFactory {
 				return new Helm(type, name, bonus);
 			case WEAPON_TYPE:
 				return new Weapon(type, name, bonus);
+			case CONSOMMABLE:
+				return new Consommable(type, name, bonus);
 			default:
 				System.out.println(RED_BOLD + "Error: unknown type!" + RESET);
 		}

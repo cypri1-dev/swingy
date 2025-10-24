@@ -60,60 +60,70 @@ public class Characters {
 				setHitPoint(HP_BASE_ENEMY + HP_GOBLIN);
 				setAttack(ATT_BASE_ENEMY + ATT_GOBLIN);
 				setDefense(DEF_BASE_ENEMY + DEF_GOBLIN);
+				setXp(XP_GOBLIN);
 				break;
 
 			case ENEMY_CLASS_ORC:
 				setHitPoint(HP_BASE_ENEMY + HP_ORC);
 				setAttack(ATT_BASE_ENEMY + ATT_ORC);
 				setDefense(DEF_BASE_ENEMY + DEF_ORC);
+				setXp(XP_ORC);
 				break;
 
 			case ENEMY_CLASS_SKELETON:
 				setHitPoint(HP_BASE_ENEMY + HP_SKELETON);
 				setAttack(ATT_BASE_ENEMY + ATT_SKELETON);
 				setDefense(DEF_BASE_ENEMY + DEF_SKELETON);
+				setXp(XP_SKELETON);
 				break;
 
 			case ENEMY_CLASS_BANDIT:
 				setHitPoint(HP_BASE_ENEMY + HP_BANDIT);
 				setAttack(ATT_BASE_ENEMY + ATT_BANDIT);
 				setDefense(DEF_BASE_ENEMY + DEF_BANDIT);
+				setXp(XP_BANDIT);
 				break;
 
 			case ENEMY_CLASS_DARK_MAGE:
 				setHitPoint(HP_BASE_ENEMY + HP_DARK_MAGE);
 				setAttack(ATT_BASE_ENEMY + ATT_DARK_MAGE);
 				setDefense(DEF_BASE_ENEMY + DEF_DARK_MAGE);
+				setXp(XP_DARK_MAGE);
 				break;
 
 			case ENEMY_CLASS_TROLL:
 				setHitPoint(HP_BASE_ENEMY + HP_TROLL);
 				setAttack(ATT_BASE_ENEMY + ATT_TROLL);
 				setDefense(DEF_BASE_ENEMY + DEF_TROLL);
+				setXp(XP_TROLL);
 				break;
 
 			case ENEMY_CLASS_ASSASSIN:
 				setHitPoint(HP_BASE_ENEMY + HP_ASSASSIN_ENEMY);
 				setAttack(ATT_BASE_ENEMY + ATT_ASSASSIN_ENEMY);
 				setDefense(DEF_BASE_ENEMY + DEF_ASSASSIN_ENEMY);
+				setXp(XP_ASSASSIN_ENEMY);
 				break;
 
 			case ENEMY_CLASS_CULTIST:
 				setHitPoint(HP_BASE_ENEMY + HP_CULTIST);
 				setAttack(ATT_BASE_ENEMY + ATT_CULTIST);
 				setDefense(DEF_BASE_ENEMY + DEF_CULTIST);
+				setXp(XP_CULTIST);
 				break;
 
 			case ENEMY_CLASS_ELEMENTAL:
 				setHitPoint(HP_BASE_ENEMY + HP_ELEMENTAL);
 				setAttack(ATT_BASE_ENEMY + ATT_ELEMENTAL);
 				setDefense(DEF_BASE_ENEMY + DEF_ELEMENTAL);
+				setXp(XP_ELEMENTAL);
 				break;
 
 			case ENEMY_CLASS_DRAGON_WHELP:
 				setHitPoint(HP_BASE_ENEMY + HP_DRAGON_WHELP);
 				setAttack(ATT_BASE_ENEMY + ATT_DRAGON_WHELP);
 				setDefense(DEF_BASE_ENEMY + DEF_DRAGON_WHELP);
+				setXp(XP_DRAGON_WHELP);
 				break;
 
 			default:
@@ -129,6 +139,16 @@ public class Characters {
 	protected void setAttack(int attack) {this.attack += attack;}
 	protected void setDefense(int defense) {this.defense += defense;}
 	public void setHitPoint(int hp) {this.hitPoint += hp;}
+
+	public void addXP(int amount) {
+		int nextLevel = (int) (this.level * 1000 + Math.pow(this.level - 1, 2) * 450);
+		this.xp += amount;
+
+		if (this.xp >= nextLevel) {
+			this.xp = 0;
+			this.level += 1;
+		}
+	}
 	
 	public void addArtefact(Artefact item) {this.bag.add(item);}
 	public void removeArtefact(Artefact item) {this.bag.remove(item);}

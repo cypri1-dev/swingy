@@ -36,6 +36,7 @@ public final class Constants {
 	/* STATS CLASS HERO */
 
 	public static final int HP_BASE = 10;
+	
 	public static final int HP_WARRIOR = 4;
 	public static final int HP_MAGE = -3;
 	public static final int HP_ARCHER = -2;
@@ -91,48 +92,59 @@ public final class Constants {
 	public static final int HP_GOBLIN = -2;
 	public static final int ATT_GOBLIN = 1;
 	public static final int DEF_GOBLIN = -1;
+	public static final int XP_GOBLIN = 18;
 
 	public static final int HP_ORC = 3;
 	public static final int ATT_ORC = 3;
 	public static final int DEF_ORC = -1;
+	public static final int XP_ORC = 30;
 
 	public static final int HP_SKELETON = -1;
 	public static final int ATT_SKELETON = 0;
 	public static final int DEF_SKELETON = 2;
+	public static final int XP_SKELETON = 20;
 
 	public static final int HP_BANDIT = 0;
 	public static final int ATT_BANDIT = 1;
 	public static final int DEF_BANDIT = 0;
+	public static final int XP_BANDIT = 22;
 
 	public static final int HP_DARK_MAGE = -3;
 	public static final int ATT_DARK_MAGE = 4;
 	public static final int DEF_DARK_MAGE = -2;
+	public static final int XP_DARK_MAGE = 55;
 
 	public static final int HP_TROLL = 6;
 	public static final int ATT_TROLL = 1;
 	public static final int DEF_TROLL = 3;
+	public static final int XP_TROLL = 40;
 
 	public static final int HP_ASSASSIN_ENEMY = -2;
 	public static final int ATT_ASSASSIN_ENEMY = 5;
 	public static final int DEF_ASSASSIN_ENEMY = -3;
+	public static final int XP_ASSASSIN_ENEMY = 60;
 
 	public static final int HP_CULTIST = -1;
 	public static final int ATT_CULTIST = 2;
 	public static final int DEF_CULTIST = 1;
+	public static final int XP_CULTIST = 24;
 
 	public static final int HP_ELEMENTAL = 2;
 	public static final int ATT_ELEMENTAL = 2;
 	public static final int DEF_ELEMENTAL = 4;
+	public static final int XP_ELEMENTAL = 45;
 
 	public static final int HP_DRAGON_WHELP = 5;
 	public static final int ATT_DRAGON_WHELP = 5;
 	public static final int DEF_DRAGON_WHELP = 3;
+	public static final int XP_DRAGON_WHELP = 70;
 
 	/* TYPES ARTEFACTS */
 
 	public static final String ARMOR_TYPE = "armor";
 	public static final String HELM_TYPE = "helm";
 	public static final String WEAPON_TYPE = "weapon";
+	public static final String CONSOMMABLE = "consommable";
 
 	/* SYMBOLS MAP */
 
@@ -153,6 +165,7 @@ public final class Constants {
 	/* MAPS DATA */
 
 	public static final double DENSITY = 0.23;
+	public static final double DENSITY_CONSOMMABLE = 0.10;
 
 	/* D_V_D__A */
 
@@ -325,7 +338,10 @@ public final class Constants {
 			▄▌    ▌▌▌▛▘▛▌▐ ▀▌▌▌▙▖▛▌█▌▛▛▌▌█▌▛▘
 			▄▌▗   ▙▘▌▄▌▙▌▐▖█▌▙▌▙▖▌▌▙▖▌▌▌▌▙▖▄▌
               ▌     ▄▌              
-
+			▖▖    ▗ ▄▖▄▖▄▖▄▖▖▖▄▖
+			▙▌    ▜ ▛▌▛▌▛▌▛▌▙▌▙▌
+			 ▌▗   ▟▖█▌█▌█▌█▌▌▌▌ 
+                    
 			""";
 
 	public static final String SPEED = "\n\n" + """

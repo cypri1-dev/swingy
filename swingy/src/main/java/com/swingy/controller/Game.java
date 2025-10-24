@@ -27,7 +27,7 @@ public class Game {
 		this.menu = new Menu(this);
 		this.actualMap = null;
 		this.herosName = new ArrayList<String>();
-
+		this.selectedHero = null;
 	}
 
 	/* -------------------------------------------------- GETTERS | SETTERS -------------------------------------------------- */

@@ -5,11 +5,13 @@ public class Artefact {
 	private String name;
 	private int bonus;
 	private boolean isEquipped;
+	private Coordinates coord;
 
 	protected Artefact(String type, String name, int bonus) {
 		this.type = type;
 		this.name = name;
 		this.bonus = bonus;
+		this.coord = new Coordinates(0, 0);
 	}
 
 	protected void setType(String type) {this.type = type;}
@@ -20,4 +22,5 @@ public class Artefact {
 	public String getName() {return this.name;}
 	public int getBonus() {return this.bonus;}
 	public boolean getIsEquipped() {return this.isEquipped;}
+	public Coordinates getCoordinates() {return this.coord;}
 }

@@ -12,6 +12,7 @@ public class Map {
 	private List<Characters> enemiesList;
 	private Characters mainHero;
 	private boolean levelCompleted;
+	private List<Artefact> consommableList;
 
 	protected Map(Characters hero) {
 		this.mainHero = hero;
@@ -19,8 +20,10 @@ public class Map {
 		this.map = new String[this.size][this.size];
 		this.enemiesList = new ArrayList<Characters>();
 		this.levelCompleted = false;
+		this.consommableList = new ArrayList<Artefact>();
 		initMap();
-		generateRandomEnemies();
+		List<String> tmp = generateRandomEnemies();
+		generateRandomConsommable(tmp);
 	}
 
 	protected void initMap() {
@@ -54,9 +57,34 @@ public class Map {
 		return "*";
 	}
 
-	private void generateRandomEnemies() {
+	private void generateRandomConsommable(List<String> occupiedCoords) {
+		int countConsommable = (int)(this.size * this.size * DENSITY_CONSOMMABLE);
+
+		for (int i = 0; i < countConsommable; i++) {
+			Artefact healingPotion = ArtefactFactory.getInstance().newArtefact(CONSOMMABLE, "Healing Potion (+10)", 10);
+
+			int tmpX;
+			int tmpY;
+			String consommableCoord;
+
+			do {
+				tmpX = ThreadLocalRandom.current().nextInt(0, this.size);
+				tmpY = ThreadLocalRandom.current().nextInt(0, this.size);
+				consommableCoord = tmpX + "," + tmpY;
+			} while (occupiedCoords.contains(consommableCoord) || (tmpX == mainHero.getCoordinates().getX() && tmpY == mainHero.getCoordinates().getY()));
+
+			healingPotion.getCoordinates().setX(tmpX);
+			healingPotion.getCoordinates().setY(tmpY);
+
+			occupiedCoords.add(consommableCoord);
+			this.map[tmpX][tmpY] = "*";
+		}
+
+	}
+
+	private List<String> generateRandomEnemies() {
 		int enemyCount = (int)(this.size * this.size * DENSITY);
-		System.out.println(DEBUG_BOLD + "[enemyCount]: " + enemyCount + " | [density]: " + DENSITY + RESET);
+		// System.out.println(DEBUG_BOLD + "[enemyCount]: " + enemyCount + " | [density]: " + DENSITY + RESET);
 
 		List<String> occupiedCoords = new ArrayList<>();
 
@@ -84,10 +112,12 @@ public class Map {
 			// this.map[tmpX][tmpY] = getSymbolEnemy(tmpEnemy);
 			this.map[tmpX][tmpY] = "*";
 		}
+		return occupiedCoords;
 	}
 
 
 	public int getSize() {return this.size;}
+	public List<Artefact> getListConsommable() {return this.consommableList;}
 	public List<Characters> getListEnemies() { return this.enemiesList;}
 	public boolean getLevelCompleted() {return this.levelCompleted;}
 	public void setLevelCompleted(boolean state) {this.levelCompleted = state;}

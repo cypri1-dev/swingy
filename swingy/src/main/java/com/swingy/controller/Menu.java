@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import com.swingy.model.CharactersFactory;
 import com.swingy.view.DisplayController;
+import com.swingy.model.Artefact;
 import com.swingy.model.Characters;
 
 public class Menu {
@@ -64,7 +65,7 @@ public class Menu {
 		do {
 			DisplayController.getInstance().printSlow(A_SIMPLE + "\n");
 			optionSelected = DisplayController.getInstance().getUserInput();
-		} while (!optionSelected.equals("1") && !optionSelected.equals("2") && !optionSelected.equals("3"));
+		} while (!optionSelected.equals("1") && !optionSelected.equals("2") && !optionSelected.equals("3") && !optionSelected.equals("4"));
 
 		switch (optionSelected) {
 			case "1":
@@ -110,7 +111,17 @@ public class Menu {
 						}
 						this.ref.getMap().map[tmpX][tmpY] = symbol;
 					}
+					for (Artefact items : this.ref.getMap().getListConsommable()) {
+						int tmpX = items.getCoordinates().getX();
+						int tmpY = items.getCoordinates().getY();
+						this.ref.getMap().map[tmpX][tmpY] = GREEN + "P" + RESET;
+					}
 				}
+				break;
+			case "4":
+				if (this.ref.getMainHero() != null)
+					this.ref.getMainHero().setHitPoint(10000000);
+				break;
 			default:
 				break;
 		}
