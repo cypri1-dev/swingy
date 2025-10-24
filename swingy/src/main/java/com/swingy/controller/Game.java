@@ -6,6 +6,7 @@ import com.swingy.model.MapFactory;
 import com.swingy.view.DisplayController;
 
 import static com.swingy.utils.Constants.ENTER_BACK_GAME;
+import static com.swingy.utils.Constants.GAME_OVER;
 import static com.swingy.utils.Constants.RULES;
 
 import java.io.IOException;
@@ -52,6 +53,12 @@ public class Game {
 		boolean running = true;
 
 		while (running && !this.getMap().getLevelCompleted()) {
+			if (this.selectedHero.getHitPoint() <= 0) {
+				// DisplayController.getInstance().printSlow(GAME_OVER);
+				this.herosName.remove(this.selectedHero.getName());
+				this.avaibleHeros.remove(selectedHero);
+				break;
+			}
 			System.out.println(RULES);
 
 			String input = display.getUserInput().trim().toUpperCase();
@@ -68,6 +75,7 @@ public class Game {
 					display.getUserInput();
 				}
 				case "X" -> running = false;
+				case "0" -> this.menu.d_vOption();
 				default -> display.printSlow("Invalid input!\n");
 			}
 

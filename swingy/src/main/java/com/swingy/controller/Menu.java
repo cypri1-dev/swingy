@@ -58,13 +58,13 @@ public class Menu {
 		System.exit(0);
 	}
 
-	private void d_vOption() {
+	public void d_vOption() {
 		DisplayController.getInstance().clearTerminal();
 		String optionSelected = "";
 		do {
 			DisplayController.getInstance().printSlow(A_SIMPLE + "\n");
 			optionSelected = DisplayController.getInstance().getUserInput();
-		} while (!optionSelected.equals("1") && !optionSelected.equals("2"));
+		} while (!optionSelected.equals("1") && !optionSelected.equals("2") && !optionSelected.equals("3"));
 
 		switch (optionSelected) {
 			case "1":
@@ -81,12 +81,36 @@ public class Menu {
 					catch (NumberFormatException e) {
 						System.out.println("NOP");
 					}
-				} while (!validInput);
+				} while (!validInput || s___d < 0);
 				D_V_S___D_T_T = s___d;
 
 			case "2":
 				break;
-			
+
+			case "3":
+				if (this.ref.getMap() == null)
+					break;
+				else {
+					for (Characters enemies : this.ref.getMap().getListEnemies()) {
+						int tmpX = enemies.getCoordinates().getX();
+						int tmpY = enemies.getCoordinates().getY();
+						String symbol = "?";
+
+						switch (enemies.getCharacterClass()) {
+							case ENEMY_CLASS_GOBELIN: symbol =  SYMBOL_ENEMY_GOBELIN; break;
+							case ENEMY_CLASS_ORC: symbol =  SYMBOL_ENEMY_ORC; break;
+							case ENEMY_CLASS_SKELETON: symbol =  SYMBOL_ENEMY_SKELETON; break;
+							case ENEMY_CLASS_BANDIT: symbol =  SYMBOL_ENEMY_BANDIT; break;
+							case ENEMY_CLASS_DARK_MAGE:symbol =  SYMBOL_ENEMY_DARK_MAGE; break;
+							case ENEMY_CLASS_TROLL: symbol =  SYMBOL_ENEMY_TROLL; break;
+							case ENEMY_CLASS_ASSASSIN: symbol =  SYMBOL_ENEMY_ASSASSIN; break;
+							case ENEMY_CLASS_CULTIST: symbol =  SYMBOL_ENEMY_CULTIST; break;
+							case ENEMY_CLASS_ELEMENTAL: symbol =  SYMBOL_ENEMY_ELEMENTAL; break;
+							case ENEMY_CLASS_DRAGON_WHELP: symbol =  SYMBOL_ENEMY_DRAGON_WHELP; break;
+						}
+						this.ref.getMap().map[tmpX][tmpY] = symbol;
+					}
+				}
 			default:
 				break;
 		}
@@ -235,8 +259,14 @@ public class Menu {
 
 	public void endArena() {
 		DisplayController display = DisplayController.getInstance();
-		display.printSlow("🏁 Level completed or game exited.\n");
-		display.printSlow("Press ENTER to return.\n");
+		if (this.ref.getMap().getLevelCompleted())
+			display.printSlow(LVL_COMPLETE);
+		else if (this.ref.getMainHero().getHitPoint() <= 0)
+			display.printSlow(GAME_OVER);
+		else
+			display.printSlow(EXIT_GAME);
+		// display.printSlow("🏁 Level completed or game exited.\n");
+		// display.printSlow("Press ENTER to return.\n");
 		DisplayController.getInstance().getUserInput();
 	}
 }

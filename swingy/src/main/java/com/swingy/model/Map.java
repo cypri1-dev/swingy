@@ -37,7 +37,7 @@ public class Map {
 		this.map[mainHero.getCoordinates().getX()][mainHero.getCoordinates().getPrevY()] = SYMBOL_MAIN_HERO;
 	}
 
-	private String getSymbolEnemy(Characters enemy) {
+	public String getSymbolEnemy(Characters enemy) {
 		// switch (enemy.getCharacterClass()) {
 		// 	case ENEMY_CLASS_GOBELIN: return SYMBOL_ENEMY_GOBELIN;
 		// 	case ENEMY_CLASS_ORC: return SYMBOL_ENEMY_ORC;
@@ -81,7 +81,8 @@ public class Map {
 
 			this.enemiesList.add(tmpEnemy);
 
-			this.map[tmpX][tmpY] = getSymbolEnemy(tmpEnemy);
+			// this.map[tmpX][tmpY] = getSymbolEnemy(tmpEnemy);
+			this.map[tmpX][tmpY] = "*";
 		}
 	}
 
