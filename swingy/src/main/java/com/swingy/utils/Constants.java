@@ -4,6 +4,8 @@ public final class Constants {
 
 	private Constants() {}
 
+	public static final int TIME_DEV = 0;
+	
 	/* COLORS */
 
 	public static final String RED_BOLD = "\033[1;31m";
@@ -144,7 +146,7 @@ public final class Constants {
 	public static final String ARMOR_TYPE = "armor";
 	public static final String HELM_TYPE = "helm";
 	public static final String WEAPON_TYPE = "weapon";
-	public static final String CONSOMMABLE = "consommable";
+	public static final String CONSOMMABLE_TYPE = "consommable";
 
 	/* SYMBOLS MAP */
 
@@ -404,5 +406,43 @@ public final class Constants {
 			▌ ▀▌▛▛▌█▌  █▌▚▘▌▜▘█▌▛▌  ▌  ▙▌▛▘█▌▛▘▛▘  ▙▖▛▌▜▘█▌▛▘      
 			▙▌█▌▌▌▌▙▖  ▙▖▞▖▌▐▖▙▖▙▌  ▖  ▌ ▌ ▙▖▄▌▄▌  ▙▖▌▌▐▖▙▖▌ ▗ ▗ ▗ 
 																
+			""";
+
+	public static final String HP_POTION = """
+			▖▖      ▐▘       ▌        ▌     ▜ ▘          ▗ ▘      ▌
+			▌▌▛▌▌▌  ▜▘▛▌▌▌▛▌▛▌  ▀▌▛▌  ▛▌█▌▀▌▐ ▌▛▌▛▌  ▛▌▛▌▜▘▌▛▌▛▌  ▌
+			▐ ▙▌▙▌  ▐ ▙▌▙▌▌▌▙▌  █▌▌▌  ▌▌▙▖█▌▐▖▌▌▌▙▌  ▙▌▙▌▐▖▌▙▌▌▌  ▖
+				                             ▄▌  ▌             
+			""";
+
+	public static final String INVENTORY_MENU = """
+
+				██╗███╗   ██╗██╗   ██╗███████╗███╗   ██╗████████╗ ██████╗ ██████╗ ██╗   ██╗
+				██║████╗  ██║██║   ██║██╔════╝████╗  ██║╚══██╔══╝██╔═══██╗██╔══██╗╚██╗ ██╔╝
+				██║██╔██╗ ██║██║   ██║█████╗  ██╔██╗ ██║   ██║   ██║   ██║██████╔╝ ╚████╔╝ 
+				██║██║╚██╗██║╚██╗ ██╔╝██╔══╝  ██║╚██╗██║   ██║   ██║   ██║██╔══██╗  ╚██╔╝  
+				██║██║ ╚████║ ╚████╔╝ ███████╗██║ ╚████║   ██║   ╚██████╔╝██║  ██║   ██║   
+				╚═╝╚═╝  ╚═══╝  ╚═══╝  ╚══════╝╚═╝  ╚═══╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝   ╚═╝   
+																						
+					▗     ▄▖    ▘                  
+					▜     ▙▖▛▌▌▌▌▛▌                
+					▟▖▗   ▙▖▙▌▙▌▌▙▌                
+						 ▌   ▌                 
+					▄▖    ▖▖        ▘              
+					▄▌    ▌▌▛▌█▌▛▌▌▌▌▛▌            
+					▙▖▗   ▙▌▌▌▙▖▙▌▙▌▌▙▌            
+						     ▌   ▌             
+					▄▖    ▄                        
+					▄▌    ▌▌▛▘▛▌▛▌                 
+					▙▖▗   ▙▘▌ ▙▌▙▌                 
+						    ▌                  
+					▄▖    ▖▖          ▗ ▘          
+					▄▌    ▌▌▛▘█▌  ▛▌▛▌▜▘▌▛▌▛▌      
+					▄▌▗   ▙▌▄▌▙▖  ▙▌▙▌▐▖▌▙▌▌▌      
+						      ▌                
+					▖▖    ▄     ▌   ▗              
+					▙▌    ▙▘▀▌▛▘▙▘  ▜▘▛▌  ▛▌▀▌▛▛▌█▌
+					 ▌▗   ▙▘█▌▙▖▛▖  ▐▖▙▌  ▙▌█▌▌▌▌▙▖
+							      ▄▌       
 			""";
 }

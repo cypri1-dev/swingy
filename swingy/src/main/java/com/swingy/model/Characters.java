@@ -15,6 +15,7 @@ public class Characters {
 	private int attack;
 	private int defense;
 	private int hitPoint;
+	private int maxHitPoint;
 	private List<Artefact> bag;
 	private Coordinates coord;
 
@@ -28,30 +29,35 @@ public class Characters {
 		switch (characterClass) {
 			case WARRIOR_CLASS:
 				setHitPoint(HP_BASE + HP_WARRIOR);
+				setMaxHitPoint(HP_BASE + HP_WARRIOR);
 				setAttack(ATT_BASE + ATT_WARRIOR);
 				setDefense(DEF_BASE + DEF_WARRIOR);
 				break;
 
 			case MAGE_CLASS:
 				setHitPoint(HP_BASE + HP_MAGE);
+				setMaxHitPoint(HP_BASE + HP_MAGE);
 				setAttack(ATT_BASE + ATT_MAGE);
 				setDefense(DEF_BASE + DEF_MAGE);
 				break;
 
 			case ARCHER_CLASS:
 				setHitPoint(HP_BASE + HP_ARCHER);
+				setMaxHitPoint(HP_BASE + HP_ARCHER);
 				setAttack(ATT_BASE + ATT_ARCHER);
 				setDefense(DEF_BASE + DEF_ARCHER);
 				break;
 
 			case PALADIN_CLASS:
 				setHitPoint(HP_BASE + HP_PALADIN);
+				setMaxHitPoint(HP_BASE + HP_PALADIN);
 				setAttack(ATT_BASE + ATT_PALADIN);
 				setDefense(DEF_BASE + DEF_PALADIN);
 				break;
 
 			case ASSASSIN_CLASS:
 				setHitPoint(HP_BASE + HP_ASSASSIN);
+				setMaxHitPoint(HP_BASE + HP_ASSASSIN);
 				setAttack(ATT_BASE + ATT_ASSASSIN);
 				setDefense(DEF_BASE + DEF_ASSASSIN);
 				break;
@@ -139,6 +145,7 @@ public class Characters {
 	protected void setAttack(int attack) {this.attack += attack;}
 	protected void setDefense(int defense) {this.defense += defense;}
 	public void setHitPoint(int hp) {this.hitPoint += hp;}
+	public void setMaxHitPoint(int hp) {this.maxHitPoint += hp;}
 
 	public void addXP(int amount) {
 		int nextLevel = (int) (this.level * 1000 + Math.pow(this.level - 1, 2) * 450);
@@ -212,6 +219,7 @@ public class Characters {
 	public int getAttack() {return this.attack;}
 	public int getDefense() {return this.defense;}
 	public int getHitPoint() {return this.hitPoint;}
+	public int getMaxHitPoint() {return this.maxHitPoint;}
 	public GameMovement getMovement() {return null;}
 	public List<Artefact> getArtefacts() {return this.bag;}
 	public Coordinates getCoordinates() {return this.coord;}

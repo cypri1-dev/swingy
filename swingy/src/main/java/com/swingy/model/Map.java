@@ -61,7 +61,7 @@ public class Map {
 		int countConsommable = (int)(this.size * this.size * DENSITY_CONSOMMABLE);
 
 		for (int i = 0; i < countConsommable; i++) {
-			Artefact healingPotion = ArtefactFactory.getInstance().newArtefact(CONSOMMABLE, "Healing Potion (+10)", 10);
+			Artefact healingPotion = ArtefactFactory.getInstance().newArtefact(CONSOMMABLE_TYPE, "Healing Potion ⚗️ (+10HP)", 10);
 
 			int tmpX;
 			int tmpY;
@@ -77,6 +77,7 @@ public class Map {
 			healingPotion.getCoordinates().setY(tmpY);
 
 			occupiedCoords.add(consommableCoord);
+			this.consommableList.add(healingPotion);
 			this.map[tmpX][tmpY] = "*";
 		}
 

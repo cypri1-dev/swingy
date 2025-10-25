@@ -5,9 +5,7 @@ import com.swingy.model.Map;
 import com.swingy.model.MapFactory;
 import com.swingy.view.DisplayController;
 
-import static com.swingy.utils.Constants.ENTER_BACK_GAME;
-import static com.swingy.utils.Constants.GAME_OVER;
-import static com.swingy.utils.Constants.RULES;
+import static com.swingy.utils.Constants.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -69,10 +67,11 @@ public class Game {
 				case "D" -> moveHero('C'); // 'C' = droite
 				case "A" -> moveHero('D'); // 'D' = gauche
 				case "I" -> {
-					display.clearTerminal();
-					display.displaySelelectedHero(getMainHero());
-					display.printSlow(ENTER_BACK_GAME);
-					display.getUserInput();
+					// display.clearTerminal();
+					// display.displaySelelectedHero(getMainHero());
+					// display.printSlow(ENTER_BACK_GAME);
+					// display.getUserInput();
+					this.menu.inventoryMenu();
 				}
 				case "X" -> running = false;
 				case "0" -> this.menu.d_vOption();
@@ -100,5 +99,22 @@ public class Game {
 
 	public void registerHeroName(String name) {
 		this.herosName.add(name);
+	}
+
+	public void healHero(int amount) {
+		int maxHp = -1;
+		
+		switch(this.getMainHero().getCharacterClass()) {
+			case WARRIOR_CLASS: maxHp = HP_BASE + HP_WARRIOR; break;
+			case MAGE_CLASS: maxHp = HP_BASE + HP_MAGE; break;
+			case ARCHER_CLASS: maxHp = HP_BASE + HP_ARCHER; break;
+			case PALADIN_CLASS: maxHp = HP_BASE + HP_PALADIN; break;
+			case ASSASSIN_CLASS: maxHp = HP_BASE + HP_ASSASSIN; break;
+			default: break;
+		}
+		
+		this.getMainHero().setHitPoint(amount);
+		if (this.getMainHero().getHitPoint() > maxHp)
+			this.getMainHero().setHitPoint(-(this.getMainHero().getHitPoint() - maxHp));
 	}
 }

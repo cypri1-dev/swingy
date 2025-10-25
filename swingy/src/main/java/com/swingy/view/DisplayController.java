@@ -42,7 +42,8 @@ public class DisplayController {
 				Thread.sleep(D_V_S___D_T_T);
 			}
 			else
-				Thread.sleep(70);
+				// change befor final push
+				Thread.sleep(TIME_DEV);
 		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
 			}
@@ -62,7 +63,7 @@ public class DisplayController {
 								"   " + ITALIC + "XP" + RESET + ": " + YELLOW + hero.getXp() + RESET);
 				System.out.println(DARK_GRAY + "┃" + RESET + " " + ITALIC + "Attack" + RESET + ": " + GREEN + hero.getAttack() + RESET +
 								"   " + ITALIC + "Defense" + RESET + ": " + GREEN + hero.getDefense() + RESET);
-				System.out.println(DARK_GRAY + "┃" + RESET + " " + ITALIC + "Hit Points" + RESET + ": " + RED + hero.getHitPoint() + RESET);
+				System.out.println(DARK_GRAY + "┃" + RESET + " " + ITALIC + "Hit Points" + RESET + ": " + RED + hero.getHitPoint() + "/" + hero.getMaxHitPoint() + RESET);
 				System.out.println(DARK_GRAY + "┃" + RESET + " " + ITALIC + "Bag contents:" + RESET);
 
 				if (hero.getArtefacts().isEmpty()) {
@@ -103,7 +104,7 @@ public class DisplayController {
 						"   " + ITALIC + "XP" + RESET + ": " + YELLOW + hero.getXp() + RESET);
 		System.out.println(DARK_GRAY + "┃" + RESET + " " + ITALIC + "Attack" + RESET + ": " + GREEN + hero.getAttack() + RESET +
 						"   " + ITALIC + "Defense" + RESET + ": " + GREEN + hero.getDefense() + RESET);
-		System.out.println(DARK_GRAY + "┃" + RESET + " " + ITALIC + "Hit Points" + RESET + ": " + RED + hero.getHitPoint() + RESET);
+		System.out.println(DARK_GRAY + "┃" + RESET + " " + ITALIC + "Hit Points" + RESET + ": " + RED + hero.getHitPoint() + "/" + hero.getMaxHitPoint() + RESET);
 		System.out.println(DARK_GRAY + "┃" + RESET + " " + ITALIC + "Bag contents:" + RESET);
 
 		if (hero.getArtefacts().isEmpty()) {

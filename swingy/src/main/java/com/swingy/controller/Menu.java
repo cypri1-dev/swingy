@@ -112,9 +112,9 @@ public class Menu {
 						this.ref.getMap().map[tmpX][tmpY] = symbol;
 					}
 					for (Artefact items : this.ref.getMap().getListConsommable()) {
-						int tmpX = items.getCoordinates().getX();
-						int tmpY = items.getCoordinates().getY();
-						this.ref.getMap().map[tmpX][tmpY] = GREEN + "P" + RESET;
+						int tmpXC = items.getCoordinates().getX();
+						int tmpYC = items.getCoordinates().getY();
+						this.ref.getMap().map[tmpXC][tmpYC] = GREEN + "P" + RESET;
 					}
 				}
 				break;
@@ -280,4 +280,42 @@ public class Menu {
 		// display.printSlow("Press ENTER to return.\n");
 		DisplayController.getInstance().getUserInput();
 	}
+
+	public void inventoryMenu() {
+		DisplayController.getInstance().clearTerminal();
+		String option = "";
+		do {
+			DisplayController.getInstance().printSlow(INVENTORY_MENU);
+			DisplayController.getInstance().displaySelelectedHero(this.ref.getMainHero());
+			option = DisplayController.getInstance().getUserInput();
+
+		} while(!option.equals("1") && !option.equals("2") && !option.equals("3") && !option.equals("4"));
+
+		switch (option) {
+			case "1":
+				break;
+			
+			case "2":
+				break;
+			
+			case "3":
+				Artefact tmp = null;
+				for (Artefact item : ref.getMainHero().getArtefacts()) {
+					if (item.getType().equals(CONSOMMABLE_TYPE)) {
+						ref.healHero(item.getBonus());
+						tmp = item;
+					}
+				}
+				if (tmp != null)
+					ref.getMainHero().removeArtefact(tmp);
+				break;
+			
+			case "4":
+				break;
+			
+			default:
+				break;
+		}
+	}
+
 }

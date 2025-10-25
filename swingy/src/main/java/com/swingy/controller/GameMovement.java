@@ -1,7 +1,10 @@
 package com.swingy.controller;
 
+import com.swingy.model.Artefact;
 import com.swingy.model.Characters;
 import com.swingy.model.Map;
+import com.swingy.view.DisplayController;
+
 import static com.swingy.utils.Constants.*;
 
 public class GameMovement {
@@ -33,6 +36,25 @@ public class GameMovement {
 			map.map[hero.getCoordinates().getX()][hero.getCoordinates().getY()] = SYMBOL_MAIN_HERO;
 	}
 
+	/* -------------------------------------------------- CHECK CONSOMMABLE METHOD -------------------------------------------------- */
+
+	private void checkConsommable(Characters hero, Map map) {
+
+		Artefact tmp = null;
+
+		for (Artefact healingPotion : map.getListConsommable()) {
+			if (hero.getCoordinates().getX() == healingPotion.getCoordinates().getX() && hero.getCoordinates().getY() == healingPotion.getCoordinates().getY()) {
+				
+				hero.addArtefact(healingPotion);
+				DisplayController.getInstance().printSlow(HP_POTION);
+				tmp = healingPotion;
+				DisplayController.getInstance().getUserInput();
+			}
+		}
+		if (tmp != null)
+			map.getListConsommable().remove(tmp);
+	}
+
 	/* -------------------------------------------------- CHECK END LEVEL METHOD -------------------------------------------------- */
 
 	private void checkEndLevel(Characters hero, Map map) {
@@ -52,6 +74,7 @@ public class GameMovement {
 		hero.getCoordinates().setX(-1);
 
 		checkFight(hero, map);
+		checkConsommable(hero, map);
 		checkEndLevel(hero, map);
 	}
 
@@ -63,6 +86,7 @@ public class GameMovement {
 		hero.getCoordinates().setY(+1);
 		
 		checkFight(hero, map);
+		checkConsommable(hero, map);
 		checkEndLevel(hero, map);
 	}
 
@@ -73,6 +97,7 @@ public class GameMovement {
 		hero.getCoordinates().setX(+1);
 		
 		checkFight(hero, map);
+		checkConsommable(hero, map);
 		checkEndLevel(hero, map);
 	}
 
@@ -83,6 +108,7 @@ public class GameMovement {
 		hero.getCoordinates().setY(-1);
 		
 		checkFight(hero, map);
+		checkConsommable(hero, map);
 		checkEndLevel(hero, map);
 	}
 
