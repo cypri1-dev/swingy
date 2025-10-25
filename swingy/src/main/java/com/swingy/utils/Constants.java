@@ -21,6 +21,9 @@ public final class Constants {
 	public static final String YELLOW = "\u001B[33m";
 	public static final String GREEN = "\u001B[32m";
 	public static final String DARK_GRAY = "\u001B[90m";
+	public static final String COMMON_COLOR = "\u001B[37m";
+	public static final String EPIC_COLOR = "\u001B[35m";
+	public static final String LEGENDARY_COLOR = "\u001B[33m";
 
 	/* TYPES CHARACTERS */
 
@@ -65,7 +68,7 @@ public final class Constants {
 	public static final int ATT_BASE_ENEMY = 4;
 	public static final int DEF_BASE_ENEMY = 4;
 
-	/* --- Enemy archetypes --- */
+	/* ENEMY ARCHETYPES */
 
 	public static final String[] ENEMIES_LIST_NAMES = {
 		"Goblin",
@@ -147,6 +150,218 @@ public final class Constants {
 	public static final String HELM_TYPE = "helm";
 	public static final String WEAPON_TYPE = "weapon";
 	public static final String CONSOMMABLE_TYPE = "consommable";
+
+	public static final String COMMON = "common";
+	public static final String RARE = "rare";
+	public static final String EPIC = "epic";
+	public static final String LEGENDARY = "legendary";
+
+	/* -------------------- WEAPONS (ATT bonus) -------------------- */
+
+	public static final String[] WEAPONS_COMMON = {
+		"Rusty Dagger",
+		"Iron Sword",
+		"Wooden Mace",
+		"Stone Axe"
+	};
+
+	public static final String[] WEAPONS_RARE = {
+		"Steel Axe",
+		"Elven Longbow",
+		"Iron Spear"
+	};
+
+	public static final String[] WEAPONS_EPIC = {
+		"Rune Blade",
+		"Shadowfang"
+	};
+
+	public static final String[] WEAPONS_LEGENDARY = {
+		"Excalibur"
+	};
+
+	/* Commun */
+	public static final String WEAPON_NAME_RUSTY_DAGGER = "Rusty Dagger (+1.ATT)";
+	public static final String WEAPON_RARITY_RUSTY_DAGGER = COMMON;
+	public static final int WEAPON_ATT_RUSTY_DAGGER = 1;
+
+	public static final String WEAPON_NAME_IRON_SWORD = "Iron Sword (+2.ATT)";
+	public static final String WEAPON_RARITY_IRON_SWORD = COMMON;
+	public static final int WEAPON_ATT_IRON_SWORD = 2;
+
+	public static final String WEAPON_NAME_WOODEN_MACE = "Wooden Mace (+1.ATT)";
+	public static final String WEAPON_RARITY_WOODEN_MACE = COMMON;
+	public static final int WEAPON_ATT_WOODEN_MACE = 1;
+
+	public static final String WEAPON_NAME_STONE_AXE = "Stone Axe (+2.ATT)";
+	public static final String WEAPON_RARITY_STONE_AXE = COMMON;
+	public static final int WEAPON_ATT_STONE_AXE = 2;
+
+	/* Rare */
+	public static final String WEAPON_NAME_STEEL_AXE = "Steel Axe (+3.ATT)";
+	public static final String WEAPON_RARITY_STEEL_AXE = RARE;
+	public static final int WEAPON_ATT_STEEL_AXE = 3;
+
+	public static final String WEAPON_NAME_ELVEN_LONGBOW = "Elven Longbow (+4.ATT)";
+	public static final String WEAPON_RARITY_ELVEN_LONGBOW = RARE;
+	public static final int WEAPON_ATT_ELVEN_LONGBOW = 4;
+
+	public static final String WEAPON_NAME_IRON_SPEAR = "Iron Spear (+3.ATT)";
+	public static final String WEAPON_RARITY_IRON_SPEAR = RARE;
+	public static final int WEAPON_ATT_IRON_SPEAR = 3;
+
+	/* Epic */
+	public static final String WEAPON_NAME_RUNE_BLADE = "Rune Blade (+5.ATT)";
+	public static final String WEAPON_RARITY_RUNE_BLADE = EPIC;
+	public static final int WEAPON_ATT_RUNE_BLADE = 5;
+
+	public static final String WEAPON_NAME_SHADOWFANG = "Shadowfang (+6.ATT)";
+	public static final String WEAPON_RARITY_SHADOWFANG = EPIC;
+	public static final int WEAPON_ATT_SHADOWFANG = 6;
+
+	/* Légendaire */
+	public static final String WEAPON_NAME_EXCALIBUR = "Excalibur (+10.ATT)";
+	public static final String WEAPON_RARITY_EXCALIBUR = LEGENDARY;
+	public static final int WEAPON_ATT_EXCALIBUR = 10;
+
+	/* -------------------- ARMORS (DEF bonus) -------------------- */
+
+	public static final String[] ARMORS_COMMON = {
+		"Leather Vest",
+		"Chainmail",
+		"Hide Armor",
+		"Paw Leather"
+	};
+
+	public static final String[] ARMORS_RARE = {
+		"Iron Plate",
+		"Dwarven Chestguard",
+		"Steel Chain"
+	};
+
+	public static final String[] ARMORS_EPIC = {
+		"Enchanted Breastplate",
+		"Obsidian Armor"
+	};
+
+	public static final String[] ARMORS_LEGENDARY = {
+		"Dragon Scale Armor"
+	};
+
+	/* Commun */
+	public static final String ARMOR_NAME_LEATHER_VEST = "Leather Vest (+1.DEF)";
+	public static final String ARMOR_RARITY_LEATHER_VEST = COMMON;
+	public static final int ARMOR_DEF_LEATHER_VEST = 1;
+
+	public static final String ARMOR_NAME_CHAINMAIL = "Chainmail (+2.DEF)";
+	public static final String ARMOR_RARITY_CHAINMAIL = COMMON;
+	public static final int ARMOR_DEF_CHAINMAIL = 2;
+
+	public static final String ARMOR_NAME_HIDE_ARMOR = "Hide Armor (+1.DEF)";
+	public static final String ARMOR_RARITY_HIDE_ARMOR = COMMON;
+	public static final int ARMOR_DEF_HIDE_ARMOR = 1;
+
+	public static final String ARMOR_NAME_PAW_LEATHER = "Paw Leather (+2.DEF)";
+	public static final String ARMOR_RARITY_PAW_LEATHER = COMMON;
+	public static final int ARMOR_DEF_PAW_LEATHER = 2;
+
+	/* Rare */
+	public static final String ARMOR_NAME_IRON_PLATE = "Iron Plate (+3.DEF)";
+	public static final String ARMOR_RARITY_IRON_PLATE = RARE;
+	public static final int ARMOR_DEF_IRON_PLATE = 3;
+
+	public static final String ARMOR_NAME_DWARVEN_CHESTGUARD = "Dwarven Chestguard (+4.DEF)";
+	public static final String ARMOR_RARITY_DWARVEN_CHESTGUARD = RARE;
+	public static final int ARMOR_DEF_DWARVEN_CHESTGUARD = 4;
+
+	public static final String ARMOR_NAME_STEEL_CHAIN = "Steel Chain (+3.DEF)";
+	public static final String ARMOR_RARITY_STEEL_CHAIN = RARE;
+	public static final int ARMOR_DEF_STEEL_CHAIN = 3;
+
+	/* Epic */
+	public static final String ARMOR_NAME_ENCHANTED_BREASTPLATE = "Enchanted Breastplate (+5.DEF)";
+	public static final String ARMOR_RARITY_ENCHANTED_BREASTPLATE = EPIC;
+	public static final int ARMOR_DEF_ENCHANTED_BREASTPLATE = 5;
+
+	public static final String ARMOR_NAME_OBSIDIAN_ARMOR = "Obsidian Armor (+6.DEF)";
+	public static final String ARMOR_RARITY_OBSIDIAN_ARMOR = EPIC;
+	public static final int ARMOR_DEF_OBSIDIAN_ARMOR = 6;
+
+	/* Légendaire */
+	public static final String ARMOR_NAME_DRAGON_SCALE_ARMOR = "Dragon Scale Armor (+7.DEF)";
+	public static final String ARMOR_RARITY_DRAGON_SCALE_ARMOR = LEGENDARY;
+	public static final int ARMOR_DEF_DRAGON_SCALE_ARMOR = 7;
+
+
+	/* -------------------- HELMS (HP bonus) -------------------- */
+
+	public static final String[] HELMS_COMMON = {
+		"Leather Hood",
+		"Iron Helmet",
+		"Wooden Cap",
+		"Hide Helm"
+	};
+
+	public static final String[] HELMS_RARE = {
+		"Steel Helm",
+		"Guardian Mask",
+		"Iron Crown"
+	};
+
+	public static final String[] HELMS_EPIC = {
+		"Warlord Crown",
+		"Helm of Eternity"
+	};
+
+	public static final String[] HELMS_LEGENDARY = {
+		"Godslayer Helm"
+	};
+
+	/* Commun */
+	public static final String HELM_NAME_LEATHER_HOOD = "Leather Hood (+3)";
+	public static final String HELM_RARITY_LEATHER_HOOD = COMMON;
+	public static final int HELM_HP_LEATHER_HOOD = 3;
+
+	public static final String HELM_NAME_IRON_HELMET = "Iron Helmet (+5)";
+	public static final String HELM_RARITY_IRON_HELMET = COMMON;
+	public static final int HELM_HP_IRON_HELMET = 5;
+
+	public static final String HELM_NAME_WOODEN_CAP = "Wooden Cap (+3)";
+	public static final String HELM_RARITY_WOODEN_CAP = COMMON;
+	public static final int HELM_HP_WOODEN_CAP = 3;
+
+	public static final String HELM_NAME_HIDE_HELM = "Hide Helm (+4)";
+	public static final String HELM_RARITY_HIDE_HELM = COMMON;
+	public static final int HELM_HP_HIDE_HELM = 4;
+
+	/* Rare */
+	public static final String HELM_NAME_STEEL_HELM = "Steel Helm (+8.HP)";
+	public static final String HELM_RARITY_STEEL_HELM = RARE;
+	public static final int HELM_HP_STEEL_HELM = 8;
+
+	public static final String HELM_NAME_GUARDIAN_MASK = "Guardian Mask (+10.HP)";
+	public static final String HELM_RARITY_GUARDIAN_MASK = RARE;
+	public static final int HELM_HP_GUARDIAN_MASK = 10;
+
+	public static final String HELM_NAME_IRON_CROWN = "Iron Crown (+9.HP)";
+	public static final String HELM_RARITY_IRON_CROWN = RARE;
+	public static final int HELM_HP_IRON_CROWN = 9;
+
+	/* Epic */
+	public static final String HELM_NAME_WARLORD_CROWN = "Warlord Crown (+12.HP)";
+	public static final String HELM_RARITY_WARLORD_CROWN = EPIC;
+	public static final int HELM_HP_WARLORD_CROWN = 12;
+
+	public static final String HELM_NAME_HELM_OF_ETERNITY = "Helm of Eternity (+15.HP)";
+	public static final String HELM_RARITY_HELM_OF_ETERNITY = EPIC;
+	public static final int HELM_HP_HELM_OF_ETERNITY = 15;
+
+	/* Légendaire */
+	public static final String HELM_NAME_GODSLAYER_HELM = "Godslayer Helm (+30.HP)";
+	public static final String HELM_RARITY_GODSLAYER_HELM = LEGENDARY;
+	public static final int HELM_HP_GODSLAYER_HELM = 30;
+
+
 
 	/* SYMBOLS MAP */
 
