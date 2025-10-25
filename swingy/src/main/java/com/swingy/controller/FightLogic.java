@@ -11,10 +11,18 @@ import java.util.concurrent.ThreadLocalRandom;
 public class FightLogic {
 
 	public static void fight(Characters enemy, Characters hero) {
-		DisplayInfos.printEnemy(enemy);
+		// DisplayInfos.printEnemy(enemy);
+		Integer tmp = hero.getKnowledge().getMap().get(enemy.getCharacterClass());
+
+		DisplayController.getInstance().clearTerminal();
+		DisplayController.getInstance().printSlow(FIGHT_TITLE);
+		if (tmp != null)
+			
+			DisplayController.getInstance().displayCurrentEnemy(enemy, 0);
+		else
+			DisplayController.getInstance().displayCurrentEnemy(enemy, hero.getKnowledge().getMap().get(enemy.getCharacterClass()));
 
 		do {
-			// 🎲 Tirage indépendant des dés
 			int diceHero1 = ThreadLocalRandom.current().nextInt(1, 7);
 			int diceHero2 = ThreadLocalRandom.current().nextInt(1, 7);
 			int diceEnemy1 = ThreadLocalRandom.current().nextInt(1, 7);
@@ -24,7 +32,7 @@ public class FightLogic {
 			int initE = (diceEnemy1 + diceEnemy2) + enemy.getAttack();
 
 			if (initH == initE)
-				continue; // égalité → relance
+				continue;
 
 			if (initH > initE) {
 				int rawDamage = ThreadLocalRandom.current().nextInt(1, hero.getAttack() + 1);
@@ -39,6 +47,7 @@ public class FightLogic {
 			}
 
 			System.out.println("❤️ HERO HP: " + hero.getHitPoint() + " | 💀 ENEMY HP: " + enemy.getHitPoint());
+			DisplayController.getInstance().getUserInput();
 
 		} while (enemy.getHitPoint() > 0 && hero.getHitPoint() > 0);
 
@@ -47,6 +56,7 @@ public class FightLogic {
 		} else {
 			System.out.println(GREEN_BOLD + "🏆 ENEMY DEFEATED!" + RESET);
 			hero.addXP(enemy.getXp());
+			hero.getKnowledge().addKnowledge(enemy);
 		}
 
 		System.out.println("\nPress Enter to continue...");

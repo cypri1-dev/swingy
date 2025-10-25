@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.swingy.controller.GameMovement;
+import com.swingy.model.Knowledge;
 
 public class Characters {
 	private String type;
@@ -18,12 +19,14 @@ public class Characters {
 	private int maxHitPoint;
 	private List<Artefact> bag;
 	private Coordinates coord;
+	private Knowledge knowledge;
 
 	protected Characters(String type, String name, String characterClass) {
 		this.type = type;
 		this.name = name;
 		this.characterClass = characterClass;
 		this.bag = new ArrayList<Artefact>();
+		this.knowledge = Knowledge.getInstance();
 		this.coord = new Coordinates(0, 0);
 
 		switch (characterClass) {
@@ -223,5 +226,5 @@ public class Characters {
 	public GameMovement getMovement() {return null;}
 	public List<Artefact> getArtefacts() {return this.bag;}
 	public Coordinates getCoordinates() {return this.coord;}
-
+	public Knowledge getKnowledge() {return this.knowledge;}
 }

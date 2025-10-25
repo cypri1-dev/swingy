@@ -34,6 +34,10 @@ public class DisplayController {
 		return instance;
 	}
 
+	public void printNormal(String txt) {
+		System.out.println(txt);
+	}
+
 	public void printSlow(String asciiArt) {
 	for (String line : asciiArt.split("\n")) {
 		System.out.println(line);
@@ -100,10 +104,8 @@ public class DisplayController {
 	public void displaySelelectedHero(Characters hero) {
 		System.out.println("\n" + DARK_GRAY + "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓" + RESET);
 		System.out.println(DARK_GRAY + "┃" + RESET + BOLD + " ⚔️  " + hero.getName()+ " the " + hero.getCharacterClass().toUpperCase() + RESET);
-		System.out.println(DARK_GRAY + "┃" + RESET + " " + ITALIC + "Level" + RESET + ": " + YELLOW + hero.getLevel() + RESET + 
-						"   " + ITALIC + "XP" + RESET + ": " + YELLOW + hero.getXp() + RESET);
-		System.out.println(DARK_GRAY + "┃" + RESET + " " + ITALIC + "Attack" + RESET + ": " + GREEN + hero.getAttack() + RESET +
-						"   " + ITALIC + "Defense" + RESET + ": " + GREEN + hero.getDefense() + RESET);
+		System.out.println(DARK_GRAY + "┃" + RESET + " " + ITALIC + "Level" + RESET + ": " + YELLOW + hero.getLevel() + RESET + "   " + ITALIC + "XP" + RESET + ": " + YELLOW + hero.getXp() + RESET);
+		System.out.println(DARK_GRAY + "┃" + RESET + " " + ITALIC + "Attack" + RESET + ": " + GREEN + hero.getAttack() + RESET + "   " + ITALIC + "Defense" + RESET + ": " + GREEN + hero.getDefense() + RESET);
 		System.out.println(DARK_GRAY + "┃" + RESET + " " + ITALIC + "Hit Points" + RESET + ": " + RED + hero.getHitPoint() + "/" + hero.getMaxHitPoint() + RESET);
 		System.out.println(DARK_GRAY + "┃" + RESET + " " + ITALIC + "Bag contents:" + RESET);
 
@@ -113,6 +115,43 @@ public class DisplayController {
 			for (Artefact item : hero.getArtefacts()) {
 				String equippedMark = item.getIsEquipped() ? GREEN + " (E)" + RESET : "";
 				System.out.println(DARK_GRAY + "┃" + RESET + "   • " + item.getName() + equippedMark);
+			}
+		}
+
+		System.out.println(DARK_GRAY + "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛" + RESET);
+	}
+
+	public void displayCurrentEnemy(Characters enemy, int knowledge) {
+		System.out.println("\n" + DARK_GRAY + "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓" + RESET);
+		System.out.println(DARK_GRAY + "┃" + RESET + BOLD + " ⚔️  " + enemy.getCharacterClass() + RESET);
+		if (knowledge >= 10)
+			System.out.println(DARK_GRAY + "┃" + RESET + " " + ITALIC + "Attack" + RESET + ": " + GREEN + enemy.getAttack() + RESET + "   " + ITALIC + "Defense" + RESET + ": " + GREEN + enemy.getDefense() + RESET);
+		else
+			System.out.println(DARK_GRAY + "┃" + RESET + " " + ITALIC + "Attack" + RESET + ": " + ITALIC + "????" + RESET + "   " + ITALIC + "Defense" + RESET + ": " + ITALIC + "????" + RESET);
+		if (knowledge >= 20)
+			System.out.println(DARK_GRAY + "┃" + RESET + " " + ITALIC + "Hit Points" + RESET + ": " + RED + enemy.getHitPoint() + "/" + enemy.getMaxHitPoint() + RESET);
+		else
+			System.out.println(DARK_GRAY + "┃" + RESET + " " + ITALIC + "Hit Points" + RESET + ": " + ITALIC + "????" + "/" + "????" + RESET);
+		if (knowledge >= 35) {
+			System.out.println(DARK_GRAY + "┃" + RESET + " " + ITALIC + "Bag contents:" + RESET);
+
+			if (enemy.getArtefacts().isEmpty()) {
+				System.out.println(DARK_GRAY + "┃" + RESET + "   " + RED + "Empty bag." + RESET);
+			} else {
+				for (Artefact item : enemy.getArtefacts()) {
+					System.out.println(DARK_GRAY + "┃" + RESET + "   • " + item.getName());
+				}
+			}
+		}
+		else {
+			System.out.println(DARK_GRAY + "┃" + RESET + " " + ITALIC + "Bag contents:" + RESET);
+
+			if (enemy.getArtefacts().isEmpty()) {
+				System.out.println(DARK_GRAY + "┃" + RESET + "   " + RED + "Empty bag." + RESET);
+			} else {
+				for (Artefact item : enemy.getArtefacts()) {
+					System.out.println(DARK_GRAY + "┃" + RESET + "   • " + "????");
+				}
 			}
 		}
 
