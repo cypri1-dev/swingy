@@ -16,7 +16,7 @@ public class FightLogic {
 
 		DisplayController.getInstance().clearTerminal();
 		DisplayController.getInstance().printSlow(FIGHT_TITLE);
-		if (tmp != null)
+		if (tmp == null)
 			
 			DisplayController.getInstance().displayCurrentEnemy(enemy, 0);
 		else
