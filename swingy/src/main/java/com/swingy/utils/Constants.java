@@ -166,21 +166,21 @@ public final class Constants {
 	};
 
 	public static final Map<String, Integer> WEAPONS_COMMON = Map.of(
-		"Rusty Dagger (+1.ATT)", 1,
-		"Iron Sword (+2.ATT)", 2,
-		"Wooden Mace (+1.ATT)", 1,
-		"Stone Axe (+2.ATT)", 2
+		"Rusty Dagger ", 1,
+		"Iron Sword ", 2,
+		"Wooden Mace ", 1,
+		"Stone Axe ", 2
 	);
 
 	public static final Map<String, Integer> WEAPONS_RARE = Map.of(
-		"Steel Axe (+3.ATT)", 3,
-		"Elven Longbow (+4.ATT)", 4,
-		"Iron Spear (+3.ATT)", 3
+		"Steel Axe", 3,
+		"Elven Longbow", 4,
+		"Iron Spear", 3
 	);
 
 	public static final Map<String, Integer> WEAPONS_EPIC = Map.of(
-		"Rune Blade (+5.ATT)", 5,
-		"Shadowfang (+6.ATT)", 6
+		"Rune Blade", 5,
+		"Shadowfang", 6
 	);
 
 	public static final Map<String, Integer> WEAPONS_LEGENDARY = Map.of(
@@ -190,49 +190,49 @@ public final class Constants {
 	/* -------------------- ARMORS (DEF bonus) -------------------- */
 
 	public static final Map<String, Integer> ARMORS_COMMON = Map.of(
-		"Leather Vest (+1.DEF)", 1,
-		"Chainmail (+2.DEF)", 2,
-		"Hide Armor (+1.DEF)", 1,
-		"Paw Leather (+2.DEF)", 2
+		"Leather Vest", 1,
+		"Chainmail", 2,
+		"Hide Armor", 1,
+		"Paw Leather", 2
 	);
 
 	public static final Map<String, Integer> ARMORS_RARE = Map.of(
-		"Iron Plate (+3.DEF)", 3,
-		"Dwarven Chestguard (+4.DEF)", 4,
-		"Steel Chain (+3.DEF)", 3
+		"Iron Plate", 3,
+		"Dwarven Chestguard", 4,
+		"Steel Chain", 3
 	);
 
 	public static final Map<String, Integer> ARMORS_EPIC = Map.of(
-		"Enchanted Breastplate (+5.DEF)", 5,
-		"Obsidian Armor (+6.DEF)", 6
+		"Enchanted Breastplate", 5,
+		"Obsidian Armor", 6
 	);
 
 	public static final Map<String, Integer> ARMORS_LEGENDARY = Map.of(
-		"Dragon Scale Armor (+7.DEF)", 7
+		"Dragon Scale Armor", 7
 	);
 
 	/* -------------------- HELMS (HP bonus) -------------------- */
 
 	public static final Map<String, Integer> HELMS_COMMON = Map.of(
-		"Leather Hood (+3.HP)", 3,
-		"Iron Helmet (+5.HP)", 5,
-		"Wooden Cap (+3.HP)", 3,
-		"Hide Helm (+4.HP)", 4
+		"Leather Hood", 3,
+		"Iron Helmet", 5,
+		"Wooden Cap", 3,
+		"Hide Helm", 4
 	);
 
 	public static final Map<String, Integer> HELMS_RARE = Map.of(
-		"Steel Helm (+8.HP)", 8,
-		"Guardian Mask (+10.HP)", 10,
-		"Iron Crown (+9.HP)", 9
+		"Steel Helm", 8,
+		"Guardian Mask", 10,
+		"Iron Crown", 9
 	);
 
 	public static final Map<String, Integer> HELMS_EPIC = Map.of(
-		"Warlord Crown (+12.HP)", 12,
-		"Helm of Eternity (+15.HP)", 15
+		"Warlord Crown", 12,
+		"Helm of Eternity", 15
 	);
 
 	public static final Map<String, Integer> HELMS_LEGENDARY = Map.of(
-		"Godslayer Helm (+30.HP)", 30
+		"Godslayer Helm", 30
 	);
 
 	/* SYMBOLS MAP */
@@ -521,16 +521,16 @@ public final class Constants {
 						     ▌   ▌             
 					▄▖    ▄                        
 					▄▌    ▌▌▛▘▛▌▛▌                 
-					▙▖▗   ▙▘▌ ▙▌▙▌                 
+					▄▌▗   ▙▘▌ ▙▌▙▌                 
 						    ▌                  
-					▄▖    ▖▖          ▗ ▘          
-					▄▌    ▌▌▛▘█▌  ▛▌▛▌▜▘▌▛▌▛▌      
-					▄▌▗   ▙▌▄▌▙▖  ▙▌▙▌▐▖▌▙▌▌▌      
+					▖▖    ▖▖          ▗ ▘          
+					▙▌    ▌▌▛▘█▌  ▛▌▛▌▜▘▌▛▌▛▌      
+					 ▌▗   ▙▌▄▌▙▖  ▙▌▙▌▐▖▌▙▌▌▌      
 						      ▌                
-					▖▖    ▄     ▌   ▗              
-					▙▌    ▙▘▀▌▛▘▙▘  ▜▘▛▌  ▛▌▀▌▛▛▌█▌
-					 ▌▗   ▙▘█▌▙▖▛▖  ▐▖▙▌  ▙▌█▌▌▌▌▙▖
-							      ▄▌       
+					▄▖    ▌     ▌   ▗              
+					▙▖    ▛▌▀▌▛▘▙▘  ▜▘▛▌  ▛▌▀▌▛▛▌█▌
+					▄▌▗   ▙▌█▌▙▖▛▖  ▐▖▙▌  ▙▌█▌▌▌▌▙▖
+                      		      ▄▌       
 			""";
 
 	public static final String FIGHT_TITLE = """
@@ -570,5 +570,26 @@ public final class Constants {
 			▜   ▌▌█▌▛▘    ▄▌  ▛▖▌▛▌
 			▟▖▗ ▐ ▙▖▄▌    ▙▖▗ ▌▝▌▙▌
 								
+			""";
+
+	public static final String TO_REMOVE = """
+			▄▖  ▗       ▘▗                   ▗      ▌  ▜   ▗         
+			▙▖▛▌▜▘█▌▛▘  ▌▜▘█▌▛▛▌  ▛▌▀▌▛▛▌█▌  ▜▘▛▌  ▛▌█▌▐ █▌▜▘█▌      
+			▙▖▌▌▐▖▙▖▌   ▌▐▖▙▖▌▌▌  ▌▌█▌▌▌▌▙▖  ▐▖▙▌  ▙▌▙▖▐▖▙▖▐▖▙▖▗ ▗ ▗ 
+																	
+			""";
+
+	public static final String TO_UNEQUIPPED = """
+			▄▖  ▗       ▘▗                   ▗               ▘       ▌      
+			▙▖▛▌▜▘█▌▛▘  ▌▜▘█▌▛▛▌  ▛▌▀▌▛▛▌█▌  ▜▘▛▌  ▌▌▛▌█▌▛▌▌▌▌▛▌▛▌█▌▛▌      
+			▙▖▌▌▐▖▙▖▌   ▌▐▖▙▖▌▌▌  ▌▌█▌▌▌▌▙▖  ▐▖▙▌  ▙▌▌▌▙▖▙▌▙▌▌▙▌▙▌▙▖▙▌▗ ▗ ▗ 
+								      ▌   ▌ ▌           
+			""";
+
+	public static final String TO_EQUIPPED = """
+			▄▖  ▗       ▘▗                   ▗           ▘       ▌      
+			▙▖▛▌▜▘█▌▛▘  ▌▜▘█▌▛▛▌  ▛▌▀▌▛▛▌█▌  ▜▘▛▌  █▌▛▌▌▌▌▛▌▛▌█▌▛▌      
+			▙▖▌▌▐▖▙▖▌   ▌▐▖▙▖▌▌▌  ▌▌█▌▌▌▌▙▖  ▐▖▙▌  ▙▖▙▌▙▌▌▙▌▙▌▙▖▙▌▗ ▗ ▗ 
+								  ▌   ▌ ▌           
 			""";
 }

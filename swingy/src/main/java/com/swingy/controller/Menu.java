@@ -134,11 +134,12 @@ public class Menu {
 		DisplayController.getInstance().printSlow(MAIN_HEADER);
 		DisplayController.getInstance().sleepTime(900);
 		DisplayController.getInstance().clearTerminal();
-		DisplayController.getInstance().printSlow(MAIN_MENU);
-
+		
 		String option = "";
-
+		
 		do {
+			DisplayController.getInstance().clearTerminal();
+			DisplayController.getInstance().printSlow(MAIN_MENU);
 			DisplayController.getInstance().printSlow(SELECT_OPTION);
 			option = DisplayController.getInstance().getUserInput();
 		} while (!option.equals("1") && !option.equals("2") && !option.equals("3") && !option.equals("4") && !option.equals("S"));
@@ -282,37 +283,111 @@ public class Menu {
 		DisplayController.getInstance().clearTerminal();
 		String option = "";
 		do {
+			DisplayController.getInstance().clearTerminal();
 			DisplayController.getInstance().printSlow(INVENTORY_MENU);
 			DisplayController.getInstance().displaySelelectedHero(this.ref.getMainHero());
 			option = DisplayController.getInstance().getUserInput();
 
-		} while(!option.equals("1") && !option.equals("2") && !option.equals("3") && !option.equals("4"));
+		} while(!option.equals("1") && !option.equals("2") && !option.equals("3") && !option.equals("4") && !option.equals("5"));
 
 		switch (option) {
 			case "1":
+				DisplayController.getInstance().printNormal(TO_EQUIPPED);
+				String itemEquip = DisplayController.getInstance().getUserInput();
+				Artefact toEquip = null;
+
+				for (Artefact item : ref.getMainHero().getArtefacts()) {
+					if (item.getName().equalsIgnoreCase(itemEquip)) {
+						toEquip = item;
+						break;
+					}
+				}
+
+				if (toEquip == null) {
+					DisplayController.getInstance().printNormal("❌ Item not found in your inventory.");
+					DisplayController.getInstance().printNormal("\nPress Enter to continue...");
+					break;
+				}
+
+				for (Artefact item : ref.getMainHero().getArtefacts()) {
+					if (item.getType().equals(toEquip.getType())) {
+						// item.setIsEquipped(false);
+						this.ref.getMainHero().unequipArtefact(item);
+					}
+				}
+				// toEquip.setIsEquipped(true);
+				this.ref.getMainHero().equipArtefact(toEquip);
+
 				break;
 			
 			case "2":
+				DisplayController.getInstance().printNormal(TO_UNEQUIPPED);
+				String itemUnequip = DisplayController.getInstance().getUserInput();
+				Artefact toUnequipped = null;
+
+				for (Artefact item : ref.getMainHero().getArtefacts()) {
+					if (item.getName().equals(itemUnequip)) {
+						toUnequipped = item;
+						break;
+					}
+				}
+
+				if (toUnequipped == null) {
+					DisplayController.getInstance().printNormal("❌ Item not found in your inventory.");
+					DisplayController.getInstance().printNormal("\nPress Enter to continue...");
+					break;
+				}
+
+				// toUnequipped.setIsEquipped(false);
+				this.ref.getMainHero().unequipArtefact(toUnequipped);
 				break;
 			
 			case "3":
-				Artefact tmp = null;
+				DisplayController.getInstance().printNormal(TO_REMOVE);
+				String itemName = DisplayController.getInstance().getUserInput().trim(); // ← ici !
+
+				Artefact toRemove = null;
+
+				for (Artefact test : ref.getMainHero().getArtefacts()) {
+					System.out.println("{item}: " + test.getName());
+				}
+
+				for (Artefact item : ref.getMainHero().getArtefacts()) {
+					if (item.getName().trim().equalsIgnoreCase(itemName)) { // ← et ici !
+						if (item.getIsEquipped()) {
+							this.ref.getMainHero().unequipArtefact(item);
+						}
+						toRemove = item;
+						break;
+					}
+				}
+
+				if (toRemove != null) {
+					ref.getMainHero().removeArtefact(toRemove);
+					DisplayController.getInstance().printNormal("🗑️  " + toRemove.getName() + " removed from inventory.");
+				} else {
+					DisplayController.getInstance().printNormal("❌ Item not found in your inventory.");
+				}
+
+				DisplayController.getInstance().printNormal("\nPress Enter to continue...");
+				DisplayController.getInstance().getUserInput();
+				break;
+
+			case "4":
+				Artefact potion = null;
 				for (Artefact item : ref.getMainHero().getArtefacts()) {
 					if (item.getType().equals(CONSOMMABLE_TYPE)) {
 						ref.healHero(item.getBonus());
-						tmp = item;
+						potion = item;
+						break;
 					}
 				}
-				if (tmp != null)
-					ref.getMainHero().removeArtefact(tmp);
-				break;
-			
-			case "4":
+				if (potion != null)
+					ref.getMainHero().removeArtefact(potion);
 				break;
 			
 			default:
 				break;
 		}
 	}
-
 }

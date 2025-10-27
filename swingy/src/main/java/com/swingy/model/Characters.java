@@ -164,26 +164,25 @@ public class Characters {
 	public void removeArtefact(Artefact item) {this.bag.remove(item);}
 
 	public void equipArtefact(Artefact item) {
-
 		for (Artefact artefact : bag) {
-			if (artefact.getIsEquipped() && item.getType() == artefact.getType()) {
-				System.out.println(ORANGE_BOLD + "Artefact type is already equipped!");
+			if (artefact.getIsEquipped() && item.getType().equals(artefact.getType())) {
+				System.out.println(ORANGE_BOLD + "Artefact type is already equipped!" + RESET);
 				return;
 			}
-			if (item.getName() == artefact.getName()) {
+			if (item.getName().equalsIgnoreCase(artefact.getName())) {
 				item.setIsEquipped(true);
 				switch (item.getType()) {
 					case ARMOR_TYPE:
-						this.setDefense(item.getBonus());
+						this.setDefense(this.getDefense() + item.getBonus());
 						break;
 					case HELM_TYPE:
-						this.setHitPoint(item.getBonus());
+						this.setHitPoint(this.getHitPoint() + item.getBonus());
 						break;
 					case WEAPON_TYPE:
-						this.setAttack(item.getBonus());
+						this.setAttack(this.getAttack() + item.getBonus());
 						break;
 					default:
-						System.out.println(RED_BOLD + "Error: unknown weapon type!");
+						System.out.println(RED_BOLD + "Error: unknown weapon type!" + RESET);
 				}
 				return;
 			}
@@ -193,26 +192,27 @@ public class Characters {
 
 	public void unequipArtefact(Artefact item) {
 		for (Artefact artefact : bag) {
-			if (artefact.getName() == item.getName()) {
+			if (item.getName().equalsIgnoreCase(artefact.getName())) {
 				item.setIsEquipped(false);
 				switch (item.getType()) {
 					case ARMOR_TYPE:
-						this.setDefense(-item.getBonus());
+						this.setDefense(this.getDefense() - item.getBonus());
 						break;
 					case HELM_TYPE:
-						this.setHitPoint(-item.getBonus());
+						this.setHitPoint(this.getHitPoint() - item.getBonus());
 						break;
 					case WEAPON_TYPE:
-						this.setAttack(-item.getBonus());
+						this.setAttack(this.getAttack() - item.getBonus());
 						break;
 					default:
-						System.out.println(RED_BOLD + "Error: unknown weapon type!");
+						System.out.println(RED_BOLD + "Error: unknown weapon type!" + RESET);
 				}
 				return;
 			}
 		}
 		System.out.println(ORANGE_BOLD + "Error: no such Artefact!" + RESET);
 	}
+
 
 	public String getName() {return this.name;}
 	public String getType() {return this.type;}

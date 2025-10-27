@@ -17,10 +17,10 @@ public class Artefact {
 		this.coord = new Coordinates(0, 0);
 
 		switch(rarity) {
-			case COMMON: this.name = COMMON_COLOR + ITALIC + name + RESET; break;
-			case RARE: this.name = BLUE + ITALIC + name + RESET; break;
-			case EPIC: this.name = EPIC_COLOR + ITALIC + name + RESET; break;
-			case LEGENDARY: this.name = LEGENDARY_COLOR + ITALIC + name + RESET; break;
+			case COMMON: this.name = name; break;
+			case RARE: this.name = name; break;
+			case EPIC: this.name = name; break;
+			case LEGENDARY: this.name = name; break;
 			default: break;
 		}
 	}
@@ -28,7 +28,7 @@ public class Artefact {
 	protected void setType(String type) {this.type = type;}
 	protected void setName(String name) {this.name = name;}
 	protected void setBonus(int bonus) {this.bonus = bonus;}
-	protected void setIsEquipped(boolean equipped) {this.isEquipped = equipped;}
+	public void setIsEquipped(boolean equipped) {this.isEquipped = equipped;}
 	public String getType() {return this.type;}
 	public String getName() {return this.name;}
 	public int getBonus() {return this.bonus;}

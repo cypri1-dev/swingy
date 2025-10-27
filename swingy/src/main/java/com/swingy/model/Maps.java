@@ -46,7 +46,7 @@ public class Maps {
 		int countConsommable = (int)(this.size * this.size * DENSITY_CONSOMMABLE);
 
 		for (int i = 0; i < countConsommable; i++) {
-			Artefact healingPotion = ArtefactFactory.getInstance().newArtefact(CONSOMMABLE_TYPE, "Healing Potion ⚗️ (+10HP)", COMMON, 10);
+			Artefact healingPotion = ArtefactFactory.getInstance().newArtefact(CONSOMMABLE_TYPE, "Healing Potion", COMMON, 10);
 
 			int tmpX;
 			int tmpY;
@@ -87,7 +87,7 @@ public class Maps {
 				} else if (lootPercent >= 200) {
 					loot = createRandomLoot(COMMON);
 				} else if (lootPercent >=70 && lootPercent < 200)
-					loot = ArtefactFactory.getInstance().newArtefact(CONSOMMABLE_TYPE, "Healing Potion ⚗️ (+10HP)", COMMON, 10);
+					loot = ArtefactFactory.getInstance().newArtefact(CONSOMMABLE_TYPE, "Healing Potion", COMMON, 10);
 
 			String randomEnemy = ENEMIES_LIST_NAMES[ThreadLocalRandom.current().nextInt(0, 10)];
 			Characters tmpEnemy = CharactersFactory.getInstance().newCharacters(ENEMY_TYPE, "Enemy" + "(" + i + ")" , randomEnemy);

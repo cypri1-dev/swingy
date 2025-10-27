@@ -18,17 +18,17 @@ public class FightLogic {
 		
 		do {
 			DisplayController.getInstance().clearTerminal();
-			DisplayController.getInstance().printSlow(FIGHT_TITLE);
+			DisplayController.getInstance().printNormal(FIGHT_TITLE);
 			if (tmp == null)
 				
 				DisplayController.getInstance().displayCurrentEnemy(enemy, 0);
 			else
 				DisplayController.getInstance().displayCurrentEnemy(enemy, hero.getKnowledge().getMap().get(enemy.getCharacterClass()));
-			DisplayController.getInstance().printNormal(FIGHT_MENU);
-			option = DisplayController.getInstance().getUserInput();
-
-			switch (option) {
-				case "1":
+				DisplayController.getInstance().printNormal(FIGHT_MENU);
+				option = DisplayController.getInstance().getUserInput();
+				
+				switch (option) {
+					case "1":
 					int diceHero1 = ThreadLocalRandom.current().nextInt(1, 7);
 					int diceHero2 = ThreadLocalRandom.current().nextInt(1, 7);
 					int diceEnemy1 = ThreadLocalRandom.current().nextInt(1, 7);
@@ -38,7 +38,7 @@ public class FightLogic {
 					int initE = (diceEnemy1 + diceEnemy2) + enemy.getAttack();
 
 					if (initH == initE) {
-						DisplayController.getInstance().printNormal(SAME_POWER);
+						DisplayController.getInstance().printNormal("⚔️  Both fighters clash with equal strength  ⚔️  No one was hurt!");
 						DisplayController.getInstance().getUserInput();
 						continue;
 					}
@@ -47,15 +47,15 @@ public class FightLogic {
 						int rawDamage = ThreadLocalRandom.current().nextInt(1, hero.getAttack() + 1);
 						int damage = Math.max(1, rawDamage - enemy.getDefense() / 2);
 						enemy.setHitPoint(-damage);
-						System.out.println("💥 " + hero.getName() +  " hits " + enemy.getCharacterClass() +  " for " + damage + " damage!");
+						DisplayController.getInstance().printNormal("💥 " + hero.getName() +  " hits " + enemy.getCharacterClass() +  " for " + damage + " damage!");
 					} else {
 						int rawDamage = ThreadLocalRandom.current().nextInt(1, enemy.getAttack() + 1);
 						int damage = Math.max(1, rawDamage - hero.getDefense() / 2);
 						hero.setHitPoint(-damage);
-						System.out.println("🗡️ " + enemy.getCharacterClass() + " hits " + hero.getName() + " for " + damage + " damage!");
+						DisplayController.getInstance().printNormal("🗡️ " + enemy.getCharacterClass() + " hits " + hero.getName() + " for " + damage + " damage!");
 					}
-
-					System.out.println("❤️ HERO HP: " + hero.getHitPoint() + " | 💀 ENEMY HP: " + enemy.getHitPoint());
+					DisplayController.getInstance().printNormal("\nPress Enter to continue...");
+					// DisplayController.getInstance().printNormal("❤️ HERO HP: " + hero.getHitPoint() + " | 💀 ENEMY HP: " + enemy.getHitPoint());
 					DisplayController.getInstance().getUserInput();
 					break;
 
@@ -65,24 +65,25 @@ public class FightLogic {
 					if (fullBlock <= 0)
 						fullBlock = 0;
 					hero.setHitPoint(-fullBlock);
-					System.out.println("🛡️ The hero blocks it! Not today, villain! You took " + fullBlock + " damage!");
+					DisplayController.getInstance().printNormal("🛡️ The hero blocks it! Not today, villain! You took " + fullBlock + " damage!");
+					DisplayController.getInstance().printNormal("\nPress Enter to continue...");
 					DisplayController.getInstance().getUserInput();
 					break;
 
 				case "3":
 					int luck = ThreadLocalRandom.current().nextInt(0, 2);
 					if (luck == 0) {
-						// escape FAIL
-						System.out.println("💨 The hero tries to escape... but fails!");
+						DisplayController.getInstance().printNormal("💨 The hero tries to escape... but fails!");
+						DisplayController.getInstance().printNormal("\nPress Enter to continue...");
 						DisplayController.getInstance().getUserInput();	
 						break;
 					}
 					else {
 						hero.getCoordinates().setXBack(hero.getCoordinates().getPrevX());
 						hero.getCoordinates().setYBack(hero.getCoordinates().getPrevY());
-						System.out.println("🏃‍♂️ With lightning reflexes, the hero escapes into the shadows!");
+						DisplayController.getInstance().printNormal("🏃‍♂️ With lightning reflexes, the hero escapes into the shadows!");
+						DisplayController.getInstance().printNormal("\nPress Enter to continue...");
 						DisplayController.getInstance().getUserInput();
-						// msg esacpe OK
 						return;
 					}
 				
@@ -95,9 +96,9 @@ public class FightLogic {
 		} while ((enemy.getHitPoint() > 0 && hero.getHitPoint() > 0) || (!option.equals("1") && !option.equals("2") && !option.equals("3") && !option.equals("4")));
 
 		if (hero.getHitPoint() <= 0) {
-			System.out.println(RED_BOLD + "💀 GAME OVER" + RESET);
+			DisplayController.getInstance().printNormal(RED_BOLD + "💀 GAME OVER" + RESET);
 		} else {
-			System.out.println(GREEN_BOLD + "🏆 ENEMY DEFEATED!" + RESET);
+			DisplayController.getInstance().printNormal(GREEN_BOLD + "🏆 ENEMY DEFEATED!" + RESET);
 			hero.addXP(enemy.getXp());
 			hero.getKnowledge().addKnowledge(enemy);
 			if (!enemy.getArtefacts().isEmpty()) {
@@ -114,7 +115,7 @@ public class FightLogic {
 			}
 		}
 
-		System.out.println("\nPress Enter to continue...");
+		DisplayController.getInstance().printNormal("\nPress Enter to continue...");
 		DisplayController.getInstance().getUserInput();
 	}
 }

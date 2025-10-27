@@ -114,7 +114,42 @@ public class DisplayController {
 		} else {
 			for (Artefact item : hero.getArtefacts()) {
 				String equippedMark = item.getIsEquipped() ? GREEN + " (E)" + RESET : "";
-				System.out.println(DARK_GRAY + "┃" + RESET + "   • " + item.getName() + equippedMark);
+				String color = "";
+				String type = "";
+
+				switch (item.getRarity()) {
+					case COMMON:
+						color = COMMON_COLOR + ITALIC;
+						break;
+					case RARE:
+						color = BLUE + ITALIC;
+						break;
+					case EPIC:
+						color = EPIC_COLOR + ITALIC;
+						break;
+					case LEGENDARY:
+						color = LEGENDARY_COLOR + ITALIC;
+						break;
+					default:
+						break;
+				}
+
+				switch (item.getType()) {
+					case CONSOMMABLE_TYPE:
+						type = "HP";
+						break;
+					case WEAPON_TYPE:
+						type = "ATT";
+					case ARMOR_TYPE:
+						type = "DEF";
+						break;
+					case HELM_TYPE:
+						type = "HP";
+						break;
+					default:
+						break;
+				}
+				System.out.println(DARK_GRAY + "┃" + RESET + "   • " + color + item.getName() + " (+" + item.getBonus() + ")" + type + " " + RESET + equippedMark);
 			}
 		}
 
