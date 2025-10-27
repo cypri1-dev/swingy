@@ -100,9 +100,14 @@ public class FightLogic {
 			System.out.println(GREEN_BOLD + "🏆 ENEMY DEFEATED!" + RESET);
 			hero.addXP(enemy.getXp());
 			hero.getKnowledge().addKnowledge(enemy);
-			int random = ThreadLocalRandom.current().nextInt(1, 101);
-			if (random >= 75) {
-				if (!enemy.getArtefacts().isEmpty()) {
+			if (!enemy.getArtefacts().isEmpty()) {
+				String choice = "";
+				DisplayController.getInstance().printNormal(LOOT);
+				do {
+					DisplayController.getInstance().printNormal(LOOT_OPTION);
+					choice = DisplayController.getInstance().getUserInput();
+				} while(!choice.contains("1") && !choice.contains("2"));
+				if (choice.contains("1")) {
 					hero.addArtefact(enemy.getArtefacts().get(0));
 					enemy.removeArtefact(enemy.getArtefacts().get(0));
 				}
