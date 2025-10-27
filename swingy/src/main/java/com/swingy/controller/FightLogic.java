@@ -100,6 +100,13 @@ public class FightLogic {
 			System.out.println(GREEN_BOLD + "🏆 ENEMY DEFEATED!" + RESET);
 			hero.addXP(enemy.getXp());
 			hero.getKnowledge().addKnowledge(enemy);
+			int random = ThreadLocalRandom.current().nextInt(1, 101);
+			if (random >= 75) {
+				if (!enemy.getArtefacts().isEmpty()) {
+					hero.addArtefact(enemy.getArtefacts().get(0));
+					enemy.removeArtefact(enemy.getArtefacts().get(0));
+				}
+			}
 		}
 
 		System.out.println("\nPress Enter to continue...");

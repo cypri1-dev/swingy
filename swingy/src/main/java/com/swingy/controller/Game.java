@@ -1,7 +1,7 @@
 package com.swingy.controller;
 
 import com.swingy.model.Characters;
-import com.swingy.model.Map;
+import com.swingy.model.Maps;
 import com.swingy.model.MapFactory;
 import com.swingy.view.DisplayController;
 
@@ -15,7 +15,7 @@ public class Game {
 	private List<Characters> avaibleHeros;
 	private Characters selectedHero;
 	private Menu menu;
-	private Map actualMap;
+	private Maps actualMap;  
 	private List<String> herosName;
 
 	/* -------------------------------------------------- GAME CONSTRUCTOR -------------------------------------------------- */
@@ -31,11 +31,11 @@ public class Game {
 	/* -------------------------------------------------- GETTERS | SETTERS -------------------------------------------------- */
 
 	public Menu getMenu() {return this.menu;}
-	public Map getMap() {return this.actualMap;}
+	public Maps getMap() {return this.actualMap;}
 	public List<String> getHeroesNameList() {return this.herosName;}
 	public Characters getMainHero() {return this.selectedHero;}
 	public void setSelectedHero(Characters hero) {this.selectedHero = hero;}
-	public void setActualMap(Map map) {this.actualMap = map;}
+	public void setActualMap(Maps map) {this.actualMap = map;}
 	public List<Characters> getListAvaible() {return this.avaibleHeros;}
 
 	/* -------------------------------------------------- GAME CONTROLLER -------------------------------------------------- */

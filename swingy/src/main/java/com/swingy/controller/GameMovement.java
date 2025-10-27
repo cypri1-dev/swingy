@@ -2,7 +2,7 @@ package com.swingy.controller;
 
 import com.swingy.model.Artefact;
 import com.swingy.model.Characters;
-import com.swingy.model.Map;
+import com.swingy.model.Maps;
 import com.swingy.view.DisplayController;
 
 import static com.swingy.utils.Constants.*;
@@ -11,7 +11,7 @@ public class GameMovement {
 
 	/* -------------------------------------------------- CHECK FIGHT METHOD -------------------------------------------------- */
 
-	private void checkFight(Characters hero, Map map, Menu menu) {
+	private void checkFight(Characters hero, Maps map, Menu menu) {
 
 		if (!map.map[hero.getCoordinates().getPrevX()][hero.getCoordinates().getPrevY()].contains("!")) {
 			map.map[hero.getCoordinates().getPrevX()][hero.getCoordinates().getPrevY()] = BLUE + "*" + RESET;
@@ -38,7 +38,7 @@ public class GameMovement {
 
 	/* -------------------------------------------------- CHECK CONSOMMABLE METHOD -------------------------------------------------- */
 
-	private void checkConsommable(Characters hero, Map map) {
+	private void checkConsommable(Characters hero, Maps map) {
 
 		Artefact tmp = null;
 
@@ -57,7 +57,7 @@ public class GameMovement {
 
 	/* -------------------------------------------------- CHECK END LEVEL METHOD -------------------------------------------------- */
 
-	private void checkEndLevel(Characters hero, Map map) {
+	private void checkEndLevel(Characters hero, Maps map) {
 		if (hero.getCoordinates().getX() == 0 || hero.getCoordinates().getX() == map.getSize() - 1 || hero.getCoordinates().getY() == 0 || hero.getCoordinates().getY() == map.getSize() - 1) {
 			// System.out.println(DEBUG_BOLD + "LVL COMPLETED!" + RESET);
 			map.setLevelCompleted(true);
@@ -66,7 +66,7 @@ public class GameMovement {
 
 	/* -------------------------------------------------- MOVING METHOD -------------------------------------------------- */
 
-	public void moveNorth(Characters hero, Map map, Menu menu) {
+	public void moveNorth(Characters hero, Maps map, Menu menu) {
 
 		hero.getCoordinates().setPrevX(hero.getCoordinates().getX());
 		hero.getCoordinates().setPrevY(hero.getCoordinates().getY());
@@ -79,7 +79,7 @@ public class GameMovement {
 	}
 
 
-	public void moveEast(Characters hero, Map map, Menu menu) {
+	public void moveEast(Characters hero, Maps map, Menu menu) {
 		hero.getCoordinates().setPrevX(hero.getCoordinates().getX());
 		hero.getCoordinates().setPrevY(hero.getCoordinates().getY());
 
@@ -90,7 +90,7 @@ public class GameMovement {
 		checkEndLevel(hero, map);
 	}
 
-	public void moveSouth(Characters hero, Map map, Menu menu) {
+	public void moveSouth(Characters hero, Maps map, Menu menu) {
 		hero.getCoordinates().setPrevX(hero.getCoordinates().getX());
 		hero.getCoordinates().setPrevY(hero.getCoordinates().getY());
 		
@@ -101,7 +101,7 @@ public class GameMovement {
 		checkEndLevel(hero, map);
 	}
 
-	public void moveWest(Characters hero, Map map, Menu menu) {
+	public void moveWest(Characters hero, Maps map, Menu menu) {
 		hero.getCoordinates().setPrevX(hero.getCoordinates().getX());
 		hero.getCoordinates().setPrevY(hero.getCoordinates().getY());
 		

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.swingy.controller.GameMovement;
-import com.swingy.model.Knowledge;
 
 public class Characters {
 	private String type;

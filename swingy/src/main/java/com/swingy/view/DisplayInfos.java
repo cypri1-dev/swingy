@@ -2,7 +2,7 @@ package com.swingy.view;
 
 import com.swingy.model.Artefact;
 import com.swingy.model.Characters;
-import com.swingy.model.Map;
+import com.swingy.model.Maps;
 import static com.swingy.utils.Constants.*;
 
 public class DisplayInfos {
@@ -59,7 +59,7 @@ public class DisplayInfos {
 		System.out.println(DEBUG_BOLD + "--- END ARTEFACT DATA ---" + RESET);
 	}
 
-	public static void printMap(Map map) {
+	public static void printMap(Maps map) {
 		for (int i = 0; i < map.getSize(); i++) {
 			for (int j = 0; j < map.getSize(); j++) {
 				System.out.print(map.map[i][j]);
@@ -68,7 +68,7 @@ public class DisplayInfos {
 		}
 	}
 
-	public static void printEnemyInMap(Map map) {
+	public static void printEnemyInMap(Maps map) {
 		for (Characters elem : map.getListEnemies()) {
 			printEnemy(elem);
 		}

@@ -12,7 +12,7 @@ public class MapFactory {
 		return instance;
 	}
 
-	public Map newMap(Characters hero) {
-		return new Map(hero);
+	public Maps newMap(Characters hero) {
+		return new Maps(hero);
 	}
 }

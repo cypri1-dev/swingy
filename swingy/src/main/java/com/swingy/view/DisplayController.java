@@ -47,7 +47,7 @@ public class DisplayController {
 			}
 			else
 				// change befor final push
-				Thread.sleep(TIME_DEV);
+				Thread.sleep(25);
 		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
 			}
@@ -150,7 +150,23 @@ public class DisplayController {
 				System.out.println(DARK_GRAY + "┃" + RESET + "   " + RED + "Empty bag." + RESET);
 			} else {
 				for (Artefact item : enemy.getArtefacts()) {
-					System.out.println(DARK_GRAY + "┃" + RESET + "   • " + "????");
+					String rarity = item.getRarity();
+					String color = "";
+					switch (rarity) {
+						case COMMON:
+							color = COMMON_COLOR;
+							break;
+						case RARE:
+							color = BLUE;
+							break;
+						case EPIC:
+							color = EPIC_COLOR;
+							break;
+						case LEGENDARY:
+							color = LEGENDARY_COLOR;
+							break;
+					}
+					System.out.println(DARK_GRAY + "┃" + RESET + "   • " + color + "????" + RESET);
 				}
 			}
 		}

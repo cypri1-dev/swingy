@@ -3,10 +3,11 @@ package com.swingy.model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.Map;
 
 import static com.swingy.utils.Constants.*;
 
-public class Map {
+public class Maps {
 	private int size;
 	public String[][] map;
 	private List<Characters> enemiesList;
@@ -14,7 +15,7 @@ public class Map {
 	private boolean levelCompleted;
 	private List<Artefact> consommableList;
 
-	protected Map(Characters hero) {
+	protected Maps(Characters hero) {
 		this.mainHero = hero;
 		this.size =(hero.getLevel() - 1) * 5 + 10 - (hero.getLevel() % 2);
 		this.map = new String[this.size][this.size];
@@ -40,22 +41,6 @@ public class Map {
 		this.map[mainHero.getCoordinates().getX()][mainHero.getCoordinates().getPrevY()] = SYMBOL_MAIN_HERO;
 	}
 
-	public String getSymbolEnemy(Characters enemy) {
-		// switch (enemy.getCharacterClass()) {
-		// 	case ENEMY_CLASS_GOBELIN: return SYMBOL_ENEMY_GOBELIN;
-		// 	case ENEMY_CLASS_ORC: return SYMBOL_ENEMY_ORC;
-		// 	case ENEMY_CLASS_SKELETON: return SYMBOL_ENEMY_SKELETON;
-		// 	case ENEMY_CLASS_BANDIT: return SYMBOL_ENEMY_BANDIT;
-		// 	case ENEMY_CLASS_DARK_MAGE:return SYMBOL_ENEMY_DARK_MAGE;
-		// 	case ENEMY_CLASS_TROLL: return SYMBOL_ENEMY_TROLL;
-		// 	case ENEMY_CLASS_ASSASSIN: return SYMBOL_ENEMY_ASSASSIN;
-		// 	case ENEMY_CLASS_CULTIST: return SYMBOL_ENEMY_CULTIST;
-		// 	case ENEMY_CLASS_ELEMENTAL: return SYMBOL_ENEMY_ELEMENTAL;
-		// 	case ENEMY_CLASS_DRAGON_WHELP: return SYMBOL_ENEMY_DRAGON_WHELP;
-		// 	default: return "?";
-		// }
-		return "*";
-	}
 
 	private void generateRandomConsommable(List<String> occupiedCoords) {
 		int countConsommable = (int)(this.size * this.size * DENSITY_CONSOMMABLE);
@@ -85,11 +70,25 @@ public class Map {
 
 	private List<String> generateRandomEnemies() {
 		int enemyCount = (int)(this.size * this.size * DENSITY);
-		// System.out.println(DEBUG_BOLD + "[enemyCount]: " + enemyCount + " | [density]: " + DENSITY + RESET);
 
 		List<String> occupiedCoords = new ArrayList<>();
 
 		for (int i = 0; i < enemyCount; i++) {
+
+			Artefact loot = null;
+
+			int lootPercent = ThreadLocalRandom.current().nextInt(1, 1001);
+				if (lootPercent >= 900) {
+					loot = createRandomLoot(LEGENDARY);
+				} else if (lootPercent >= 700) {
+					loot = createRandomLoot(EPIC);
+				} else if (lootPercent >= 500) {
+					loot = createRandomLoot(RARE);
+				} else if (lootPercent >= 200) {
+					loot = createRandomLoot(COMMON);
+				} else if (lootPercent >=70 && lootPercent < 200)
+					loot = ArtefactFactory.getInstance().newArtefact(CONSOMMABLE_TYPE, "Healing Potion ⚗️ (+10HP)", COMMON, 10);
+
 			String randomEnemy = ENEMIES_LIST_NAMES[ThreadLocalRandom.current().nextInt(0, 10)];
 			Characters tmpEnemy = CharactersFactory.getInstance().newCharacters(ENEMY_TYPE, "Enemy" + "(" + i + ")" , randomEnemy);
 
@@ -107,13 +106,67 @@ public class Map {
 
 			tmpEnemy.getCoordinates().setX(tmpX);
 			tmpEnemy.getCoordinates().setY(tmpY);
+			if (loot != null)
+				tmpEnemy.addArtefact(loot);
 
 			this.enemiesList.add(tmpEnemy);
 
-			// this.map[tmpX][tmpY] = getSymbolEnemy(tmpEnemy);
 			this.map[tmpX][tmpY] = "*";
 		}
 		return occupiedCoords;
+	}
+
+	public Artefact createRandomLoot(String rarity) {
+		String nameLoot = "";
+		int power = -1;
+		String typeLoot = LOOT_TYPE[ThreadLocalRandom.current().nextInt(0, 4)];
+
+		Map<String, Integer> lootMap = switch (typeLoot) {
+			case WEAPON_TYPE -> getWeaponMapByRarity(rarity);
+			case ARMOR_TYPE  -> getArmorMapByRarity(rarity);
+			case HELM_TYPE   -> getHelmMapByRarity(rarity);
+			default -> null;
+		};
+
+		if (lootMap == null || lootMap.isEmpty()) {
+			return null;
+		}
+
+		List<String> lootNames = new ArrayList<>(lootMap.keySet());
+		nameLoot = lootNames.get(ThreadLocalRandom.current().nextInt(lootNames.size()));
+		power = lootMap.get(nameLoot);
+
+		return ArtefactFactory.getInstance().newArtefact(typeLoot, nameLoot, rarity, power);
+	}
+
+	private Map<String, Integer> getWeaponMapByRarity(String rarity) {
+		return switch (rarity) {
+			case LEGENDARY -> WEAPONS_LEGENDARY;
+			case EPIC -> WEAPONS_EPIC;
+			case RARE -> WEAPONS_RARE;
+			case COMMON -> WEAPONS_COMMON;
+			default -> Map.of();
+		};
+	}
+
+	private Map<String, Integer> getArmorMapByRarity(String rarity) {
+		return switch (rarity) {
+			case LEGENDARY -> ARMORS_LEGENDARY;
+			case EPIC -> ARMORS_EPIC;
+			case RARE -> ARMORS_RARE;
+			case COMMON -> ARMORS_COMMON;
+			default -> Map.of();
+		};
+	}
+
+	private Map<String, Integer> getHelmMapByRarity(String rarity) {
+		return switch (rarity) {
+			case LEGENDARY -> HELMS_LEGENDARY;
+			case EPIC -> HELMS_EPIC;
+			case RARE -> HELMS_RARE;
+			case COMMON -> HELMS_COMMON;
+			default -> Map.of();
+		};
 	}
 
 
