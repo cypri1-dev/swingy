@@ -38,7 +38,7 @@ public class Menu {
 			removeHero();
 	}
 
-	public void arenaOption() {
+	public void arenaOption(Menu menu) {
 		Characters hero = selectHero(ref);
 		if (hero == null) return;
 
@@ -47,7 +47,7 @@ public class Menu {
 		DisplayController.getInstance().clearTerminal();
 		DisplayController.getInstance().displayMap(ref);
 
-		ref.runArenaLoop();
+		ref.runArenaLoop(menu);
 
 		endArena();
 	}
@@ -151,7 +151,7 @@ public class Menu {
 				heroesManagementOption();
 				break;
 			case "3":
-				arenaOption();
+				arenaOption(this);
 				break;
 			case "4":
 				exitOption();

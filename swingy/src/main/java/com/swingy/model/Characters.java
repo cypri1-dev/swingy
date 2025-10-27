@@ -149,6 +149,7 @@ public class Characters {
 	protected void setDefense(int defense) {this.defense += defense;}
 	public void setHitPoint(int hp) {this.hitPoint += hp;}
 	public void setMaxHitPoint(int hp) {this.maxHitPoint += hp;}
+	public void setHealHp(int hp) {this.hitPoint = hp;}
 
 	public void addXP(int amount) {
 		int nextLevel = (int) (this.level * 1000 + Math.pow(this.level - 1, 2) * 450);

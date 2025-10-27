@@ -28,4 +28,6 @@ public class Coordinates {
 	public int getPrevX() {return this.prevX;}
 	public int getY() {return this.y;}
 	public int getPrevY() {return this.prevY;}
+	public void setXBack(int x) {this.x = x;}
+	public void setYBack(int y) {this.y = y;}
 }

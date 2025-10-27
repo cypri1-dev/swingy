@@ -46,7 +46,7 @@ public class Game {
 		setActualMap(MapFactory.getInstance().newMap(hero));
 	}
 
-	public void runArenaLoop() {
+	public void runArenaLoop(Menu menu) {
 		DisplayController display = DisplayController.getInstance();
 		boolean running = true;
 
@@ -62,10 +62,10 @@ public class Game {
 			String input = display.getUserInput().trim().toUpperCase();
 
 			switch (input) {
-				case "W" -> moveHero('A'); // 'A' = haut
-				case "S" -> moveHero('B'); // 'B' = bas
-				case "D" -> moveHero('C'); // 'C' = droite
-				case "A" -> moveHero('D'); // 'D' = gauche
+				case "W" -> moveHero('A', menu); // 'A' = haut
+				case "S" -> moveHero('B', menu); // 'B' = bas
+				case "D" -> moveHero('C', menu); // 'C' = droite
+				case "A" -> moveHero('D', menu); // 'D' = gauche
 				case "I" -> {
 					// display.clearTerminal();
 					// display.displaySelelectedHero(getMainHero());
@@ -83,12 +83,12 @@ public class Game {
 		}
 	}
 
-	public void moveHero(char arrow) {
+	public void moveHero(char arrow, Menu menu) {
 		switch (arrow) {
-			case 'A' -> getMainHero().getMovement().moveNorth(getMainHero(), getMap());
-			case 'B' -> getMainHero().getMovement().moveSouth(getMainHero(), getMap());
-			case 'C' -> getMainHero().getMovement().moveEast(getMainHero(), getMap());
-			case 'D' -> getMainHero().getMovement().moveWest(getMainHero(), getMap());
+			case 'A' -> getMainHero().getMovement().moveNorth(getMainHero(), getMap(), menu);
+			case 'B' -> getMainHero().getMovement().moveSouth(getMainHero(), getMap(), menu);
+			case 'C' -> getMainHero().getMovement().moveEast(getMainHero(), getMap(), menu);
+			case 'D' -> getMainHero().getMovement().moveWest(getMainHero(), getMap(), menu);
 			default -> {}
 		}
 	}
@@ -112,9 +112,16 @@ public class Game {
 			case ASSASSIN_CLASS: maxHp = HP_BASE + HP_ASSASSIN; break;
 			default: break;
 		}
+
+		int tmpHP = this.getMainHero().getHitPoint();
+		if ((tmpHP + amount) > maxHp)
+			this.getMainHero().setHealHp(maxHp);
+		else
+			this.getMainHero().setHealHp(tmpHP + amount);
 		
-		this.getMainHero().setHitPoint(amount);
-		if (this.getMainHero().getHitPoint() > maxHp)
-			this.getMainHero().setHitPoint(-(this.getMainHero().getHitPoint() - maxHp));
+		// this.getMainHero().setHitPoint(amount);
+		// if (this.getMainHero().getHitPoint() > maxHp)
+		// 	this.getMainHero().setHitPoint(-(this.getMainHero().getHitPoint() - maxHp));
+		// else
 	}
 }

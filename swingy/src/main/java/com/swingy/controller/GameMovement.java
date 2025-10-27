@@ -11,7 +11,7 @@ public class GameMovement {
 
 	/* -------------------------------------------------- CHECK FIGHT METHOD -------------------------------------------------- */
 
-	private void checkFight(Characters hero, Map map) {
+	private void checkFight(Characters hero, Map map, Menu menu) {
 
 		if (!map.map[hero.getCoordinates().getPrevX()][hero.getCoordinates().getPrevY()].contains("!")) {
 			map.map[hero.getCoordinates().getPrevX()][hero.getCoordinates().getPrevY()] = BLUE + "*" + RESET;
@@ -22,7 +22,7 @@ public class GameMovement {
 
 				// fight logic !
 				// System.out.println(enemy.getCharacterClass() + " | " + enemy.getCoordinates().getX() + ", " + enemy.getCoordinates().getY());
-				FightLogic.fight(enemy, hero);
+				FightLogic.fight(enemy, hero, menu);
 
 				map.map[hero.getCoordinates().getX()][hero.getCoordinates().getY()] = BLUE + "!" + RESET;
 				// TEST WIN 
@@ -66,48 +66,48 @@ public class GameMovement {
 
 	/* -------------------------------------------------- MOVING METHOD -------------------------------------------------- */
 
-	public void moveNorth(Characters hero, Map map) {
+	public void moveNorth(Characters hero, Map map, Menu menu) {
 
 		hero.getCoordinates().setPrevX(hero.getCoordinates().getX());
 		hero.getCoordinates().setPrevY(hero.getCoordinates().getY());
 
 		hero.getCoordinates().setX(-1);
 
-		checkFight(hero, map);
+		checkFight(hero, map, menu);
 		checkConsommable(hero, map);
 		checkEndLevel(hero, map);
 	}
 
 
-	public void moveEast(Characters hero, Map map) {
+	public void moveEast(Characters hero, Map map, Menu menu) {
 		hero.getCoordinates().setPrevX(hero.getCoordinates().getX());
 		hero.getCoordinates().setPrevY(hero.getCoordinates().getY());
 
 		hero.getCoordinates().setY(+1);
 		
-		checkFight(hero, map);
+		checkFight(hero, map, menu);
 		checkConsommable(hero, map);
 		checkEndLevel(hero, map);
 	}
 
-	public void moveSouth(Characters hero, Map map) {
+	public void moveSouth(Characters hero, Map map, Menu menu) {
 		hero.getCoordinates().setPrevX(hero.getCoordinates().getX());
 		hero.getCoordinates().setPrevY(hero.getCoordinates().getY());
 		
 		hero.getCoordinates().setX(+1);
 		
-		checkFight(hero, map);
+		checkFight(hero, map, menu);
 		checkConsommable(hero, map);
 		checkEndLevel(hero, map);
 	}
 
-	public void moveWest(Characters hero, Map map) {
+	public void moveWest(Characters hero, Map map, Menu menu) {
 		hero.getCoordinates().setPrevX(hero.getCoordinates().getX());
 		hero.getCoordinates().setPrevY(hero.getCoordinates().getY());
 		
 		hero.getCoordinates().setY(-1);
 		
-		checkFight(hero, map);
+		checkFight(hero, map, menu);
 		checkConsommable(hero, map);
 		checkEndLevel(hero, map);
 	}
