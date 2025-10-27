@@ -118,10 +118,5 @@ public class Game {
 			this.getMainHero().setHealHp(maxHp);
 		else
 			this.getMainHero().setHealHp(tmpHP + amount);
-		
-		// this.getMainHero().setHitPoint(amount);
-		// if (this.getMainHero().getHitPoint() > maxHp)
-		// 	this.getMainHero().setHitPoint(-(this.getMainHero().getHitPoint() - maxHp));
-		// else
 	}
 }

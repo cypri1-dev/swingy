@@ -251,7 +251,6 @@ public class Menu {
 		String selectedHero = "";
 		do {
 			DisplayController.getInstance().printSlow(DELETE_HERO + "\n");
-			// System.out.println("\n");
 			selectedHero = DisplayController.getInstance().getUserInput();
 		} while (!ref.heroExists(selectedHero) && !selectedHero.equals("X") && !selectedHero.equals("x"));
 
@@ -276,8 +275,6 @@ public class Menu {
 			display.printSlow(GAME_OVER);
 		else
 			display.printSlow(EXIT_GAME);
-		// display.printSlow("🏁 Level completed or game exited.\n");
-		// display.printSlow("Press ENTER to return.\n");
 		DisplayController.getInstance().getUserInput();
 	}
 
