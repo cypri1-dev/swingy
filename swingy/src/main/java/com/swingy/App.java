@@ -1,8 +1,8 @@
 package com.swingy;
 
 
-import javax.swing.*;          // Pour JFrame, JLabel, JButton, JTextField
-import java.awt.event.*;  
+// import javax.swing.*;          // Pour JFrame, JLabel, JButton, JTextField
+// import java.awt.event.*;  
 
 import com.swingy.controller.Game;
 
@@ -49,119 +49,6 @@ public class App {
 		// });
 
 		// frame.setVisible(true);
-
-		/* TESTS HERO - ENEMY - ARTEFACT */
-
-		// Characters myHero = CharactersFactory.getInstance().newCharacters(HERO_TYPE, "Adshum", MAGE_CLASS);
-		// Characters myEnemy = CharactersFactory.getInstance().newCharacters(ENEMY_TYPE, "Bandit", ASSASSIN_CLASS);
-		// DisplayInfos.printHero(myHero);
-		// DisplayInfos.printEnemy(myEnemy);
-		// Artefact testItem0 = ArtefactFactory.getInstance().newArtefact(WEAPON_TYPE, "Deuillegivre", 10);
-		// Artefact testItem1 = ArtefactFactory.getInstance().newArtefact(HELM_TYPE, "Casque de bronze", 3);
-		// Artefact testItem2 = ArtefactFactory.getInstance().newArtefact(ARMOR_TYPE, "Pastron en cuir", 4);
-		// DisplayInfos.printArtefact(testItem0);
-		// DisplayInfos.printArtefact(testItem1);
-		// DisplayInfos.printArtefact(testItem2);
-		// myHero.addArtefact(testItem0);
-		// DisplayInfos.printHero(myHero);
-		// myHero.addArtefact(testItem1);
-		// myHero.addArtefact(testItem2);
-		// myHero.removeArtefact(testItem0);
-		// DisplayInfos.printHero(myHero);
-
-		/* TESTS CLASS STATS */
-
-		// Characters warrior = CharactersFactory.getInstance().newCharacters(HERO_TYPE, "Adshum", WARRIOR_CLASS);
-		// Characters mage = CharactersFactory.getInstance().newCharacters(HERO_TYPE, "Adshum", MAGE_CLASS);
-		// Characters archer = CharactersFactory.getInstance().newCharacters(HERO_TYPE, "Adshum", ARCHER_CLASS);
-		// Characters paladin = CharactersFactory.getInstance().newCharacters(HERO_TYPE, "Adshum", PALADIN_CLASS);
-		// Characters assassin = CharactersFactory.getInstance().newCharacters(HERO_TYPE, "Adshum", ASSASSIN_CLASS);
-
-		// DisplayInfos.printHero(warrior);
-		// DisplayInfos.printHero(mage);
-		// DisplayInfos.printHero(archer);
-		// DisplayInfos.printHero(paladin);
-		// DisplayInfos.printHero(assassin);
-		
-		// Characters bandit = CharactersFactory.getInstance().newCharacters(ENEMY_TYPE, "Bandit", ARCHER_CLASS);
-		// DisplayInfos.printEnemy(bandit);
-
-		/* TESTS ITEM EQUIPPED AND UNEQUIPPED */
-
-		// Characters warrior = CharactersFactory.getInstance().newCharacters(HERO_TYPE, "Adshum", WARRIOR_CLASS);
-		// Artefact testItem0 = ArtefactFactory.getInstance().newArtefact(WEAPON_TYPE, "Deuillegivre", 10);
-		// Artefact sword = ArtefactFactory.getInstance().newArtefact(WEAPON_TYPE, "Sword", 11);
-		// Artefact testItem1 = ArtefactFactory.getInstance().newArtefact(HELM_TYPE, "Casque de bronze", 3);
-
-
-		// warrior.addArtefact(testItem0);
-		// warrior.addArtefact(sword);
-		// warrior.addArtefact(testItem1);
-		// warrior.equipArtefact(testItem0);
-		// DisplayInfos.printHero(warrior);
-		// warrior.equipArtefact(testItem1);
-		// warrior.equipArtefact(sword);
-		// DisplayInfos.printHero(warrior);
-		// warrior.unequipArtefact(testItem1);
-		// warrior.unequipArtefact(testItem0);
-		// DisplayInfos.printHero(warrior);
-		// warrior.removeArtefact(sword);
-		// DisplayInfos.printHero(warrior);
-		// warrior.unequipArtefact(testItem0);
-		// DisplayInfos.printHero(warrior);
-
-		/* MAP TESTS */
-
-		// Characters warrior = CharactersFactory.getInstance().newCharacters(HERO_TYPE, "Adshum", WARRIOR_CLASS);
-		// Map myMap = MapFactory.getInstance().newMap(warrior);
-
-		// DisplayInfos.printMap(myMap);
-		// // DisplayInfos.printEnemyInMap(myMap);
-		// System.out.println("------------------------------------");
-		// warrior.getMovement().moveNorth(warrior, myMap);
-		// DisplayInfos.printMap(myMap);
-		// System.out.println("------------------------------------");
-
-		// warrior.getMovement().moveNorth(warrior, myMap);
-		// DisplayInfos.printMap(myMap);
-		// System.out.println("------------------------------------");
-
-		// // warrior.getMovement().moveNorth(warrior, myMap);
-		// // DisplayInfos.printMap(myMap);
-		// warrior.getMovement().moveNorth(warrior, myMap);
-		// // warrior.getMovement().moveEast(warrior, myMap);
-		// // warrior.getMovement().moveEast(warrior, myMap);
-		// // warrior.getMovement().moveWest(warrior, myMap);
-		// // warrior.getMovement().moveWest(warrior, myMap);
-		// // warrior.getMovement().moveWest(warrior, myMap);
-		// DisplayInfos.printMap(myMap);
-
-		// System.out.println("------------------------------------");
-		// System.out.println("------------------------------------");
-
-
-		// warrior.getMovement().moveSouth(warrior, myMap);
-
-		// DisplayInfos.printMap(myMap);
-
-		// System.out.println("------------------------------------");
-
-		// warrior.getMovement().moveSouth(warrior, myMap);
-
-		// DisplayInfos.printMap(myMap);
-		// System.out.println("------------------------------------");
-
-		// warrior.getMovement().moveSouth(warrior, myMap);
-
-		// DisplayInfos.printMap(myMap);
-		// System.out.println("------------------------------------");
-
-		// warrior.getMovement().moveSouth(warrior, myMap);
-
-		// DisplayInfos.printMap(myMap);
-		// System.out.println("------------------------------------");
-
-		// DisplayInfos.printHero(warrior);
 
 		Game rpg = new Game();
 

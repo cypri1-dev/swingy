@@ -297,7 +297,7 @@ public class Menu {
 				Artefact toEquip = null;
 
 				for (Artefact item : ref.getMainHero().getArtefacts()) {
-					if (item.getName().equalsIgnoreCase(itemEquip)) {
+					if (itemEquip.contains(item.getName())) {
 						toEquip = item;
 						break;
 					}
@@ -306,16 +306,10 @@ public class Menu {
 				if (toEquip == null) {
 					DisplayController.getInstance().printNormal("❌ Item not found in your inventory.");
 					DisplayController.getInstance().printNormal("\nPress Enter to continue...");
+					DisplayController.getInstance().getUserInput();
 					break;
 				}
 
-				for (Artefact item : ref.getMainHero().getArtefacts()) {
-					if (item.getType().equals(toEquip.getType())) {
-						// item.setIsEquipped(false);
-						this.ref.getMainHero().unequipArtefact(item);
-					}
-				}
-				// toEquip.setIsEquipped(true);
 				this.ref.getMainHero().equipArtefact(toEquip);
 
 				break;
@@ -326,7 +320,7 @@ public class Menu {
 				Artefact toUnequipped = null;
 
 				for (Artefact item : ref.getMainHero().getArtefacts()) {
-					if (item.getName().equals(itemUnequip)) {
+					if (itemUnequip.contains(item.getName())) {
 						toUnequipped = item;
 						break;
 					}
@@ -335,25 +329,25 @@ public class Menu {
 				if (toUnequipped == null) {
 					DisplayController.getInstance().printNormal("❌ Item not found in your inventory.");
 					DisplayController.getInstance().printNormal("\nPress Enter to continue...");
+					DisplayController.getInstance().getUserInput();
 					break;
 				}
 
-				// toUnequipped.setIsEquipped(false);
 				this.ref.getMainHero().unequipArtefact(toUnequipped);
 				break;
 			
 			case "3":
 				DisplayController.getInstance().printNormal(TO_REMOVE);
-				String itemName = DisplayController.getInstance().getUserInput().trim(); // ← ici !
+				String itemName = DisplayController.getInstance().getUserInput();
 
 				Artefact toRemove = null;
 
-				for (Artefact test : ref.getMainHero().getArtefacts()) {
-					System.out.println("{item}: " + test.getName());
-				}
+				// for (Artefact test : ref.getMainHero().getArtefacts()) {
+				// 	System.out.println("{item}: " + test.getName());
+				// }
 
 				for (Artefact item : ref.getMainHero().getArtefacts()) {
-					if (item.getName().trim().equalsIgnoreCase(itemName)) { // ← et ici !
+					if (itemName.contains(item.getName())) {
 						if (item.getIsEquipped()) {
 							this.ref.getMainHero().unequipArtefact(item);
 						}
@@ -362,15 +356,15 @@ public class Menu {
 					}
 				}
 
-				if (toRemove != null) {
-					ref.getMainHero().removeArtefact(toRemove);
-					DisplayController.getInstance().printNormal("🗑️  " + toRemove.getName() + " removed from inventory.");
-				} else {
-					DisplayController.getInstance().printNormal("❌ Item not found in your inventory.");
-				}
+					if (toRemove != null) {
+						ref.getMainHero().removeArtefact(toRemove);
+						DisplayController.getInstance().printNormal("🗑️  " + toRemove.getName() + " removed from inventory.");
+					} else {
+						DisplayController.getInstance().printNormal("❌ Item not found in your inventory.");
+					}
 
-				DisplayController.getInstance().printNormal("\nPress Enter to continue...");
-				DisplayController.getInstance().getUserInput();
+					DisplayController.getInstance().printNormal("\nPress Enter to continue...");
+					DisplayController.getInstance().getUserInput();
 				break;
 
 			case "4":
@@ -385,9 +379,12 @@ public class Menu {
 				if (potion != null)
 					ref.getMainHero().removeArtefact(potion);
 				break;
-			
-			default:
+
+			case "5":
 				break;
+			
+			// default:
+			// 	break;
 		}
 	}
 }

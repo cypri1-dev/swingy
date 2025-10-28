@@ -68,10 +68,6 @@ public class Game {
 				case "D" -> moveHero('C', menu); // 'C' = droite
 				case "A" -> moveHero('D', menu); // 'D' = gauche
 				case "I" -> {
-					// display.clearTerminal();
-					// display.displaySelelectedHero(getMainHero());
-					// display.printSlow(ENTER_BACK_GAME);
-					// display.getUserInput();
 					this.menu.inventoryMenu();
 				}
 				case "X" -> running = false;
@@ -103,21 +99,11 @@ public class Game {
 	}
 
 	public void healHero(int amount) {
-		int maxHp = -1;
+		int maxHp = this.selectedHero.getMaxHitPoint();
 		
-		switch(this.getMainHero().getCharacterClass()) {
-			case WARRIOR_CLASS: maxHp = HP_BASE + HP_WARRIOR; break;
-			case MAGE_CLASS: maxHp = HP_BASE + HP_MAGE; break;
-			case ARCHER_CLASS: maxHp = HP_BASE + HP_ARCHER; break;
-			case PALADIN_CLASS: maxHp = HP_BASE + HP_PALADIN; break;
-			case ASSASSIN_CLASS: maxHp = HP_BASE + HP_ASSASSIN; break;
-			default: break;
-		}
-
-		int tmpHP = this.getMainHero().getHitPoint();
-		if ((tmpHP + amount) > maxHp)
-			this.getMainHero().setHealHp(maxHp);
-		else
-			this.getMainHero().setHealHp(tmpHP + amount);
+		int currentHP = this.selectedHero.getHitPoint() + amount;
+		if (currentHP > maxHp)
+			currentHP = maxHp;
+		this.selectedHero.setHealHp(currentHP);
 	}
 }

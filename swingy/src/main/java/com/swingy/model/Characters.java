@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.swingy.controller.GameMovement;
+import com.swingy.view.DisplayController;
 
 public class Characters {
 	private String type;
@@ -25,6 +26,7 @@ public class Characters {
 		this.name = name;
 		this.characterClass = characterClass;
 		this.bag = new ArrayList<Artefact>();
+		// this.bag.add(ArtefactFactory.getInstance().newArtefact(WEAPON_TYPE, "TEST", LEGENDARY, 10));
 		this.knowledge = Knowledge.getInstance();
 		this.coord = new Coordinates(0, 0);
 
@@ -147,7 +149,7 @@ public class Characters {
 	protected void setAttack(int attack) {this.attack += attack;}
 	protected void setDefense(int defense) {this.defense += defense;}
 	public void setHitPoint(int hp) {this.hitPoint += hp;}
-	public void setMaxHitPoint(int hp) {this.maxHitPoint += hp;}
+	public void setMaxHitPoint(int hp) {this.maxHitPoint = hp;}
 	public void setHealHp(int hp) {this.hitPoint = hp;}
 
 	public void addXP(int amount) {
@@ -164,55 +166,69 @@ public class Characters {
 	public void removeArtefact(Artefact item) {this.bag.remove(item);}
 
 	public void equipArtefact(Artefact item) {
-		for (Artefact artefact : bag) {
-			if (artefact.getIsEquipped() && item.getType().equals(artefact.getType())) {
-				System.out.println(ORANGE_BOLD + "Artefact type is already equipped!" + RESET);
-				return;
-			}
-			if (item.getName().equalsIgnoreCase(artefact.getName())) {
-				item.setIsEquipped(true);
-				switch (item.getType()) {
-					case ARMOR_TYPE:
-						this.setDefense(this.getDefense() + item.getBonus());
-						break;
-					case HELM_TYPE:
-						this.setHitPoint(this.getHitPoint() + item.getBonus());
-						break;
-					case WEAPON_TYPE:
-						this.setAttack(this.getAttack() + item.getBonus());
-						break;
-					default:
-						System.out.println(RED_BOLD + "Error: unknown weapon type!" + RESET);
-				}
-				return;
+		if (item.getIsEquipped())
+			return;
+
+		for (Artefact artefact : this.bag) {
+			if (artefact.getType().equals(item.getType()) && artefact.getIsEquipped()) {
+				this.unequipArtefact(artefact);
+				break;
 			}
 		}
-		System.out.println(ORANGE_BOLD + "Error: no such Artefact!" + RESET);
+		item.setIsEquipped(true);
+		int bonus = -1;
+
+		switch (item.getType()) {
+			case WEAPON_TYPE:
+				int actualAtt = this.attack;
+				bonus = item.getBonus();
+				this.attack = actualAtt + bonus;
+				break;
+
+			case ARMOR_TYPE:
+				int actualDef = this.defense;
+				bonus = item.getBonus();
+				this.defense = actualDef + bonus;
+				break;
+			
+			case HELM_TYPE:
+				int actualMaxHp = this.maxHitPoint;
+				bonus = item.getBonus();
+				this.maxHitPoint = actualMaxHp + bonus;
+				break;
+			default:
+				break;
+		}
 	}
 
 	public void unequipArtefact(Artefact item) {
-		for (Artefact artefact : bag) {
-			if (item.getName().equalsIgnoreCase(artefact.getName())) {
-				item.setIsEquipped(false);
-				switch (item.getType()) {
-					case ARMOR_TYPE:
-						this.setDefense(this.getDefense() - item.getBonus());
-						break;
-					case HELM_TYPE:
-						this.setHitPoint(this.getHitPoint() - item.getBonus());
-						break;
-					case WEAPON_TYPE:
-						this.setAttack(this.getAttack() - item.getBonus());
-						break;
-					default:
-						System.out.println(RED_BOLD + "Error: unknown weapon type!" + RESET);
-				}
-				return;
-			}
-		}
-		System.out.println(ORANGE_BOLD + "Error: no such Artefact!" + RESET);
-	}
+		if (!item.getIsEquipped())
+			return;
+		item.setIsEquipped(false);
+		int bonus = -1;
 
+		switch (item.getType()) {
+			case WEAPON_TYPE:
+				int actualAtt = this.attack;
+				bonus = item.getBonus();
+				this.attack = actualAtt - bonus;
+				break;
+
+			case ARMOR_TYPE:
+				int actualDef = this.defense;
+				bonus = item.getBonus();
+				this.defense = actualDef - bonus;
+				break;
+			
+			case HELM_TYPE:
+				int actualMaxHp = this.maxHitPoint;
+				bonus = item.getBonus();
+				this.maxHitPoint = actualMaxHp - bonus;
+				break;
+			default:
+				break;
+		}
+	}
 
 	public String getName() {return this.name;}
 	public String getType() {return this.type;}

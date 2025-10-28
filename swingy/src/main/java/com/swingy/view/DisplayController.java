@@ -140,6 +140,7 @@ public class DisplayController {
 						break;
 					case WEAPON_TYPE:
 						type = "ATT";
+						break;
 					case ARMOR_TYPE:
 						type = "DEF";
 						break;
