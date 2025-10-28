@@ -1,11 +1,7 @@
 package com.swingy.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import static com.swingy.utils.Constants.*;
 
 public class Knowledge {
 

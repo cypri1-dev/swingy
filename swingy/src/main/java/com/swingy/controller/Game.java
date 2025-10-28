@@ -1,6 +1,5 @@
 package com.swingy.controller;
 
-import com.swingy.model.Artefact;
 import com.swingy.model.Characters;
 import com.swingy.model.Maps;
 import com.swingy.model.MapFactory;
@@ -8,7 +7,6 @@ import com.swingy.view.DisplayController;
 
 import static com.swingy.utils.Constants.*;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 

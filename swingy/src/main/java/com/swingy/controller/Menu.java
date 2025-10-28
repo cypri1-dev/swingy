@@ -3,8 +3,6 @@ package com.swingy.controller;
 import static com.swingy.utils.Constants.*;
 
 import java.util.Set;
-import java.util.List;
-import java.util.ArrayList;
 
 import com.swingy.model.CharactersFactory;
 import com.swingy.view.DisplayController;
@@ -339,12 +337,7 @@ public class Menu {
 			case "3":
 				DisplayController.getInstance().printNormal(TO_REMOVE);
 				String itemName = DisplayController.getInstance().getUserInput();
-
 				Artefact toRemove = null;
-
-				// for (Artefact test : ref.getMainHero().getArtefacts()) {
-				// 	System.out.println("{item}: " + test.getName());
-				// }
 
 				for (Artefact item : ref.getMainHero().getArtefacts()) {
 					if (itemName.contains(item.getName())) {
@@ -383,8 +376,8 @@ public class Menu {
 			case "5":
 				break;
 			
-			// default:
-			// 	break;
+			default:
+				break;
 		}
 	}
 }
