@@ -166,10 +166,10 @@ public final class Constants {
 	};
 
 	public static final Map<String, Integer> WEAPONS_COMMON = Map.of(
-		"Rusty Dagger ", 1,
-		"Iron Sword ", 2,
-		"Wooden Mace ", 1,
-		"Stone Axe ", 2
+		"Rusty Dagger", 1,
+		"Iron Sword", 2,
+		"Wooden Mace", 1,
+		"Stone Axe", 2
 	);
 
 	public static final Map<String, Integer> WEAPONS_RARE = Map.of(
@@ -184,7 +184,7 @@ public final class Constants {
 	);
 
 	public static final Map<String, Integer> WEAPONS_LEGENDARY = Map.of(
-		"Excalibur (+10.ATT)", 10
+		"Excalibur", 10
 	);
 	
 	/* -------------------- ARMORS (DEF bonus) -------------------- */

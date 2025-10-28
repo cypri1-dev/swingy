@@ -223,6 +223,8 @@ public class Characters {
 				int actualMaxHp = this.maxHitPoint;
 				bonus = item.getBonus();
 				this.maxHitPoint = actualMaxHp - bonus;
+				if (this.hitPoint > this.maxHitPoint)
+					this.hitPoint = maxHitPoint;
 				break;
 			default:
 				break;
