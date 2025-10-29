@@ -13,8 +13,7 @@ The game supports both **console mode** and **GUI mode (Swing)**, and is built u
 - [Usage](#usage)  
 - [Project Structure](#project-structure)  
 - [UML Diagram](#uml-diagram)  
-- [Contributing](#contributing)  
-- [License](#license)
+- [Example](#example)  
 
 ---
 
