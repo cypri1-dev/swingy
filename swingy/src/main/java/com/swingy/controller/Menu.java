@@ -12,25 +12,27 @@ import com.swingy.model.Characters;
 public class Menu {
 
 	private Game ref;
+	private static DisplayController display;
 
 	Menu(Game game) {
 		this.ref = game;
+		this.display = DisplayController.getInstance();
 	}
 
 	/* -------------------------------------------------- MENU OPTIONS -------------------------------------------------- */
 
 	private void creationOption() {
-		DisplayController.getInstance().clearTerminal();
+		display.clearTerminal();
 		createHero();
 	}
 
 	private void heroesManagementOption() {
-		DisplayController.getInstance().clearTerminal();
-		DisplayController.getInstance().printSlow(VIEW_HEROS);
+		display.clearTerminal();
+		display.printSlow(VIEW_HEROS);
 		viewMyHeros();
 		if (this.ref.getListAvaible().isEmpty()) {
-			DisplayController.getInstance().printSlow(ENTER_BACK);
-			DisplayController.getInstance().getUserInput();
+			display.printSlow(ENTER_BACK);
+			display.getUserInput();
 		}
 		else
 			removeHero();
@@ -42,8 +44,8 @@ public class Menu {
 
 		ref.placeHero(hero);
 
-		DisplayController.getInstance().clearTerminal();
-		DisplayController.getInstance().displayMap(ref);
+		display.clearTerminal();
+		display.displayMap(ref);
 
 		ref.runArenaLoop(menu);
 
@@ -51,18 +53,18 @@ public class Menu {
 	}
 
 	private void exitOption() {
-		DisplayController.getInstance().clearTerminal();
-		DisplayController.getInstance().printSlow(OUT_MSG);
-		DisplayController.getInstance().closeScanner();
+		display.clearTerminal();
+		display.printSlow(OUT_MSG);
+		display.closeScanner();
 		System.exit(0);
 	}
 
 	public void d_vOption() {
-		DisplayController.getInstance().clearTerminal();
+		display.clearTerminal();
 		String optionSelected = "";
 		do {
-			DisplayController.getInstance().printSlow(A_SIMPLE + "\n");
-			optionSelected = DisplayController.getInstance().getUserInput();
+			display.printSlow(A_SIMPLE + "\n");
+			optionSelected = display.getUserInput();
 		} while (!optionSelected.equals("1") && !optionSelected.equals("2") && !optionSelected.equals("3") && !optionSelected.equals("4"));
 
 		switch (optionSelected) {
@@ -73,12 +75,12 @@ public class Menu {
 
 				do {
 					try {
-						DisplayController.getInstance().printSlow(SPEED + "\n");
-						s___d = Integer.parseInt(DisplayController.getInstance().getUserInput());
+						display.printSlow(SPEED + "\n");
+						s___d = Integer.parseInt(display.getUserInput());
 						validInput = true;
 					}
 					catch (NumberFormatException e) {
-						System.out.println("NOP");
+						display.printNormal("NOP");
 					}
 				} while (!validInput || s___d < 0);
 				D_V_S___D_T_T = s___d;
@@ -128,18 +130,18 @@ public class Menu {
 	/* -------------------------------------------------- MAIN MENU -------------------------------------------------- */
 
 	public void launchGame() {
-		DisplayController.getInstance().clearTerminal();
-		DisplayController.getInstance().printSlow(MAIN_HEADER);
-		DisplayController.getInstance().sleepTime(900);
-		DisplayController.getInstance().clearTerminal();
+		display.clearTerminal();
+		display.printSlow(MAIN_HEADER);
+		display.sleepTime(900);
+		display.clearTerminal();
 		
 		String option = "";
 		
 		do {
-			DisplayController.getInstance().clearTerminal();
-			DisplayController.getInstance().printSlow(MAIN_MENU);
-			DisplayController.getInstance().printSlow(SELECT_OPTION);
-			option = DisplayController.getInstance().getUserInput();
+			display.clearTerminal();
+			display.printSlow(MAIN_MENU);
+			display.printSlow(SELECT_OPTION);
+			option = display.getUserInput();
 		} while (!option.equals("1") && !option.equals("2") && !option.equals("3") && !option.equals("4") && !option.equals("S"));
 
 		switch (option) {
@@ -166,23 +168,23 @@ public class Menu {
 	public void createHero() {
 		Set<String> validOption = Set.of("1", "2", "3", "4", "5");
 
-		DisplayController.getInstance().printSlow(MENU_CREATION);
-		DisplayController.getInstance().printSlow(NAME_HERO);
+		display.printSlow(MENU_CREATION);
+		display.printSlow(NAME_HERO);
 		String inputName = "";
 		do {
-			inputName = DisplayController.getInstance().getUserInput();
+			inputName = display.getUserInput();
 			if (inputName.isEmpty() || ref.heroExists(inputName)) {
-				DisplayController.getInstance().printSlow(ERROR_NAME);
+				display.printSlow(ERROR_NAME);
 			}
 			if (inputName.equals("x") || inputName.equals("X"))
 				return;
-		} while (inputName.isEmpty() || ref.heroExists(inputName));
+		} while (inputName.isEmpty() || ref.heroExists(inputName) || inputName.equals("X") || inputName.equals("x"));
 		ref.registerHeroName(inputName);
-		DisplayController.getInstance().clearTerminal();
+		display.clearTerminal();
 		String optionClass = "";
 		do {
-			DisplayController.getInstance().printSlow(CHOOSE_CLASS);
-			optionClass = DisplayController.getInstance().getUserInput();
+			display.printSlow(CHOOSE_CLASS);
+			optionClass = display.getUserInput();
 
 		} while (!validOption.contains(optionClass));
 		
@@ -209,16 +211,15 @@ public class Menu {
 		ref.getListAvaible().add(CharactersFactory.getInstance().newCharacters(HERO_TYPE, inputName, characterClass));
 	}
 
-	/* -------------------------------------------------- METHOD MENU -------------------------------------------------- */
+	/* -------------------------------------------------- METHOD MAIN MENU -------------------------------------------------- */
 
 	public Characters selectHero(Game game) {
-		DisplayController display = DisplayController.getInstance();
 		display.clearTerminal();
 		display.printMyHeros(game);
 
 		if (game.getListAvaible().isEmpty()) {
 			display.printSlow(WARNING);
-			DisplayController.getInstance().getUserInput();
+			display.getUserInput();
 			return null;
 		}
 
@@ -226,7 +227,7 @@ public class Menu {
 		String input;
 		do {
 			display.printSlow(SELECT_HERO + "\n");
-			input = DisplayController.getInstance().getUserInput();
+			input = display.getUserInput();
 
 			if (input.equalsIgnoreCase("x")) return null;
 
@@ -242,15 +243,15 @@ public class Menu {
 	}
 
 	public void viewMyHeros() {
-		DisplayController.getInstance().printMyHeros(ref);
+		display.printMyHeros(ref);
 	}
 
 	public void removeHero() {
 		
 		String selectedHero = "";
 		do {
-			DisplayController.getInstance().printSlow(DELETE_HERO + "\n");
-			selectedHero = DisplayController.getInstance().getUserInput();
+			display.printSlow(DELETE_HERO + "\n");
+			selectedHero = display.getUserInput();
 		} while (!ref.heroExists(selectedHero) && !selectedHero.equals("X") && !selectedHero.equals("x"));
 
 		Characters toRemove = null;
@@ -267,110 +268,128 @@ public class Menu {
 	}
 
 	public void endArena() {
-		DisplayController display = DisplayController.getInstance();
 		if (this.ref.getMap().getLevelCompleted())
 			display.printSlow(LVL_COMPLETE);
 		else if (this.ref.getMainHero().getHitPoint() <= 0)
 			display.printSlow(GAME_OVER);
 		else
 			display.printSlow(EXIT_GAME);
-		DisplayController.getInstance().getUserInput();
+		display.getUserInput();
 	}
 
+	/* -------------------------------------------------- INVENTORY MENU OPTIONS -------------------------------------------------- */
+
+	private void equipOption() {
+		display.printNormal(TO_EQUIPPED);
+		String itemEquip = display.getUserInput();
+		Artefact toEquip = null;
+
+		for (Artefact item : ref.getMainHero().getArtefacts()) {
+			if (itemEquip.contains(item.getName())) {
+				toEquip = item;
+				break;
+			}
+		}
+
+		if (toEquip == null) {
+			display.printNormal("❌ Item not found in your inventory.");
+			display.printNormal("\nPress Enter to continue...");
+			display.getUserInput();
+			return;
+		}
+
+		this.ref.getMainHero().equipArtefact(toEquip);
+	}
+
+	private void unequipOption() {
+		display.printNormal(TO_UNEQUIPPED);
+		String itemUnequip = display.getUserInput();
+		Artefact toUnequipped = null;
+
+		for (Artefact item : ref.getMainHero().getArtefacts()) {
+			if (itemUnequip.contains(item.getName())) {
+				toUnequipped = item;
+				break;
+			}
+		}
+
+		if (toUnequipped == null) {
+			display.printNormal("❌ Item not found in your inventory.");
+			display.printNormal("\nPress Enter to continue...");
+			display.getUserInput();
+			return;
+		}
+
+		this.ref.getMainHero().unequipArtefact(toUnequipped);
+	}
+
+	private void dropOption() {
+		display.printNormal(TO_REMOVE);
+		String itemName = display.getUserInput();
+		Artefact toRemove = null;
+
+		for (Artefact item : ref.getMainHero().getArtefacts()) {
+			if (itemName.contains(item.getName())) {
+				if (item.getIsEquipped()) {
+					this.ref.getMainHero().unequipArtefact(item);
+				}
+				toRemove = item;
+				break;
+			}
+		}
+
+			if (toRemove != null) {
+				ref.getMainHero().removeArtefact(toRemove);
+				display.printNormal("🗑️  " + toRemove.getName() + " removed from inventory.");
+			} else {
+				display.printNormal("❌ Item not found in your inventory.");
+			}
+
+			display.printNormal("\nPress Enter to continue...");
+			display.getUserInput();
+	}
+
+	private void potionOption() {
+		Artefact potion = null;
+		for (Artefact item : ref.getMainHero().getArtefacts()) {
+			if (item.getType().equals(CONSOMMABLE_TYPE)) {
+				ref.healHero(item.getBonus());
+				potion = item;
+				break;
+			}
+		}
+		if (potion != null)
+			ref.getMainHero().removeArtefact(potion);
+	}
+	
+	/* -------------------------------------------------- INVENTORY MENU -------------------------------------------------- */
+
 	public void inventoryMenu() {
-		DisplayController.getInstance().clearTerminal();
+		display.clearTerminal();
 		String option = "";
 		do {
-			DisplayController.getInstance().clearTerminal();
-			DisplayController.getInstance().printSlow(INVENTORY_MENU);
-			DisplayController.getInstance().displaySelelectedHero(this.ref.getMainHero());
-			option = DisplayController.getInstance().getUserInput();
+			display.clearTerminal();
+			display.printSlow(INVENTORY_MENU);
+			display.displaySelelectedHero(this.ref.getMainHero());
+			option = display.getUserInput();
 
 		} while(!option.equals("1") && !option.equals("2") && !option.equals("3") && !option.equals("4") && !option.equals("5"));
 
 		switch (option) {
 			case "1":
-				DisplayController.getInstance().printNormal(TO_EQUIPPED);
-				String itemEquip = DisplayController.getInstance().getUserInput();
-				Artefact toEquip = null;
-
-				for (Artefact item : ref.getMainHero().getArtefacts()) {
-					if (itemEquip.contains(item.getName())) {
-						toEquip = item;
-						break;
-					}
-				}
-
-				if (toEquip == null) {
-					DisplayController.getInstance().printNormal("❌ Item not found in your inventory.");
-					DisplayController.getInstance().printNormal("\nPress Enter to continue...");
-					DisplayController.getInstance().getUserInput();
-					break;
-				}
-
-				this.ref.getMainHero().equipArtefact(toEquip);
-
+				equipOption();
 				break;
-			
+
 			case "2":
-				DisplayController.getInstance().printNormal(TO_UNEQUIPPED);
-				String itemUnequip = DisplayController.getInstance().getUserInput();
-				Artefact toUnequipped = null;
-
-				for (Artefact item : ref.getMainHero().getArtefacts()) {
-					if (itemUnequip.contains(item.getName())) {
-						toUnequipped = item;
-						break;
-					}
-				}
-
-				if (toUnequipped == null) {
-					DisplayController.getInstance().printNormal("❌ Item not found in your inventory.");
-					DisplayController.getInstance().printNormal("\nPress Enter to continue...");
-					DisplayController.getInstance().getUserInput();
-					break;
-				}
-
-				this.ref.getMainHero().unequipArtefact(toUnequipped);
+				unequipOption();
 				break;
 			
 			case "3":
-				DisplayController.getInstance().printNormal(TO_REMOVE);
-				String itemName = DisplayController.getInstance().getUserInput();
-				Artefact toRemove = null;
-
-				for (Artefact item : ref.getMainHero().getArtefacts()) {
-					if (itemName.contains(item.getName())) {
-						if (item.getIsEquipped()) {
-							this.ref.getMainHero().unequipArtefact(item);
-						}
-						toRemove = item;
-						break;
-					}
-				}
-
-					if (toRemove != null) {
-						ref.getMainHero().removeArtefact(toRemove);
-						DisplayController.getInstance().printNormal("🗑️  " + toRemove.getName() + " removed from inventory.");
-					} else {
-						DisplayController.getInstance().printNormal("❌ Item not found in your inventory.");
-					}
-
-					DisplayController.getInstance().printNormal("\nPress Enter to continue...");
-					DisplayController.getInstance().getUserInput();
+				dropOption();
 				break;
 
 			case "4":
-				Artefact potion = null;
-				for (Artefact item : ref.getMainHero().getArtefacts()) {
-					if (item.getType().equals(CONSOMMABLE_TYPE)) {
-						ref.healHero(item.getBonus());
-						potion = item;
-						break;
-					}
-				}
-				if (potion != null)
-					ref.getMainHero().removeArtefact(potion);
+				potionOption();
 				break;
 
 			case "5":

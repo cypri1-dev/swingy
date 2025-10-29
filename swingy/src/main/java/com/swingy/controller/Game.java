@@ -33,9 +33,10 @@ public class Game {
 	public Maps getMap() {return this.actualMap;}
 	public List<String> getHeroesNameList() {return this.herosName;}
 	public Characters getMainHero() {return this.selectedHero;}
+	public List<Characters> getListAvaible() {return this.avaibleHeros;}
+
 	public void setSelectedHero(Characters hero) {this.selectedHero = hero;}
 	public void setActualMap(Maps map) {this.actualMap = map;}
-	public List<Characters> getListAvaible() {return this.avaibleHeros;}
 
 	/* -------------------------------------------------- GAME CONTROLLER -------------------------------------------------- */
 
@@ -51,20 +52,19 @@ public class Game {
 
 		while (running && !this.getMap().getLevelCompleted()) {
 			if (this.selectedHero.getHitPoint() <= 0) {
-				// DisplayController.getInstance().printSlow(GAME_OVER);
 				this.herosName.remove(this.selectedHero.getName());
 				this.avaibleHeros.remove(selectedHero);
 				break;
 			}
-			System.out.println(RULES);
+			display.printNormal(RULES);
 
 			String input = display.getUserInput().trim().toUpperCase();
 
 			switch (input) {
-				case "W" -> moveHero('A', menu); // 'A' = haut
-				case "S" -> moveHero('B', menu); // 'B' = bas
-				case "D" -> moveHero('C', menu); // 'C' = droite
-				case "A" -> moveHero('D', menu); // 'D' = gauche
+				case "W" -> moveHero('A', menu);
+				case "S" -> moveHero('B', menu);
+				case "D" -> moveHero('C', menu);
+				case "A" -> moveHero('D', menu);
 				case "I" -> {
 					this.menu.inventoryMenu();
 				}

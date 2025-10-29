@@ -1,11 +1,17 @@
 package com.swingy.model;
 
-import static com.swingy.utils.Constants.*;;
+import static com.swingy.utils.Constants.*;
+import com.swingy.view.DisplayController;
 
 public class CharactersFactory {
+
 	private static CharactersFactory instance;
 
+	/* -------------------------------------------------- CONSTRUCTOR -------------------------------------------------- */
+
 	private CharactersFactory() {}
+
+	/* -------------------------------------------------- INSTANCE GETTER -------------------------------------------------- */
 
 	public static CharactersFactory getInstance() {
 		if (instance == null) {
@@ -14,6 +20,8 @@ public class CharactersFactory {
 		return instance;
 	}
 
+	/* -------------------------------------------------- METHOD CHARACTERS_FACTORY -------------------------------------------------- */
+
 	public Characters newCharacters(String type, String name, String characterClass) {
 		switch (type) {
 			case HERO_TYPE:
@@ -21,7 +29,7 @@ public class CharactersFactory {
 			case ENEMY_TYPE:
 				return new Enemy(type, name, characterClass);
 			default:
-				System.out.println(RED_BOLD + "Error: unknown type!" + RESET);
+				DisplayController.getInstance().printNormal(RED_BOLD + "Error: unknown type!" + RESET);
 		}
 		return null;
 	}

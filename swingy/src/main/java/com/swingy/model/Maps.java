@@ -8,6 +8,7 @@ import java.util.Map;
 import static com.swingy.utils.Constants.*;
 
 public class Maps {
+
 	private int size;
 	public String[][] map;
 	private List<Characters> enemiesList;
@@ -15,7 +16,10 @@ public class Maps {
 	private boolean levelCompleted;
 	private List<Artefact> consommableList;
 
+	/* -------------------------------------------------- CONSTRUCTOR -------------------------------------------------- */
+
 	protected Maps(Characters hero) {
+	
 		this.mainHero = hero;
 		this.size =(hero.getLevel() - 1) * 5 + 10 - (hero.getLevel() % 2);
 		this.map = new String[this.size][this.size];
@@ -27,6 +31,17 @@ public class Maps {
 		generateRandomConsommable(tmp);
 	}
 
+	/* -------------------------------------------------- GETTERS/SETTERS -------------------------------------------------- */
+
+	public int getSize() {return this.size;}
+	public List<Artefact> getListConsommable() {return this.consommableList;}
+	public List<Characters> getListEnemies() { return this.enemiesList;}
+	public boolean getLevelCompleted() {return this.levelCompleted;}
+	
+	public void setLevelCompleted(boolean state) {this.levelCompleted = state;}
+
+	/* -------------------------------------------------- METHOD MAPS -------------------------------------------------- */
+
 	protected void initMap() {
 		int start = this.size /2;
 		for (int i = 0; i < this.size; i++) {
@@ -34,8 +49,6 @@ public class Maps {
 				this.map[i][j] = "*";
 			}
 		}
-		// mainHero.getCoordinates().setX(start);
-		// mainHero.getCoordinates().setY(start);
 		mainHero.getCoordinates().setPrevX(start);
 		mainHero.getCoordinates().setPrevY(start);
 		this.map[mainHero.getCoordinates().getX()][mainHero.getCoordinates().getPrevY()] = SYMBOL_MAIN_HERO;
@@ -169,10 +182,4 @@ public class Maps {
 		};
 	}
 
-
-	public int getSize() {return this.size;}
-	public List<Artefact> getListConsommable() {return this.consommableList;}
-	public List<Characters> getListEnemies() { return this.enemiesList;}
-	public boolean getLevelCompleted() {return this.levelCompleted;}
-	public void setLevelCompleted(boolean state) {this.levelCompleted = state;}
 }

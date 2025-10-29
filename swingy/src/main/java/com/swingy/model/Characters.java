@@ -1,12 +1,14 @@
 package com.swingy.model;
 
-import static com.swingy.utils.Constants.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.swingy.utils.Constants.*;
 import com.swingy.controller.GameMovement;
+import com.swingy.view.DisplayController;
 
 public class Characters {
+
 	private String type;
 	private String name;
 	private String characterClass;
@@ -20,12 +22,14 @@ public class Characters {
 	private Coordinates coord;
 	private Knowledge knowledge;
 
+	/* -------------------------------------------------- CONSTRUCTOR -------------------------------------------------- */
+
 	protected Characters(String type, String name, String characterClass) {
+
 		this.type = type;
 		this.name = name;
 		this.characterClass = characterClass;
 		this.bag = new ArrayList<Artefact>();
-		// this.bag.add(ArtefactFactory.getInstance().newArtefact(WEAPON_TYPE, "TEST", LEGENDARY, 10));
 		this.knowledge = Knowledge.getInstance();
 		this.coord = new Coordinates(0, 0);
 
@@ -136,9 +140,11 @@ public class Characters {
 				break;
 
 			default:
-				System.out.println(RED_BOLD + "Error: unknown class!" + RESET);
+				DisplayController.getInstance().printNormal(RED_BOLD + "Error: unknown class!" + RESET);
 		}
 	}
+
+	/* -------------------------------------------------- SETTERS/GETTERS -------------------------------------------------- */
 
 	protected void setName(String name) {this.name = name;}
 	protected void setClass(String characterClass) {this.characterClass = characterClass;}
@@ -151,6 +157,25 @@ public class Characters {
 	public void setMaxHitPoint(int hp) {this.maxHitPoint = hp;}
 	public void setHealHp(int hp) {this.hitPoint = hp;}
 
+	public String getName() {return this.name;}
+	public String getType() {return this.type;}
+	public String getCharacterClass() {return this.characterClass;}
+	public int getLevel() {return this.level;}
+	public int getXp() {return this.xp;}
+	public int getAttack() {return this.attack;}
+	public int getDefense() {return this.defense;}
+	public int getHitPoint() {return this.hitPoint;}
+	public int getMaxHitPoint() {return this.maxHitPoint;}
+	public GameMovement getMovement() {return null;}
+	public List<Artefact> getArtefacts() {return this.bag;}
+	public Coordinates getCoordinates() {return this.coord;}
+	public Knowledge getKnowledge() {return this.knowledge;}
+
+	/* -------------------------------------------------- CHARACTERS METHOD -------------------------------------------------- */
+
+	public void addArtefact(Artefact item) {this.bag.add(item);}
+	public void removeArtefact(Artefact item) {this.bag.remove(item);}
+
 	public void addXP(int amount) {
 		int nextLevel = (int) (this.level * 1000 + Math.pow(this.level - 1, 2) * 450);
 		this.xp += amount;
@@ -161,9 +186,6 @@ public class Characters {
 		}
 	}
 	
-	public void addArtefact(Artefact item) {this.bag.add(item);}
-	public void removeArtefact(Artefact item) {this.bag.remove(item);}
-
 	public void equipArtefact(Artefact item) {
 		if (item.getIsEquipped())
 			return;
@@ -230,18 +252,4 @@ public class Characters {
 				break;
 		}
 	}
-
-	public String getName() {return this.name;}
-	public String getType() {return this.type;}
-	public String getCharacterClass() {return this.characterClass;}
-	public int getLevel() {return this.level;}
-	public int getXp() {return this.xp;}
-	public int getAttack() {return this.attack;}
-	public int getDefense() {return this.defense;}
-	public int getHitPoint() {return this.hitPoint;}
-	public int getMaxHitPoint() {return this.maxHitPoint;}
-	public GameMovement getMovement() {return null;}
-	public List<Artefact> getArtefacts() {return this.bag;}
-	public Coordinates getCoordinates() {return this.coord;}
-	public Knowledge getKnowledge() {return this.knowledge;}
 }

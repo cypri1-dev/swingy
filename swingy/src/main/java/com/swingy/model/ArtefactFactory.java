@@ -2,10 +2,17 @@ package com.swingy.model;
 
 import static com.swingy.utils.Constants.*;
 
+import com.swingy.view.DisplayController;
+
 public class ArtefactFactory {
+
 	private static ArtefactFactory instance;
 
+	/* -------------------------------------------------- CONSTRUCTOR -------------------------------------------------- */
+
 	private ArtefactFactory() {}
+
+	/* -------------------------------------------------- INSTANCE GETTER -------------------------------------------------- */
 
 	public static ArtefactFactory getInstance() {
 		if (instance == null)
@@ -13,7 +20,10 @@ public class ArtefactFactory {
 		return instance;
 	}
 
+	/* -------------------------------------------------- METHOD ARTEFACT_FACTORY -------------------------------------------------- */
+
 	public Artefact newArtefact(String type, String name, String rarity, int bonus) {
+
 		switch(type) {
 			case ARMOR_TYPE:
 				return new Armor(type, name, rarity, bonus);
@@ -24,7 +34,7 @@ public class ArtefactFactory {
 			case CONSOMMABLE_TYPE:
 				return new Consommable(type, name, rarity, bonus);
 			default:
-				System.out.println(RED_BOLD + "Error: unknown type!" + RESET);
+				DisplayController.getInstance().printNormal(RED_BOLD + "Error: unknown type!" + RESET);
 		}
 		return null;
 	}

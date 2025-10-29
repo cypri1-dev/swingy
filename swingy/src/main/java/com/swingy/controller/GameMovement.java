@@ -20,12 +20,8 @@ public class GameMovement {
 		for (Characters enemy : map.getListEnemies()) {
 			if (hero.getCoordinates().getX() == enemy.getCoordinates().getX() && hero.getCoordinates().getY() == enemy.getCoordinates().getY()) {
 
-				// fight logic !
-				// System.out.println(enemy.getCharacterClass() + " | " + enemy.getCoordinates().getX() + ", " + enemy.getCoordinates().getY());
 				FightLogic.fight(enemy, hero, menu);
-
 				map.map[hero.getCoordinates().getX()][hero.getCoordinates().getY()] = BLUE + "!" + RESET;
-				// TEST WIN 
 				map.getListEnemies().remove(enemy);
 				return;
 			}
@@ -41,14 +37,15 @@ public class GameMovement {
 	private void checkConsommable(Characters hero, Maps map) {
 
 		Artefact tmp = null;
+		DisplayController display = DisplayController.getInstance();
 
 		for (Artefact healingPotion : map.getListConsommable()) {
 			if (hero.getCoordinates().getX() == healingPotion.getCoordinates().getX() && hero.getCoordinates().getY() == healingPotion.getCoordinates().getY()) {
 				
 				hero.addArtefact(healingPotion);
-				DisplayController.getInstance().printSlow(HP_POTION);
+				display.printSlow(HP_POTION);
 				tmp = healingPotion;
-				DisplayController.getInstance().getUserInput();
+				display.getUserInput();
 			}
 		}
 		if (tmp != null)
@@ -59,7 +56,6 @@ public class GameMovement {
 
 	private void checkEndLevel(Characters hero, Maps map) {
 		if (hero.getCoordinates().getX() == 0 || hero.getCoordinates().getX() == map.getSize() - 1 || hero.getCoordinates().getY() == 0 || hero.getCoordinates().getY() == map.getSize() - 1) {
-			// System.out.println(DEBUG_BOLD + "LVL COMPLETED!" + RESET);
 			map.setLevelCompleted(true);
 		}
 	}

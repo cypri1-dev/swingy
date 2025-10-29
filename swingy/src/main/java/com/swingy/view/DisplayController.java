@@ -13,19 +13,11 @@ public class DisplayController {
 	private static DisplayController instance;
 	private final Scanner scanner = new Scanner(System.in);
 
+	/* -------------------------------------------------- CONSTRUCTOR -------------------------------------------------- */
+
 	private DisplayController() {}
 
-	public void sleepTime(int time) {
-		try {
-			if (D_V_M___E) {
-				Thread.sleep(D_V_S___D_T_T);
-			}
-			else
-				Thread.sleep(time);
-		} catch (InterruptedException e) {
-			Thread.currentThread().interrupt();
-		}
-	}
+	/* -------------------------------------------------- INSTANCE GETTER -------------------------------------------------- */
 
 	public static DisplayController getInstance() {
 		if (instance == null) {
@@ -34,19 +26,34 @@ public class DisplayController {
 		return instance;
 	}
 
+	/* -------------------------------------------------- METHOD DISPLAY_CONTROLLER -------------------------------------------------- */
+
+		public void sleepTime(int time) {
+
+			try {
+				if (D_V_M___E) {
+					Thread.sleep(D_V_S___D_T_T);
+				}
+				else
+					Thread.sleep(time);
+			} catch (InterruptedException e) {
+				Thread.currentThread().interrupt();
+			}
+	}
+
 	public void printNormal(String txt) {
+
 		System.out.println(txt);
 	}
 
 	public void printSlow(String asciiArt) {
-	for (String line : asciiArt.split("\n")) {
-		System.out.println(line);
-		try {
-			if (D_V_M___E) {
-				Thread.sleep(D_V_S___D_T_T);
-			}
+		for (String line : asciiArt.split("\n")) {
+			System.out.println(line);
+			try {
+				if (D_V_M___E) {
+					Thread.sleep(D_V_S___D_T_T);
+				}
 			else
-				// change befor final push
 				Thread.sleep(25);
 		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
@@ -55,33 +62,72 @@ public class DisplayController {
 	}
 
 	public void clearTerminal() {
+
 		System.out.print("\033[H\033[2J");
 		System.out.flush();
 	}
 
+	/* -------------------------------------------------- ALL HEROES DISPLAY -------------------------------------------------- */
+
 	public void printMyHeros(Game game) {
 		for (Characters hero : game.getListAvaible()) {
-				System.out.println("\n" + DARK_GRAY + "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓" + RESET);
-				System.out.println(DARK_GRAY + "┃" + RESET + BOLD + " ⚔️  " + hero.getName()+ " the " + hero.getCharacterClass().toUpperCase() + RESET);
-				System.out.println(DARK_GRAY + "┃" + RESET + " " + ITALIC + "Level" + RESET + ": " + YELLOW + hero.getLevel() + RESET + 
-								"   " + ITALIC + "XP" + RESET + ": " + YELLOW + hero.getXp() + RESET);
-				System.out.println(DARK_GRAY + "┃" + RESET + " " + ITALIC + "Attack" + RESET + ": " + GREEN + hero.getAttack() + RESET +
-								"   " + ITALIC + "Defense" + RESET + ": " + GREEN + hero.getDefense() + RESET);
-				System.out.println(DARK_GRAY + "┃" + RESET + " " + ITALIC + "Hit Points" + RESET + ": " + RED + hero.getHitPoint() + "/" + hero.getMaxHitPoint() + RESET);
-				System.out.println(DARK_GRAY + "┃" + RESET + " " + ITALIC + "Bag contents:" + RESET);
+			System.out.println("\n" + DARK_GRAY + "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓" + RESET);
+			System.out.println(DARK_GRAY + "┃" + RESET + BOLD + " ⚔️  " + hero.getName()+ " the " + hero.getCharacterClass().toUpperCase() + RESET);
+			System.out.println(DARK_GRAY + "┃" + RESET + " " + ITALIC + "Level" + RESET + ": " + YELLOW + hero.getLevel() + RESET + "   " + ITALIC + "XP" + RESET + ": " + YELLOW + hero.getXp() + RESET);
+			System.out.println(DARK_GRAY + "┃" + RESET + " " + ITALIC + "Attack" + RESET + ": " + GREEN + hero.getAttack() + RESET + "   " + ITALIC + "Defense" + RESET + ": " + GREEN + hero.getDefense() + RESET);
+			System.out.println(DARK_GRAY + "┃" + RESET + " " + ITALIC + "Hit Points" + RESET + ": " + RED + hero.getHitPoint() + "/" + hero.getMaxHitPoint() + RESET);
+			System.out.println(DARK_GRAY + "┃" + RESET + " " + ITALIC + "Bag contents:" + RESET);
 
-				if (hero.getArtefacts().isEmpty()) {
-					System.out.println(DARK_GRAY + "┃" + RESET + "   " + RED + "Empty bag." + RESET);
-				} else {
-					for (Artefact item : hero.getArtefacts()) {
-						String equippedMark = item.getIsEquipped() ? GREEN + " (E)" + RESET : "";
-						System.out.println(DARK_GRAY + "┃" + RESET + "   • " + item.getName() + equippedMark);
+			if (hero.getArtefacts().isEmpty()) {
+				System.out.println(DARK_GRAY + "┃" + RESET + "   " + RED + "Empty bag." + RESET);
+			} else {
+				for (Artefact item : hero.getArtefacts()) {
+					String equippedMark = item.getIsEquipped() ? GREEN + " (E)" + RESET : "";
+					String color = "";
+					String type = "";
+
+					switch (item.getRarity()) {
+						case COMMON:
+							color = COMMON_COLOR + ITALIC;
+							break;
+						case RARE:
+							color = BLUE + ITALIC;
+							break;
+						case EPIC:
+							color = EPIC_COLOR + ITALIC;
+							break;
+						case LEGENDARY:
+							color = LEGENDARY_COLOR + ITALIC;
+							break;
+						default:
+							break;
 					}
-				}
 
-				System.out.println(DARK_GRAY + "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛" + RESET);
+					switch (item.getType()) {
+						case CONSOMMABLE_TYPE:
+							type = "HP";
+							break;
+						case WEAPON_TYPE:
+							type = "ATT";
+							break;
+						case ARMOR_TYPE:
+							type = "DEF";
+							break;
+						case HELM_TYPE:
+							type = "HP";
+							break;
+						default:
+							break;
+					}
+					System.out.println(DARK_GRAY + "┃" + RESET + "   • " + color + item.getName() + " (+" + item.getBonus() + ")" + type + " " + RESET + equippedMark);
+				}
 			}
+
+			System.out.println(DARK_GRAY + "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛" + RESET);
+		}
 	}
+
+	/* -------------------------------------------------- MAP DISPLAY -------------------------------------------------- */
 
 	public void displayMap(Game game) {
 		int size = game.getMap().getSize();
@@ -100,6 +146,8 @@ public class DisplayController {
 		System.out.println("╚" + "═".repeat(size) + "╝");
 		System.out.println();
 	}
+
+	/* -------------------------------------------------- HERO DISPLAY -------------------------------------------------- */
 
 	public void displaySelelectedHero(Characters hero) {
 		System.out.println("\n" + DARK_GRAY + "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓" + RESET);
@@ -157,6 +205,8 @@ public class DisplayController {
 		System.out.println(DARK_GRAY + "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛" + RESET);
 	}
 
+	/* -------------------------------------------------- ENEMY DISPLAY -------------------------------------------------- */
+
 	public void displayCurrentEnemy(Characters enemy, int knowledge) {
 		System.out.println("\n" + DARK_GRAY + "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓" + RESET);
 		System.out.println(DARK_GRAY + "┃" + RESET + BOLD + " ⚔️  " + enemy.getCharacterClass() + RESET);
@@ -209,6 +259,7 @@ public class DisplayController {
 
 		System.out.println(DARK_GRAY + "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛" + RESET);
 	}
+	
 
 	public String getUserInput() {
 		return scanner.nextLine();
