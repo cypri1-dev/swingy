@@ -210,6 +210,7 @@ public class DisplayController {
 	public void displayCurrentEnemy(Characters enemy, int knowledge) {
 		System.out.println("\n" + DARK_GRAY + "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓" + RESET);
 		System.out.println(DARK_GRAY + "┃" + RESET + BOLD + " ⚔️  " + enemy.getCharacterClass() + RESET);
+		System.out.println(DARK_GRAY + "┃" + RESET + " " + ITALIC + "Level" + RESET + ": " + YELLOW + enemy.getLevel() + RESET);
 		if (knowledge >= 10)
 			System.out.println(DARK_GRAY + "┃" + RESET + " " + ITALIC + "Attack" + RESET + ": " + GREEN + enemy.getAttack() + RESET + "   " + ITALIC + "Defense" + RESET + ": " + GREEN + enemy.getDefense() + RESET);
 		else

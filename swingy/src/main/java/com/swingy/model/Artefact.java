@@ -1,7 +1,5 @@
 package com.swingy.model;
 
-import static com.swingy.utils.Constants.*;
-
 public class Artefact {
 
 	private String type;
