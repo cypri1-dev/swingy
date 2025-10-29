@@ -109,8 +109,12 @@ The project strictly follows MVC conventions for clean code separation and scala
 
 ---
 
-# UML Diagrams
+## UML Diagrams
 
 UML diagrams illustrate the class structure and interactions, showing the system architecture and relationships between entities. The diagram is flexible and can evolve as the design changes, allowing adjustments to reflect new requirements or improvements in the system.
 
 ![UML Diagram](diagrammUML.png)
+
+## Example
+
+![GIF](example.gif)
