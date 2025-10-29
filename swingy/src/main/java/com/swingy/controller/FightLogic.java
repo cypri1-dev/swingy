@@ -78,7 +78,10 @@ public class FightLogic {
 					/* -------- RUN -------- */
 					int luck = ThreadLocalRandom.current().nextInt(0, 2);
 					if (luck == 0) {
+						int rawDamage = ThreadLocalRandom.current().nextInt(1, enemy.getAttack() + 1);
+						hero.setHitPoint(-rawDamage);
 						display.printNormal("💨 The hero tries to escape... but fails!");
+						display.printNormal("🗡️ " + enemy.getCharacterClass() + " hits " + hero.getName() + " for " + rawDamage + " damage!");
 						display.printNormal("\nPress Enter to continue...");
 						display.getUserInput();	
 						break;
