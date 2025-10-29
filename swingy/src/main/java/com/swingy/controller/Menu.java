@@ -38,7 +38,7 @@ public class Menu {
 			removeHero();
 	}
 
-	public void arenaOption(Menu menu) {
+	private void arenaOption(Menu menu) {
 		Characters hero = selectHero(ref);
 		if (hero == null) return;
 
@@ -165,7 +165,7 @@ public class Menu {
 		}
 	}
 
-	public void createHero() {
+	private void createHero() {
 		Set<String> validOption = Set.of("1", "2", "3", "4", "5");
 
 		display.printSlow(MENU_CREATION);
@@ -213,7 +213,7 @@ public class Menu {
 
 	/* -------------------------------------------------- METHOD MAIN MENU -------------------------------------------------- */
 
-	public Characters selectHero(Game game) {
+	private Characters selectHero(Game game) {
 		display.clearTerminal();
 		display.printMyHeros(game);
 
@@ -242,11 +242,11 @@ public class Menu {
 		return selectedHero;
 	}
 
-	public void viewMyHeros() {
+	private void viewMyHeros() {
 		display.printMyHeros(ref);
 	}
 
-	public void removeHero() {
+	private void removeHero() {
 		
 		String selectedHero = "";
 		do {
@@ -267,7 +267,7 @@ public class Menu {
 		}
 	}
 
-	public void endArena() {
+	private void endArena() {
 		if (this.ref.getMap().getLevelCompleted())
 			display.printSlow(LVL_COMPLETE);
 		else if (this.ref.getMainHero().getHitPoint() <= 0)

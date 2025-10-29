@@ -42,7 +42,7 @@ public class Maps {
 
 	/* -------------------------------------------------- METHOD MAPS -------------------------------------------------- */
 
-	protected void initMap() {
+	private void initMap() {
 		int start = this.size /2;
 		for (int i = 0; i < this.size; i++) {
 			for (int j = 0; j < this.size; j++) {
@@ -129,7 +129,7 @@ public class Maps {
 		return occupiedCoords;
 	}
 
-	public Artefact createRandomLoot(String rarity) {
+	private Artefact createRandomLoot(String rarity) {
 		String nameLoot = "";
 		int power = -1;
 		String typeLoot = LOOT_TYPE[ThreadLocalRandom.current().nextInt(0, 4)];

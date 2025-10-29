@@ -28,17 +28,17 @@ public class DisplayController {
 
 	/* -------------------------------------------------- METHOD DISPLAY_CONTROLLER -------------------------------------------------- */
 
-		public void sleepTime(int time) {
+	public void sleepTime(int time) {
 
-			try {
-				if (D_V_M___E) {
-					Thread.sleep(D_V_S___D_T_T);
-				}
-				else
-					Thread.sleep(time);
-			} catch (InterruptedException e) {
-				Thread.currentThread().interrupt();
+		try {
+			if (D_V_M___E) {
+				Thread.sleep(D_V_S___D_T_T);
 			}
+			else
+				Thread.sleep(time);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
+		}
 	}
 
 	public void printNormal(String txt) {

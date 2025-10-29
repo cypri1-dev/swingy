@@ -24,9 +24,6 @@ public class Artefact {
 
 	/* -------------------------------------------------- GETTERS/SETTERS -------------------------------------------------- */
 
-	protected void setType(String type) {this.type = type;}
-	protected void setName(String name) {this.name = name;}
-	protected void setBonus(int bonus) {this.bonus = bonus;}
 	public void setIsEquipped(boolean equipped) {this.isEquipped = equipped;}
 	
 	public String getType() {return this.type;}

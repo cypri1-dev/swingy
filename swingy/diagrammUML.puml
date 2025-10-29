@@ -15,61 +15,90 @@ package "Model" #LightBlue {
     -int attack
     -int defense
     -int hitPoint
+    -int maxHitPoint
     -List<Artefact> bag
     -Coordinates coord
-    #Characters(String type, String name, String class, Artefact bag)
+    -Knowledge knowlegde
+    #Characters(String type, String name, String class)
     #void setName(String name)
     #void setClass(String characterClass)
-    #void setClass(String class)
     #void setLevel(int level)
+    #void setXp(int xp)
     #void setAttack(int attack)
-    #void setDefense(int defense)
-    +void addArtefact(Artefact item)
-    +void removeArtefact(Artefact item)
+    #void setDefense(int attack)
+    +void setHitPoint(int hp)
+    +void setMaxHitPoint(int hp)
+    +void setHealHp(int hp)
     +String getName()
     +String getClass()
+    +String getCharacterClass()
     +int getLevel()
+    +int getXp()
     +int getAttack()
     +int getDefense()
     +int getHitPoint()
+    +int getMaxHitPoint()
+    +GameMovement getMovement()
     +List<Artefact> getArtefacts()
+    +Coordinates getCoordinates()
+    +Knowledge getKnowledge()
+    +void addArtefact(Artefact item)
+    +void removeArtefcat(Artefact item)
+    +void addXP(int amount)
+    +void equipArtefact(Artefact item)
+    +void unequipArtefact(Artefact item)
   }
 
   class Hero {
     -GameMovement movement
-    +Hero(String type, String name, String class)
+    +Hero(String type, String name, String characterClass)
+    +GameMovement getMovement()
   }
 
   class Enemy {
-    +Enemy(String type, String name, String class, Artefact bag)
+    +Enemy(String type, String name, String characterClass)
+  }
+
+  class Knowledge {
+    -static Knowledge instance
+    -Map<String, Integer> knowledge
+    -Knowledge()
+    +static Knowledge getInsatance()
+    +void addKnowledge(Characters enemy)
+    +Map<String, Integer> getMap()
   }
 
   class Artefact {
     -String type
     -String name
+    -String rarity
     -int bonus
     -bool isEquipped
-    #Artefact(String type, String name, int bonus)
-    #void setType(String type)
-    #void setName(String name)
-    #void setBonus(int bonus)
-    #void setIsEquipped(bool equipped)
-    public String getType()
-    public String getName()
-    public int getBonus()
-    public bool getIsEquipped()
+    -Coordinates coord
+    #Artefact(String type, String name, String rarity, int bonus)
+    +void setIsEquipped(bool equipped)
+    +String getType()
+    +String getName()
+    +int getBonus()
+    +bool getIsEquipped()
+    +Coordinates getCoordinates()
+    +String getRarity()
   }
 
   class Weapon {
-    +Weapon(String type, String name, int bonus)
+    +Weapon(String type, String name, String rarity, int bonus)
   }
 
   class Armor {
-    +Armor(String type, String name, int bonus)
+    +Armor(String type, String name, String rarity, int bonus)
   }
 
   class Helm {
-    +Helm(String type, String name, int bonus)
+    +Helm(String type, String name, String rarity, int bonus)
+  }
+
+  class Consommable {
+    +Consommable(String type, String name, String rarity, int bonus)
   }
 
   class Coordinates {
@@ -84,26 +113,31 @@ package "Model" #LightBlue {
     +void setPrevY()
     +int getX()
     +int getY()
+    +int getPrevX()
+    +int getPrevY()
+    +void setXBack(int x)
+    +void setYBack(int y)
   }
 
-  class Map {
+  class Maps {
     -int size
     -int[][] map
     -List<Characters*> enemiesList
     -Characters mainHero
-    #Map(int size, int[][] map)
-    +Characters getEnemies()
+    -bool levelCompleted
+    -List<Artefact> consommableList
+    #Maps(int size, int[][] map)
     +setSize(int size)
-    +int getSize()
-    +void displayMap()
-    +void updateMap()
-  }
-
-  class GameLogic {
-    +fight(Characters hero, Characters enemy)
-    +run(Coordinates coor)
-    +Artefact* createLoot()
-    +bool checkLevelComplete(Coordinates coor)
+    +List<Artefact> getListConsommable()
+    +List<Characters> getListEnemies()
+    +bool getLevelCompleted()
+    -initMap()
+    -void generateRandomConsommable(List<String> occupiedCoords)
+    -List<String> generateRandomEnemies()
+    -Artefact createRandomLoot(String rarity)
+    -Map<String, Integer> getWeaponMapByRarity(String rarity)
+    -Map<String, Integer> getArmorMapByRarity(String rarity)
+    -Map<String, Integer> getHelmMapByRarity(String rarity)
   }
 
   class CharactersFactory <<Singleton>> {
@@ -124,43 +158,87 @@ package "Model" #LightBlue {
     -static MapFactory instance
     -MapFactory()
     +static MapFactory getInstance()
-    +Map* newMap(int size, int[][] map)
+    +Maps* newMap(int size, int[][] map)
   }
 }
 
 package "Controller" #LightGreen {
   class Game {
     -List<Characters> availableHeros
+    -Characters selectedHero
     -Menu Menu
-    -Map actualMap
+    -Maps actualMap
+    -List<String> herosName
+    +Game()
+    +Menu getMenu()
+    +Maps getMap()
+    +List<String> getHeroesNameList()
+    +Characters getMainHero()
+    +List<Characters> getListAvaible()
+    +void setSelectedHero(Characters hero)
+    +void setActualMap(Maps map)
+    +void placeHero(Characters hero)
+    +void runArenaLoop(Menu menu)
+    +void moveHero(char arrow, Menu menu)
+    +bool heroExists(String name)
+    +bool registerHeroName(String name)
+    +void healHero(int amount)
     +launchGame()
   }
 
   class Menu {
-    +displayAvailableHeros()
-    +addHero()
-    +removeHero()
-    +loadCharacter()
-    +loadSave()
-    +save()
+    -Game ref
+    -static DisplayController display
+    ~Menu(Game game)
+    +void launchGame()
+    +void d_vOption()
+    +void inventoryMenu()
+    -void creationOption()
+    -void heroesManagementOption()
+    -void arenaOption()
+    -void exitOption()
+    -void createHero()
+    -Characters selectHero(Game game)
+    -void viewMyHeros()
+    -void removeHero()
+    -void endArena()
+    -void equipOption()
+    -void unequipOption()
+    -void dropOption()
+    -void potionOption()
   }
 
   class GameMovement {
+    -void checkFight(Characters hero, Maps map, Menu menu)
+    -void checkConsommable(Characters hero, Maps map)
+    -void checkEndLevel(Characters hero, Maps map)
     +void moveNorth(Hero hero)
     +void moveEast(Hero hero)
     +void moveSouth(Hero hero)
     +void moveWest(Hero hero)
   }
+
+  class FightLogic {
+    -static DisplayController display
+    +static void fight(Characters enemy, Characters hero, Menu menu)
+  }
 }
 
 package "View" #LightYellow {
-  class MapDisplay {
-    +displayMap(Map map)
-  }
-
-  class MenuDisplay {
-    +showMenu()
-    +showHeroList()
+  class DisplayController {
+    -static DisplayController instance
+    -DisplayController()
+    +static DisplayController getInstance()
+    +void sleepTime(int time)
+    +void printNormal(String txt)
+    +void printSlow(String asciiArt)
+    +void clearTerminal()
+    +void printMyHeroes(Game game)
+    +void displayMap(Game game)
+    +void displaySelectedHero(Characters hero)
+    +void displayCurrentEnemy(Characters enemy, int knowledge)
+    +String getUserInput()
+    +void closeScanner()
   }
 }
 
@@ -168,35 +246,48 @@ package "View" #LightYellow {
 '   RELATIONS
 ' =======================
 
-' --- Modèle interne ---
+' --- Héritages ---
 Characters <|-- Hero
 Characters <|-- Enemy
 Artefact <|-- Armor
 Artefact <|-- Weapon
 Artefact <|-- Helm
-Characters *-- Artefact
-Characters *-- Coordinates
-CharactersFactory ..> Hero : creates
-CharactersFactory ..> Enemy : creates
-ArtefactFactory ..> Artefact : creates
-MapFactory ..> Map : creates
-Map *-- Characters
-Hero --> GameMovement : uses
+Artefact <|-- Consommable
 
-' --- Vue <-> Contrôleur ---
-MenuDisplay --> Menu : affiche options
-MapDisplay --> Game : rafraîchit carte
+' --- Associations internes du modèle ---
+Characters *-- Artefact : "possède"
+Characters *-- Coordinates : "localisation"
+Characters *-- Knowledge : "partage"
+Maps *-- Characters : "contient"
+Maps *-- Artefact : "génère consommables"
 
-' --- Vue <-> Modèle (lecture seule) ---
-MapDisplay ..> Map : lit état
-MenuDisplay ..> Characters : affiche infos
+Hero --> GameMovement : "utilise pour se déplacer"
+Knowledge --> Characters : "connaissance ennemis"
 
-' --- Contrôleur <-> Modèle ---
-Game --> GameLogic : utilise
-Game --> Map : gère
-Game --> Characters : contrôle
-Game --> GameMovement : déplace héros
-Menu --> Game : interagit
-Menu --> Characters : sélectionne
+' --- Fabriques (Singletons) ---
+CharactersFactory ..> Hero : "crée"
+CharactersFactory ..> Enemy : "crée"
+ArtefactFactory ..> Artefact : "crée"
+MapFactory ..> Maps : "crée"
+
+' --- Contrôleur vers Modèle ---
+Game --> Menu : "gère"
+Game --> Maps : "contrôle carte"
+Game --> Characters : "contrôle héros"
+Game --> GameMovement : "utilise"
+Menu --> Game : "interagit avec"
+Menu --> Characters : "sélectionne"
+GameMovement --> Maps : "analyse collisions"
+GameMovement --> Menu : "signale événements"
+FightLogic --> DisplayController : "affiche combat"
+FightLogic --> Characters : "fait combattre héros/ennemi"
+
+' --- Vue vers Contrôleur ---
+DisplayController --> Game : "affiche état"
+DisplayController --> Menu : "affiche options"
+
+' --- Vue vers Modèle (lecture seule) ---
+DisplayController ..> Characters : "affiche infos héros"
+DisplayController ..> Maps : "affiche carte"
 
 @enduml
