@@ -78,6 +78,7 @@ public final class Constants {
 	// ==================
 	// ENEMY NAMES
 	// ==================
+
 	public static final String[] ENEMIES_LIST_NAMES = {
 		"Rat",
 		"Slime",
@@ -255,74 +256,153 @@ public final class Constants {
 		"consommable"
 	};
 
-	public static final Map<String, Integer> WEAPONS_COMMON = Map.of(
-		"Rusty Dagger", 1,
-		"Iron Sword", 2,
-		"Wooden Mace", 1,
-		"Stone Axe", 2
+	/* -------------------- WEAPONS (ATT bonus) -------------------- */
+
+	public static final Map<String, Integer> WEAPONS_COMMON = Map.ofEntries(
+		Map.entry("Rusty Dagger", 1), Map.entry("Iron Sword", 2), Map.entry("Wooden Mace", 1),
+		Map.entry("Stone Axe", 2), Map.entry("Bronze Spear", 1), Map.entry("Simple Club", 1),
+		Map.entry("Short Bow", 2), Map.entry("Hunting Knife", 1), Map.entry("Sling Staff", 1),
+		Map.entry("Training Sword", 1), Map.entry("Old Halberd", 2), Map.entry("Light Crossbow", 2),
+		Map.entry("Wooden Scimitar", 1), Map.entry("Iron Dagger", 2), Map.entry("Rusty Axe", 1),
+		Map.entry("Stick Staff", 1), Map.entry("Stone Hammer", 2), Map.entry("Small Saber", 1),
+		Map.entry("Old Pike", 2), Map.entry("Practice Bow", 1), Map.entry("Leather Sling", 1),
+		Map.entry("Club", 1), Map.entry("Jagged Sword", 2), Map.entry("Iron Knife", 1),
+		Map.entry("Basic Mace", 1)
 	);
 
-	public static final Map<String, Integer> WEAPONS_RARE = Map.of(
-		"Steel Axe", 3,
-		"Elven Longbow", 4,
-		"Iron Spear", 3
+	public static final Map<String, Integer> WEAPONS_RARE = Map.ofEntries(
+		Map.entry("Steel Axe", 3), Map.entry("Elven Longbow", 4), Map.entry("Iron Spear", 3),
+		Map.entry("Battle Hammer", 3), Map.entry("Silver Dagger", 4), Map.entry("Knight's Sword", 3),
+		Map.entry("Hunter's Bow", 4), Map.entry("War Scimitar", 3), Map.entry("Saber of Valor", 4),
+		Map.entry("Reinforced Mace", 3), Map.entry("Twin Daggers", 4), Map.entry("Long Spear", 3),
+		Map.entry("Heavy Crossbow", 4), Map.entry("Steel Sword", 3), Map.entry("Frost Axe", 4),
+		Map.entry("Elven Spear", 4), Map.entry("Orcish Blade", 3), Map.entry("Reaver Bow", 4),
+		Map.entry("Champion Mace", 3), Map.entry("Iron Katana", 4), Map.entry("Silver Halberd", 4),
+		Map.entry("Battle Staff", 3), Map.entry("Runed Blade", 4), Map.entry("Hunter Spear", 3),
+		Map.entry("Crimson Sword", 4)
 	);
 
-	public static final Map<String, Integer> WEAPONS_EPIC = Map.of(
-		"Rune Blade", 5,
-		"Shadowfang", 6
+	public static final Map<String, Integer> WEAPONS_EPIC = Map.ofEntries(
+		Map.entry("Rune Blade", 5), Map.entry("Shadowfang", 6), Map.entry("Stormbreaker", 6),
+		Map.entry("Dragonfang", 7), Map.entry("Frostbite", 6), Map.entry("Demon Slayer", 7),
+		Map.entry("Phoenix Talon", 6), Map.entry("Vampire Fang", 7), Map.entry("Celestial Sword", 8),
+		Map.entry("Oblivion Blade", 7), Map.entry("Twilight Scimitar", 6), Map.entry("Thunder Pike", 7),
+		Map.entry("Soul Reaver", 8), Map.entry("Moonlight Bow", 7), Map.entry("Flamebrand", 6),
+		Map.entry("Darkfang", 7), Map.entry("Storm Saber", 6), Map.entry("Eclipse Sword", 8),
+		Map.entry("Blood Pike", 7), Map.entry("Silver Fang", 6), Map.entry("Warlock Dagger", 7),
+		Map.entry("Arcane Blade", 8), Map.entry("Inferno Sword", 7), Map.entry("Lightbringer", 8),
+		Map.entry("Frostmourne", 9)
 	);
 
-	public static final Map<String, Integer> WEAPONS_LEGENDARY = Map.of(
-		"Excalibur", 10
+	public static final Map<String, Integer> WEAPONS_LEGENDARY = Map.ofEntries(
+		Map.entry("Excalibur", 10), Map.entry("Soulrender", 12), Map.entry("Dragon Slayer", 15),
+		Map.entry("Aegis Fang", 14), Map.entry("Infinity Blade", 13), Map.entry("Dawnbreaker", 15),
+		Map.entry("Nightfall", 14), Map.entry("Heaven's Wrath", 16), Map.entry("Oblivion Edge", 15),
+		Map.entry("Celestial Fang", 16), Map.entry("Shadowmourne", 17), Map.entry("Stormbringer", 15),
+		Map.entry("Moonblade", 16), Map.entry("Infernal Sword", 17), Map.entry("Light's Justice", 16),
+		Map.entry("Dragonheart", 18), Map.entry("Phoenix Blade", 17), Map.entry("Bloodfang", 16),
+		Map.entry("Eternity Edge", 18), Map.entry("Doombringer", 19), Map.entry("Soulfang", 18),
+		Map.entry("Thunderstrike", 17), Map.entry("Valkyrie Blade", 19), Map.entry("Celestial Edge", 20)
 	);
-	
+
 	/* -------------------- ARMORS (DEF bonus) -------------------- */
 
-	public static final Map<String, Integer> ARMORS_COMMON = Map.of(
-		"Leather Vest", 1,
-		"Chainmail", 2,
-		"Hide Armor", 1,
-		"Paw Leather", 2
+	public static final Map<String, Integer> ARMORS_COMMON = Map.ofEntries(
+		Map.entry("Leather Vest", 1), Map.entry("Chainmail", 2), Map.entry("Hide Armor", 1),
+		Map.entry("Paw Leather", 2), Map.entry("Cloth Tunic", 1), Map.entry("Wooden Chestguard", 1),
+		Map.entry("Bronze Plate", 2), Map.entry("Studded Vest", 2), Map.entry("Simple Robe", 1),
+		Map.entry("Leather Jerkin", 1), Map.entry("Iron Bracers", 2), Map.entry("Worn Armor", 1),
+		Map.entry("Basic Chainmail", 2), Map.entry("Leather Hauberk", 1), Map.entry("Padded Armor", 1),
+		Map.entry("Traveler's Tunic", 1), Map.entry("Hardened Leather", 2), Map.entry("Old Plate", 2),
+		Map.entry("Guardian Chest", 2), Map.entry("Reinforced Vest", 2), Map.entry("Squire's Armor", 1),
+		Map.entry("Huntsman Leather", 1), Map.entry("Light Chain", 1), Map.entry("Iron Padded Armor", 2),
+		Map.entry("Rusty Plate", 1)
 	);
 
-	public static final Map<String, Integer> ARMORS_RARE = Map.of(
-		"Iron Plate", 3,
-		"Dwarven Chestguard", 4,
-		"Steel Chain", 3
+	public static final Map<String, Integer> ARMORS_RARE = Map.ofEntries(
+		Map.entry("Iron Plate", 3), Map.entry("Dwarven Chestguard", 4), Map.entry("Steel Chain", 3),
+		Map.entry("Elven Robe", 4), Map.entry("Knight's Armor", 3), Map.entry("Warrior's Chestplate", 4),
+		Map.entry("Reinforced Chainmail", 3), Map.entry("Battle Vest", 4), Map.entry("Guardian Plate", 3),
+		Map.entry("Shadow Armor", 4), Map.entry("Silver Breastplate", 3), Map.entry("Dragonhide Armor", 4),
+		Map.entry("Templar Chestguard", 3), Map.entry("Ranger Vest", 4), Map.entry("Heavy Plate", 3),
+		Map.entry("Steel Hauberk", 4), Map.entry("Battle Robe", 3), Map.entry("Mystic Armor", 4),
+		Map.entry("Champion Chestplate", 3), Map.entry("Paladin Armor", 4), Map.entry("Stormguard Plate", 3),
+		Map.entry("Ironclad Vest", 4), Map.entry("War Plate", 3), Map.entry("Assassin's Tunic", 4),
+		Map.entry("Warlord Armor", 3)
 	);
 
-	public static final Map<String, Integer> ARMORS_EPIC = Map.of(
-		"Enchanted Breastplate", 5,
-		"Obsidian Armor", 6
+	public static final Map<String, Integer> ARMORS_EPIC = Map.ofEntries(
+		Map.entry("Enchanted Breastplate", 5), Map.entry("Obsidian Armor", 6), Map.entry("Dragon Scale Vest", 5),
+		Map.entry("Celestial Robe", 6), Map.entry("Demon Plate", 5), Map.entry("Phoenix Armor", 6),
+		Map.entry("Titan Chestplate", 5), Map.entry("Runed Chainmail", 6), Map.entry("Storm Armor", 5),
+		Map.entry("Shadowguard Vest", 6), Map.entry("Frostplate", 5), Map.entry("Infernal Armor", 6),
+		Map.entry("Holy Breastplate", 5), Map.entry("Valkyrie Plate", 6), Map.entry("Eclipse Armor", 5),
+		Map.entry("Darksteel Vest", 6), Map.entry("Moonlight Robe", 5), Map.entry("Soulguard Armor", 6),
+		Map.entry("Bloodplate", 5), Map.entry("Arcane Chestplate", 6), Map.entry("Thunderplate", 5),
+		Map.entry("Warlord Breastplate", 6), Map.entry("Titanium Armor", 5), Map.entry("Oblivion Vest", 6),
+		Map.entry("Celestial Plate", 7)
 	);
 
-	public static final Map<String, Integer> ARMORS_LEGENDARY = Map.of(
-		"Dragon Scale Armor", 7
+	public static final Map<String, Integer> ARMORS_LEGENDARY = Map.ofEntries(
+		Map.entry("Dragon Scale Armor", 7), Map.entry("Aegis Plate", 8), Map.entry("Godslayer Vest", 9),
+		Map.entry("Phoenix Breastplate", 10), Map.entry("Titan Armor", 11), Map.entry("Celestial Guard", 12),
+		Map.entry("Oblivion Plate", 10), Map.entry("Infinity Armor", 11), Map.entry("Stormbreaker Vest", 12),
+		Map.entry("Lightbringer Plate", 13), Map.entry("Shadowmourne Armor", 12), Map.entry("Moonlight Vest", 13),
+		Map.entry("Dawnbreaker Breastplate", 14), Map.entry("Eternity Armor", 15), Map.entry("Dragonheart Plate", 14),
+		Map.entry("Soulguard Vest", 15), Map.entry("Infernal Plate", 14), Map.entry("Valkyrie Armor", 15),
+		Map.entry("Thunderstrike Vest", 16), Map.entry("Bloodfang Plate", 16), Map.entry("Celestial Armor", 17),
+		Map.entry("Fallen God Plate", 18), Map.entry("Heaven's Wrath Armor", 17), Map.entry("Divine Vest", 18),
+		Map.entry("Eclipse Plate", 19)
 	);
 
 	/* -------------------- HELMS (HP bonus) -------------------- */
 
-	public static final Map<String, Integer> HELMS_COMMON = Map.of(
-		"Leather Hood", 3,
-		"Iron Helmet", 5,
-		"Wooden Cap", 3,
-		"Hide Helm", 4
+	public static final Map<String, Integer> HELMS_COMMON = Map.ofEntries(
+		Map.entry("Leather Hood", 3), Map.entry("Iron Helmet", 5), Map.entry("Wooden Cap", 3),
+		Map.entry("Hide Helm", 4), Map.entry("Cloth Hat", 3), Map.entry("Bronze Helmet", 4),
+		Map.entry("Simple Hood", 3), Map.entry("Studded Cap", 4), Map.entry("Traveler's Cap", 3),
+		Map.entry("Leather Headpiece", 3), Map.entry("Iron Coif", 5), Map.entry("Worn Helm", 3),
+		Map.entry("Basic Hood", 3), Map.entry("Leather Helm", 4), Map.entry("Padded Cap", 3),
+		Map.entry("Huntsman Hat", 3), Map.entry("Reinforced Hood", 4), Map.entry("Old Helmet", 5),
+		Map.entry("Guardian Helm", 4), Map.entry("Light Cap", 3), Map.entry("Squire Hood", 3),
+		Map.entry("Shadow Cap", 3), Map.entry("Iron Headguard", 4), Map.entry("Rusty Helmet", 3),
+		Map.entry("Novice Hood", 3)
 	);
 
-	public static final Map<String, Integer> HELMS_RARE = Map.of(
-		"Steel Helm", 8,
-		"Guardian Mask", 10,
-		"Iron Crown", 9
+	public static final Map<String, Integer> HELMS_RARE = Map.ofEntries(
+		Map.entry("Steel Helm", 8), Map.entry("Guardian Mask", 10), Map.entry("Iron Crown", 9),
+		Map.entry("Elven Circlet", 8), Map.entry("Knight's Helm", 9), Map.entry("Warrior's Headpiece", 10),
+		Map.entry("Reinforced Helm", 9), Map.entry("Battle Cap", 8), Map.entry("Shadow Helm", 10),
+		Map.entry("Silver Mask", 9), Map.entry("Dragon Helm", 10), Map.entry("Templar Circlet", 9),
+		Map.entry("Ranger Hood", 8), Map.entry("Heavy Helm", 9), Map.entry("Steel Crown", 10),
+		Map.entry("Battle Helm", 9), Map.entry("Mystic Helm", 8), Map.entry("Champion Mask", 10),
+		Map.entry("Paladin Helm", 9), Map.entry("Stormguard Headpiece", 8), Map.entry("Ironclad Helm", 9),
+		Map.entry("War Helm", 10), Map.entry("Assassin Hood", 8), Map.entry("Warlord Helm", 10),
+		Map.entry("Oblivion Helm", 9)
 	);
 
-	public static final Map<String, Integer> HELMS_EPIC = Map.of(
-		"Warlord Crown", 12,
-		"Helm of Eternity", 15
+	public static final Map<String, Integer> HELMS_EPIC = Map.ofEntries(
+		Map.entry("Warlord Crown", 12), Map.entry("Helm of Eternity", 15), Map.entry("Dragonlord Helm", 13),
+		Map.entry("Celestial Circlet", 14), Map.entry("Demon Helm", 12), Map.entry("Phoenix Hood", 15),
+		Map.entry("Titan Crown", 14), Map.entry("Runed Helm", 13), Map.entry("Stormguard Helm", 14),
+		Map.entry("Shadowguard Cap", 12), Map.entry("Frost Helm", 13), Map.entry("Infernal Hood", 15),
+		Map.entry("Holy Crown", 14), Map.entry("Valkyrie Helm", 15), Map.entry("Eclipse Hood", 13),
+		Map.entry("Darksteel Helm", 14), Map.entry("Moonlight Crown", 15), Map.entry("Soulguard Helm", 14),
+		Map.entry("Blood Helm", 13), Map.entry("Arcane Hood", 15), Map.entry("Thunder Helm", 14),
+		Map.entry("Warlord Headpiece", 15), Map.entry("Titanium Crown", 14), Map.entry("Oblivion Helm", 15),
+		Map.entry("Celestial Helm", 16)
 	);
 
-	public static final Map<String, Integer> HELMS_LEGENDARY = Map.of(
-		"Godslayer Helm", 30
+	public static final Map<String, Integer> HELMS_LEGENDARY = Map.ofEntries(
+		Map.entry("Godslayer Helm", 30), Map.entry("Aegis Crown", 28), Map.entry("Phoenix Helm", 32),
+		Map.entry("Titan Helm", 31), Map.entry("Celestial Mask", 33), Map.entry("Oblivion Crown", 34),
+		Map.entry("Infinity Crown", 35), Map.entry("Stormbreaker Helm", 33), Map.entry("Lightbringer Helm", 36),
+		Map.entry("Shadowmourne Helm", 34), Map.entry("Moonlight Helm", 35), Map.entry("Dawnbreaker Helm", 36),
+		Map.entry("Eternity Helm", 37), Map.entry("Dragonheart Helm", 38), Map.entry("Soulguard Helm", 37),
+		Map.entry("Infernal Helm", 36), Map.entry("Valkyrie Helm", 38), Map.entry("Thunderstrike Helm", 39),
+		Map.entry("Bloodfang Helm", 38), Map.entry("Celestial Helm", 40), Map.entry("Fallen God Helm", 41),
+		Map.entry("Heaven's Wrath Helm", 42), Map.entry("Divine Helm", 40), Map.entry("Eclipse Helm", 43),
+		Map.entry("Omniscient Helm", 45)
 	);
 
 	// ==================
