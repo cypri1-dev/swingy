@@ -69,9 +69,9 @@ public final class Constants {
 
 	/* ENEMY STATS */
 
-	public static final int HP_BASE_ENEMY = 8;
-	public static final int ATT_BASE_ENEMY = 4;
-	public static final int DEF_BASE_ENEMY = 4;
+	public static final int HP_BASE_ENEMY = 12;
+	public static final int ATT_BASE_ENEMY = 6;
+	public static final int DEF_BASE_ENEMY = 5;
 
 	/* ENEMY ARCHETYPES */
 
@@ -131,110 +131,111 @@ public final class Constants {
 	// ENEMY STATS MODIFIERS
 	// ==================
 
-	// ---- Niveau 1-4 : très faibles ----
-	public static final int HP_RAT = -6;
-	public static final int ATT_RAT = -3;
-	public static final int DEF_RAT = -3;
-	public static final int XP_RAT = 15;
+	// ---- Niveau 1-4 : faibles ----
+	public static final int HP_RAT = -3;
+	public static final int ATT_RAT = -1;
+	public static final int DEF_RAT = -1;
+	public static final int XP_RAT = 25;
 
-	public static final int HP_SLIME = -5;
-	public static final int ATT_SLIME = -3;
-	public static final int DEF_SLIME = -2;
-	public static final int XP_SLIME = 20;
+	public static final int HP_SLIME = -2;
+	public static final int ATT_SLIME = -1;
+	public static final int DEF_SLIME = 0;
+	public static final int XP_SLIME = 35;
 
-	public static final int HP_GOBLIN = -4;
-	public static final int ATT_GOBLIN = -2;
-	public static final int DEF_GOBLIN = -2;
-	public static final int XP_GOBLIN = 30;
+	public static final int HP_GOBLIN = 0;
+	public static final int ATT_GOBLIN = 1;
+	public static final int DEF_GOBLIN = 0;
+	public static final int XP_GOBLIN = 55;
 
-	public static final int HP_BANDIT = -3;
-	public static final int ATT_BANDIT = -2;
-	public static final int DEF_BANDIT = -1;
-	public static final int XP_BANDIT = 45;
+	public static final int HP_BANDIT = 1;
+	public static final int ATT_BANDIT = 1;
+	public static final int DEF_BANDIT = 1;
+	public static final int XP_BANDIT = 80;
 
 	// ---- Niveau 5-8 : intermédiaires ----
-	public static final int HP_SKELETON = -2;
-	public static final int ATT_SKELETON = -1;
-	public static final int DEF_SKELETON = 0;
-	public static final int XP_SKELETON = 70;
+	public static final int HP_SKELETON = 2;
+	public static final int ATT_SKELETON = 1;
+	public static final int DEF_SKELETON = 1;
+	public static final int XP_SKELETON = 110;
 
-	public static final int HP_WOLF = -1;
-	public static final int ATT_WOLF = 1;
-	public static final int DEF_WOLF = -1;
-	public static final int XP_WOLF = 90;
+	public static final int HP_WOLF = 2;
+	public static final int ATT_WOLF = 2;
+	public static final int DEF_WOLF = 1;
+	public static final int XP_WOLF = 140;
 
-	public static final int HP_CULTIST = 0;
-	public static final int ATT_CULTIST = 1;
-	public static final int DEF_CULTIST = 0;
-	public static final int XP_CULTIST = 120;
+	public static final int HP_CULTIST = 3;
+	public static final int ATT_CULTIST = 3;
+	public static final int DEF_CULTIST = 2;
+	public static final int XP_CULTIST = 180;
 
-	public static final int HP_ORC = 2;
-	public static final int ATT_ORC = 2;
-	public static final int DEF_ORC = 0;
-	public static final int XP_ORC = 160;
+	public static final int HP_ORC = 4;
+	public static final int ATT_ORC = 4;
+	public static final int DEF_ORC = 3;
+	public static final int XP_ORC = 240;
 
 	// ---- Niveau 9-12 : avancés ----
-	public static final int HP_DARK_MAGE = -1;
-	public static final int ATT_DARK_MAGE = 4;
-	public static final int DEF_DARK_MAGE = -1;
-	public static final int XP_DARK_MAGE = 220;
+	public static final int HP_DARK_MAGE = 3;
+	public static final int ATT_DARK_MAGE = 6;
+	public static final int DEF_DARK_MAGE = 2;
+	public static final int XP_DARK_MAGE = 320;
 
-	public static final int HP_ELEMENTAL = 2;
-	public static final int ATT_ELEMENTAL = 2;
-	public static final int DEF_ELEMENTAL = 3;
-	public static final int XP_ELEMENTAL = 300;
+	public static final int HP_ELEMENTAL = 5;
+	public static final int ATT_ELEMENTAL = 5;
+	public static final int DEF_ELEMENTAL = 5;
+	public static final int XP_ELEMENTAL = 420;
 
-	public static final int HP_TROLL = 4;
-	public static final int ATT_TROLL = 1;
-	public static final int DEF_TROLL = 3;
-	public static final int XP_TROLL = 400;
+	public static final int HP_TROLL = 6;
+	public static final int ATT_TROLL = 4;
+	public static final int DEF_TROLL = 6;
+	public static final int XP_TROLL = 550;
 
-	public static final int HP_ASSASSIN_ENEMY = -1;
-	public static final int ATT_ASSASSIN_ENEMY = 6;
-	public static final int DEF_ASSASSIN_ENEMY = -2;
-	public static final int XP_ASSASSIN_ENEMY = 550;
+	public static final int HP_ASSASSIN_ENEMY = 4;
+	public static final int ATT_ASSASSIN_ENEMY = 8;
+	public static final int DEF_ASSASSIN_ENEMY = 2;
+	public static final int XP_ASSASSIN_ENEMY = 700;
 
 	// ---- Niveau 13-16 : élite ----
-	public static final int HP_LICH = 3;
-	public static final int ATT_LICH = 3;
-	public static final int DEF_LICH = 2;
-	public static final int XP_LICH = 750;
+	public static final int HP_LICH = 7;
+	public static final int ATT_LICH = 6;
+	public static final int DEF_LICH = 5;
+	public static final int XP_LICH = 950;
 
-	public static final int HP_MINOTAUR = 6;
-	public static final int ATT_MINOTAUR = 4;
-	public static final int DEF_MINOTAUR = 3;
-	public static final int XP_MINOTAUR = 950;
+	public static final int HP_MINOTAUR = 10;
+	public static final int ATT_MINOTAUR = 7;
+	public static final int DEF_MINOTAUR = 6;
+	public static final int XP_MINOTAUR = 1200;
 
-	public static final int HP_VAMPIRE_LORD = 2;
-	public static final int ATT_VAMPIRE_LORD = 6;
-	public static final int DEF_VAMPIRE_LORD = 2;
-	public static final int XP_VAMPIRE_LORD = 1200;
+	public static final int HP_VAMPIRE_LORD = 8;
+	public static final int ATT_VAMPIRE_LORD = 9;
+	public static final int DEF_VAMPIRE_LORD = 7;
+	public static final int XP_VAMPIRE_LORD = 1600;
 
-	public static final int HP_DEMON_KNIGHT = 7;
-	public static final int ATT_DEMON_KNIGHT = 5;
-	public static final int DEF_DEMON_KNIGHT = 4;
-	public static final int XP_DEMON_KNIGHT = 1500;
+	public static final int HP_DEMON_KNIGHT = 12;
+	public static final int ATT_DEMON_KNIGHT = 10;
+	public static final int DEF_DEMON_KNIGHT = 8;
+	public static final int XP_DEMON_KNIGHT = 2000;
 
 	// ---- Niveau 17-20 : boss & divinités ----
-	public static final int HP_DRAGON_WHELP = 5;
-	public static final int ATT_DRAGON_WHELP = 5;
-	public static final int DEF_DRAGON_WHELP = 3;
-	public static final int XP_DRAGON_WHELP = 1800;
+	public static final int HP_DRAGON_WHELP = 10;
+	public static final int ATT_DRAGON_WHELP = 8;
+	public static final int DEF_DRAGON_WHELP = 6;
+	public static final int XP_DRAGON_WHELP = 2500;
 
-	public static final int HP_ANCIENT_DRAGON = 10;
-	public static final int ATT_ANCIENT_DRAGON = 8;
-	public static final int DEF_ANCIENT_DRAGON = 6;
-	public static final int XP_ANCIENT_DRAGON = 2500;
+	public static final int HP_ANCIENT_DRAGON = 16;
+	public static final int ATT_ANCIENT_DRAGON = 12;
+	public static final int DEF_ANCIENT_DRAGON = 10;
+	public static final int XP_ANCIENT_DRAGON = 3500;
 
-	public static final int HP_ABYSSAL_HYDRA = 12;
-	public static final int ATT_ABYSSAL_HYDRA = 9;
-	public static final int DEF_ABYSSAL_HYDRA = 8;
-	public static final int XP_ABYSSAL_HYDRA = 3200;
+	public static final int HP_ABYSSAL_HYDRA = 20;
+	public static final int ATT_ABYSSAL_HYDRA = 14;
+	public static final int DEF_ABYSSAL_HYDRA = 12;
+	public static final int XP_ABYSSAL_HYDRA = 4500;
 
-	public static final int HP_FALLEN_GOD = 15;
-	public static final int ATT_FALLEN_GOD = 10;
-	public static final int DEF_FALLEN_GOD = 10;
-	public static final int XP_FALLEN_GOD = 4500;
+	public static final int HP_FALLEN_GOD = 25;
+	public static final int ATT_FALLEN_GOD = 18;
+	public static final int DEF_FALLEN_GOD = 15;
+	public static final int XP_FALLEN_GOD = 6000;
+
 
 
 	/* TYPES ARTEFACTS */
