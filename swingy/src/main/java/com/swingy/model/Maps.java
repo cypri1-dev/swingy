@@ -91,18 +91,18 @@ public class Maps {
 			Artefact loot = null;
 
 			int lootPercent = ThreadLocalRandom.current().nextInt(1, 1001);
-				if (lootPercent >= 900) {
+				if (lootPercent > 990) {
 					loot = createRandomLoot(LEGENDARY);
-				} else if (lootPercent >= 700) {
+				} else if (lootPercent > 950) {
 					loot = createRandomLoot(EPIC);
-				} else if (lootPercent >= 500) {
+				} else if (lootPercent > 800) {
 					loot = createRandomLoot(RARE);
-				} else if (lootPercent >= 200) {
+				} else if (lootPercent > 400) {
 					loot = createRandomLoot(COMMON);
-				} else if (lootPercent >=70 && lootPercent < 200)
+				} else if (lootPercent > 200)
 					loot = ArtefactFactory.getInstance().newArtefact(CONSOMMABLE_TYPE, "Healing Potion", COMMON, 10);
 
-			String randomEnemy = ENEMIES_LIST_NAMES[ThreadLocalRandom.current().nextInt(0, 10)];
+			String randomEnemy = ENEMIES_LIST_NAMES[ThreadLocalRandom.current().nextInt(0, 20)];
 			Characters tmpEnemy = CharactersFactory.getInstance().newCharacters(ENEMY_TYPE, "Enemy" + "(" + i + ")" , randomEnemy);
 
 			int tmpX;

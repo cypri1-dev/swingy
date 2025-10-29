@@ -69,25 +69,28 @@ public class Characters {
 				setDefense(DEF_BASE + DEF_ASSASSIN);
 				break;
 
-			case ENEMY_CLASS_GOBELIN:
+			case ENEMY_CLASS_RAT:
+				setHitPoint(HP_BASE_ENEMY + HP_RAT);
+				setAttack(ATT_BASE_ENEMY + ATT_RAT);
+				setDefense(DEF_BASE_ENEMY + DEF_RAT);
+				setXp(XP_RAT);
+				setLevel(1);
+				break;
+
+			case ENEMY_CLASS_SLIME:
+				setHitPoint(HP_BASE_ENEMY + HP_SLIME);
+				setAttack(ATT_BASE_ENEMY + ATT_SLIME);
+				setDefense(DEF_BASE_ENEMY + DEF_SLIME);
+				setXp(XP_SLIME);
+				setLevel(2);
+				break;
+
+			case ENEMY_CLASS_GOBLIN:
 				setHitPoint(HP_BASE_ENEMY + HP_GOBLIN);
 				setAttack(ATT_BASE_ENEMY + ATT_GOBLIN);
 				setDefense(DEF_BASE_ENEMY + DEF_GOBLIN);
 				setXp(XP_GOBLIN);
-				break;
-
-			case ENEMY_CLASS_ORC:
-				setHitPoint(HP_BASE_ENEMY + HP_ORC);
-				setAttack(ATT_BASE_ENEMY + ATT_ORC);
-				setDefense(DEF_BASE_ENEMY + DEF_ORC);
-				setXp(XP_ORC);
-				break;
-
-			case ENEMY_CLASS_SKELETON:
-				setHitPoint(HP_BASE_ENEMY + HP_SKELETON);
-				setAttack(ATT_BASE_ENEMY + ATT_SKELETON);
-				setDefense(DEF_BASE_ENEMY + DEF_SKELETON);
-				setXp(XP_SKELETON);
+				setLevel(3);
 				break;
 
 			case ENEMY_CLASS_BANDIT:
@@ -95,27 +98,23 @@ public class Characters {
 				setAttack(ATT_BASE_ENEMY + ATT_BANDIT);
 				setDefense(DEF_BASE_ENEMY + DEF_BANDIT);
 				setXp(XP_BANDIT);
+				setLevel(4);
 				break;
 
-			case ENEMY_CLASS_DARK_MAGE:
-				setHitPoint(HP_BASE_ENEMY + HP_DARK_MAGE);
-				setAttack(ATT_BASE_ENEMY + ATT_DARK_MAGE);
-				setDefense(DEF_BASE_ENEMY + DEF_DARK_MAGE);
-				setXp(XP_DARK_MAGE);
+			case ENEMY_CLASS_SKELETON:
+				setHitPoint(HP_BASE_ENEMY + HP_SKELETON);
+				setAttack(ATT_BASE_ENEMY + ATT_SKELETON);
+				setDefense(DEF_BASE_ENEMY + DEF_SKELETON);
+				setXp(XP_SKELETON);
+				setLevel(5);
 				break;
 
-			case ENEMY_CLASS_TROLL:
-				setHitPoint(HP_BASE_ENEMY + HP_TROLL);
-				setAttack(ATT_BASE_ENEMY + ATT_TROLL);
-				setDefense(DEF_BASE_ENEMY + DEF_TROLL);
-				setXp(XP_TROLL);
-				break;
-
-			case ENEMY_CLASS_ASSASSIN:
-				setHitPoint(HP_BASE_ENEMY + HP_ASSASSIN_ENEMY);
-				setAttack(ATT_BASE_ENEMY + ATT_ASSASSIN_ENEMY);
-				setDefense(DEF_BASE_ENEMY + DEF_ASSASSIN_ENEMY);
-				setXp(XP_ASSASSIN_ENEMY);
+			case ENEMY_CLASS_WOLF:
+				setHitPoint(HP_BASE_ENEMY + HP_WOLF);
+				setAttack(ATT_BASE_ENEMY + ATT_WOLF);
+				setDefense(DEF_BASE_ENEMY + DEF_WOLF);
+				setXp(XP_WOLF);
+				setLevel(6);
 				break;
 
 			case ENEMY_CLASS_CULTIST:
@@ -123,6 +122,23 @@ public class Characters {
 				setAttack(ATT_BASE_ENEMY + ATT_CULTIST);
 				setDefense(DEF_BASE_ENEMY + DEF_CULTIST);
 				setXp(XP_CULTIST);
+				setLevel(7);
+				break;
+
+			case ENEMY_CLASS_ORC:
+				setHitPoint(HP_BASE_ENEMY + HP_ORC);
+				setAttack(ATT_BASE_ENEMY + ATT_ORC);
+				setDefense(DEF_BASE_ENEMY + DEF_ORC);
+				setXp(XP_ORC);
+				setLevel(8);
+				break;
+
+			case ENEMY_CLASS_DARK_MAGE:
+				setHitPoint(HP_BASE_ENEMY + HP_DARK_MAGE);
+				setAttack(ATT_BASE_ENEMY + ATT_DARK_MAGE);
+				setDefense(DEF_BASE_ENEMY + DEF_DARK_MAGE);
+				setXp(XP_DARK_MAGE);
+				setLevel(9);
 				break;
 
 			case ENEMY_CLASS_ELEMENTAL:
@@ -130,6 +146,55 @@ public class Characters {
 				setAttack(ATT_BASE_ENEMY + ATT_ELEMENTAL);
 				setDefense(DEF_BASE_ENEMY + DEF_ELEMENTAL);
 				setXp(XP_ELEMENTAL);
+				setLevel(10);
+				break;
+
+			case ENEMY_CLASS_TROLL:
+				setHitPoint(HP_BASE_ENEMY + HP_TROLL);
+				setAttack(ATT_BASE_ENEMY + ATT_TROLL);
+				setDefense(DEF_BASE_ENEMY + DEF_TROLL);
+				setXp(XP_TROLL);
+				setLevel(11);
+				break;
+
+			case ENEMY_CLASS_ASSASSIN:
+				setHitPoint(HP_BASE_ENEMY + HP_ASSASSIN_ENEMY);
+				setAttack(ATT_BASE_ENEMY + ATT_ASSASSIN_ENEMY);
+				setDefense(DEF_BASE_ENEMY + DEF_ASSASSIN_ENEMY);
+				setXp(XP_ASSASSIN_ENEMY);
+				setLevel(12);
+				break;
+
+			case ENEMY_CLASS_LICH:
+				setHitPoint(HP_BASE_ENEMY + HP_LICH);
+				setAttack(ATT_BASE_ENEMY + ATT_LICH);
+				setDefense(DEF_BASE_ENEMY + DEF_LICH);
+				setXp(XP_LICH);
+				setLevel(13);
+				break;
+
+			case ENEMY_CLASS_MINOTAUR:
+				setHitPoint(HP_BASE_ENEMY + HP_MINOTAUR);
+				setAttack(ATT_BASE_ENEMY + ATT_MINOTAUR);
+				setDefense(DEF_BASE_ENEMY + DEF_MINOTAUR);
+				setXp(XP_MINOTAUR);
+				setLevel(14);
+				break;
+
+			case ENEMY_CLASS_VAMPIRE_LORD:
+				setHitPoint(HP_BASE_ENEMY + HP_VAMPIRE_LORD);
+				setAttack(ATT_BASE_ENEMY + ATT_VAMPIRE_LORD);
+				setDefense(DEF_BASE_ENEMY + DEF_VAMPIRE_LORD);
+				setXp(XP_VAMPIRE_LORD);
+				setLevel(15);
+				break;
+
+			case ENEMY_CLASS_DEMON_KNIGHT:
+				setHitPoint(HP_BASE_ENEMY + HP_DEMON_KNIGHT);
+				setAttack(ATT_BASE_ENEMY + ATT_DEMON_KNIGHT);
+				setDefense(DEF_BASE_ENEMY + DEF_DEMON_KNIGHT);
+				setXp(XP_DEMON_KNIGHT);
+				setLevel(16);
 				break;
 
 			case ENEMY_CLASS_DRAGON_WHELP:
@@ -137,10 +202,36 @@ public class Characters {
 				setAttack(ATT_BASE_ENEMY + ATT_DRAGON_WHELP);
 				setDefense(DEF_BASE_ENEMY + DEF_DRAGON_WHELP);
 				setXp(XP_DRAGON_WHELP);
+				setLevel(17);
+				break;
+
+			case ENEMY_CLASS_ANCIENT_DRAGON:
+				setHitPoint(HP_BASE_ENEMY + HP_ANCIENT_DRAGON);
+				setAttack(ATT_BASE_ENEMY + ATT_ANCIENT_DRAGON);
+				setDefense(DEF_BASE_ENEMY + DEF_ANCIENT_DRAGON);
+				setXp(XP_ANCIENT_DRAGON);
+				setLevel(18);
+				break;
+
+			case ENEMY_CLASS_ABYSSAL_HYDRA:
+				setHitPoint(HP_BASE_ENEMY + HP_ABYSSAL_HYDRA);
+				setAttack(ATT_BASE_ENEMY + ATT_ABYSSAL_HYDRA);
+				setDefense(DEF_BASE_ENEMY + DEF_ABYSSAL_HYDRA);
+				setXp(XP_ABYSSAL_HYDRA);
+				setLevel(19);
+				break;
+
+			case ENEMY_CLASS_FALLEN_GOD:
+				setHitPoint(HP_BASE_ENEMY + HP_FALLEN_GOD);
+				setAttack(ATT_BASE_ENEMY + ATT_FALLEN_GOD);
+				setDefense(DEF_BASE_ENEMY + DEF_FALLEN_GOD);
+				setXp(XP_FALLEN_GOD);
+				setLevel(20);
 				break;
 
 			default:
 				DisplayController.getInstance().printNormal(RED_BOLD + "Error: unknown class!" + RESET);
+				break;
 		}
 	}
 

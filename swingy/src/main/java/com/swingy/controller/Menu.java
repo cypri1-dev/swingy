@@ -97,18 +97,35 @@ public class Menu {
 						int tmpY = enemies.getCoordinates().getY();
 						String symbol = "?";
 
-						switch (enemies.getCharacterClass()) {
-							case ENEMY_CLASS_GOBELIN: symbol =  SYMBOL_ENEMY_GOBELIN; break;
-							case ENEMY_CLASS_ORC: symbol =  SYMBOL_ENEMY_ORC; break;
-							case ENEMY_CLASS_SKELETON: symbol =  SYMBOL_ENEMY_SKELETON; break;
-							case ENEMY_CLASS_BANDIT: symbol =  SYMBOL_ENEMY_BANDIT; break;
-							case ENEMY_CLASS_DARK_MAGE:symbol =  SYMBOL_ENEMY_DARK_MAGE; break;
-							case ENEMY_CLASS_TROLL: symbol =  SYMBOL_ENEMY_TROLL; break;
-							case ENEMY_CLASS_ASSASSIN: symbol =  SYMBOL_ENEMY_ASSASSIN; break;
-							case ENEMY_CLASS_CULTIST: symbol =  SYMBOL_ENEMY_CULTIST; break;
-							case ENEMY_CLASS_ELEMENTAL: symbol =  SYMBOL_ENEMY_ELEMENTAL; break;
-							case ENEMY_CLASS_DRAGON_WHELP: symbol =  SYMBOL_ENEMY_DRAGON_WHELP; break;
+					switch (enemies.getCharacterClass()) {
+						case ENEMY_CLASS_RAT: symbol = SYMBOL_ENEMY_RAT; break;
+						case ENEMY_CLASS_SLIME: symbol = SYMBOL_ENEMY_SLIME; break;
+						case ENEMY_CLASS_GOBLIN: symbol = SYMBOL_ENEMY_GOBLIN; break;
+						case ENEMY_CLASS_BANDIT: symbol = SYMBOL_ENEMY_BANDIT; break;
+
+						case ENEMY_CLASS_SKELETON: symbol = SYMBOL_ENEMY_SKELETON; break;
+						case ENEMY_CLASS_WOLF: symbol = SYMBOL_ENEMY_WOLF; break;
+						case ENEMY_CLASS_CULTIST: symbol = SYMBOL_ENEMY_CULTIST; break;
+						case ENEMY_CLASS_ORC: symbol = SYMBOL_ENEMY_ORC; break;
+
+						case ENEMY_CLASS_DARK_MAGE: symbol = SYMBOL_ENEMY_DARK_MAGE; break;
+						case ENEMY_CLASS_ELEMENTAL: symbol = SYMBOL_ENEMY_ELEMENTAL; break;
+						case ENEMY_CLASS_TROLL: symbol = SYMBOL_ENEMY_TROLL; break;
+						case ENEMY_CLASS_ASSASSIN: symbol = SYMBOL_ENEMY_ASSASSIN; break;
+
+						case ENEMY_CLASS_LICH: symbol = SYMBOL_ENEMY_LICH; break;
+						case ENEMY_CLASS_MINOTAUR: symbol = SYMBOL_ENEMY_MINOTAUR; break;
+						case ENEMY_CLASS_VAMPIRE_LORD: symbol = SYMBOL_ENEMY_VAMPIRE_LORD; break;
+						case ENEMY_CLASS_DEMON_KNIGHT: symbol = SYMBOL_ENEMY_DEMON_KNIGHT; break;
+
+						case ENEMY_CLASS_DRAGON_WHELP: symbol = SYMBOL_ENEMY_DRAGON_WHELP; break;
+						case ENEMY_CLASS_ANCIENT_DRAGON: symbol = SYMBOL_ENEMY_ANCIENT_DRAGON; break;
+						case ENEMY_CLASS_ABYSSAL_HYDRA: symbol = SYMBOL_ENEMY_ABYSSAL_HYDRA; break;
+						case ENEMY_CLASS_FALLEN_GOD: symbol = SYMBOL_ENEMY_FALLEN_GOD; break;
+
+						default: symbol = SYMBOL_ENEMY; break;
 						}
+
 						this.ref.getMap().map[tmpX][tmpY] = symbol;
 					}
 					for (Artefact items : this.ref.getMap().getListConsommable()) {

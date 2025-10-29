@@ -40,29 +40,32 @@ public final class Constants {
 	public static final String PALADIN_CLASS = "paladin";
 	public static final String ASSASSIN_CLASS = "assassin";
 
-	/* STATS CLASS HERO */
+	/* STATS BASE HERO */
 
-	public static final int HP_BASE = 10;
-	
-	public static final int HP_WARRIOR = 4;
-	public static final int HP_MAGE = -3;
-	public static final int HP_ARCHER = -2;
-	public static final int HP_PALADIN = 5;
-	public static final int HP_ASSASSIN = -1;
+	public static final int HP_BASE = 20;
+	public static final int ATT_BASE = 8;
+	public static final int DEF_BASE = 10;
 
-	public static final int ATT_BASE = 5;
+	/* MODIFICATEURS PAR CLASSE */
+
+	public static final int HP_WARRIOR = 6;
+	public static final int HP_MAGE = -2;
+	public static final int HP_ARCHER = 0;
+	public static final int HP_PALADIN = 8;
+	public static final int HP_ASSASSIN = 0;
+
 	public static final int ATT_WARRIOR = 2;
-	public static final int ATT_MAGE = 3;
-	public static final int ATT_ARCHER = 2;
+	public static final int ATT_MAGE = 4;
+	public static final int ATT_ARCHER = 3;
 	public static final int ATT_PALADIN = 1;
-	public static final int ATT_ASSASSIN = 4;
+	public static final int ATT_ASSASSIN = 5;
 
-	public static final int DEF_BASE = 5;
-	public static final int DEF_WARRIOR = 2;
+	public static final int DEF_WARRIOR = 3;
 	public static final int DEF_MAGE = -2;
-	public static final int DEF_ARCHER = -1;
-	public static final int DEF_PALADIN = 3;
-	public static final int DEF_ASSASSIN = -2;
+	public static final int DEF_ARCHER = 0;
+	public static final int DEF_PALADIN = 6;
+	public static final int DEF_ASSASSIN = -1;
+
 
 	/* ENEMY STATS */
 
@@ -72,79 +75,166 @@ public final class Constants {
 
 	/* ENEMY ARCHETYPES */
 
+	// ==================
+	// ENEMY NAMES
+	// ==================
 	public static final String[] ENEMIES_LIST_NAMES = {
+		"Rat",
+		"Slime",
 		"Goblin",
-		"Orc",
-		"Skeleton",
 		"Bandit",
+		"Skeleton",
+		"Wolf",
+		"Cultist",
+		"Orc",
 		"Dark Mage",
+		"Elemental",
 		"Troll",
 		"Assassin",
-		"Cultist",
-		"Elemental",
-		"Dragon Whelp"
+		"Lich",
+		"Minotaur",
+		"Vampire Lord",
+		"Demon Knight",
+		"Dragon Whelp",
+		"Ancient Dragon",
+		"Abyssal Hydra",
+		"Fallen God"
 	};
 
-	public static final String ENEMY_CLASS_GOBELIN = "Goblin";
-	public static final String ENEMY_CLASS_ORC = "Orc";
-	public static final String ENEMY_CLASS_SKELETON = "Skeleton";
+	// ==================
+	// ENEMY CLASS STRINGS
+	// ==================
+	
+	public static final String ENEMY_CLASS_RAT = "Rat";
+	public static final String ENEMY_CLASS_SLIME = "Slime";
+	public static final String ENEMY_CLASS_GOBLIN = "Goblin";
 	public static final String ENEMY_CLASS_BANDIT = "Bandit";
+	public static final String ENEMY_CLASS_SKELETON = "Skeleton";
+	public static final String ENEMY_CLASS_WOLF = "Wolf";
+	public static final String ENEMY_CLASS_CULTIST = "Cultist";
+	public static final String ENEMY_CLASS_ORC = "Orc";
 	public static final String ENEMY_CLASS_DARK_MAGE = "Dark Mage";
+	public static final String ENEMY_CLASS_ELEMENTAL = "Elemental";
 	public static final String ENEMY_CLASS_TROLL = "Troll";
 	public static final String ENEMY_CLASS_ASSASSIN = "Assassin";
-	public static final String ENEMY_CLASS_CULTIST = "Cultist";
-	public static final String ENEMY_CLASS_ELEMENTAL = "Elemental";
-	public static final String ENEMY_CLASS_DRAGON_WHELP  = "Dragon Whelp";
+	public static final String ENEMY_CLASS_LICH = "Lich";
+	public static final String ENEMY_CLASS_MINOTAUR = "Minotaur";
+	public static final String ENEMY_CLASS_VAMPIRE_LORD = "Vampire Lord";
+	public static final String ENEMY_CLASS_DEMON_KNIGHT = "Demon Knight";
+	public static final String ENEMY_CLASS_DRAGON_WHELP = "Dragon Whelp";
+	public static final String ENEMY_CLASS_ANCIENT_DRAGON = "Ancient Dragon";
+	public static final String ENEMY_CLASS_ABYSSAL_HYDRA = "Abyssal Hydra";
+	public static final String ENEMY_CLASS_FALLEN_GOD = "Fallen God";
 
-	public static final int HP_GOBLIN = -2;
-	public static final int ATT_GOBLIN = 1;
-	public static final int DEF_GOBLIN = -1;
-	public static final int XP_GOBLIN = 18;
+	// ==================
+	// ENEMY STATS MODIFIERS
+	// ==================
 
-	public static final int HP_ORC = 3;
-	public static final int ATT_ORC = 3;
-	public static final int DEF_ORC = -1;
-	public static final int XP_ORC = 30;
+	// ---- Niveau 1-4 : très faibles ----
+	public static final int HP_RAT = -6;
+	public static final int ATT_RAT = -3;
+	public static final int DEF_RAT = -3;
+	public static final int XP_RAT = 15;
 
-	public static final int HP_SKELETON = -1;
-	public static final int ATT_SKELETON = 0;
-	public static final int DEF_SKELETON = 2;
-	public static final int XP_SKELETON = 20;
+	public static final int HP_SLIME = -5;
+	public static final int ATT_SLIME = -3;
+	public static final int DEF_SLIME = -2;
+	public static final int XP_SLIME = 20;
 
-	public static final int HP_BANDIT = 0;
-	public static final int ATT_BANDIT = 1;
-	public static final int DEF_BANDIT = 0;
-	public static final int XP_BANDIT = 22;
+	public static final int HP_GOBLIN = -4;
+	public static final int ATT_GOBLIN = -2;
+	public static final int DEF_GOBLIN = -2;
+	public static final int XP_GOBLIN = 30;
 
-	public static final int HP_DARK_MAGE = -3;
+	public static final int HP_BANDIT = -3;
+	public static final int ATT_BANDIT = -2;
+	public static final int DEF_BANDIT = -1;
+	public static final int XP_BANDIT = 45;
+
+	// ---- Niveau 5-8 : intermédiaires ----
+	public static final int HP_SKELETON = -2;
+	public static final int ATT_SKELETON = -1;
+	public static final int DEF_SKELETON = 0;
+	public static final int XP_SKELETON = 70;
+
+	public static final int HP_WOLF = -1;
+	public static final int ATT_WOLF = 1;
+	public static final int DEF_WOLF = -1;
+	public static final int XP_WOLF = 90;
+
+	public static final int HP_CULTIST = 0;
+	public static final int ATT_CULTIST = 1;
+	public static final int DEF_CULTIST = 0;
+	public static final int XP_CULTIST = 120;
+
+	public static final int HP_ORC = 2;
+	public static final int ATT_ORC = 2;
+	public static final int DEF_ORC = 0;
+	public static final int XP_ORC = 160;
+
+	// ---- Niveau 9-12 : avancés ----
+	public static final int HP_DARK_MAGE = -1;
 	public static final int ATT_DARK_MAGE = 4;
-	public static final int DEF_DARK_MAGE = -2;
-	public static final int XP_DARK_MAGE = 55;
-
-	public static final int HP_TROLL = 6;
-	public static final int ATT_TROLL = 1;
-	public static final int DEF_TROLL = 3;
-	public static final int XP_TROLL = 40;
-
-	public static final int HP_ASSASSIN_ENEMY = -2;
-	public static final int ATT_ASSASSIN_ENEMY = 5;
-	public static final int DEF_ASSASSIN_ENEMY = -3;
-	public static final int XP_ASSASSIN_ENEMY = 60;
-
-	public static final int HP_CULTIST = -1;
-	public static final int ATT_CULTIST = 2;
-	public static final int DEF_CULTIST = 1;
-	public static final int XP_CULTIST = 24;
+	public static final int DEF_DARK_MAGE = -1;
+	public static final int XP_DARK_MAGE = 220;
 
 	public static final int HP_ELEMENTAL = 2;
 	public static final int ATT_ELEMENTAL = 2;
-	public static final int DEF_ELEMENTAL = 4;
-	public static final int XP_ELEMENTAL = 45;
+	public static final int DEF_ELEMENTAL = 3;
+	public static final int XP_ELEMENTAL = 300;
 
+	public static final int HP_TROLL = 4;
+	public static final int ATT_TROLL = 1;
+	public static final int DEF_TROLL = 3;
+	public static final int XP_TROLL = 400;
+
+	public static final int HP_ASSASSIN_ENEMY = -1;
+	public static final int ATT_ASSASSIN_ENEMY = 6;
+	public static final int DEF_ASSASSIN_ENEMY = -2;
+	public static final int XP_ASSASSIN_ENEMY = 550;
+
+	// ---- Niveau 13-16 : élite ----
+	public static final int HP_LICH = 3;
+	public static final int ATT_LICH = 3;
+	public static final int DEF_LICH = 2;
+	public static final int XP_LICH = 750;
+
+	public static final int HP_MINOTAUR = 6;
+	public static final int ATT_MINOTAUR = 4;
+	public static final int DEF_MINOTAUR = 3;
+	public static final int XP_MINOTAUR = 950;
+
+	public static final int HP_VAMPIRE_LORD = 2;
+	public static final int ATT_VAMPIRE_LORD = 6;
+	public static final int DEF_VAMPIRE_LORD = 2;
+	public static final int XP_VAMPIRE_LORD = 1200;
+
+	public static final int HP_DEMON_KNIGHT = 7;
+	public static final int ATT_DEMON_KNIGHT = 5;
+	public static final int DEF_DEMON_KNIGHT = 4;
+	public static final int XP_DEMON_KNIGHT = 1500;
+
+	// ---- Niveau 17-20 : boss & divinités ----
 	public static final int HP_DRAGON_WHELP = 5;
 	public static final int ATT_DRAGON_WHELP = 5;
 	public static final int DEF_DRAGON_WHELP = 3;
-	public static final int XP_DRAGON_WHELP = 70;
+	public static final int XP_DRAGON_WHELP = 1800;
+
+	public static final int HP_ANCIENT_DRAGON = 10;
+	public static final int ATT_ANCIENT_DRAGON = 8;
+	public static final int DEF_ANCIENT_DRAGON = 6;
+	public static final int XP_ANCIENT_DRAGON = 2500;
+
+	public static final int HP_ABYSSAL_HYDRA = 12;
+	public static final int ATT_ABYSSAL_HYDRA = 9;
+	public static final int DEF_ABYSSAL_HYDRA = 8;
+	public static final int XP_ABYSSAL_HYDRA = 3200;
+
+	public static final int HP_FALLEN_GOD = 15;
+	public static final int ATT_FALLEN_GOD = 10;
+	public static final int DEF_FALLEN_GOD = 10;
+	public static final int XP_FALLEN_GOD = 4500;
+
 
 	/* TYPES ARTEFACTS */
 
@@ -235,20 +325,43 @@ public final class Constants {
 		"Godslayer Helm", 30
 	);
 
-	/* SYMBOLS MAP */
+	// ==================
+	// SYMBOLS - HERO & ENEMIES
+	// ==================
 
 	public static final String SYMBOL_MAIN_HERO = BLUE + "@" + RESET;
-	public static final String SYMBOL_ENEMY = RED + "!";
-	public static final String SYMBOL_ENEMY_GOBELIN = RED + "G" + RESET;
+	public static final String SYMBOL_ENEMY = RED + "!" + RESET;
+
+	// ---- Tier 1 : faibles ----
+	public static final String SYMBOL_ENEMY_RAT = RED + "r" + RESET;
+	public static final String SYMBOL_ENEMY_SLIME = RED + "s" + RESET;
+	public static final String SYMBOL_ENEMY_GOBLIN = RED + "g" + RESET;
+	public static final String SYMBOL_ENEMY_BANDIT = RED + "b" + RESET;
+
+	// ---- Tier 2 : intermédiaires ----
+	public static final String SYMBOL_ENEMY_SKELETON = RED + "S" + RESET;
+	public static final String SYMBOL_ENEMY_WOLF = RED + "w" + RESET;
+	public static final String SYMBOL_ENEMY_CULTIST = RED + "c" + RESET;
 	public static final String SYMBOL_ENEMY_ORC = RED + "O" + RESET;
-	public static final String SYMBOL_ENEMY_SKELETON  = RED + "S" + RESET;
-	public static final String SYMBOL_ENEMY_BANDIT = RED + "B" + RESET;
+
+	// ---- Tier 3 : avancés ----
 	public static final String SYMBOL_ENEMY_DARK_MAGE = RED + "M" + RESET;
-	public static final String SYMBOL_ENEMY_TROLL  = RED + "T" + RESET;
-	public static final String SYMBOL_ENEMY_ASSASSIN  = RED + "A" + RESET;
-	public static final String SYMBOL_ENEMY_CULTIST= RED + "C" + RESET;
 	public static final String SYMBOL_ENEMY_ELEMENTAL = RED + "E" + RESET;
+	public static final String SYMBOL_ENEMY_TROLL = RED + "T" + RESET;
+	public static final String SYMBOL_ENEMY_ASSASSIN = RED + "A" + RESET;
+
+	// ---- Tier 4 : élite ----
+	public static final String SYMBOL_ENEMY_LICH = RED + "L" + RESET;
+	public static final String SYMBOL_ENEMY_MINOTAUR = RED + "m" + RESET;
+	public static final String SYMBOL_ENEMY_VAMPIRE_LORD = RED + "V" + RESET;
+	public static final String SYMBOL_ENEMY_DEMON_KNIGHT = RED + "K" + RESET;
+
+	// ---- Tier 5 : boss & dieux ----
 	public static final String SYMBOL_ENEMY_DRAGON_WHELP = RED + "D" + RESET;
+	public static final String SYMBOL_ENEMY_ANCIENT_DRAGON = RED + "Ω" + RESET;
+	public static final String SYMBOL_ENEMY_ABYSSAL_HYDRA = RED + "H" + RESET;
+	public static final String SYMBOL_ENEMY_FALLEN_GOD = RED + "Φ" + RESET;
+
 
 
 	/* MAPS DATA */
