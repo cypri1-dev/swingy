@@ -23,7 +23,6 @@ public class FightLogic {
 			display.clearTerminal();
 			display.printNormal(FIGHT_TITLE);
 			if (tmp == null)
-				
 				display.displayCurrentEnemy(enemy, 0);
 			else
 				display.displayCurrentEnemy(enemy, hero.getKnowledge().getMap().get(enemy.getCharacterClass()));
@@ -118,8 +117,8 @@ public class FightLogic {
 				do {
 					display.printNormal(LOOT_OPTION);
 					choice = display.getUserInput();
-				} while(!choice.contains("1") && !choice.contains("2"));
-				if (choice.contains("1")) {
+				} while(!choice.equals("1") && !choice.equals("2"));
+				if (choice.equals("1")) {
 					hero.addArtefact(enemy.getArtefacts().get(0));
 					enemy.removeArtefact(enemy.getArtefacts().get(0));
 				}
