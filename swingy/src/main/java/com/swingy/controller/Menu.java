@@ -55,6 +55,7 @@ public class Menu {
 	private void exitOption() {
 		display.clearTerminal();
 		display.printSlow(OUT_MSG);
+		Export.exportData(ref.getListAvaible());
 		display.closeScanner();
 		System.exit(0);
 	}
