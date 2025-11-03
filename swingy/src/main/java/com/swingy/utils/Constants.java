@@ -446,7 +446,6 @@ public final class Constants {
 
 
 	/* MAPS DATA */
-
 	public static final double DENSITY = 0.23;
 	public static final double DENSITY_CONSOMMABLE = 0.10;
 
