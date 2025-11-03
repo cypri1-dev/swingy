@@ -1,0 +1,24 @@
+adshum
+paladin
+1
+55
+9
+16
+26
+28
+*** BAG ***
+Healing Potion
+false
+10
+common
+consommable
+----------
+Huntsman Hat
+false
+3
+common
+helm
+----------
+*** KNOWLEDGE ***
+{Goblin=1}
+**********
