@@ -6,6 +6,7 @@ import java.awt.event.*;
 
 import com.swingy.controller.Export;
 import com.swingy.controller.Game;
+import com.swingy.controller.Import;
 
 public class App {
 	public static void main(String[] args) {
@@ -52,7 +53,11 @@ public class App {
 		// frame.setVisible(true);
 
 		Game rpg = new Game();
+		boolean loadingSave = false;
 
+		loadingSave = Import.fileChecker();
+		if (loadingSave)
+			Import.fileParser(rpg);
 		while(true) {
 			rpg.getMenu().launchGame();
 		}
