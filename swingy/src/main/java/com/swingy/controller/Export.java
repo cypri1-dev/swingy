@@ -65,7 +65,7 @@ public class Export {
 
 			} catch(FileNotFoundException e) {
 				DisplayController.getInstance().printNormal(RED_BOLD + "Error: an error occurred while exporting save.txt file...");
-				System.out.println(e.getStackTrace());
+				e.getStackTrace();
 			}
 		}
 	}
