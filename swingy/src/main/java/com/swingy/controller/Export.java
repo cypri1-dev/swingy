@@ -24,39 +24,57 @@ public class Export {
 			try {
 				// file to export
 				File file = new File("save.txt");
+				if (file.exists()) {
+					file.setWritable(true);
+				}
 				out = new PrintWriter(file);
 
 				for (Characters c : avaibleHeros) {
 					// Characters data
-					out.println(c.getName());
-					out.println(c.getCharacterClass());
-					out.println(c.getLevel());
-					out.println(c.getXp());
-					out.println(c.getAttack());
-					out.println(c.getDefense());
-					out.println(c.getHitPoint());
-					out.println(c.getMaxHitPoint());
+					out.print(c.getName());
+					out.print(",");
+					out.print(c.getCharacterClass());
+					out.print(",");
+					out.print(c.getLevel());
+					out.print(",");
+					out.print(c.getXp());
+					out.print(",");
+					out.print(c.getAttack());
+					out.print(",");
+					out.print(c.getDefense());
+					out.print(",");
+					out.print(c.getHitPoint());
+					out.print(",");
+					out.print(c.getMaxHitPoint());
 
-					out.println("*** BAG ***");
-					
+					// out.println("*** BAG ***");
+					out.print("|");
 					// Bag
 					if (!c.getArtefacts().isEmpty()) {
 						for (Artefact item : c.getArtefacts()) {
-							out.println(item.getName());
-							out.println(item.getIsEquipped());
-							out.println(item.getBonus());
-							out.println(item.getRarity());
-							out.println(item.getType());
-							out.println("----------");
+							out.print("{");
+							out.print(item.getName());
+							out.print(",");
+							out.print(item.getIsEquipped());
+							out.print(",");
+							out.print(item.getBonus());
+							out.print(",");
+							out.print(item.getRarity());
+							out.print(",");
+							out.print(item.getType());
+							// out.print(",");
+							out.print("}");
 						}
 					}
 
-					out.println("*** KNOWLEDGE ***");
 					// Knwolegde
+					// out.println("*** KNOWLEDGE ***");
+					out.print("|");
 					if (!c.getKnowledge().getMap().isEmpty()) {
-						out.println(c.getKnowledge().getMap());
+						out.print(c.getKnowledge().getMap());
 					}
-					out.println("**********");
+					// out.println("**********");
+					out.print("*");
 				}
 				out.close();
 				file.setWritable(false);
