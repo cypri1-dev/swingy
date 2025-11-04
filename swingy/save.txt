@@ -1,10 +1,10 @@
-adshum
+Adshum
 paladin
 1
-55
+140
 9
-16
-26
+17
+23
 28
 *** BAG ***
 Healing Potion
@@ -13,12 +13,36 @@ false
 common
 consommable
 ----------
-Huntsman Hat
-false
-3
+Cloth Tunic
+true
+1
 common
-helm
+armor
 ----------
 *** KNOWLEDGE ***
-{Goblin=1}
+{Goblin=1, Wolf=1}
+**********
+Test2
+archer
+1
+55
+11
+10
+20
+20
+*** BAG ***
+Twin Daggers
+false
+4
+rare
+weapon
+----------
+Healing Potion
+false
+10
+common
+consommable
+----------
+*** KNOWLEDGE ***
+{Goblin=1, Wolf=1}
 **********

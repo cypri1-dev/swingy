@@ -1,7 +1,10 @@
 package com.swingy.controller;
 
+import static com.swingy.utils.Constants.RED_BOLD;
+
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.io.File;
 import java.util.List;
 
 import com.swingy.model.Characters;
@@ -20,7 +23,8 @@ public class Export {
 			PrintWriter out;
 			try {
 				// file to export
-				out = new PrintWriter("save.txt");
+				File file = new File("save.txt");
+				out = new PrintWriter(file);
 
 				for (Characters c : avaibleHeros) {
 					// Characters data
@@ -48,17 +52,20 @@ public class Export {
 					}
 
 					out.println("*** KNOWLEDGE ***");
-
 					// Knwolegde
-					if (!c.getKnowledge().getInstance().getMap().isEmpty()) {
-						out.println(c.getKnowledge().getInstance().getMap());
+					if (!c.getKnowledge().getMap().isEmpty()) {
+						out.println(c.getKnowledge().getMap());
 					}
 					out.println("**********");
 				}
 				out.close();
+				file.setWritable(false);
+				file.setReadable(true);
+
 
 			} catch(FileNotFoundException e) {
-				;
+				DisplayController.getInstance().printNormal(RED_BOLD + "Error: an error occurred while exporting save.txt file...");
+				System.out.println(e.getStackTrace());
 			}
 		}
 	}
