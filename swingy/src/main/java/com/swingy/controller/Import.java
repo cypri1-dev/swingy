@@ -79,40 +79,38 @@ public class Import {
 		boolean checker = false;
 
 		try (Scanner myReader = new Scanner(file)) {
-			while (myReader.hasNextLine()) {
-				String data = myReader.nextLine();
+			String data = myReader.nextLine();
 
-				// Split each character block with '*'
-				String[] characters = data.split("\\*");
+			// Split each character block with '*'
+			String[] characters = data.split("\\*");
 
-				for (String line : characters) {
-					// Split each character's data section with '|'
-					String[] characterData = line.split("\\|");
+			for (String line : characters) {
+				// Split each character's data section with '|'
+				String[] characterData = line.split("\\|");
 
-					if (characterData.length > 3) {
-						System.out.println(RED_BOLD + "Error: invalid data size... Press ENTER to continue..." + RESET);
-						DisplayController.getInstance().getUserInput();
-						return;
-					}
-
-					switch (characterData.length) {
-						case 1:
-							checker = importCharacter(characterData[0], ref);
-							if (!checker)
-								return;
-							break;
-
-						default:
-							break;
-					}
-
-					// DEBUG (optionnel)
-					// for (String characterDataLine : characterData) {
-					//     System.out.println(DEBUG_BOLD + characterDataLine + RESET);
-					// }
-
+				if (characterData.length > 3) {
+					System.out.println(RED_BOLD + "Error: invalid data size... Press ENTER to continue..." + RESET);
 					DisplayController.getInstance().getUserInput();
+					return;
 				}
+
+				switch (characterData.length) {
+					case 1:
+						checker = importCharacter(characterData[0], ref);
+						if (!checker)
+							return;
+						break;
+
+					default:
+						break;
+				}
+
+				// DEBUG (optionnel)
+				// for (String characterDataLine : characterData) {
+				//     System.out.println(DEBUG_BOLD + characterDataLine + RESET);
+				// }
+
+				DisplayController.getInstance().getUserInput();
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
