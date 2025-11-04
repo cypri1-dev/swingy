@@ -22,6 +22,17 @@ public class CharactersFactory {
 
 	/* -------------------------------------------------- METHOD CHARACTERS_FACTORY -------------------------------------------------- */
 
+	public Characters loadCharacters(String type, String name, String characterClass, int lvl, int xp, int att, int def, int hp, int maxHp) {
+		Characters loaded = new Hero(type, name, characterClass);
+		loaded.setLevel(lvl);
+		loaded.setXp(xp);
+		loaded.loadAttack(att);
+		loaded.loadDefense(def);
+		loaded.setHealHp(hp);
+		loaded.setMaxHitPoint(maxHp);
+		return loaded;
+	}
+
 	public Characters newCharacters(String type, String name, String characterClass) {
 		switch (type) {
 			case HERO_TYPE:
