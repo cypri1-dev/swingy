@@ -242,6 +242,8 @@ public class Characters {
 	protected void setLevel(int level) {this.level = level;}
 	protected void setXp(int xp) {this.xp = xp;}
 	// protected void addXp(int xp) {this.xp += xp;}
+	protected void loadAttack(int attack) {this.attack = attack;}
+	protected void loadDefense(int defense) {this.defense = defense;}
 	protected void setAttack(int attack) {this.attack += attack;}
 	protected void setDefense(int defense) {this.defense += defense;}
 	public void setHitPoint(int hp) {this.hitPoint += hp;}
