@@ -148,7 +148,6 @@ public class Menu {
 	/* -------------------------------------------------- MAIN MENU -------------------------------------------------- */
 
 	public void launchGame() {
-		Import.fileChecker();
 		display.clearTerminal();
 		display.printSlow(MAIN_HEADER);
 		display.sleepTime(900);
