@@ -1,1 +1,1 @@
-Test,archer,1,80,12,10,20,20|{Sling Staff,true,1,common,weapon}{Healing Potion,false,10,common,consommable}{Healing Potion,false,10,common,consommable}|{Bandit=1}*
+q,paladin,1,0,9,16,28,28||*

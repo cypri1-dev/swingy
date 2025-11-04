@@ -73,7 +73,6 @@ public class Export {
 					if (!c.getKnowledge().getMap().isEmpty()) {
 						out.print(c.getKnowledge().getMap());
 					}
-					// out.println("**********");
 					out.print("*");
 				}
 				out.close();

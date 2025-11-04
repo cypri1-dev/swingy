@@ -4,7 +4,6 @@ package com.swingy;
 import javax.swing.*;          // Pour JFrame, JLabel, JButton, JTextField
 import java.awt.event.*;
 
-import com.swingy.controller.Export;
 import com.swingy.controller.Game;
 import com.swingy.controller.Import;
 
