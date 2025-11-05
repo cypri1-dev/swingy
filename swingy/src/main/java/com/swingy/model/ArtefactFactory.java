@@ -22,6 +22,33 @@ public class ArtefactFactory {
 
 	/* -------------------------------------------------- METHOD ARTEFACT_FACTORY -------------------------------------------------- */
 
+	public Artefact loadArtefact(String name, boolean isEquipped, int bonus, String rarity, String type) {
+
+		Artefact item;
+
+		switch(type) {
+			case ARMOR_TYPE:
+				item =  new Armor(type, name, rarity, bonus);
+				item.setIsEquipped(isEquipped);
+				return item;
+			case HELM_TYPE:
+				item =  new Helm(type, name, rarity, bonus);
+				item.setIsEquipped(isEquipped);
+				return item;
+			case WEAPON_TYPE:
+				item =  new Weapon(type, name, rarity, bonus);
+				item.setIsEquipped(isEquipped);
+				return item;
+			case CONSOMMABLE_TYPE:
+				item =  new Consommable(type, name, rarity, bonus);
+				item.setIsEquipped(isEquipped);
+				return item;
+			default:
+				DisplayController.getInstance().printNormal(RED_BOLD + "Error: unknown type!" + RESET);
+				return null;
+		}
+	}
+
 	public Artefact newArtefact(String type, String name, String rarity, int bonus) {
 
 		switch(type) {
