@@ -92,16 +92,16 @@ java -jar target/swingy-<version>.jar gui
 
 ## 🏰 Rules
 
-## 🧙‍♂️ 1. HEROES & PLAYER
+🧙‍♂️ 1. HEROES & PLAYER
 
-### 1.1 Creation and Selection
+  1.1 Creation and Selection
 - The player can own **multiple heroes** of different types.  
 - At the start of the game, two options are available:  
   1. **Create a hero**  
   2. **Select an existing hero**  
 - Each hero is **named by the player**.
 
-### 1.2 Classes and Base Stats
+  1.2 Classes and Base Stats
 Each hero type (class) has its own starting stats:
 - **Hero name**  
 - **Class**  
@@ -117,15 +117,15 @@ Stats are influenced by:
 
 ---
 
-## ⚔️ 2. ARTIFACTS & ITEMS
+⚔️ 2. ARTIFACTS & ITEMS
 
-### 2.1 Types of Artifacts
+  2.1 Types of Artifacts
 There are **3 main artifact categories**:
 - 🗡️ **Weapon** → increases attack  
 - 🛡️ **Armor** → increases defense  
 - 🪖 **Helmet** → increases hit points  
 
-### 2.2 Rarity Levels
+  2.2 Rarity Levels
 Each artifact or item can be:
 - **Common**  
 - **Rare**  
@@ -134,15 +134,15 @@ Each artifact or item can be:
 
 > 💎 There are **75 different artifacts** in total.
 
-### 2.3 Potions
+  2.3 Potions
 - **Potions** restore hit points during or outside combat.  
 - They can be found randomly on enemies or on the map.
 
 ---
 
-## 🧭 3. MAP & MOVEMENT
+🧭 3. MAP & MOVEMENT
 
-### 3.1 Map Size
+  3.1 Map Size
 The map is **square** and its size depends on the hero’s level:
 \[
 \text{Size} = (\text{Level} - 1) \times 5 + 10 - (\text{Level} \bmod 2)
@@ -150,31 +150,31 @@ The map is **square** and its size depends on the hero’s level:
 
 > Example: a level 7 hero → a **39x39 grid**
 
-### 3.2 Starting Position and Objective
+  3.2 Starting Position and Objective
 - The hero starts **in the center** of the map.  
 - The goal is to **reach any edge** of the map to win.
 
-### 3.3 Possible Moves
+  3.3 Possible Moves
 The hero can move one tile per turn in one of four directions:
 - North  
 - East  
 - South  
 - West  
 
-### 3.4 Enemies
+  3.4 Enemies
 - The map contains **20 monsters** placed **randomly**.  
 - Their power varies depending on their level and rarity.
 
 ---
 
-## 💀 4. COMBAT
+💀 4. COMBAT
 
-### 4.1 Triggering Combat
+  4.1 Triggering Combat
 - When the hero moves onto a tile occupied by an enemy, they must choose between:
   1. **Fight**  
   2. **Try to run**
 
-### 4.2 Combat Options
+  4.2 Combat Options
 Combat has **4 main actions**:
 
 1. ⚔️ **Fight**  
@@ -194,14 +194,14 @@ Combat has **4 main actions**:
    - The hero uses a potion to restore HP.  
    - This consumes the turn.
 
-### 4.3 Combat Outcome
+  4.3 Combat Outcome
 - If the hero **loses**, they **die permanently** and are **deleted** from the game.  
 - If the hero **wins**:
   - They gain **experience points** based on enemy power.  
   - They may receive a **random artifact** (loot is not guaranteed; quality varies).  
   - They **level up** if experience meets the next level threshold.
 
-### 4.4 Experience Calculation
+  4.4 Experience Calculation
 Level progression formula:
 \[
 \text{XP required} = \text{Level} \times 1000 + (\text{Level} - 1)^2 \times 450
@@ -217,7 +217,7 @@ Level progression formula:
 
 ---
 
-## 🎒 5. INVENTORY
+🎒 5. INVENTORY
 
 Inventory supports these actions:
 - **Equip** an artifact or item  
@@ -227,25 +227,25 @@ Inventory supports these actions:
 
 ---
 
-## 📚 6. KNOWLEDGE & SAVE SYSTEM
+📚 6. KNOWLEDGE & SAVE SYSTEM
 
-### 6.1 Knowledge Sharing
+  6.1 Knowledge Sharing
 - All **knowledge gained is shared across all heroes** of the player.
 
-### 6.2 Saving
+  6.2 Saving
 - The game **auto-saves upon proper exit**.  
 - Manual modification of save files leads to **automatic deletion of the affected hero** (anti-cheat measure).
 
 ---
 
-## 🪦 7. DEATH & REMOVAL
+🪦 7. DEATH & REMOVAL
 
 - Death in combat results in **permanent hero deletion**.  
 - Resurrection or recovery from altered saves is impossible.
 
 ---
 
-## 🎲 8. RANDOM ELEMENTS
+🎲 8. RANDOM ELEMENTS
 
 - **Enemy placement** is randomly generated each game.  
 - **Loot drops** are probabilistic, depending on the enemy and rarity.  
