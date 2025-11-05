@@ -90,7 +90,7 @@ java -jar target/swingy-<version>.jar gui
 
 ---
 
-## 🏰 RULES
+## 🏰 Rules
 
 ## 🧙‍♂️ 1. HEROES & PLAYER
 
