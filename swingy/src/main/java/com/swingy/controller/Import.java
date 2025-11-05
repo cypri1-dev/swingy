@@ -69,6 +69,7 @@ public class Import {
 			DisplayController.getInstance().getUserInput();
 			return false;
 		}
+		ref.getHeroesNameList().add(name);
 		ref.getListAvaible().add(CharactersFactory.getInstance().loadCharacters(HERO_TYPE, name, characterClass, lvl, xp, att, def, hp, maxHp));
 		
 		return true;
@@ -79,6 +80,11 @@ public class Import {
 		boolean checker = false;
 
 		try (Scanner myReader = new Scanner(file)) {
+			if (!myReader.hasNextLine()) {
+				System.out.println(DEBUG_BOLD + "EMPTY SAVE" + RESET);
+				DisplayController.getInstance().getUserInput();
+				return;
+			}
 			String data = myReader.nextLine();
 
 			// Split each character block with '*'
@@ -98,17 +104,28 @@ public class Import {
 					case 1:
 						checker = importCharacter(characterData[0], ref);
 						if (!checker)
+							// may NOT return ! Just gonna check bool!
 							return;
 						break;
 
+					case 2:
+						checker = importCharacter(characterData[0], ref);
+						System.out.println(DEBUG_BOLD + "Only Bag!");
+						break;
+					
+					case 3:
+						checker = importCharacter(characterData[0], ref);
+						if (!checker)
+							return;
+						if (characterData[1].isEmpty())
+							System.out.println(DEBUG_BOLD + "Only knowledge!");
+						else
+							System.out.println(DEBUG_BOLD + "Knowledge and Bag!");
+						
+						break;
 					default:
 						break;
 				}
-
-				// DEBUG (optionnel)
-				// for (String characterDataLine : characterData) {
-				//     System.out.println(DEBUG_BOLD + characterDataLine + RESET);
-				// }
 
 				DisplayController.getInstance().getUserInput();
 			}
