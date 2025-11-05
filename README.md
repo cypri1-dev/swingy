@@ -127,7 +127,7 @@ Each hero type (class) has its own starting stats:
 
 Stats are influenced by:
 
-- The hero's **level**
+- The hero's **Class**
 - The **artifacts** equipped (weapons, armor, helmets)
 
 ---
@@ -187,8 +187,10 @@ The hero can move one tile per turn in one of four directions:
 
 #### 3.4 Enemies
 
-- The map contains **20 monsters** placed **randomly**
+- The map contains **monsters** placed **randomly**
 - Their power varies depending on their level and rarity
+
+> 💎 There are **20 different monsters** in total.
 
 ---
 
