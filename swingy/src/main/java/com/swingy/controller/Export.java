@@ -37,6 +37,11 @@ public class Export {
 			DisplayController.getInstance().printNormal("No characters created yet! Save cleared.");
 			return;
 		} else {
+
+			if (file.exists()) {
+				file.setWritable(true);
+			}
+
 			try (PrintWriter out = new PrintWriter(file)) {
 				// parcours des personnages et écriture (comme avant)
 				for (Characters c : avaibleHeros) {
@@ -59,7 +64,7 @@ public class Export {
 					out.print("|");
 					if (!c.getArtefacts().isEmpty()) {
 						for (Artefact item : c.getArtefacts()) {
-							out.print("(");
+							// out.print("(");
 							out.print(item.getName());
 							out.print(",");
 							out.print(item.getIsEquipped());
@@ -69,7 +74,7 @@ public class Export {
 							out.print(item.getRarity());
 							out.print(",");
 							out.print(item.getType());
-							out.print(")");
+							out.print("%");
 						}
 					}
 
