@@ -5,8 +5,6 @@ import java.util.Map;
 public final class Constants {
 
 	private Constants() {}
-
-	public static final int TIME_DEV = 0;
 	
 	/* COLORS */
 
@@ -450,11 +448,17 @@ public final class Constants {
 	public static final double DENSITY_CONSOMMABLE = 0.10;
 
 	/* D_V_D__A */
-
 	public static boolean D_V_M___E = false;
 	public static int D_V_S___D_T_T = 0;
+	public static final int TIME_DEV = 0;
+
+	/* IMPORT - EXPORT */
+	public static final int ONLY_HERO = 1;
+	public static final int HERO_BAG = 2;
+	public static final int HERO_KNOWLDGE_OR_HERO_BAG_KNOWLEDGE = 3;
 
 	/* DISPLAY */
+	public static final String NO_LOAD = " The character will not be loaded and will be deleted to preserve the integrity of the game and its files. Press ENTER to continue...";
 
 	public static final String MAIN_HEADER = """
 

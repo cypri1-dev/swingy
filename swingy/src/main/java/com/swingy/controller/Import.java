@@ -16,10 +16,11 @@ import com.swingy.model.Characters;
 
 public class Import {
 
+	private static DisplayController display = DisplayController.getInstance();
+
 	/* -------------------------------------------------- IMPORT KNOWLDGE METHOD -------------------------------------------------- */
 
 	private static boolean importKnowledge(Characters hero, String line) {
-		System.out.println(DEBUG_BOLD + line + RESET);
 		 Map<String, Integer> map = new HashMap<>();
 
 		if (line == null || line.isEmpty() || line.equals("{}"))
@@ -37,14 +38,13 @@ public class Import {
 					int value = Integer.parseInt(parts[1].trim());
 					map.put(key, value);
 				} catch (NumberFormatException e) {
-					System.err.println("⚠️ Erreur de parsing pour: " + entry);
+					display.printNormal(RED_BOLD + "Error: invalid Knowledge data!" + NO_LOAD + RESET);
 				}
 			}
 		}
 		hero.getKnowledge().setMap(map);
 		return true;
 	}
-
 
 	/* -------------------------------------------------- IMPORT BAG METHOD -------------------------------------------------- */
 
@@ -56,28 +56,26 @@ public class Import {
 		boolean isEquipped;
 		int bonus;
 
-		System.out.println(DEBUG_BOLD + "line: " + line + RESET);
 		String processedData[] = line.split("\\%");
 
 		for (String tmp : processedData) {
-			System.out.println(DEBUG_BOLD + "tmp: "+ tmp + RESET);
 
 			String tmpData[] = tmp.split(",");
 			if (tmpData.length != 5) {
-				System.out.println(RED_BOLD + "Error: invalid Bag data size!" + RESET);
-				DisplayController.getInstance().getUserInput();
+				display.printNormal(RED_BOLD + "Error: invalid Bag data size!" + NO_LOAD + RESET);
+				display.getUserInput();
 				return false;
 			}
 
-			// NAME
+			/* NAME */
 			name = tmpData[0];
 			if (name.isEmpty()) {
-				System.out.println(RED_BOLD + "Error: invalid Item name!" + RESET);
-				DisplayController.getInstance().getUserInput();
+				display.printNormal(RED_BOLD + "Error: invalid Item name!" + NO_LOAD + RESET);
+				display.getUserInput();
 				return false;
 			}
 
-			//ISEQUIPPED
+			/* ISEQUIPPED */
 			switch(tmpData[1]) {
 				case "true":
 					isEquipped = true;
@@ -88,50 +86,47 @@ public class Import {
 					break;
 				
 				default:
-					System.out.println(RED_BOLD + "Error: invalid Item isEquipped!" + RESET);
-					DisplayController.getInstance().getUserInput();
+					display.printNormal(RED_BOLD + "Error: invalid Item isEquipped!" + NO_LOAD + RESET);
+					display.getUserInput();
 					return false;
 			}
 
-			//BONUS
+			/* BONUS */
 			try {
 				bonus = Integer.parseInt(tmpData[2]);
 			} catch (NumberFormatException e) {
-				System.out.println(RED_BOLD + "Error: invalid Item values - bonus not a integer!" + RESET);
-				DisplayController.getInstance().getUserInput();
+				display.printNormal(RED_BOLD + "Error: invalid Item values - bonus not a integer!" + NO_LOAD + RESET);
+				display.getUserInput();
 				return false;
 			}
 			if (bonus < 1 || bonus > 48) {
-				System.out.println(RED_BOLD + "Error: invalid Item values -impossible bonus" + RESET);
-				DisplayController.getInstance().getUserInput();
+				display.printNormal(RED_BOLD + "Error: invalid Item values -impossible bonus" + NO_LOAD + RESET);
+				display.getUserInput();
 				return false;
 			}
 
-			//RARITY
+			/* RARITY */
 			match = List.of(COMMON, RARE, EPIC, LEGENDARY).contains(tmpData[3]);
 			if (!match) {
-				System.out.println(RED_BOLD + "Error: invalid Item rarity!" + RESET);
-				DisplayController.getInstance().getUserInput();
+				display.printNormal(RED_BOLD + "Error: invalid Item rarity!" + NO_LOAD + RESET);
+				display.getUserInput();
 				return false;
 			}
 			else
 				rarity = tmpData[3];
 			
-			//TYPE
+			/* TYPE */
 			match = List.of(ARMOR_TYPE, HELM_TYPE, WEAPON_TYPE, CONSOMMABLE_TYPE).contains(tmpData[4]);
 			if (!match) {
-				System.out.println(RED_BOLD + "Error: invalid Item type!" + RESET);
-				DisplayController.getInstance().getUserInput();
+				display.printNormal(RED_BOLD + "Error: invalid Item type!" + NO_LOAD + RESET);
+				display.getUserInput();
 				return false;
 			}
 			else
 				type = tmpData[4];
 
-			// now can add item
 			hero.addArtefact(ArtefactFactory.getInstance().loadArtefact(name, isEquipped, bonus, rarity, type));
 		}
-		DisplayController.getInstance().getUserInput();
-
 		return true;
 	}
 
@@ -151,21 +146,23 @@ public class Import {
 
 		String processedData[] = line.split(",");
 		if (processedData.length != 8) {
-			System.out.println(RED_BOLD + "Error: invalid Characters data size!" + RESET);
-			DisplayController.getInstance().getUserInput();
+			display.printNormal(RED_BOLD + "Error: invalid Characters data size!" + NO_LOAD + RESET);
+			display.getUserInput();
 			return null;
-		}
-		for (String processedDataLine : processedData) {
-			System.out.println(DEBUG_BOLD + processedDataLine + RESET);
 		}
 		/* NAME */
 		name = processedData[0];
+		if (name.isEmpty()) {
+			display.printNormal(RED_BOLD + "Error: invalid Item name!" + NO_LOAD + RESET);
+			display.getUserInput();
+			return null;
+		}
 
 		/* CLASS */
 		match = List.of(WARRIOR_CLASS, MAGE_CLASS, PALADIN_CLASS, ASSASSIN_CLASS, ARCHER_CLASS).contains(processedData[1]);
 		if (!match) {
-			System.out.println(RED_BOLD + "Error: invalid Characters class!" + RESET);
-			DisplayController.getInstance().getUserInput();
+			display.printNormal(RED_BOLD + "Error: invalid Characters class!" + NO_LOAD + RESET);
+			display.getUserInput();
 			return null;
 		}
 		else
@@ -180,28 +177,36 @@ public class Import {
 			hp = Integer.parseInt(processedData[6]);
 			maxHp = Integer.parseInt(processedData[7]);
 
-			if (lvl < 0 || xp < 0 || att < 0 || def < 0 || hp < 0 || maxHp < 0) {
-				System.out.println(RED_BOLD + "Error: invalid Characters values - negative value!" + RESET);
-				DisplayController.getInstance().getUserInput();
-				return null;
-			}
-			if (att > 70 || def > 65 || maxHp > 240 || hp > 240) {
-				System.out.println(RED_BOLD + "Error: invalid Characters values - impossible values!" + RESET);
-				DisplayController.getInstance().getUserInput();
-				return null;
-			}
 		} catch (NumberFormatException e) {
-			System.out.println(RED_BOLD + "Error: invalid Characters values - not a integer!" + RESET);
-			DisplayController.getInstance().getUserInput();
+			display.printNormal(RED_BOLD + "Error: invalid Characters values - not a integer!" + NO_LOAD + RESET);
+			display.getUserInput();
 			return null;
 		}
-		// ref.getHeroesNameList().add(name);
-		// ref.getListAvaible().add(CharactersFactory.getInstance().loadCharacters(HERO_TYPE, name, characterClass, lvl, xp, att, def, hp, maxHp));
+		if (lvl < 0 || xp < 0 || att < 0 || def < 0 || hp < 0 || maxHp < 0) {
+			display.printNormal(RED_BOLD + "Error: invalid Characters values - negative value!" + NO_LOAD + RESET);
+			display.getUserInput();
+			return null;
+		}
+		if (att > 70 || def > 65 || maxHp > 240 || hp > 240) {
+			display.printNormal(RED_BOLD + "Error: invalid Characters values - impossible values!" + NO_LOAD + RESET);
+			display.getUserInput();
+			return null;
+		}
 		
 		return (CharactersFactory.getInstance().loadCharacters(HERO_TYPE, name, characterClass, lvl, xp, att, def, hp, maxHp));
 	}
 
 	/* -------------------------------------------------- FILE PARSER METHOD -------------------------------------------------- */
+
+	private static void addLoadHero(Game ref, Characters importHero) {
+		ref.getHeroesNameList().add(importHero.getName());
+		ref.getListAvaible().add(importHero);
+	}
+
+	private static void removeLoadHero(Game ref, Characters importHero) {
+		ref.getHeroesNameList().remove(importHero.getName());
+		ref.getListAvaible().remove(importHero);
+	}
 
 	public static void fileParser(Game ref) {
 		File file = new File("save.txt");
@@ -211,94 +216,67 @@ public class Import {
 
 		try (Scanner myReader = new Scanner(file)) {
 			if (!myReader.hasNextLine()) {
-				System.out.println(DEBUG_BOLD + "EMPTY SAVE" + RESET);
-				DisplayController.getInstance().getUserInput();
+				display.printNormal(BLUE + "Empty save detected. Press ENTER to continue..." + RESET);
+				display.getUserInput();
 				return;
 			}
 			String data = myReader.nextLine();
-
-			// Split each character block with '*'
 			String[] characters = data.split("\\*");
 
 			for (String line : characters) {
-				// Split each character's data section with '|'
 				String[] characterData = line.split("\\|");
 
 				if (characterData.length > 3) {
-					System.out.println(RED_BOLD + "Error: invalid data size... Press ENTER to continue..." + RESET);
-					DisplayController.getInstance().getUserInput();
+					display.printNormal(RED_BOLD + "Error: invalid data size..." + NO_LOAD + RESET);
+					display.getUserInput();
 					return;
 				}
 
+				importHero = importCharacter(characterData[0]);
+				if (importHero == null)
+					return;
+
 				switch (characterData.length) {
-					case 1:
-						importHero = importCharacter(characterData[0]);
-						if (importHero == null)
-							return;
-						else {
-							ref.getHeroesNameList().add(importHero.getName());
-							ref.getListAvaible().add(importHero);
-						}
+					case ONLY_HERO:
+						addLoadHero(ref, importHero);
 						break;
 
-					case 2:
-						importHero = importCharacter(characterData[0]);
-						if (importHero == null)
-							return; 
-						else {
-							ref.getHeroesNameList().add(importHero.getName());
-							ref.getListAvaible().add(importHero);
-							checkerBag = importBag(importHero, characterData[1]);
-							if (!checkerBag) {
-								ref.getHeroesNameList().remove(importHero.getName());
-								ref.getListAvaible().remove(importHero);
+					case HERO_BAG:
+						addLoadHero(ref, importHero);
+						checkerBag = importBag(importHero, characterData[1]);
+						if (!checkerBag) {
+							removeLoadHero(ref, importHero);
+							return;
+						}
+						break;
+					
+					case HERO_KNOWLDGE_OR_HERO_BAG_KNOWLEDGE:
+						if (characterData[1].isEmpty()) {
+							addLoadHero(ref, importHero);
+							checkerKnowledge = importKnowledge(importHero, characterData[2]);
+							if (!checkerKnowledge) {
+								removeLoadHero(ref, importHero);
 								return;
 							}
 						}
-
-						break;
-					
-					case 3:
-						importHero = importCharacter(characterData[0]);
-						if (importHero == null)
-							return;
 						else {
-							if (characterData[1].isEmpty()) {
-								System.out.println(DEBUG_BOLD + "Only knowledge!");
-								ref.getHeroesNameList().add(importHero.getName());
-								ref.getListAvaible().add(importHero);
-								checkerKnowledge = importKnowledge(importHero, characterData[2]);
-								if (!checkerKnowledge) {
-									ref.getHeroesNameList().remove(importHero.getName());
-									ref.getListAvaible().remove(importHero);
-									return;
-								}
+							addLoadHero(ref, importHero);
+							checkerBag = importBag(importHero, characterData[1]);
+							checkerKnowledge = importKnowledge(importHero, characterData[2]);
+							if (!checkerBag || !checkerKnowledge) {
+								removeLoadHero(ref, importHero);
+								return;
 							}
-							else {
-								System.out.println(DEBUG_BOLD + "Knowledge and Bag!");
-								ref.getHeroesNameList().add(importHero.getName());
-								ref.getListAvaible().add(importHero);
-								checkerBag = importBag(importHero, characterData[1]);
-								checkerKnowledge = importKnowledge(importHero, characterData[2]);
-								if (!checkerBag || !checkerKnowledge) {
-									ref.getHeroesNameList().remove(importHero.getName());
-									ref.getListAvaible().remove(importHero);
-									return;
-								}
-								checkerKnowledge = importKnowledge(importHero, characterData[2]);
-
-							}
+							checkerKnowledge = importKnowledge(importHero, characterData[2]);
 						}
 						break;
 
 					default:
 						break;
 				}
-
-				DisplayController.getInstance().getUserInput();
 			}
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			display.printNormal(RED + "Error while parsing save.txt file." + RESET + NO_LOAD);
 		}
 	}
 
@@ -307,7 +285,6 @@ public class Import {
 	public static boolean fileChecker() {
 		
 		File file = new File("save.txt");
-		DisplayController display = DisplayController.getInstance();
 
 		if (!file.exists()) {
 			display.printNormal(ORANGE_BOLD + "No save detected! Press ENTER to continue..." + RESET);
