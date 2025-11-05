@@ -1,0 +1,1 @@
+q,paladin,1,635,9,18,38,38|Healing Potion,false,10,common,consommable%Hardened Leather,true,2,common,armor%Leather Vest,false,1,common,armor%Basic Hood,false,3,common,helm%Warrior's Headpiece,true,10,rare,helm%|{Bandit=1}*
