@@ -222,6 +222,21 @@ package "Controller" #LightGreen {
     -static DisplayController display
     +static void fight(Characters enemy, Characters hero, Menu menu)
   }
+
+  class Import {
+    -static DisplayController display
+    +static void fileParser(Game ref)
+    +static boolean fileChecker()
+    -static Characters importCharacter(String line)
+    -static boolean importBag(Characters hero, String line)
+    -static boolean importKnowledge(Characters hero, String line)
+    -static void addLoadHero(Game ref, Characters importHero)
+    -static void removeLoadHero(Game ref, Characters importHero)
+  }
+
+  class Export {
+    +static void exportData(List<Characters> avaibleHeros)
+  }
 }
 
 package "View" #LightYellow {
@@ -255,39 +270,41 @@ Artefact <|-- Helm
 Artefact <|-- Consommable
 
 ' --- Associations internes du modèle ---
-Characters *-- Artefact : "possède"
-Characters *-- Coordinates : "localisation"
-Characters *-- Knowledge : "partage"
-Maps *-- Characters : "contient"
-Maps *-- Artefact : "génère consommables"
+Characters *-- Artefact
+Characters *-- Coordinates
+Characters *-- Knowledge
+Maps *-- Characters
+Maps *-- Artefact
 
-Hero --> GameMovement : "utilise pour se déplacer"
-Knowledge --> Characters : "connaissance ennemis"
+Hero --> GameMovement
+Knowledge --> Characters
 
 ' --- Fabriques (Singletons) ---
-CharactersFactory ..> Hero : "crée"
-CharactersFactory ..> Enemy : "crée"
-ArtefactFactory ..> Artefact : "crée"
-MapFactory ..> Maps : "crée"
+CharactersFactory ..> Hero
+CharactersFactory ..> Enemy
+ArtefactFactory ..> Artefact
+MapFactory ..> Maps
 
-' --- Contrôleur vers Modèle ---
-Game --> Menu : "gère"
-Game --> Maps : "contrôle carte"
-Game --> Characters : "contrôle héros"
-Game --> GameMovement : "utilise"
-Menu --> Game : "interagit avec"
-Menu --> Characters : "sélectionne"
-GameMovement --> Maps : "analyse collisions"
-GameMovement --> Menu : "signale événements"
-FightLogic --> DisplayController : "affiche combat"
-FightLogic --> Characters : "fait combattre héros/ennemi"
+' --- Relations principales du contrôleur ---
+Game --> Menu
+Game --> Maps
+Game --> Characters
+Menu --> Game
+GameMovement --> Maps
+FightLogic --> DisplayController
 
-' --- Vue vers Contrôleur ---
-DisplayController --> Game : "affiche état"
-DisplayController --> Menu : "affiche options"
+' --- Vue vers contrôleur et modèle ---
+DisplayController --> Game
+DisplayController --> Menu
+DisplayController ..> Characters
+DisplayController ..> Maps
 
-' --- Vue vers Modèle (lecture seule) ---
-DisplayController ..> Characters : "affiche infos héros"
-DisplayController ..> Maps : "affiche carte"
+' --- Import / Export simplifiés ---
+Import --> Game : "charge sauvegarde"
+Import --> DisplayController
+Import ..> Model : "utilise le modèle"
+
+Export --> DisplayController
+Export ..> Model : "sauvegarde le modèle"
 
 @enduml
