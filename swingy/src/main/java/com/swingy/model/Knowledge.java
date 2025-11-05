@@ -35,4 +35,5 @@ public class Knowledge {
 	/* -------------------------------------------------- GETTER -------------------------------------------------- */
 	
 	public Map<String, Integer> getMap() {return this.knowledge;}
+	public void setMap(Map<String, Integer> loaded) {this.knowledge = loaded;}
 }

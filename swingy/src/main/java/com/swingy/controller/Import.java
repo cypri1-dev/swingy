@@ -2,22 +2,53 @@ package com.swingy.controller;
 
 import static com.swingy.utils.Constants.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import com.swingy.model.CharactersFactory;
-import com.swingy.model.Coordinates;
 import com.swingy.view.DisplayController;
 import com.swingy.model.ArtefactFactory;
 import com.swingy.model.Characters;
 
 public class Import {
 
+	/* -------------------------------------------------- IMPORT KNOWLDGE METHOD -------------------------------------------------- */
+
+	private static boolean importKnowledge(Characters hero, String line) {
+		System.out.println(DEBUG_BOLD + line + RESET);
+		 Map<String, Integer> map = new HashMap<>();
+
+		if (line == null || line.isEmpty() || line.equals("{}"))
+			return false;
+		
+		line = line.replaceAll("[{}]", "");
+
+		String[] entries = line.split(",\\s*");
+
+		for (String entry : entries) {
+			String[] parts = entry.split("=");
+			if (parts.length == 2) {
+				String key = parts[0].trim();
+				try {
+					int value = Integer.parseInt(parts[1].trim());
+					map.put(key, value);
+				} catch (NumberFormatException e) {
+					System.err.println("⚠️ Erreur de parsing pour: " + entry);
+				}
+			}
+		}
+		hero.getKnowledge().setMap(map);
+		return true;
+	}
+
+
 	/* -------------------------------------------------- IMPORT BAG METHOD -------------------------------------------------- */
 
-	private static boolean importBag(Characters hero, String line, Game ref) {
+	private static boolean importBag(Characters hero, String line) {
 		String name;
 		String type;
 		String rarity;
@@ -154,7 +185,7 @@ public class Import {
 				DisplayController.getInstance().getUserInput();
 				return null;
 			}
-			if (att > 70 || def > 65 || maxHp > 240) {
+			if (att > 70 || def > 65 || maxHp > 240 || hp > 240) {
 				System.out.println(RED_BOLD + "Error: invalid Characters values - impossible values!" + RESET);
 				DisplayController.getInstance().getUserInput();
 				return null;
@@ -176,6 +207,7 @@ public class Import {
 		File file = new File("save.txt");
 		Characters importHero;
 		boolean checkerBag = false;
+		boolean checkerKnowledge = false;
 
 		try (Scanner myReader = new Scanner(file)) {
 			if (!myReader.hasNextLine()) {
@@ -212,13 +244,12 @@ public class Import {
 					case 2:
 						importHero = importCharacter(characterData[0]);
 						if (importHero == null)
-							return;
+							return; 
 						else {
 							ref.getHeroesNameList().add(importHero.getName());
 							ref.getListAvaible().add(importHero);
-							checkerBag = importBag(importHero, characterData[1], ref);
+							checkerBag = importBag(importHero, characterData[1]);
 							if (!checkerBag) {
-								// may loop here to delete all heroes from this save ? corrupted data -> no load!
 								ref.getHeroesNameList().remove(importHero.getName());
 								ref.getListAvaible().remove(importHero);
 								return;
@@ -232,19 +263,30 @@ public class Import {
 						if (importHero == null)
 							return;
 						else {
-							if (characterData[1].isEmpty())
+							if (characterData[1].isEmpty()) {
 								System.out.println(DEBUG_BOLD + "Only knowledge!");
-							else {
-								System.out.println(DEBUG_BOLD + "Knowledge and Bag!");
 								ref.getHeroesNameList().add(importHero.getName());
 								ref.getListAvaible().add(importHero);
-								checkerBag = importBag(importHero, characterData[1], ref);
-								if (!checkerBag) {
-									// may loop here to delete all heroes from this save ? corrupted data -> no load!
+								checkerKnowledge = importKnowledge(importHero, characterData[2]);
+								if (!checkerKnowledge) {
 									ref.getHeroesNameList().remove(importHero.getName());
 									ref.getListAvaible().remove(importHero);
 									return;
 								}
+							}
+							else {
+								System.out.println(DEBUG_BOLD + "Knowledge and Bag!");
+								ref.getHeroesNameList().add(importHero.getName());
+								ref.getListAvaible().add(importHero);
+								checkerBag = importBag(importHero, characterData[1]);
+								checkerKnowledge = importKnowledge(importHero, characterData[2]);
+								if (!checkerBag || !checkerKnowledge) {
+									ref.getHeroesNameList().remove(importHero.getName());
+									ref.getListAvaible().remove(importHero);
+									return;
+								}
+								checkerKnowledge = importKnowledge(importHero, characterData[2]);
+
 							}
 						}
 						break;
