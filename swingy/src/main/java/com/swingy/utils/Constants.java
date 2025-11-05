@@ -414,34 +414,34 @@ public final class Constants {
 	public static final String SYMBOL_ENEMY = RED + "!" + RESET;
 
 	// ---- Tier 1 : faibles ----
-	public static final String SYMBOL_ENEMY_RAT = RED + "r" + RESET;
-	public static final String SYMBOL_ENEMY_SLIME = RED + "s" + RESET;
-	public static final String SYMBOL_ENEMY_GOBLIN = RED + "g" + RESET;
-	public static final String SYMBOL_ENEMY_BANDIT = RED + "b" + RESET;
+	public static final String SYMBOL_ENEMY_RAT ="r";
+	public static final String SYMBOL_ENEMY_SLIME ="s";
+	public static final String SYMBOL_ENEMY_GOBLIN ="g";
+	public static final String SYMBOL_ENEMY_BANDIT ="b";
 
 	// ---- Tier 2 : intermédiaires ----
-	public static final String SYMBOL_ENEMY_SKELETON = RED + "S" + RESET;
-	public static final String SYMBOL_ENEMY_WOLF = RED + "w" + RESET;
-	public static final String SYMBOL_ENEMY_CULTIST = RED + "c" + RESET;
-	public static final String SYMBOL_ENEMY_ORC = RED + "O" + RESET;
+	public static final String SYMBOL_ENEMY_SKELETON ="S";
+	public static final String SYMBOL_ENEMY_WOLF ="w";
+	public static final String SYMBOL_ENEMY_CULTIST ="c";
+	public static final String SYMBOL_ENEMY_ORC ="O";
 
 	// ---- Tier 3 : avancés ----
-	public static final String SYMBOL_ENEMY_DARK_MAGE = RED + "M" + RESET;
-	public static final String SYMBOL_ENEMY_ELEMENTAL = RED + "E" + RESET;
-	public static final String SYMBOL_ENEMY_TROLL = RED + "T" + RESET;
-	public static final String SYMBOL_ENEMY_ASSASSIN = RED + "A" + RESET;
+	public static final String SYMBOL_ENEMY_DARK_MAGE ="M";
+	public static final String SYMBOL_ENEMY_ELEMENTAL ="E";
+	public static final String SYMBOL_ENEMY_TROLL ="T";
+	public static final String SYMBOL_ENEMY_ASSASSIN ="A";
 
 	// ---- Tier 4 : élite ----
-	public static final String SYMBOL_ENEMY_LICH = RED + "L" + RESET;
-	public static final String SYMBOL_ENEMY_MINOTAUR = RED + "m" + RESET;
-	public static final String SYMBOL_ENEMY_VAMPIRE_LORD = RED + "V" + RESET;
-	public static final String SYMBOL_ENEMY_DEMON_KNIGHT = RED + "K" + RESET;
+	public static final String SYMBOL_ENEMY_LICH ="L";
+	public static final String SYMBOL_ENEMY_MINOTAUR ="m";
+	public static final String SYMBOL_ENEMY_VAMPIRE_LORD ="V";
+	public static final String SYMBOL_ENEMY_DEMON_KNIGHT ="K";
 
 	// ---- Tier 5 : boss & dieux ----
-	public static final String SYMBOL_ENEMY_DRAGON_WHELP = RED + "D" + RESET;
-	public static final String SYMBOL_ENEMY_ANCIENT_DRAGON = RED + "Ω" + RESET;
-	public static final String SYMBOL_ENEMY_ABYSSAL_HYDRA = RED + "H" + RESET;
-	public static final String SYMBOL_ENEMY_FALLEN_GOD = RED + "Φ" + RESET;
+	public static final String SYMBOL_ENEMY_DRAGON_WHELP ="D";
+	public static final String SYMBOL_ENEMY_ANCIENT_DRAGON ="Ω";
+	public static final String SYMBOL_ENEMY_ABYSSAL_HYDRA ="H";
+	public static final String SYMBOL_ENEMY_FALLEN_GOD ="Φ";
 
 
 
