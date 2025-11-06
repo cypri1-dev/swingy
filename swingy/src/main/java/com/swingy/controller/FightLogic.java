@@ -57,7 +57,6 @@ public class FightLogic {
 						display.printNormal("🗡️ " + enemy.getCharacterClass() + " hits " + hero.getName() + " for " + damage + " damage!");
 					}
 					display.printNormal("\nPress Enter to continue...");
-					// display.printNormal("❤️ HERO HP: " + hero.getHitPoint() + " | 💀 ENEMY HP: " + enemy.getHitPoint());
 					display.getUserInput();
 					break;
 
@@ -86,6 +85,11 @@ public class FightLogic {
 						break;
 					}
 					else {
+						System.out.println(DEBUG_BOLD + "X: " + hero.getCoordinates().getX()+ RESET);
+						System.out.println(DEBUG_BOLD + "Y: " + hero.getCoordinates().getY()+ RESET);
+						System.out.println(DEBUG_BOLD + "PrevX: " + hero.getCoordinates().getPrevX()+ RESET);
+						System.out.println(DEBUG_BOLD + "PrevY: " + hero.getCoordinates().getPrevY()+ RESET);
+						display.getUserInput();
 						hero.getCoordinates().setXBack(hero.getCoordinates().getPrevX());
 						hero.getCoordinates().setYBack(hero.getCoordinates().getPrevY());
 						display.printNormal("🏃‍♂️ With lightning reflexes, the hero escapes into the shadows!");

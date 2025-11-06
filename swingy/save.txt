@@ -1,1 +1,1 @@
-q,paladin,2,80,9,18,42,42|Hardened Leather,true,2,common,armor%Leather Vest,false,1,common,armor%Basic Hood,false,3,common,helm%Warrior's Headpiece,false,10,rare,helm%Guardian Mask,false,10,rare,helm%Celestial Circlet,true,14,epic,helm%Guardian Helm,false,4,common,helm%|{Bandit=2, Wolf=1}*a,assassin,1,0,13,9,20,20||{Bandit=2, Wolf=1}*
+Adshum,paladin,1,450,12,16,27,28|Healing Potion,false,10,common,consommable%Battle Staff,true,3,rare,weapon%Bronze Spear,false,1,common,weapon%|{Goblin=1, Bandit=1, Wolf=2, Slime=1}*

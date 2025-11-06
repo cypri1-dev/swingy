@@ -76,6 +76,7 @@ public class Maps {
 
 			occupiedCoords.add(consommableCoord);
 			this.consommableList.add(healingPotion);
+
 			this.map[tmpX][tmpY] = "*";
 		}
 
@@ -83,6 +84,7 @@ public class Maps {
 
 	private List<String> generateRandomEnemies() {
 		int enemyCount = (int)(this.size * this.size * DENSITY);
+		String symbol = "";
 
 		List<String> occupiedCoords = new ArrayList<>();
 
@@ -122,9 +124,46 @@ public class Maps {
 			if (loot != null)
 				tmpEnemy.addArtefact(loot);
 
-			this.enemiesList.add(tmpEnemy);
+			this.enemiesList.add(tmpEnemy);;
 
-			this.map[tmpX][tmpY] = "*";
+			switch (tmpEnemy.getCharacterClass()) {
+				// ---- Tier 1 : basiques ----
+				case ENEMY_CLASS_RAT -> symbol = SYMBOL_ENEMY_RAT;
+				case ENEMY_CLASS_SLIME -> symbol = SYMBOL_ENEMY_SLIME;
+				case ENEMY_CLASS_GOBLIN -> symbol = SYMBOL_ENEMY_GOBLIN;
+				case ENEMY_CLASS_BANDIT -> symbol = SYMBOL_ENEMY_BANDIT;
+
+				// ---- Tier 2 : intermédiaires ----
+				case ENEMY_CLASS_SKELETON -> symbol = SYMBOL_ENEMY_SKELETON;
+				case ENEMY_CLASS_WOLF -> symbol = SYMBOL_ENEMY_WOLF;
+				case ENEMY_CLASS_CULTIST -> symbol = SYMBOL_ENEMY_CULTIST;
+				case ENEMY_CLASS_ORC -> symbol = SYMBOL_ENEMY_ORC;
+
+				// ---- Tier 3 : avancés ----
+				case ENEMY_CLASS_DARK_MAGE -> symbol = SYMBOL_ENEMY_DARK_MAGE;
+				case ENEMY_CLASS_ELEMENTAL -> symbol = SYMBOL_ENEMY_ELEMENTAL;
+				case ENEMY_CLASS_TROLL -> symbol = SYMBOL_ENEMY_TROLL;
+				case ENEMY_CLASS_ASSASSIN -> symbol = SYMBOL_ENEMY_ASSASSIN;
+
+				// ---- Tier 4 : élite ----
+				case ENEMY_CLASS_LICH -> symbol = SYMBOL_ENEMY_LICH;
+				case ENEMY_CLASS_MINOTAUR -> symbol = SYMBOL_ENEMY_MINOTAUR;
+				case ENEMY_CLASS_VAMPIRE_LORD -> symbol = SYMBOL_ENEMY_VAMPIRE_LORD;
+				case ENEMY_CLASS_DEMON_KNIGHT -> symbol = SYMBOL_ENEMY_DEMON_KNIGHT;
+
+				// ---- Tier 5 : boss & dieux ----
+				case ENEMY_CLASS_DRAGON_WHELP -> symbol = SYMBOL_ENEMY_DRAGON_WHELP;
+				case ENEMY_CLASS_ANCIENT_DRAGON -> symbol = SYMBOL_ENEMY_ANCIENT_DRAGON;
+				case ENEMY_CLASS_ABYSSAL_HYDRA -> symbol = SYMBOL_ENEMY_ABYSSAL_HYDRA;
+				case ENEMY_CLASS_FALLEN_GOD -> symbol = SYMBOL_ENEMY_FALLEN_GOD;
+
+				default -> symbol = "?";
+			}
+
+			if ((mainHero.getLevel() <= 4 && tmpEnemy.getLevel() <= 4 || Math.abs(mainHero.getLevel() - tmpEnemy.getLevel()) <= 1))
+				this.map[tmpX][tmpY] = symbol;
+			else
+				this.map[tmpX][tmpY] = "*";
 		}
 		return occupiedCoords;
 	}
