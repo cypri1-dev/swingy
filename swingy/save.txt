@@ -1,1 +1,1 @@
-Adshum,paladin,1,450,12,16,27,28|Healing Potion,false,10,common,consommable%Battle Staff,true,3,rare,weapon%Bronze Spear,false,1,common,weapon%|{Goblin=1, Bandit=1, Wolf=2, Slime=1}*
+greg,paladin,1,455,11,16,24,28|Wooden Mace,false,1,common,weapon%Light Crossbow,true,2,common,weapon%Healing Potion,false,10,common,consommable%Healing Potion,false,10,common,consommable%Healing Potion,false,10,common,consommable%|{Cultist=1, Rat=1, Goblin=1, Bandit=2, Slime=1}*
