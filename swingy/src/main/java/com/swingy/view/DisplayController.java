@@ -2,6 +2,8 @@ package com.swingy.view;
 
 import static com.swingy.utils.Constants.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import com.swingy.controller.Game;
@@ -270,3 +272,4 @@ public class DisplayController {
 		this.scanner.close();
 	}
 }
+

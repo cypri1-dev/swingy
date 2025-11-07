@@ -227,8 +227,6 @@ public class Menu {
 			inputName = display.getUserInput().trim();
 			if (inputName.isEmpty() || ref.heroExists(inputName)) {
 				display.printSlow(ERROR_NAME);
-				// display.getUserInput();
-				// continue;
 			}
 			if (inputName.equals("x") || inputName.equals("X"))
 				return;
@@ -351,8 +349,13 @@ public class Menu {
 			display.getUserInput();
 			return;
 		}
-
-		this.ref.getMainHero().equipArtefact(toEquip);
+		else {
+			this.ref.getMainHero().equipArtefact(toEquip);
+			display.printNormal("🧝 " + this.ref.getMainHero().getName() + " equipped: " + toEquip.getName() + " ✨");
+			display.printNormal("\nPress Enter to continue...");
+			display.getUserInput();
+			return;
+		}
 	}
 
 	private void unequipOption() {
@@ -361,20 +364,26 @@ public class Menu {
 		Artefact toUnequipped = null;
 
 		for (Artefact item : ref.getMainHero().getArtefacts()) {
-			if (itemUnequip.contains(item.getName())) {
+			if (itemUnequip.equals(item.getName()) && item.getIsEquipped()) {
 				toUnequipped = item;
 				break;
 			}
 		}
 
 		if (toUnequipped == null) {
-			display.printNormal("❌ Item not found in your inventory.");
+			display.printNormal("❌ Item not found in your inventory or not equipped!.");
+			display.printNormal("\nPress Enter to continue...");
+			display.getUserInput();
+			return;
+		}
+		else {
+			this.ref.getMainHero().unequipArtefact(toUnequipped);
+			display.printNormal("🧝 " + this.ref.getMainHero().getName() + " unequipped: " + toUnequipped.getName() + " ✨");
 			display.printNormal("\nPress Enter to continue...");
 			display.getUserInput();
 			return;
 		}
 
-		this.ref.getMainHero().unequipArtefact(toUnequipped);
 	}
 
 	private void dropOption() {
@@ -409,6 +418,9 @@ public class Menu {
 			if (item.getType().equals(CONSOMMABLE_TYPE)) {
 				ref.healHero(item.getBonus());
 				potion = item;
+				display.printNormal("🧝 " + this.ref.getMainHero().getName() + " recovered 10 HP 💊");
+				display.printNormal("\nPress Enter to continue...");
+				display.getUserInput();
 				break;
 			}
 		}
