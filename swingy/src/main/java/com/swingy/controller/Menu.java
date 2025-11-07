@@ -224,9 +224,11 @@ public class Menu {
 		display.printSlow(NAME_HERO);
 		String inputName = "";
 		do {
-			inputName = display.getUserInput();
+			inputName = display.getUserInput().trim();
 			if (inputName.isEmpty() || ref.heroExists(inputName)) {
 				display.printSlow(ERROR_NAME);
+				// display.getUserInput();
+				// continue;
 			}
 			if (inputName.equals("x") || inputName.equals("X"))
 				return;
