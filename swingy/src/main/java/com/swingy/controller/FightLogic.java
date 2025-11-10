@@ -45,7 +45,7 @@ public class FightLogic {
 
 				if (initH == initE) {
 					display.printNormal("⚔️  Both fighters clash with equal strength  ⚔️  No one was hurt!");
-					display.getUserInput();
+					display.sleepTime(1400);
 					continue;
 				}
 
@@ -60,9 +60,7 @@ public class FightLogic {
 					hero.setHitPoint(-damage);
 					display.printNormal("🗡️ " + enemy.getCharacterClass() + " hits " + hero.getName() + " for " + damage + " damage!");
 				}
-				display.sleepTime(2500);
-				// display.printNormal("\nPress Enter to continue...");
-				// display.getUserInput();
+				display.sleepTime(1400);
 				break;
 
 			case "2":
@@ -73,7 +71,7 @@ public class FightLogic {
 					fullBlock = 0;
 				hero.setHitPoint(-fullBlock);
 				display.printNormal("🛡️ The hero blocks it! Not today, villain! You took " + fullBlock + " damage!");
-				display.sleepTime(2500);
+				display.sleepTime(1400);
 				break;
 
 			case "3":
@@ -84,18 +82,14 @@ public class FightLogic {
 					hero.setHitPoint(-rawDamage);
 					display.printNormal("💨 The hero tries to escape... but fails!");
 					display.printNormal("🗡️ " + enemy.getCharacterClass() + " hits " + hero.getName() + " for " + rawDamage + " damage!");
-					// display.printNormal("\nPress Enter to continue...");
-					// display.getUserInput();
-					display.sleepTime(2500);
+					display.sleepTime(1400);
 					break;
 				}
 				else {
 					hero.getCoordinates().setXBack(hero.getCoordinates().getPrevX());
 					hero.getCoordinates().setYBack(hero.getCoordinates().getPrevY());
 					display.printNormal("🏃‍♂️ With lightning reflexes, the hero escapes into the shadows!");
-					display.sleepTime(2500);
-					// display.printNormal("\nPress Enter to continue...");
-					// display.getUserInput();
+					display.sleepTime(1400);
 					return;
 				}
 			
@@ -107,11 +101,9 @@ public class FightLogic {
 
 		} while ((enemy.getHitPoint() > 0 && hero.getHitPoint() > 0) || (!option.equals("1") && !option.equals("2") && !option.equals("3") && !option.equals("4")));
 
-		if (hero.getHitPoint() <= 0) {
-			// GAME OVER
+		if (hero.getHitPoint() <= 0)
 			display.printNormal(RED_BOLD + "💀 GAME OVER" + RESET);
-		} else {
-			// WIN + ADD XP + ADD KNOLWEDGE + LOOT
+		else {
 			display.printNormal(GREEN_BOLD + "🏆 ENEMY DEFEATED!" + RESET);
 			hero.addXP(enemy.getXp());
 			hero.getKnowledge().addKnowledge(enemy);
@@ -124,12 +116,11 @@ public class FightLogic {
 				} while(!choice.equals("1") && !choice.equals("2"));
 				if (choice.equals("1")) {
 					hero.addArtefact(enemy.getArtefacts().get(0));
+					display.printNormal("\nYou add: " + enemy.getArtefacts().get(0).getName() + " in your inventory!");
 					enemy.removeArtefact(enemy.getArtefacts().get(0));
 				}
 			}
 		}
-
-		display.printNormal("\nPress Enter to continue...");
-		display.getUserInput();
+		display.sleepTime(1400);
 	}
 }

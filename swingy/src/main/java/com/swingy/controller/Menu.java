@@ -345,15 +345,13 @@ public class Menu {
 
 		if (toEquip == null) {
 			display.printNormal("❌ Item not found in your inventory.");
-			display.printNormal("\nPress Enter to continue...");
-			display.getUserInput();
+			display.sleepTime(1400);
 			return;
 		}
 		else {
 			this.ref.getMainHero().equipArtefact(toEquip);
 			display.printNormal("🧝 " + this.ref.getMainHero().getName() + " equipped: " + toEquip.getName() + " ✨");
-			display.printNormal("\nPress Enter to continue...");
-			display.getUserInput();
+			display.sleepTime(1400);
 			return;
 		}
 	}
@@ -372,15 +370,13 @@ public class Menu {
 
 		if (toUnequipped == null) {
 			display.printNormal("❌ Item not found in your inventory or not equipped!.");
-			display.printNormal("\nPress Enter to continue...");
-			display.getUserInput();
+			display.sleepTime(1400);
 			return;
 		}
 		else {
 			this.ref.getMainHero().unequipArtefact(toUnequipped);
 			display.printNormal("🧝 " + this.ref.getMainHero().getName() + " unequipped: " + toUnequipped.getName() + " ✨");
-			display.printNormal("\nPress Enter to continue...");
-			display.getUserInput();
+			display.sleepTime(1400);
 			return;
 		}
 
@@ -407,9 +403,7 @@ public class Menu {
 			} else {
 				display.printNormal("❌ Item not found in your inventory.");
 			}
-
-			display.printNormal("\nPress Enter to continue...");
-			display.getUserInput();
+			display.sleepTime(1400);
 	}
 
 	private void potionOption() {
@@ -419,8 +413,7 @@ public class Menu {
 				ref.healHero(item.getBonus());
 				potion = item;
 				display.printNormal("🧝 " + this.ref.getMainHero().getName() + " recovered 10 HP 💊");
-				display.printNormal("\nPress Enter to continue...");
-				display.getUserInput();
+				display.sleepTime(1400);
 				break;
 			}
 		}
