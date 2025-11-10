@@ -44,7 +44,7 @@ public class FightLogic {
 				int initE = (diceEnemy1 + diceEnemy2) + enemy.getAttack();
 
 				if (initH == initE) {
-					display.printNormal("⚔️  Both fighters clash with equal strength  ⚔️  No one was hurt!");
+					display.printNormal("⚔️  Both fighters clash with equal strength ⚔️ No one was hurt!");
 					display.sleepTime(1400);
 					continue;
 				}
@@ -62,7 +62,7 @@ public class FightLogic {
 					if (damage < 0)
 						damage = 0;
 					hero.setHitPoint(-damage);
-					display.printNormal("🗡️ " + enemy.getCharacterClass() + " hits " + hero.getName() + " for " + damage + " damage!");
+					display.printNormal("🗡️  " + enemy.getCharacterClass() + " hits " + hero.getName() + " for " + damage + " damage!");
 				}
 				display.sleepTime(1400);
 				break;
