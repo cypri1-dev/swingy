@@ -25,6 +25,11 @@ public final class Constants {
 	public static final String EPIC_COLOR = "\u001B[35m";
 	public static final String LEGENDARY_COLOR = "\u001B[33m";
 
+	/* MODES */
+
+	public static final String CONSOLE = "console";
+	public static final String GUI = "gui";
+
 	/* TYPES CHARACTERS */
 
 	public static final String HERO_TYPE = "hero";
