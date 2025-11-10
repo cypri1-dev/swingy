@@ -51,12 +51,16 @@ public class FightLogic {
 
 				if (initH > initE) {
 					int rawDamage = ThreadLocalRandom.current().nextInt(1, hero.getAttack() + 1);
-					int damage = Math.max(1, rawDamage - enemy.getDefense() / 2);
+					int damage = rawDamage - (enemy.getDefense() / 2);
+					if (damage < 0)
+						damage = 0;
 					enemy.setHitPoint(-damage);
 					display.printNormal("💥 " + hero.getName() +  " hits " + enemy.getCharacterClass() +  " for " + damage + " damage!");
 				} else {
 					int rawDamage = ThreadLocalRandom.current().nextInt(1, enemy.getAttack() + 1);
-					int damage = Math.max(1, rawDamage - hero.getDefense() / 2);
+					int damage = rawDamage - (hero.getDefense() / 2);
+					if (damage < 0)
+						damage = 0;
 					hero.setHitPoint(-damage);
 					display.printNormal("🗡️ " + enemy.getCharacterClass() + " hits " + hero.getName() + " for " + damage + " damage!");
 				}
