@@ -70,7 +70,7 @@ public class FightLogic {
 			case "2":
 				/* -------- BLOCK -------- */
 				int dmg = ThreadLocalRandom.current().nextInt(1, enemy.getAttack() + 1);
-				int fullBlock = Math.max(1, dmg - hero.getDefense());
+				int fullBlock = dmg - hero.getDefense();
 				if (fullBlock <= 0)
 					fullBlock = 0;
 				hero.setHitPoint(-fullBlock);
