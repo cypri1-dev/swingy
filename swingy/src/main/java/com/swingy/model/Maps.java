@@ -93,18 +93,32 @@ public class Maps {
 			Artefact loot = null;
 
 			int lootPercent = ThreadLocalRandom.current().nextInt(1, 1001);
-				if (lootPercent > 990) {
-					loot = createRandomLoot(LEGENDARY);
-				} else if (lootPercent > 950) {
-					loot = createRandomLoot(EPIC);
-				} else if (lootPercent > 800) {
-					loot = createRandomLoot(RARE);
-				} else if (lootPercent > 400) {
-					loot = createRandomLoot(COMMON);
-				} else if (lootPercent > 200)
-					loot = ArtefactFactory.getInstance().newArtefact(CONSOMMABLE_TYPE, "Healing Potion", COMMON, 10);
-
-			String randomEnemy = ENEMIES_LIST_NAMES[ThreadLocalRandom.current().nextInt(0, 20)];
+			if (lootPercent > 990) {
+				loot = createRandomLoot(LEGENDARY);
+			} else if (lootPercent > 950) {
+				loot = createRandomLoot(EPIC);
+			} else if (lootPercent > 800) {
+				loot = createRandomLoot(RARE);
+			} else if (lootPercent > 400) {
+				loot = createRandomLoot(COMMON);
+			} else if (lootPercent > 150)
+				loot = ArtefactFactory.getInstance().newArtefact(CONSOMMABLE_TYPE, "Healing Potion", COMMON, 10);
+			
+			String randomEnemy = "";
+			if (mainHero.getLevel() <=4)
+				randomEnemy = ENEMIES_ALL[ThreadLocalRandom.current().nextInt(0, 8)];
+			else if (mainHero.getLevel() > 4 && mainHero.getLevel() <=8) {
+				randomEnemy = ENEMIES_ALL[ThreadLocalRandom.current().nextInt(6, 16)];
+			}
+			else if (mainHero.getLevel() > 8 && mainHero.getLevel() <= 12) {
+				randomEnemy = ENEMIES_ALL[ThreadLocalRandom.current().nextInt(14, 24)];
+			}
+			else if (mainHero.getLevel() > 12 && mainHero.getLevel() <= 16) {
+				randomEnemy = ENEMIES_ALL[ThreadLocalRandom.current().nextInt(22, 32)];
+			}
+			else {
+				randomEnemy = ENEMIES_ALL[ThreadLocalRandom.current().nextInt(30, 40)];
+			}
 			Characters tmpEnemy = CharactersFactory.getInstance().newCharacters(ENEMY_TYPE, "Enemy" + "(" + i + ")" , randomEnemy);
 
 			int tmpX;
@@ -126,41 +140,62 @@ public class Maps {
 
 			this.enemiesList.add(tmpEnemy);;
 
-			switch (tmpEnemy.getCharacterClass()) {
+			switch(tmpEnemy.getCharacterClass()) {
 				// ---- Tier 1 : basiques ----
-				case ENEMY_CLASS_RAT -> symbol = SYMBOL_ENEMY_RAT;
-				case ENEMY_CLASS_SLIME -> symbol = SYMBOL_ENEMY_SLIME;
-				case ENEMY_CLASS_GOBLIN -> symbol = SYMBOL_ENEMY_GOBLIN;
-				case ENEMY_CLASS_BANDIT -> symbol = SYMBOL_ENEMY_BANDIT;
+				case ENEMY_CLASS_RAT -> symbol = "r";
+				case ENEMY_CLASS_SLIME -> symbol = "s";
+				case ENEMY_CLASS_GOBLIN -> symbol = "g";
+				case ENEMY_CLASS_BANDIT -> symbol = "b";
+				case ENEMY_CLASS_BAT -> symbol = "v"; // volant
+				case ENEMY_CLASS_SPIDERLING -> symbol = "x"; // petite araignée
+				case ENEMY_CLASS_SKELETAL_HAND -> symbol = "h"; // main squelettique
+				case ENEMY_CLASS_MUDLING -> symbol = "m"; // boueux
 
-				// ---- Tier 2 : intermédiaires ----
-				case ENEMY_CLASS_SKELETON -> symbol = SYMBOL_ENEMY_SKELETON;
-				case ENEMY_CLASS_WOLF -> symbol = SYMBOL_ENEMY_WOLF;
-				case ENEMY_CLASS_CULTIST -> symbol = SYMBOL_ENEMY_CULTIST;
-				case ENEMY_CLASS_ORC -> symbol = SYMBOL_ENEMY_ORC;
+				// ---- Tier 2 : intermédiaires (niv. 5–8) ----
+				case ENEMY_CLASS_SKELETON -> symbol = "S";
+				case ENEMY_CLASS_WOLF -> symbol = "w";
+				case ENEMY_CLASS_CULTIST -> symbol = "c";
+				case ENEMY_CLASS_ORC -> symbol = "O";
+				case ENEMY_CLASS_BANDIT_CHIEF -> symbol = "B";
+				case ENEMY_CLASS_GOBLIN_SHAMAN -> symbol = "G";
+				case ENEMY_CLASS_WARG -> symbol = "W";
+				case ENEMY_CLASS_GRAVE_ROBBER -> symbol = "R";
 
-				// ---- Tier 3 : avancés ----
-				case ENEMY_CLASS_DARK_MAGE -> symbol = SYMBOL_ENEMY_DARK_MAGE;
-				case ENEMY_CLASS_ELEMENTAL -> symbol = SYMBOL_ENEMY_ELEMENTAL;
-				case ENEMY_CLASS_TROLL -> symbol = SYMBOL_ENEMY_TROLL;
-				case ENEMY_CLASS_ASSASSIN -> symbol = SYMBOL_ENEMY_ASSASSIN;
+				// ---- Tier 3 : avancés (niv. 9–12) ----
+				case ENEMY_CLASS_DARK_MAGE -> symbol = "M";
+				case ENEMY_CLASS_ELEMENTAL -> symbol = "E";
+				case ENEMY_CLASS_TROLL -> symbol = "T";
+				case ENEMY_CLASS_ASSASSIN -> symbol = "A";
+				case ENEMY_CLASS_NECROMANCER -> symbol = "N";
+				case ENEMY_CLASS_WARLOCK -> symbol = "℧"; // symbole mystique
+				case ENEMY_CLASS_SHADOW_BEAST -> symbol = "§";
+				case ENEMY_CLASS_GOLEM -> symbol = "Gm";
 
-				// ---- Tier 4 : élite ----
-				case ENEMY_CLASS_LICH -> symbol = SYMBOL_ENEMY_LICH;
-				case ENEMY_CLASS_MINOTAUR -> symbol = SYMBOL_ENEMY_MINOTAUR;
-				case ENEMY_CLASS_VAMPIRE_LORD -> symbol = SYMBOL_ENEMY_VAMPIRE_LORD;
-				case ENEMY_CLASS_DEMON_KNIGHT -> symbol = SYMBOL_ENEMY_DEMON_KNIGHT;
+				// ---- Tier 4 : élite (niv. 13–16) ----
+				case ENEMY_CLASS_LICH -> symbol = "L";
+				case ENEMY_CLASS_MINOTAUR -> symbol = "Mʈ";
+				case ENEMY_CLASS_VAMPIRE_LORD -> symbol = "V";
+				case ENEMY_CLASS_DEMON_KNIGHT -> symbol = "K";
+				case ENEMY_CLASS_DREAD_KNIGHT -> symbol = "Đ";
+				case ENEMY_CLASS_PLAGUE_BRINGER -> symbol = "P";
+				case ENEMY_CLASS_PYROMANCER -> symbol = "Ψ";
+				case ENEMY_CLASS_SPECTER -> symbol = "Ʃ";
 
-				// ---- Tier 5 : boss & dieux ----
-				case ENEMY_CLASS_DRAGON_WHELP -> symbol = SYMBOL_ENEMY_DRAGON_WHELP;
-				case ENEMY_CLASS_ANCIENT_DRAGON -> symbol = SYMBOL_ENEMY_ANCIENT_DRAGON;
-				case ENEMY_CLASS_ABYSSAL_HYDRA -> symbol = SYMBOL_ENEMY_ABYSSAL_HYDRA;
-				case ENEMY_CLASS_FALLEN_GOD -> symbol = SYMBOL_ENEMY_FALLEN_GOD;
+				// ---- Tier 5 : boss & divinités (niv. 17–20) ----
+				case ENEMY_CLASS_DRAGON_WHELP -> symbol = "D";
+				case ENEMY_CLASS_ANCIENT_DRAGON -> symbol = "Ω";
+				case ENEMY_CLASS_ABYSSAL_HYDRA -> symbol = "H";
+				case ENEMY_CLASS_FALLEN_GOD -> symbol = "Φ";
+				case ENEMY_CLASS_DEMON_OVERLORD -> symbol = "Ð";
+				case ENEMY_CLASS_TITAN -> symbol = "τ";
+				case ENEMY_CLASS_VOID_SERPENT -> symbol = "∑";
+				case ENEMY_CLASS_COSMIC_DRAGON -> symbol = "∞";
 
-				default -> symbol = "?";
+				default -> symbol = "?"; // cas par défaut
 			}
 
-			if ((mainHero.getLevel() <= 4 && tmpEnemy.getLevel() <= 4 || Math.abs(mainHero.getLevel() - tmpEnemy.getLevel()) <= 1))
+
+			if ((mainHero.getLevel() == tmpEnemy.getLevel() || mainHero.getLevel() + 1 == tmpEnemy.getLevel()))
 				this.map[tmpX][tmpY] = symbol;
 			else
 				this.map[tmpX][tmpY] = "*";

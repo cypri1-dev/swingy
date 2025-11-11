@@ -72,9 +72,9 @@ public final class Constants {
 
 	/* ENEMY STATS */
 
-	public static final int HP_BASE_ENEMY = 12;
-	public static final int ATT_BASE_ENEMY = 6;
-	public static final int DEF_BASE_ENEMY = 5;
+	public static final int HP_BASE_ENEMY = 19;
+	public static final int ATT_BASE_ENEMY = 8;
+	public static final int DEF_BASE_ENEMY = 8;
 
 	/* ENEMY ARCHETYPES */
 
@@ -82,59 +82,114 @@ public final class Constants {
 	// ENEMY NAMES
 	// ==================
 
-	public static final String[] ENEMIES_LIST_NAMES = {
-		"Rat",
-		"Slime",
-		"Goblin",
-		"Bandit",
-		"Skeleton",
-		"Wolf",
-		"Cultist",
-		"Orc",
-		"Dark Mage",
-		"Elemental",
-		"Troll",
-		"Assassin",
-		"Lich",
-		"Minotaur",
-		"Vampire Lord",
-		"Demon Knight",
-		"Dragon Whelp",
-		"Ancient Dragon",
-		"Abyssal Hydra",
-		"Fallen God"
-	};
 
 	// ==================
 	// ENEMY CLASS STRINGS
 	// ==================
-	
+		
 	public static final String ENEMY_CLASS_RAT = "Rat";
 	public static final String ENEMY_CLASS_SLIME = "Slime";
 	public static final String ENEMY_CLASS_GOBLIN = "Goblin";
 	public static final String ENEMY_CLASS_BANDIT = "Bandit";
+	public static final String ENEMY_CLASS_BAT = "Cave Bat";
+	public static final String ENEMY_CLASS_SPIDERLING = "Spiderling";
+	public static final String ENEMY_CLASS_SKELETAL_HAND = "Skeletal Hand";
+	public static final String ENEMY_CLASS_MUDLING = "Mudling";
+
 	public static final String ENEMY_CLASS_SKELETON = "Skeleton";
 	public static final String ENEMY_CLASS_WOLF = "Wolf";
 	public static final String ENEMY_CLASS_CULTIST = "Cultist";
 	public static final String ENEMY_CLASS_ORC = "Orc";
+	public static final String ENEMY_CLASS_BANDIT_CHIEF = "Bandit Chief";
+	public static final String ENEMY_CLASS_GOBLIN_SHAMAN = "Goblin Shaman";
+	public static final String ENEMY_CLASS_WARG = "Warg";
+	public static final String ENEMY_CLASS_GRAVE_ROBBER = "Grave Robber";
+
 	public static final String ENEMY_CLASS_DARK_MAGE = "Dark Mage";
 	public static final String ENEMY_CLASS_ELEMENTAL = "Elemental";
 	public static final String ENEMY_CLASS_TROLL = "Troll";
 	public static final String ENEMY_CLASS_ASSASSIN = "Assassin";
+	public static final String ENEMY_CLASS_NECROMANCER = "Necromancer";
+	public static final String ENEMY_CLASS_WARLOCK = "Warlock";
+	public static final String ENEMY_CLASS_SHADOW_BEAST = "Shadow Beast";
+	public static final String ENEMY_CLASS_GOLEM = "Stone Golem";
+
 	public static final String ENEMY_CLASS_LICH = "Lich";
 	public static final String ENEMY_CLASS_MINOTAUR = "Minotaur";
 	public static final String ENEMY_CLASS_VAMPIRE_LORD = "Vampire Lord";
 	public static final String ENEMY_CLASS_DEMON_KNIGHT = "Demon Knight";
+	public static final String ENEMY_CLASS_DREAD_KNIGHT = "Dread Knight";
+	public static final String ENEMY_CLASS_PLAGUE_BRINGER = "Plague Bringer";
+	public static final String ENEMY_CLASS_PYROMANCER = "Pyromancer";
+	public static final String ENEMY_CLASS_SPECTER = "Specter";
+
 	public static final String ENEMY_CLASS_DRAGON_WHELP = "Dragon Whelp";
 	public static final String ENEMY_CLASS_ANCIENT_DRAGON = "Ancient Dragon";
 	public static final String ENEMY_CLASS_ABYSSAL_HYDRA = "Abyssal Hydra";
 	public static final String ENEMY_CLASS_FALLEN_GOD = "Fallen God";
+	public static final String ENEMY_CLASS_DEMON_OVERLORD = "Demon Overlord";
+	public static final String ENEMY_CLASS_TITAN = "Titan";
+	public static final String ENEMY_CLASS_VOID_SERPENT = "Void Serpent";
+	public static final String ENEMY_CLASS_COSMIC_DRAGON = "Cosmic Dragon";
+
+
+	public static final String[] ENEMIES_ALL = {
+		// ---- Niveaux 1–4 : faibles ----
+		ENEMY_CLASS_RAT,
+		ENEMY_CLASS_SLIME,
+		ENEMY_CLASS_GOBLIN,
+		ENEMY_CLASS_BANDIT,
+		ENEMY_CLASS_BAT,
+		ENEMY_CLASS_SPIDERLING,
+		ENEMY_CLASS_SKELETAL_HAND,
+		ENEMY_CLASS_MUDLING,
+
+		// ---- Niveaux 5–8 : intermédiaires ----
+		ENEMY_CLASS_SKELETON,
+		ENEMY_CLASS_WOLF,
+		ENEMY_CLASS_CULTIST,
+		ENEMY_CLASS_ORC,
+		ENEMY_CLASS_BANDIT_CHIEF,
+		ENEMY_CLASS_GOBLIN_SHAMAN,
+		ENEMY_CLASS_WARG,
+		ENEMY_CLASS_GRAVE_ROBBER,
+
+		// ---- Niveaux 9–12 : avancés ----
+		ENEMY_CLASS_DARK_MAGE,
+		ENEMY_CLASS_ELEMENTAL,
+		ENEMY_CLASS_TROLL,
+		ENEMY_CLASS_ASSASSIN,
+		ENEMY_CLASS_NECROMANCER,
+		ENEMY_CLASS_WARLOCK,
+		ENEMY_CLASS_SHADOW_BEAST,
+		ENEMY_CLASS_GOLEM,
+
+		// ---- Niveaux 13–16 : élite ----
+		ENEMY_CLASS_LICH,
+		ENEMY_CLASS_MINOTAUR,
+		ENEMY_CLASS_VAMPIRE_LORD,
+		ENEMY_CLASS_DEMON_KNIGHT,
+		ENEMY_CLASS_DREAD_KNIGHT,
+		ENEMY_CLASS_PLAGUE_BRINGER,
+		ENEMY_CLASS_PYROMANCER,
+		ENEMY_CLASS_SPECTER,
+
+		// ---- Niveaux 17–20 : boss & divinités ----
+		ENEMY_CLASS_DRAGON_WHELP,
+		ENEMY_CLASS_ANCIENT_DRAGON,
+		ENEMY_CLASS_ABYSSAL_HYDRA,
+		ENEMY_CLASS_FALLEN_GOD,
+		ENEMY_CLASS_DEMON_OVERLORD,
+		ENEMY_CLASS_TITAN,
+		ENEMY_CLASS_VOID_SERPENT,
+		ENEMY_CLASS_COSMIC_DRAGON
+	};
+
 
 	// ==================
 	// ENEMY STATS MODIFIERS
 	// ==================
 
-	// ---- Niveau 1-4 : faibles ----
 	public static final int HP_RAT = -3;
 	public static final int ATT_RAT = -1;
 	public static final int DEF_RAT = -1;
@@ -155,7 +210,26 @@ public final class Constants {
 	public static final int DEF_BANDIT = 1;
 	public static final int XP_BANDIT = 80;
 
-	// ---- Niveau 5-8 : intermédiaires ----
+	public static final int HP_BAT = -1;
+	public static final int ATT_BAT = 0;
+	public static final int DEF_BAT = -2;
+	public static final int XP_BAT = 30;
+
+	public static final int HP_SPIDERLING = -1;
+	public static final int ATT_SPIDERLING = 1;
+	public static final int DEF_SPIDERLING = -1;
+	public static final int XP_SPIDERLING = 40;
+
+	public static final int HP_SKELETAL_HAND = 0;
+	public static final int ATT_SKELETAL_HAND = 0;
+	public static final int DEF_SKELETAL_HAND = 1;
+	public static final int XP_SKELETAL_HAND = 45;
+
+	public static final int HP_MUDLING = 1;
+	public static final int ATT_MUDLING = 0;
+	public static final int DEF_MUDLING = 0;
+	public static final int XP_MUDLING = 50;
+
 	public static final int HP_SKELETON = 2;
 	public static final int ATT_SKELETON = 1;
 	public static final int DEF_SKELETON = 1;
@@ -176,7 +250,26 @@ public final class Constants {
 	public static final int DEF_ORC = 3;
 	public static final int XP_ORC = 240;
 
-	// ---- Niveau 9-12 : avancés ----
+	public static final int HP_BANDIT_CHIEF = 5;
+	public static final int ATT_BANDIT_CHIEF = 4;
+	public static final int DEF_BANDIT_CHIEF = 3;
+	public static final int XP_BANDIT_CHIEF = 260;
+
+	public static final int HP_GOBLIN_SHAMAN = 3;
+	public static final int ATT_GOBLIN_SHAMAN = 5;
+	public static final int DEF_GOBLIN_SHAMAN = 2;
+	public static final int XP_GOBLIN_SHAMAN = 200;
+
+	public static final int HP_WARG = 4;
+	public static final int ATT_WARG = 5;
+	public static final int DEF_WARG = 3;
+	public static final int XP_WARG = 230;
+
+	public static final int HP_GRAVE_ROBBER = 3;
+	public static final int ATT_GRAVE_ROBBER = 4;
+	public static final int DEF_GRAVE_ROBBER = 2;
+	public static final int XP_GRAVE_ROBBER = 210;
+
 	public static final int HP_DARK_MAGE = 3;
 	public static final int ATT_DARK_MAGE = 6;
 	public static final int DEF_DARK_MAGE = 2;
@@ -197,7 +290,27 @@ public final class Constants {
 	public static final int DEF_ASSASSIN_ENEMY = 2;
 	public static final int XP_ASSASSIN_ENEMY = 700;
 
-	// ---- Niveau 13-16 : élite ----
+	public static final int HP_NECROMANCER = 5;
+	public static final int ATT_NECROMANCER = 7;
+	public static final int DEF_NECROMANCER = 3;
+	public static final int XP_NECROMANCER = 620;
+
+	public static final int HP_WARLOCK = 6;
+	public static final int ATT_WARLOCK = 6;
+	public static final int DEF_WARLOCK = 4;
+	public static final int XP_WARLOCK = 580;
+
+	public static final int HP_SHADOW_BEAST = 7;
+	public static final int ATT_SHADOW_BEAST = 8;
+	public static final int DEF_SHADOW_BEAST = 4;
+	public static final int XP_SHADOW_BEAST = 750;
+
+	public static final int HP_GOLEM = 9;
+	public static final int ATT_GOLEM = 5;
+	public static final int DEF_GOLEM = 8;
+	public static final int XP_GOLEM = 800;
+
+
 	public static final int HP_LICH = 7;
 	public static final int ATT_LICH = 6;
 	public static final int DEF_LICH = 5;
@@ -218,7 +331,26 @@ public final class Constants {
 	public static final int DEF_DEMON_KNIGHT = 8;
 	public static final int XP_DEMON_KNIGHT = 2000;
 
-	// ---- Niveau 17-20 : boss & divinités ----
+	public static final int HP_DREAD_KNIGHT = 13;
+	public static final int ATT_DREAD_KNIGHT = 9;
+	public static final int DEF_DREAD_KNIGHT = 10;
+	public static final int XP_DREAD_KNIGHT = 2200;
+
+	public static final int HP_PLAGUE_BRINGER = 11;
+	public static final int ATT_PLAGUE_BRINGER = 11;
+	public static final int DEF_PLAGUE_BRINGER = 7;
+	public static final int XP_PLAGUE_BRINGER = 1800;
+
+	public static final int HP_PYROMANCER = 9;
+	public static final int ATT_PYROMANCER = 12;
+	public static final int DEF_PYROMANCER = 5;
+	public static final int XP_PYROMANCER = 1750;
+
+	public static final int HP_SPECTER = 8;
+	public static final int ATT_SPECTER = 10;
+	public static final int DEF_SPECTER = 6;
+	public static final int XP_SPECTER = 1500;
+
 	public static final int HP_DRAGON_WHELP = 10;
 	public static final int ATT_DRAGON_WHELP = 8;
 	public static final int DEF_DRAGON_WHELP = 6;
@@ -239,6 +371,25 @@ public final class Constants {
 	public static final int DEF_FALLEN_GOD = 15;
 	public static final int XP_FALLEN_GOD = 6000;
 
+	public static final int HP_DEMON_OVERLORD = 22;
+	public static final int ATT_DEMON_OVERLORD = 16;
+	public static final int DEF_DEMON_OVERLORD = 13;
+	public static final int XP_DEMON_OVERLORD = 5200;
+
+	public static final int HP_TITAN = 24;
+	public static final int ATT_TITAN = 15;
+	public static final int DEF_TITAN = 20;
+	public static final int XP_TITAN = 5800;
+
+	public static final int HP_VOID_SERPENT = 18;
+	public static final int ATT_VOID_SERPENT = 17;
+	public static final int DEF_VOID_SERPENT = 11;
+	public static final int XP_VOID_SERPENT = 5000;
+
+	public static final int HP_COSMIC_DRAGON = 28;
+	public static final int ATT_COSMIC_DRAGON = 20;
+	public static final int DEF_COSMIC_DRAGON = 18;
+	public static final int XP_COSMIC_DRAGON = 7000;
 
 
 	/* TYPES ARTEFACTS */
@@ -416,35 +567,56 @@ public final class Constants {
 	public static final String SYMBOL_MAIN_HERO = BLUE + "@" + RESET;
 	public static final String SYMBOL_ENEMY = RED + "!" + RESET;
 
-	// ---- Tier 1 : faibles ----
-	public static final String SYMBOL_ENEMY_RAT ="r";
-	public static final String SYMBOL_ENEMY_SLIME ="s";
-	public static final String SYMBOL_ENEMY_GOBLIN ="g";
-	public static final String SYMBOL_ENEMY_BANDIT ="b";
+	// ---- Tier 1 : faibles (niv. 1–4) ----
+	public static final String SYMBOL_ENEMY_RAT = "r";
+	public static final String SYMBOL_ENEMY_SLIME = "s";
+	public static final String SYMBOL_ENEMY_GOBLIN = "g";
+	public static final String SYMBOL_ENEMY_BANDIT = "b";
+	public static final String SYMBOL_ENEMY_BAT = "v"; // volant
+	public static final String SYMBOL_ENEMY_SPIDERLING = "x"; // petite araignée
+	public static final String SYMBOL_ENEMY_SKELETAL_HAND = "h"; // hand
+	public static final String SYMBOL_ENEMY_MUDLING = "m"; // mud
 
-	// ---- Tier 2 : intermédiaires ----
-	public static final String SYMBOL_ENEMY_SKELETON ="S";
-	public static final String SYMBOL_ENEMY_WOLF ="w";
-	public static final String SYMBOL_ENEMY_CULTIST ="c";
-	public static final String SYMBOL_ENEMY_ORC ="O";
+	// ---- Tier 2 : intermédiaires (niv. 5–8) ----
+	public static final String SYMBOL_ENEMY_SKELETON = "S";
+	public static final String SYMBOL_ENEMY_WOLF = "w";
+	public static final String SYMBOL_ENEMY_CULTIST = "c";
+	public static final String SYMBOL_ENEMY_ORC = "O";
+	public static final String SYMBOL_ENEMY_BANDIT_CHIEF = "B";
+	public static final String SYMBOL_ENEMY_GOBLIN_SHAMAN = "G";
+	public static final String SYMBOL_ENEMY_WARG = "W";
+	public static final String SYMBOL_ENEMY_GRAVE_ROBBER = "R";
 
-	// ---- Tier 3 : avancés ----
-	public static final String SYMBOL_ENEMY_DARK_MAGE ="M";
-	public static final String SYMBOL_ENEMY_ELEMENTAL ="E";
-	public static final String SYMBOL_ENEMY_TROLL ="T";
-	public static final String SYMBOL_ENEMY_ASSASSIN ="A";
+	// ---- Tier 3 : avancés (niv. 9–12) ----
+	public static final String SYMBOL_ENEMY_DARK_MAGE = "M";
+	public static final String SYMBOL_ENEMY_ELEMENTAL = "E";
+	public static final String SYMBOL_ENEMY_TROLL = "T";
+	public static final String SYMBOL_ENEMY_ASSASSIN = "A";
+	public static final String SYMBOL_ENEMY_NECROMANCER = "N";
+	public static final String SYMBOL_ENEMY_WARLOCK = "℧"; // symbole mystique
+	public static final String SYMBOL_ENEMY_SHADOW_BEAST = "§";
+	public static final String SYMBOL_ENEMY_GOLEM = "Gm";
 
-	// ---- Tier 4 : élite ----
-	public static final String SYMBOL_ENEMY_LICH ="L";
-	public static final String SYMBOL_ENEMY_MINOTAUR ="m";
-	public static final String SYMBOL_ENEMY_VAMPIRE_LORD ="V";
-	public static final String SYMBOL_ENEMY_DEMON_KNIGHT ="K";
+	// ---- Tier 4 : élite (niv. 13–16) ----
+	public static final String SYMBOL_ENEMY_LICH = "L";
+	public static final String SYMBOL_ENEMY_MINOTAUR = "Mʈ";
+	public static final String SYMBOL_ENEMY_VAMPIRE_LORD = "V";
+	public static final String SYMBOL_ENEMY_DEMON_KNIGHT = "K";
+	public static final String SYMBOL_ENEMY_DREAD_KNIGHT = "Đ";
+	public static final String SYMBOL_ENEMY_PLAGUE_BRINGER = "P";
+	public static final String SYMBOL_ENEMY_PYROMANCER = "Ψ";
+	public static final String SYMBOL_ENEMY_SPECTER = "Ʃ";
 
-	// ---- Tier 5 : boss & dieux ----
-	public static final String SYMBOL_ENEMY_DRAGON_WHELP ="D";
-	public static final String SYMBOL_ENEMY_ANCIENT_DRAGON ="Ω";
-	public static final String SYMBOL_ENEMY_ABYSSAL_HYDRA ="H";
-	public static final String SYMBOL_ENEMY_FALLEN_GOD ="Φ";
+	// ---- Tier 5 : boss & divinités (niv. 17–20) ----
+	public static final String SYMBOL_ENEMY_DRAGON_WHELP = "D";
+	public static final String SYMBOL_ENEMY_ANCIENT_DRAGON = "Ω";
+	public static final String SYMBOL_ENEMY_ABYSSAL_HYDRA = "H";
+	public static final String SYMBOL_ENEMY_FALLEN_GOD = "Φ";
+	public static final String SYMBOL_ENEMY_DEMON_OVERLORD = "Ð";
+	public static final String SYMBOL_ENEMY_TITAN = "τ";
+	public static final String SYMBOL_ENEMY_VOID_SERPENT = "∑";
+	public static final String SYMBOL_ENEMY_COSMIC_DRAGON = "∞";
+
 
 
 

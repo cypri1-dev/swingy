@@ -193,7 +193,7 @@ public class Menu {
 			display.clearTerminal();
 			display.printSlow(MAIN_MENU);
 			display.printSlow(SELECT_OPTION);
-			option = display.getUserInput();
+			option = display.getUserInput().trim();
 		} while (!option.equals("1") && !option.equals("2") && !option.equals("3") && !option.equals("4") && !option.equals("S"));
 
 		switch (option) {
@@ -219,49 +219,52 @@ public class Menu {
 
 	private void createHero() {
 		Set<String> validOption = Set.of("1", "2", "3", "4", "5");
+		Set<String> forbiddenChars = Set.of("|", ",", "*", "%", "=", "{", "}");
 
 		display.printSlow(MENU_CREATION);
 		display.printSlow(NAME_HERO);
+
 		String inputName = "";
+		boolean invalidName;
+
 		do {
 			inputName = display.getUserInput().trim();
-			if (inputName.isEmpty() || ref.heroExists(inputName)) {
+
+			boolean hasForbiddenChar = forbiddenChars.stream().anyMatch(inputName::contains);
+
+			invalidName = inputName.isEmpty() || ref.heroExists(inputName) || hasForbiddenChar;
+
+			if (invalidName)
 				display.printSlow(ERROR_NAME);
-			}
-			if (inputName.equals("x") || inputName.equals("X"))
+
+			if (inputName.equalsIgnoreCase("x"))
 				return;
-		} while (inputName.isEmpty() || ref.heroExists(inputName) || inputName.equals("X") || inputName.equals("x"));
+
+		} while (invalidName || inputName.equalsIgnoreCase("x"));
+
 		ref.registerHeroName(inputName);
 		display.clearTerminal();
+
 		String optionClass = "";
 		do {
 			display.printSlow(CHOOSE_CLASS);
-			optionClass = display.getUserInput();
-
+			optionClass = display.getUserInput().trim();
 		} while (!validOption.contains(optionClass));
-		
-		String characterClass = "";
-		switch (optionClass) {
-			case "1":
-				characterClass = WARRIOR_CLASS;
-				break;
-			case "2":
-				characterClass = MAGE_CLASS;
-				break;
-			case "3":
-				characterClass = ARCHER_CLASS;
-				break;
-			case "4":
-				characterClass = PALADIN_CLASS;
-				break;
-			case "5":
-				characterClass = ASSASSIN_CLASS;
-				break;
-			default:
-				break;
-		}
-		ref.getListAvaible().add(CharactersFactory.getInstance().newCharacters(HERO_TYPE, inputName, characterClass));
+
+		String characterClass = switch (optionClass) {
+			case "1" -> WARRIOR_CLASS;
+			case "2" -> MAGE_CLASS;
+			case "3" -> ARCHER_CLASS;
+			case "4" -> PALADIN_CLASS;
+			case "5" -> ASSASSIN_CLASS;
+			default -> "";
+		};
+
+		ref.getListAvaible().add(
+			CharactersFactory.getInstance().newCharacters(HERO_TYPE, inputName, characterClass)
+		);
 	}
+
 
 	/* -------------------------------------------------- METHOD MAIN MENU -------------------------------------------------- */
 
