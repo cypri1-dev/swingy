@@ -2,6 +2,7 @@ package com.swingy.view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class ExempleBoxLayout extends JFrame {
 
@@ -11,7 +12,7 @@ public class ExempleBoxLayout extends JFrame {
 	protected void frameInit() {
 		super.frameInit();
 		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		this.setTitle("Exemple composants"); // tu peux garder setName si tu préfères
+		this.setTitle("Exemple composants");
 		tabbedPane = new JTabbedPane();
 		this.add(tabbedPane);
 
