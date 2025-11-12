@@ -2,15 +2,13 @@ package com.swingy;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.io.IOException;
 
 import static com.swingy.utils.Constants.*;
 import com.swingy.controller.Game;
 import com.swingy.controller.Import;
 import com.swingy.view.DisplayController;
-import com.swingy.view.ExempleBoxLayout;
-import com.swingy.view.JPanelWithBackground;
+import com.swingy.view.GuiMainWindow;
 
 public class App {
 	public static void main(String[] args) {
@@ -31,18 +29,27 @@ public class App {
 
 			case GUI:
 				DisplayController.getInstance().printNormal("GUI coming soon...");
-				// JFrame window = new ExempleBoxLayout();
 
-				JFrame f = new JFrame();
-				try {
-					f.getContentPane().add(new JPanelWithBackground("parchment.jpeg"));
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				SwingUtilities.invokeLater(() -> {
+					try {
+						GuiMainWindow frame = new GuiMainWindow();
+						frame.setVisible(true);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				});
+				
+				// JFrame window = new guiMainWindow("parchment.jpeg");
+				// window.setSize(673, 930);
+				// window.setLocationRelativeTo(null);
+				// window.setVisible(true);
 
-				f.setSize(673, 930);
-				f.setLocationRelativeTo(null);
-				f.setVisible(true);
+				// JLabel LabelMainTitle = new JLabel("RetroRPG", SwingConstants.CENTER);
+				// // DisplayInfos.getFonts();
+				// LabelMainTitle.setFont(new Font("Ancient Modern Tales", Font.PLAIN, 80));
+				// LabelMainTitle.setBorder(BorderFactory.createEmptyBorder(40, 0, 0, 0));
+				// window.add(LabelMainTitle);
+
 				break;
 
 			default:
