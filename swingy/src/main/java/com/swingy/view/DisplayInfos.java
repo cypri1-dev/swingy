@@ -5,7 +5,18 @@ import com.swingy.model.Characters;
 import com.swingy.model.Maps;
 import static com.swingy.utils.Constants.*;
 
+import javax.swing.*;
+import java.awt.*;
+
 public class DisplayInfos {
+
+	public static void getFonts() {
+		String fonts[] = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
+		for (String elem : fonts) {
+			System.out.println(elem);
+		}
+	}
+
 	public static void printHero(Characters hero) {
 		System.out.println(DEBUG_BOLD + "--- HERO DATA ---" + RESET);
 		System.out.println(ITALIC + "[type]: " + RESET + hero.getType());
