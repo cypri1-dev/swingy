@@ -966,4 +966,13 @@ public final class Constants {
 			▙▖▌▌▐▖▙▖▌   ▌▐▖▙▖▌▌▌  ▌▌█▌▌▌▌▙▖  ▐▖▙▌  ▙▖▙▌▙▌▌▙▌▙▌▙▖▙▌▗ ▗ ▗ 
 								  ▌   ▌ ▌           
 			""";
+
+
+		public static final String WELCOME_MSG = """
+		<html style='text-align:center'>
+		Welcome, brave adventurer!<br>
+		Your journey through the world of Swingy begins now!<br>
+		Where courage, strategy, and fate will decide your legend...
+		</html>
+		""";
 }

@@ -26,10 +26,10 @@ public class GuiMainWindow extends JFrame {
 		cardPanel.setOpaque(false);  // IMPORTANT : le panel de cartes doit être transparent
 
 		// Création des pages, toutes transparentes
-		JPanel page0 = createPage("RetroRPG");
+		JPanel welcomePage = GuiPageCreator.createPageWelcome("RetroRPG");
 		JPanel page1 = createPage("Main Menu");
 
-		cardPanel.add(page0, "welcome");
+		cardPanel.add(welcomePage, "welcome");
 		cardPanel.add(page1, "main_menu");
 
 		// Ajout du cardPanel dans le backgroundPanel (avec fond parchemin)

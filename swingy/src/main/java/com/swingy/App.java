@@ -1,7 +1,6 @@
 package com.swingy;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.IOException;
 
 import static com.swingy.utils.Constants.*;

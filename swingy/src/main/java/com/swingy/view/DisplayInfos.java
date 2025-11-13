@@ -5,7 +5,6 @@ import com.swingy.model.Characters;
 import com.swingy.model.Maps;
 import static com.swingy.utils.Constants.*;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class DisplayInfos {
