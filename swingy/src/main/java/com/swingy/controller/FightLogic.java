@@ -4,6 +4,7 @@ import com.swingy.model.Characters;
 import com.swingy.view.DisplayController;
 import static com.swingy.utils.Constants.*;
 
+import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 
@@ -16,6 +17,7 @@ public class FightLogic {
 	public static void fight(Characters enemy, Characters hero, Menu menu) {
 		Integer tmp = hero.getKnowledge().getMap().get(enemy.getCharacterClass());
 		String option = "";
+		Set<String> validOption = Set.of("1", "2", "3", "4");
 
 		display.clearTerminal();
 		
@@ -103,7 +105,7 @@ public class FightLogic {
 					break;
 			}
 
-		} while ((enemy.getHitPoint() > 0 && hero.getHitPoint() > 0) || (!option.equals("1") && !option.equals("2") && !option.equals("3") && !option.equals("4")));
+		} while ((enemy.getHitPoint() > 0 && hero.getHitPoint() > 0) || !validOption.contains(option));
 
 		if (hero.getHitPoint() <= 0)
 			display.printNormal(RED_BOLD + "💀 GAME OVER" + RESET);
