@@ -229,6 +229,167 @@ public class Characters {
 				setLevel(20);
 				break;
 
+			case ENEMY_CLASS_BAT:
+				setHitPoint(HP_BASE_ENEMY + HP_BAT);
+				setAttack(ATT_BASE_ENEMY + ATT_BAT);
+				setDefense(DEF_BASE_ENEMY + DEF_BAT);
+				setXp(XP_BAT);
+				setLevel(1);
+				break;
+
+			case ENEMY_CLASS_SPIDERLING:
+				setHitPoint(HP_BASE_ENEMY + HP_SPIDERLING);
+				setAttack(ATT_BASE_ENEMY + ATT_SPIDERLING);
+				setDefense(DEF_BASE_ENEMY + DEF_SPIDERLING);
+				setXp(XP_SPIDERLING);
+				setLevel(1);
+				break;
+
+			case ENEMY_CLASS_SKELETAL_HAND:
+				setHitPoint(HP_BASE_ENEMY + HP_SKELETAL_HAND);
+				setAttack(ATT_BASE_ENEMY + ATT_SKELETAL_HAND);
+				setDefense(DEF_BASE_ENEMY + DEF_SKELETAL_HAND);
+				setXp(XP_SKELETAL_HAND);
+				setLevel(1);
+				break;
+
+			case ENEMY_CLASS_MUDLING:
+				setHitPoint(HP_BASE_ENEMY + HP_MUDLING);
+				setAttack(ATT_BASE_ENEMY + ATT_MUDLING);
+				setDefense(DEF_BASE_ENEMY + DEF_MUDLING);
+				setXp(XP_MUDLING);
+				setLevel(2);
+				break;
+
+			case ENEMY_CLASS_BANDIT_CHIEF:
+				setHitPoint(HP_BASE_ENEMY + HP_BANDIT_CHIEF);
+				setAttack(ATT_BASE_ENEMY + ATT_BANDIT_CHIEF);
+				setDefense(DEF_BASE_ENEMY + DEF_BANDIT_CHIEF);
+				setXp(XP_BANDIT_CHIEF);
+				setLevel(8);
+				break;
+
+			case ENEMY_CLASS_GOBLIN_SHAMAN:
+				setHitPoint(HP_BASE_ENEMY + HP_GOBLIN_SHAMAN);
+				setAttack(ATT_BASE_ENEMY + ATT_GOBLIN_SHAMAN);
+				setDefense(DEF_BASE_ENEMY + DEF_GOBLIN_SHAMAN);
+				setXp(XP_GOBLIN_SHAMAN);
+				setLevel(8);
+				break;
+
+			case ENEMY_CLASS_WARG:
+				setHitPoint(HP_BASE_ENEMY + HP_WARG);
+				setAttack(ATT_BASE_ENEMY + ATT_WARG);
+				setDefense(DEF_BASE_ENEMY + DEF_WARG);
+				setXp(XP_WARG);
+				setLevel(8);
+				break;
+
+			case ENEMY_CLASS_GRAVE_ROBBER:
+				setHitPoint(HP_BASE_ENEMY + HP_GRAVE_ROBBER);
+				setAttack(ATT_BASE_ENEMY + ATT_GRAVE_ROBBER);
+				setDefense(DEF_BASE_ENEMY + DEF_GRAVE_ROBBER);
+				setXp(XP_GRAVE_ROBBER);
+				setLevel(8);
+				break;
+
+			case ENEMY_CLASS_NECROMANCER:
+				setHitPoint(HP_BASE_ENEMY + HP_NECROMANCER);
+				setAttack(ATT_BASE_ENEMY + ATT_NECROMANCER);
+				setDefense(DEF_BASE_ENEMY + DEF_NECROMANCER);
+				setXp(XP_NECROMANCER);
+				setLevel(11);
+				break;
+
+			case ENEMY_CLASS_WARLOCK:
+				setHitPoint(HP_BASE_ENEMY + HP_WARLOCK);
+				setAttack(ATT_BASE_ENEMY + ATT_WARLOCK);
+				setDefense(DEF_BASE_ENEMY + DEF_WARLOCK);
+				setXp(XP_WARLOCK);
+				setLevel(11);
+				break;
+
+			case ENEMY_CLASS_SHADOW_BEAST:
+				setHitPoint(HP_BASE_ENEMY + HP_SHADOW_BEAST);
+				setAttack(ATT_BASE_ENEMY + ATT_SHADOW_BEAST);
+				setDefense(DEF_BASE_ENEMY + DEF_SHADOW_BEAST);
+				setXp(XP_SHADOW_BEAST);
+				setLevel(11);
+				break;
+
+			case ENEMY_CLASS_GOLEM:
+				setHitPoint(HP_BASE_ENEMY + HP_GOLEM);
+				setAttack(ATT_BASE_ENEMY + ATT_GOLEM);
+				setDefense(DEF_BASE_ENEMY + DEF_GOLEM);
+				setXp(XP_GOLEM);
+				setLevel(12);
+				break;
+
+			case ENEMY_CLASS_DREAD_KNIGHT:
+				setHitPoint(HP_BASE_ENEMY + HP_DREAD_KNIGHT);
+				setAttack(ATT_BASE_ENEMY + ATT_DREAD_KNIGHT);
+				setDefense(DEF_BASE_ENEMY + DEF_DREAD_KNIGHT);
+				setXp(XP_DREAD_KNIGHT);
+				setLevel(16);
+				break;
+
+			case ENEMY_CLASS_PLAGUE_BRINGER:
+				setHitPoint(HP_BASE_ENEMY + HP_PLAGUE_BRINGER);
+				setAttack(ATT_BASE_ENEMY + ATT_PLAGUE_BRINGER);
+				setDefense(DEF_BASE_ENEMY + DEF_PLAGUE_BRINGER);
+				setXp(XP_PLAGUE_BRINGER);
+				setLevel(16);
+				break;
+
+			case ENEMY_CLASS_PYROMANCER:
+				setHitPoint(HP_BASE_ENEMY + HP_PYROMANCER);
+				setAttack(ATT_BASE_ENEMY + ATT_PYROMANCER);
+				setDefense(DEF_BASE_ENEMY + DEF_PYROMANCER);
+				setXp(XP_PYROMANCER);
+				setLevel(16);
+				break;
+
+			case ENEMY_CLASS_SPECTER:
+				setHitPoint(HP_BASE_ENEMY + HP_SPECTER);
+				setAttack(ATT_BASE_ENEMY + ATT_SPECTER);
+				setDefense(DEF_BASE_ENEMY + DEF_SPECTER);
+				setXp(XP_SPECTER);
+				setLevel(16);
+				break;
+
+			case ENEMY_CLASS_DEMON_OVERLORD:
+				setHitPoint(HP_BASE_ENEMY + HP_DEMON_OVERLORD);
+				setAttack(ATT_BASE_ENEMY + ATT_DEMON_OVERLORD);
+				setDefense(DEF_BASE_ENEMY + DEF_DEMON_OVERLORD);
+				setXp(XP_DEMON_OVERLORD);
+				setLevel(20);
+				break;
+
+			case ENEMY_CLASS_TITAN:
+				setHitPoint(HP_BASE_ENEMY + HP_TITAN);
+				setAttack(ATT_BASE_ENEMY + ATT_TITAN);
+				setDefense(DEF_BASE_ENEMY + DEF_TITAN);
+				setXp(XP_TITAN);
+				setLevel(20);
+				break;
+
+			case ENEMY_CLASS_VOID_SERPENT:
+				setHitPoint(HP_BASE_ENEMY + HP_VOID_SERPENT);
+				setAttack(ATT_BASE_ENEMY + ATT_VOID_SERPENT);
+				setDefense(DEF_BASE_ENEMY + DEF_VOID_SERPENT);
+				setXp(XP_VOID_SERPENT);
+				setLevel(20);
+				break;
+
+			case ENEMY_CLASS_COSMIC_DRAGON:
+				setHitPoint(HP_BASE_ENEMY + HP_COSMIC_DRAGON);
+				setAttack(ATT_BASE_ENEMY + ATT_COSMIC_DRAGON);
+				setDefense(DEF_BASE_ENEMY + DEF_COSMIC_DRAGON);
+				setXp(XP_COSMIC_DRAGON);
+				setLevel(20);
+				break;
+
+
 			default:
 				DisplayController.getInstance().printNormal(RED_BOLD + "Error: unknown class!" + RESET);
 				break;
