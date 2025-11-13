@@ -26,7 +26,8 @@ public class GuiMainWindow extends JFrame {
 		cardPanel.setOpaque(false);  // IMPORTANT : le panel de cartes doit être transparent
 
 		// Création des pages, toutes transparentes
-		JPanel welcomePage = GuiPageCreator.createPageWelcome("RetroRPG");
+		ImageIcon icon = new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/test_button.png")));
+		JPanel welcomePage = GuiPageCreator.createPageWelcome("RetroRPG", cardLayout, cardPanel, icon);
 		JPanel page1 = createPage("Main Menu");
 
 		cardPanel.add(welcomePage, "welcome");
@@ -78,4 +79,7 @@ public class GuiMainWindow extends JFrame {
 			}
 		}
 	}
+
+	public CardLayout getCardLayout() {return this.cardLayout;}
+	public JPanel getCardPanel() {return this.cardPanel;}
 }
