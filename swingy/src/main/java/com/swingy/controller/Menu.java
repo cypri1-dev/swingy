@@ -16,7 +16,6 @@ public class Menu {
 
 	Menu(Game game) {
 		this.ref = game;
-		// this.display = DisplayController.getInstance();
 	}
 
 	/* -------------------------------------------------- MENU OPTIONS -------------------------------------------------- */
@@ -62,11 +61,13 @@ public class Menu {
 
 	public void d_vOption() {
 		display.clearTerminal();
+
 		String optionSelected = "";
+		Set<String> validOption = Set.of("1", "2", "3", "4");
 		do {
 			display.printSlow(A_SIMPLE + "\n");
 			optionSelected = display.getUserInput();
-		} while (!optionSelected.equals("1") && !optionSelected.equals("2") && !optionSelected.equals("3") && !optionSelected.equals("4"));
+		} while (!validOption.contains(optionSelected));
 
 		switch (optionSelected) {
 			case "1":
@@ -188,13 +189,14 @@ public class Menu {
 		display.clearTerminal();
 		
 		String option = "";
+		Set<String> validOption = Set.of("1", "2", "3", "4", "S");
 		
 		do {
 			display.clearTerminal();
 			display.printSlow(MAIN_MENU);
 			display.printSlow(SELECT_OPTION);
 			option = display.getUserInput().trim();
-		} while (!option.equals("1") && !option.equals("2") && !option.equals("3") && !option.equals("4") && !option.equals("S"));
+		} while (!validOption.contains(option));
 
 		switch (option) {
 			case "1":
@@ -428,14 +430,16 @@ public class Menu {
 
 	public void inventoryMenu() {
 		display.clearTerminal();
+
 		String option = "";
+		Set<String> validOption = Set.of("1", "2", "3", "4", "5");
 		do {
 			display.clearTerminal();
 			display.printSlow(INVENTORY_MENU);
 			display.displaySelelectedHero(this.ref.getMainHero());
 			option = display.getUserInput();
 
-		} while(!option.equals("1") && !option.equals("2") && !option.equals("3") && !option.equals("4") && !option.equals("5"));
+		} while(!validOption.contains(option));
 
 		switch (option) {
 			case "1":
