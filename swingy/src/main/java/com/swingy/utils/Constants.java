@@ -211,7 +211,7 @@ public final class Constants {
 	public static final int XP_BANDIT = 80;
 
 	public static final int HP_BAT = -1;
-	public static final int ATT_BAT = 0;
+	public static final int ATT_BAT = 1;
 	public static final int DEF_BAT = -2;
 	public static final int XP_BAT = 30;
 
@@ -221,12 +221,12 @@ public final class Constants {
 	public static final int XP_SPIDERLING = 40;
 
 	public static final int HP_SKELETAL_HAND = 0;
-	public static final int ATT_SKELETAL_HAND = 0;
+	public static final int ATT_SKELETAL_HAND = 1;
 	public static final int DEF_SKELETAL_HAND = 1;
 	public static final int XP_SKELETAL_HAND = 45;
 
 	public static final int HP_MUDLING = 1;
-	public static final int ATT_MUDLING = 0;
+	public static final int ATT_MUDLING = 1;
 	public static final int DEF_MUDLING = 0;
 	public static final int XP_MUDLING = 50;
 
