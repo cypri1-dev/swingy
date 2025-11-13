@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 
 public class GuiPageCreator {
 
+	/* ---------------------- SPECIAL CLASS FOR FADDING ----------------------*/
+
 	private static class FadingLabel extends JLabel {
 		private float alpha = 0f; // transparence initiale
 
@@ -35,6 +37,8 @@ public class GuiPageCreator {
 			g2d.dispose();
 		}
 	}
+
+	/* ---------------------- METHOD FOR WELCOME PAGE CREATION ----------------------*/
 
 	public static JPanel createPageWelcome(String title) {
 		JPanel panel = new JPanel(new BorderLayout());
@@ -62,7 +66,7 @@ public class GuiPageCreator {
 
 		panel.add(description, BorderLayout.CENTER);
 
-		// Timer pour le fade-in
+		// Timer for fade-in
 		Timer timer = new Timer(50, null);
 		timer.addActionListener(new ActionListener() {
 			@Override
