@@ -38,18 +38,6 @@ public class App {
 						e.printStackTrace();
 					}
 				});
-				
-				// JFrame window = new guiMainWindow("parchment.jpeg");
-				// window.setSize(673, 930);
-				// window.setLocationRelativeTo(null);
-				// window.setVisible(true);
-
-				// JLabel LabelMainTitle = new JLabel("RetroRPG", SwingConstants.CENTER);
-				// // DisplayInfos.getFonts();
-				// LabelMainTitle.setFont(new Font("Ancient Modern Tales", Font.PLAIN, 80));
-				// LabelMainTitle.setBorder(BorderFactory.createEmptyBorder(40, 0, 0, 0));
-				// window.add(LabelMainTitle);
-
 				break;
 
 			default:
