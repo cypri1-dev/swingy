@@ -5,14 +5,48 @@ import java.awt.*;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class GuiMainWindow extends JFrame {
 
 	private CardLayout cardLayout;
 	private JPanel cardPanel;
+	private Map<String, ImageIcon> listToken = new HashMap<>();
+
+	private void initTokens() {
+		String[] tokenPaths = {
+			"/Araignee_geante_token.png",
+			"/Cranefeu_token.png",
+			"/ettins_token.png",
+			"/golem_de_chair_token.png",
+			"/Jeune_dragon_vert_token.png",
+			"/manticore_token.png",
+			"/Orc_token.png",
+			"/Ozi_token.png",
+			"/volothamp_geddarm_token.png"
+		};
+
+		for (String path : tokenPaths) {
+			try {
+				ImageIcon icon = new ImageIcon(ImageIO.read(getClass().getResourceAsStream(path)));
+				String name = path.substring(path.lastIndexOf("/") + 1, path.lastIndexOf("_token.png"));
+				listToken.put(name, icon);
+			} catch (IOException e) {
+				e.printStackTrace();
+				// fail so exit !
+			}
+		}
+	}
 
 	public GuiMainWindow() throws IOException {
+		// --- Init tokens ---
+		initTokens();
+
 		setTitle("RetroRPG");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		setAlwaysOnTop(true);
+		setResizable(false);
 		setSize(673, 930);
 		setLocationRelativeTo(null);
 
@@ -27,7 +61,7 @@ public class GuiMainWindow extends JFrame {
 
 		// Création des pages, toutes transparentes
 		ImageIcon icon = new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/test_button.png")));
-		JPanel welcomePage = GuiPageCreator.createPageWelcome("RetroRPG", cardLayout, cardPanel, icon);
+		JPanel welcomePage = GuiPageCreator.createPageWelcome("RetroRPG", cardLayout, cardPanel, icon, listToken);
 		JPanel page1 = createPage("Main Menu");
 
 		cardPanel.add(welcomePage, "welcome");
@@ -82,4 +116,5 @@ public class GuiMainWindow extends JFrame {
 
 	public CardLayout getCardLayout() {return this.cardLayout;}
 	public JPanel getCardPanel() {return this.cardPanel;}
+	public Map<String, ImageIcon> getListTokens() {return this.listToken;}
 }
