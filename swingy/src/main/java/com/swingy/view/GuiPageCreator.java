@@ -1,13 +1,23 @@
 package com.swingy.view;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import javax.swing.border.Border;
+import com.swingy.utils.TokenAnimator;
+import com.swingy.utils.LabelAnimator;
+import com.swingy.view.components.FadingLabel;
+import com.swingy.view.components.RoundedImageButton;
+import com.swingy.view.components.FadingToken;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.geom.RoundRectangle2D;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.CardLayout;
+import java.awt.FlowLayout;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 import java.util.Map;
 import java.util.Arrays;
@@ -15,132 +25,6 @@ import java.util.List;
 import java.util.Collections;
 
 public class GuiPageCreator {
-
-	/* ---------------------- SPECIAL CLASS FOR FADDING_TOKEN ----------------------*/
-
-	private static class FadingToken extends JLabel {
-		private float alpha = 0f;
-
-		public FadingToken(ImageIcon token) {
-			super(token);
-			setOpaque(false);
-		}
-
-		public void setAlpha(float alpha) {
-			this.alpha = alpha;
-			repaint();
-		}
-
-		public float getAlpha() {
-			return alpha;
-		}
-
-		@Override
-		protected void paintComponent(Graphics g) {
-			Graphics2D g2d = (Graphics2D) g.create();
-			g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
-			super.paintComponent(g2d);
-			g2d.dispose();
-		}
-	}
-
-	/* ----------------------FADDING_TOKEN METHODS ----------------------*/
-
-	private static void fadeTokensSequentially(FadingToken[] tokens) {
-		fadeToken(tokens, 0);
-	}
-
-	private static void fadeToken(FadingToken[] tokens, int index) {
-		if (index >= tokens.length) return;
-
-		FadingToken token = tokens[index];
-
-		Timer timer = new Timer(40, null);
-		timer.addActionListener(e -> {
-			float alpha = token.getAlpha() + 0.05f;
-			if (alpha >= 1f) {
-				token.setAlpha(1f);
-				((Timer)e.getSource()).stop();
-				// Quand le token est terminé, on lance le suivant
-				fadeToken(tokens, index + 1);
-			} else {
-				token.setAlpha(alpha);
-			}
-		});
-		timer.start();
-	}
-
-
-	/* ---------------------- SPECIAL CLASS FOR FADDING_LABEL ----------------------*/
-
-	private static class FadingLabel extends JLabel {
-		private float alpha = 0f; // transparence initiale
-
-		public FadingLabel(String text) {
-			super(text);
-			setOpaque(false);
-		}
-
-		public void setAlpha(float alpha) {
-			this.alpha = alpha;
-			repaint();
-		}
-
-		public float getAlpha() {
-			return alpha;
-		}
-
-		@Override
-		protected void paintComponent(Graphics g) {
-			Graphics2D g2d = (Graphics2D) g.create();
-			g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
-			super.paintComponent(g2d);
-			g2d.dispose();
-		}
-	}
-
-	/* ---------------------- SPECIAL CLASS FOR ROUNDED BUTTON ----------------------*/
-
-	public static class RoundedImageButton extends JButton {
-		private int radius = 20;
-
-		public RoundedImageButton(String text, Icon icon) {
-			super(text, icon);
-			setContentAreaFilled(false);
-			setFocusPainted(false);
-			setBorderPainted(false);
-			setOpaque(false);
-			setHorizontalTextPosition(SwingConstants.CENTER);
-			setVerticalTextPosition(SwingConstants.CENTER);
-			setForeground(Color.BLACK);
-			setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
-		}
-
-		@Override
-		protected void paintComponent(Graphics g) {
-			Graphics2D g2 = (Graphics2D) g.create();
-
-			// Anti-aliasing pour arrondis smooth
-			g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-			// Clip arrondi
-			Shape clip = new RoundRectangle2D.Float(0, 0, getWidth(), getHeight(), radius, radius);
-			g2.setClip(clip);
-
-			// Dessiner l’icône et le texte via super (passe par paintComponent)
-			super.paintComponent(g2);
-
-			// Remet clip par défaut
-			g2.setClip(null);
-
-			// Dessiner la bordure arrondie
-			g2.setColor(Color.BLACK);
-			g2.setStroke(new BasicStroke(2));
-			g2.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, radius, radius);
-
-			g2.dispose();
-		}
-	}
 
 	/* ---------------------- METHOD FOR WELCOME PAGE CREATION ----------------------*/
 
@@ -215,7 +99,7 @@ public class GuiPageCreator {
 		List<FadingToken> tokenList = Arrays.asList(tokens);
 		Collections.shuffle(tokenList);
 		tokenList.toArray(tokens);
-		fadeTokensSequentially(tokens);
+		TokenAnimator.fadeTokensSequentially(tokens);
 		
 		JPanel tokenWrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		tokenWrapper.setOpaque(false);
@@ -230,27 +114,6 @@ public class GuiPageCreator {
 
 		content.add(tokenContent);
 
-		// int baseDelay = 500;
-		// int stepdelay = 300;
-
-		// for (int i = 0; i < tokens.length; i++) {
-		// 	FadingToken tmp = tokens[i];
-		// 	int delay = baseDelay + i * stepdelay;
-
-		// 	new Timer(40, null) {{
-		// 		addActionListener(e -> {
-		// 			float alpha = tmp.getAlpha() + 0.05f;
-		// 			if (alpha >= 1f) {
-		// 				tmp.setAlpha(1f);
-		// 				((Timer)e.getSource()).stop();
-		// 			} else {
-		// 				tmp.setAlpha(alpha);
-		// 			}
-		// 		});
-		// 		new Timer(delay, e -> start()).start();
-		// 	}};
-		// }
-
 		// --- Bouton en bas ---
 		RoundedImageButton btn = new RoundedImageButton("Enter Game", icon);
 		btn.setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
@@ -263,21 +126,9 @@ public class GuiPageCreator {
 		bottom.setBorder(BorderFactory.createLineBorder(Color.CYAN, 2)); // DEBUG
 		bottom.add(btn);
 		panel.add(bottom, BorderLayout.SOUTH);
-
-		// --- Animation description ---
-		Timer timer = new Timer(60, e -> {
-			float alpha = description.getAlpha() + 0.05f;
-			if (alpha >= 1f) {
-				description.setAlpha(1f);
-				((Timer)e.getSource()).stop();
-			} else {
-				description.setAlpha(alpha);
-			}
-		});
-		timer.start();
+		LabelAnimator.animateLabel(description);
 
 		return panel;
-
 
 	}
 }
