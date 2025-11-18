@@ -130,6 +130,5 @@ public class GuiWelcomePage {
 		LabelAnimator.animateLabel(description);
 
 		return panel;
-
 	}
 }
