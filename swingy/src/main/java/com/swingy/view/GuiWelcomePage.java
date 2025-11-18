@@ -119,7 +119,6 @@ public class GuiWelcomePage {
 		btn.setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
 		btn.setPreferredSize(new Dimension(152, 52));
 		btn.addActionListener(e -> cardLayout.show(cardPanel, "main_menu"));
-		btn.se
 		// btn.setBorder(BorderFactory.createLineBorder(Color.MAGENTA, 2)); // DEBUG
 
 		JPanel bottom = new JPanel();
