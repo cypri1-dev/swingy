@@ -61,7 +61,7 @@ public class GuiMainWindow extends JFrame {
 
 		// Création des pages, toutes transparentes
 		ImageIcon icon = new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/test_button.png")));
-		JPanel welcomePage = GuiPageCreator.createPageWelcome("RetroRPG", cardLayout, cardPanel, icon, listToken);
+		JPanel welcomePage = GuiWelcomePage.createPageWelcome("RetroRPG", cardLayout, cardPanel, icon, listToken);
 		JPanel page1 = createPage("Main Menu");
 
 		cardPanel.add(welcomePage, "welcome");

@@ -12,7 +12,6 @@ import javax.swing.ImageIcon;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.CardLayout;
 import java.awt.FlowLayout;
@@ -24,7 +23,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Collections;
 
-public class GuiPageCreator {
+public class GuiWelcomePage {
 
 	/* ---------------------- METHOD FOR WELCOME PAGE CREATION ----------------------*/
 
@@ -32,24 +31,24 @@ public class GuiPageCreator {
 
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.setOpaque(false);
-		panel.setBorder(BorderFactory.createLineBorder(Color.RED, 2));  // DEBUG
+		// panel.setBorder(BorderFactory.createLineBorder(Color.RED, 2));  // DEBUG
 
 		// --- Zone verticale principale (au CENTER) ---
 		JPanel content = new JPanel();
 		content.setOpaque(false);
 		content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
-		content.setBorder(BorderFactory.createLineBorder(Color.GREEN, 2));  // DEBUG
+		// content.setBorder(BorderFactory.createLineBorder(Color.GREEN, 2));  // DEBUG
 		panel.add(content, BorderLayout.CENTER);
 
 		// --- Titre ---
 		JLabel label = new JLabel(title);
-		label.setFont(new Font("Ancient Modern Tales", Font.BOLD, 56));
-		label.setBorder(BorderFactory.createLineBorder(Color.BLUE, 2)); // debug
+		label.setFont(new Font("Ancient Modern Tales", Font.BOLD, 60));
+		// label.setBorder(BorderFactory.createLineBorder(Color.BLUE, 2)); // debug
 
 		JPanel labelWrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		labelWrapper.setOpaque(false);
 		labelWrapper.add(label);
-		labelWrapper.setBorder(BorderFactory.createEmptyBorder(60, 20, 60, 20));
+		labelWrapper.setBorder(BorderFactory.createEmptyBorder(60, 20, 50, 20));
 		content.add(labelWrapper);
 
 		// --- Description ---
@@ -60,8 +59,8 @@ public class GuiPageCreator {
 			+ "Where courage, strategy, and fate will decide your legend..."
 			+ "</div></html>"
 		);
-		description.setFont(new Font("Ancient Modern Tales", Font.ITALIC, 26));
-		description.setBorder(BorderFactory.createLineBorder(Color.ORANGE, 2)); // debug150
+		description.setFont(new Font("Ancient Modern Tales", Font.ITALIC, 30));
+		// description.setBorder(BorderFactory.createLineBorder(Color.ORANGE, 2));
 
 		JPanel descWrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		descWrapper.setOpaque(false);
@@ -73,10 +72,11 @@ public class GuiPageCreator {
 		JPanel tokenContent = new JPanel();
 		tokenContent.setOpaque(false);
 		tokenContent.setLayout(new BoxLayout(tokenContent, BoxLayout.Y_AXIS));
-		tokenContent.setBorder(BorderFactory.createCompoundBorder(
-			BorderFactory.createLineBorder(Color.BLACK, 2),
-			BorderFactory.createEmptyBorder(0, 0, 0, 0)
-		));
+		tokenContent.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+		// tokenContent.setBorder(BorderFactory.createCompoundBorder(
+		// 	BorderFactory.createLineBorder(Color.BLACK, 2),
+		// 	BorderFactory.createEmptyBorder(0, 0, 0, 0)
+		// ));
 		tokenContent.setPreferredSize(new Dimension(400, 500)); // largeur x hauteur
 
 		ImageIcon iconSpider = listToken.get("Araignee_geante");
@@ -104,10 +104,10 @@ public class GuiPageCreator {
 		JPanel tokenWrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		tokenWrapper.setOpaque(false);
 		tokenWrapper.add(tokenSpider);
-		tokenWrapper.add(tokenSkull);
+		tokenWrapper.add(tokenEttins);
 		tokenWrapper.add(tokenOzi);
 		tokenWrapper.add(tokenManticore);
-		tokenWrapper.add(tokenEttins);
+		tokenWrapper.add(tokenSkull);
 		tokenWrapper.add(tokenOrc);
 		tokenWrapper.add(tokenVolo);
 		tokenContent.add(tokenWrapper);
@@ -119,11 +119,13 @@ public class GuiPageCreator {
 		btn.setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
 		btn.setPreferredSize(new Dimension(152, 52));
 		btn.addActionListener(e -> cardLayout.show(cardPanel, "main_menu"));
-		btn.setBorder(BorderFactory.createLineBorder(Color.MAGENTA, 2)); // DEBUG
+		btn.se
+		// btn.setBorder(BorderFactory.createLineBorder(Color.MAGENTA, 2)); // DEBUG
 
 		JPanel bottom = new JPanel();
 		bottom.setOpaque(false);
-		bottom.setBorder(BorderFactory.createLineBorder(Color.CYAN, 2)); // DEBUG
+		bottom.setBorder(BorderFactory.createEmptyBorder(0, 0, 40, 0));
+		// bottom.setBorder(BorderFactory.createLineBorder(Color.CYAN, 2)); // DEBUG
 		bottom.add(btn);
 		panel.add(bottom, BorderLayout.SOUTH);
 		LabelAnimator.animateLabel(description);
