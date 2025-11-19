@@ -60,12 +60,21 @@ public class GuiMainWindow extends JFrame {
 		cardPanel.setOpaque(false);  // IMPORTANT : le panel de cartes doit être transparent
 
 		// Création des pages, toutes transparentes
-		ImageIcon icon = new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/test_button.png")));
-		JPanel welcomePage = GuiWelcomePage.createPageWelcome("RetroRPG", cardLayout, cardPanel, icon, listToken);
-		JPanel page1 = createPage("Main Menu");
+		ImageIcon iconTest = new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/test_button.png")));
+		ImageIcon iconButton = new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/test_button.png")));
+		JPanel welcomePage = GuiWelcomePage.createPageWelcome("RetroRPG", cardLayout, cardPanel, iconTest, listToken);
+		JPanel mainMenuPage = GuiMainMenuPage.createPageMainMenu(iconButton, cardPanel, cardLayout);
+		JPanel createPage = createPageTest("Creation");
+		JPanel displayPage = createPageTest("Heroes");
+		JPanel playPage = createPageTest("Play");
+		JPanel exitPage = createPageTest("Exit");
 
 		cardPanel.add(welcomePage, "welcome");
-		cardPanel.add(page1, "main_menu");
+		cardPanel.add(mainMenuPage, "main_menu");
+		cardPanel.add(createPage, "create");
+		cardPanel.add(displayPage, "display");
+		cardPanel.add(playPage, "play");
+		cardPanel.add(exitPage, "exit");
 
 		// Ajout du cardPanel dans le backgroundPanel (avec fond parchemin)
 		backgroundPanel.add(cardPanel, BorderLayout.CENTER);
@@ -76,7 +85,7 @@ public class GuiMainWindow extends JFrame {
 		cardLayout.show(cardPanel, "welcome");
 	}
 
-	private JPanel createPage(String title) {
+	private JPanel createPageTest(String title) {
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.setOpaque(false);  // FOND TRANSPARENT pour laisser voir l'image
 
