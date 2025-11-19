@@ -64,7 +64,8 @@ public class GuiMainWindow extends JFrame {
 		ImageIcon iconButton = new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/test_button.png")));
 		JPanel welcomePage = GuiWelcomePage.createPageWelcome("RetroRPG", cardLayout, cardPanel, iconTest, listToken);
 		JPanel mainMenuPage = GuiMainMenuPage.createPageMainMenu(iconButton, cardPanel, cardLayout);
-		JPanel createPage = createPageTest("Creation");
+		// JPanel createPage = createPageTest("Creation");
+		JPanel createPage = GuiCreationPage.createCreationPage("New Hero", cardLayout, cardPanel, iconTest);
 		JPanel displayPage = createPageTest("Heroes");
 		JPanel playPage = createPageTest("Play");
 		JPanel exitPage = createPageTest("Exit");
@@ -99,28 +100,12 @@ public class GuiMainWindow extends JFrame {
 			if (title.equals("RetroRPG")) {
 				cardLayout.show(cardPanel, "main_menu");
 			} else {
-				cardLayout.show(cardPanel, "welcome");
+				cardLayout.show(cardPanel, "main_menu");
 			}
 		});
 		panel.add(switchButton, BorderLayout.SOUTH);
 
 		return panel;
-	}
-
-	private static class BackgroundPanel extends JPanel {
-		private final Image backgroundImage;
-
-		public BackgroundPanel(Image img) {
-			this.backgroundImage = img;
-		}
-
-		@Override
-		protected void paintComponent(Graphics g) {
-			super.paintComponent(g);
-			if (backgroundImage != null) {
-				g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-			}
-		}
 	}
 
 	public CardLayout getCardLayout() {return this.cardLayout;}
