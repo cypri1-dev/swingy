@@ -23,6 +23,13 @@ public class GuiMainMenuPage {
 
 	/* ---------------------- METHOD FOR MAIN MENU PAGE CREATION ----------------------*/
 
+	private static void configButtons(RoundedImageButton btn, Dimension size) {
+		btn.setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
+		btn.setPreferredSize(size);
+		btn.setMinimumSize(size);
+		btn.setMaximumSize(size);
+	}
+
 	public static JPanel createPageMainMenu(ImageIcon icon, JPanel cardPanel, CardLayout cardLayout) {
 
 		JPanel panel = new JPanel(new BorderLayout());
@@ -61,49 +68,25 @@ public class GuiMainMenuPage {
 		JPanel descWrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		descWrapper.setOpaque(false);
 		descWrapper.add(description);
-		// descWrapper.setBorder(BorderFactory.createCompoundBorder(
-		// 	BorderFactory.createLineBorder(Color.BLACK, 2),
-		// 	BorderFactory.createEmptyBorder(0, 0, 0, 0)
-		// ));
 		content.add(descWrapper);
 
 		// --- Buttons ---
-		Dimension btnSize = new Dimension(150, 48);
+		Dimension Size = new Dimension(150, 48);
 		RoundedImageButton btnCreate = new RoundedImageButton("New Hero", icon);
-		btnCreate.setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
-
-		btnCreate.setPreferredSize(btnSize);
-		btnCreate.setMinimumSize(btnSize);
-		btnCreate.setMaximumSize(btnSize);
-		/* ActionListener */
+		configButtons(btnCreate, Size);
 		btnCreate.addActionListener(e -> cardLayout.show(cardPanel, "create"));
 
 		RoundedImageButton btnSelect = new RoundedImageButton("My Heroes", icon);
-		btnSelect.setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
-
-		btnSelect.setPreferredSize(btnSize);
-		btnSelect.setMinimumSize(btnSize);
-		btnSelect.setMaximumSize(btnSize);
-		/* ActionListener */
+		configButtons(btnSelect, Size);
 		btnSelect.addActionListener(e -> cardLayout.show(cardPanel, "display"));
 
 		RoundedImageButton btnPlay = new RoundedImageButton("New Game", icon);
-		btnPlay.setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
-
-		btnPlay.setPreferredSize(btnSize);
-		btnPlay.setMinimumSize(btnSize);
-		btnPlay.setMaximumSize(btnSize);
-		/* ActionListener */
+		configButtons(btnPlay, Size);
 		btnPlay.addActionListener(e -> cardLayout.show(cardPanel, "play"));
 
 		RoundedImageButton btnExit = new RoundedImageButton("Exit", icon);
-		btnExit.setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
-
-		btnExit.setPreferredSize(btnSize);
-		btnExit.setMinimumSize(btnSize);
-		btnExit.setMaximumSize(btnSize);
-		/* ActionListener */
-		btnExit.addActionListener(e -> cardLayout.show(cardPanel, "exit"));
+		configButtons(btnExit, Size);
+		btnExit.addActionListener(e -> System.exit(0));
 
 		JPanel btnWrapper = new JPanel();
 		btnWrapper.setLayout(new BoxLayout(btnWrapper, BoxLayout.Y_AXIS));
@@ -123,13 +106,6 @@ public class GuiMainMenuPage {
 		btnWrapper.add(btnExit);
 		btnWrapper.setBorder(BorderFactory.createEmptyBorder(10, 0, 150, 0));
 
-		// btnWrapper.setBorder(BorderFactory.createCompoundBorder(
-		// 	BorderFactory.createEmptyBorder(10, 0, 240, 0),
-		// 	BorderFactory.createLineBorder(Color.MAGENTA, 2)
-		// ));
-
-		// btnWrapper.setBorder(BorderFactory.createEmptyBorder(0, 0, 260, 0));
-		// content.add(Box.createRigidArea(new Dimension(0, 30)));
 		content.add(btnWrapper, BorderLayout.CENTER);
 
 		// --- Texte bas ---
