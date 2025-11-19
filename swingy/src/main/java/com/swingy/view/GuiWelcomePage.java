@@ -25,7 +25,7 @@ import java.util.Collections;
 
 public class GuiWelcomePage {
 
-	/* ---------------------- METHOD FOR WELCOME PAGE CREATION ----------------------*/
+	/* ---------------------- METHOD FOR WELCOME_PAGE CREATION ----------------------*/
 
 	public static JPanel createPageWelcome(String title, CardLayout cardLayout, JPanel cardPanel, ImageIcon icon, Map<String, ImageIcon> listToken) {
 
@@ -33,7 +33,7 @@ public class GuiWelcomePage {
 		panel.setOpaque(false);
 		// panel.setBorder(BorderFactory.createLineBorder(Color.RED, 2));  // DEBUG
 
-		// --- Zone verticale principale (au CENTER) ---
+		// --- Zone verticale principale (au CENTRE) ---
 		JPanel content = new JPanel();
 		content.setOpaque(false);
 		content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
