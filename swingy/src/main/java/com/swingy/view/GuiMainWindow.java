@@ -8,6 +8,8 @@ import javax.imageio.ImageIO;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.swingy.view.components.BackgroundPanel;
+
 public class GuiMainWindow extends JFrame {
 
 	private CardLayout cardLayout;

@@ -1,4 +1,4 @@
-package com.swingy.view;
+package com.swingy.view.components;
 
 import javax.swing.JPanel;
 
