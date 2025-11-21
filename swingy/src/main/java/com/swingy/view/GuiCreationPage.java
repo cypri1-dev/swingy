@@ -8,7 +8,6 @@ import javax.swing.SwingConstants;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
@@ -27,48 +26,67 @@ public class GuiCreationPage {
 
 	/* ---------------------- METHOD FOR CREATION_PAGE CREATION ----------------------*/
 
+	private static JPanel wrapperJTextFieldGenerator(JTextField elem, int top, int left, int bottom, int right) {
+		JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		wrapper.setOpaque(false);
+		wrapper.add(elem);
+		wrapper.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createLineBorder(Color.BLACK, 0),
+				BorderFactory.createEmptyBorder(top, left, bottom, right)
+		));
+		wrapper.setMaximumSize(new Dimension(Integer.MAX_VALUE, elem.getPreferredSize().height));
+
+		return wrapper;
+	}
+
+	private static JPanel wrapperLabelGenerator(JLabel elem, int top, int left, int bottom, int right) {
+		JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		wrapper.setOpaque(false);
+		wrapper.add(elem);
+		wrapper.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createLineBorder(Color.BLACK, 0),
+				BorderFactory.createEmptyBorder(top, left, bottom, right)
+		));
+		wrapper.setMaximumSize(new Dimension(Integer.MAX_VALUE, elem.getPreferredSize().height));
+
+		return wrapper;
+	}
+
+	private static JPanel createBaseStructure() {
+		JPanel content = new JPanel();
+		content.setOpaque(false);
+		content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
+		content.setBorder(BorderFactory.createLineBorder(Color.GREEN, 0));
+
+		return content;
+	}
+
 	public static JPanel createCreationPage(String title, CardLayout cardLayout, JPanel cardPanel, ImageIcon icon) {
 
+		// --- Panel/Card a return ---
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.setOpaque(false);
 		panel.setBorder(BorderFactory.createLineBorder(Color.RED, 0));
 
 		// --- Zone verticale principale ---
-		JPanel content = new JPanel();
-		content.setOpaque(false);
-		content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
-		content.setBorder(BorderFactory.createLineBorder(Color.GREEN, 0));
-		panel.add(content, BorderLayout.CENTER);
+		JPanel base = createBaseStructure();
+		panel.add(base, BorderLayout.CENTER);
 
 		// --- Titre ---
-		JLabel label = new JLabel(title);
-		label.setFont(new Font("Ancient Modern Tales", Font.BOLD, 60));
+		JLabel titleLabel = new JLabel(title);
+		titleLabel.setFont(new Font("Ancient Modern Tales", Font.BOLD, 60));
 
-		JPanel labelWrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		labelWrapper.setOpaque(false);
-		labelWrapper.add(label);
-		labelWrapper.setBorder(BorderFactory.createCompoundBorder(
-				BorderFactory.createLineBorder(Color.WHITE, 0),
-				BorderFactory.createEmptyBorder(60, 0, 20, 0)
-		));
-		labelWrapper.setMaximumSize(new Dimension(Integer.MAX_VALUE, labelWrapper.getPreferredSize().height));
-		content.add(labelWrapper);
+		JPanel titleLabelWrapper = wrapperLabelGenerator(titleLabel, 60, 0, 20, 0);
+		base.add(titleLabelWrapper);
 
 		// --- Label Name ---
-		JLabel name = new JLabel("<html><div align=center>"
+		JLabel nameLabel = new JLabel("<html><div align=center>"
 				+ "ᛁᚾ ᛖᚲᛊᛈᛚᛟᚱᛖ - Choose a name - ᛁᚾ ᚨᛖᚲᛊᛈᛚᛟᚱᛖ"
 				+ "</div></html>");
-		name.setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
+		nameLabel.setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
 
-		JPanel nameWrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		nameWrapper.setOpaque(false);
-		nameWrapper.add(name);
-		nameWrapper.setBorder(BorderFactory.createCompoundBorder(
-				BorderFactory.createLineBorder(Color.BLUE, 0),
-				BorderFactory.createEmptyBorder(10, 10, 10, 10)
-		));
-		nameWrapper.setMaximumSize(new Dimension(Integer.MAX_VALUE, nameWrapper.getPreferredSize().height));
-		content.add(nameWrapper);
+		JPanel nameLabelWrapper = wrapperLabelGenerator(nameLabel, 10, 10, 10, 10);
+		base.add(nameLabelWrapper);
 
 		// --- InputName ---
 		JTextField inputName = new JTextField("Enter name");
@@ -81,12 +99,8 @@ public class GuiCreationPage {
 		inputNameWrapper.setOpaque(false);
 		inputNameWrapper.add(inputName);
 		inputName.setBorder(BorderFactory.createEmptyBorder());
-		inputNameWrapper.setBorder(BorderFactory.createCompoundBorder(
-				BorderFactory.createLineBorder(Color.GRAY, 0),
-				BorderFactory.createEmptyBorder(10, 10, 20, 10)
-		));
-		inputNameWrapper.setMaximumSize(new Dimension(Integer.MAX_VALUE, inputNameWrapper.getPreferredSize().height));
-		content.add(inputNameWrapper);
+		inputNameWrapper.setMaximumSize(new Dimension(Integer.MAX_VALUE, inputName.getPreferredSize().height));
+		base.add(inputNameWrapper);
 
 		// --- Label Class ---
 		JLabel classType = new JLabel("<html><div align=center>"
@@ -101,8 +115,8 @@ public class GuiCreationPage {
 				BorderFactory.createLineBorder(Color.BLACK, 0),
 				BorderFactory.createEmptyBorder(10, 10, 10, 10)
 		));
-		classTypeWrapper.setMaximumSize(new Dimension(Integer.MAX_VALUE, classTypeWrapper.getPreferredSize().height));
-		content.add(classTypeWrapper);
+		classTypeWrapper.setMaximumSize(new Dimension(Integer.MAX_VALUE, classType.getPreferredSize().height));
+		base.add(classTypeWrapper);
 
 		// --- Combobox ---
 		JComboBox<String> choice = new JComboBox<>(new String[]{"Warrior", "Mage", "Archer", "Paladin", "Assassin"});
@@ -125,7 +139,22 @@ public class GuiCreationPage {
 				BorderFactory.createEmptyBorder(10, 10, 10, 10)
 		));
 		choiceWrapper.setMaximumSize(new Dimension(Integer.MAX_VALUE, choice.getPreferredSize().height + 40));
-		content.add(choiceWrapper);
+		base.add(choiceWrapper);
+
+		JLabel hidden = new JLabel("");
+		hidden.setVisible(false);
+		hidden.setFont(new Font("Ancient Modern Tales", Font.ITALIC, 22));
+		hidden.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		JPanel hiddenWrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		hiddenWrapper.setOpaque(false);
+		hiddenWrapper.add(hidden);
+		hiddenWrapper.setBorder(BorderFactory.createCompoundBorder(
+			BorderFactory.createEmptyBorder(30, 0, 0, 0), 
+			BorderFactory.createLineBorder(Color.BLACK, 2)
+		));
+		// hiddenWrapper.setMaximumSize(new Dimension(Integer.MAX_VALUE, hidden.getPreferredSize().height));
+		// base.add(hiddenWrapper);
 
 		// --- Button Confirm ---
 		RoundedImageButton btnConfirm = new RoundedImageButton("Confirm", icon);
@@ -134,6 +163,17 @@ public class GuiCreationPage {
 		btnConfirm.addActionListener(e -> {
 			String getName = inputName.getText();
 			String getSelectedClass = (String) choice.getSelectedItem();
+
+			String heroTxt = "<html><div align='center'>"
+				+ "Your name = <b>" + getName + "</b><br/>"
+				+ "Your class = <b>" + getSelectedClass + "</b>"
+				+ "</div></html>";
+
+			hidden.setText(heroTxt);
+			hidden.setVisible(true);
+			hiddenWrapper.repaint();
+			hiddenWrapper.revalidate();
+			base.repaint();
 		});
 
 		JPanel btnConfirmWrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
@@ -144,7 +184,8 @@ public class GuiCreationPage {
 			BorderFactory.createEmptyBorder(0, 0, 0, 0)
 		));
 		btnConfirmWrapper.setMaximumSize(new Dimension(Integer.MAX_VALUE, btnConfirm.getPreferredSize().height));
-		content.add(btnConfirmWrapper);
+		base.add(btnConfirmWrapper);
+		base.add(hiddenWrapper);
 
 		// --- Button Menu ---
 		RoundedImageButton btn = new RoundedImageButton("Menu", icon);
