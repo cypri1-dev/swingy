@@ -26,14 +26,44 @@ public class GuiCreationPage {
 
 	/* ---------------------- METHOD FOR CREATION_PAGE CREATION ----------------------*/
 
-	private static JPanel wrapperJTextFieldGenerator(JTextField elem, int top, int left, int bottom, int right) {
+	private static void configureComboBox(JComboBox<String> elem) {
+		elem.setFont(new Font("Ancient Modern Tales", Font.ITALIC, 25));
+		/* Center items */
+		elem.setRenderer(new DefaultListCellRenderer() {
+			@Override
+			public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+				JLabel lbl = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+				lbl.setHorizontalAlignment(SwingConstants.CENTER);
+				return lbl;
+			}
+		});
+	}
+
+	private static void configureJTextField(JTextField elem) {
+		elem.setOpaque(false);
+		elem.setFont(new Font("Ancient Modern Tales", Font.ITALIC, 25));
+		elem.setColumns(15);
+		elem.setHorizontalAlignment(JTextField.CENTER);
+	}
+
+	private static JPanel wrapperComboBoxGenerator(JComboBox elem, int top, int left, int bottom, int right) {
 		JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		wrapper.setOpaque(false);
 		wrapper.add(elem);
 		wrapper.setBorder(BorderFactory.createCompoundBorder(
-				BorderFactory.createLineBorder(Color.BLACK, 0),
-				BorderFactory.createEmptyBorder(top, left, bottom, right)
+				BorderFactory.createLineBorder(Color.ORANGE, 0),
+				BorderFactory.createEmptyBorder(10, 10, 10, 10)
 		));
+		wrapper.setMaximumSize(new Dimension(Integer.MAX_VALUE, elem.getPreferredSize().height + 40));
+
+		return wrapper;
+	}
+
+	private static JPanel wrapperJTextFieldGenerator(JTextField elem) {
+		JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		wrapper.setOpaque(false);
+		wrapper.add(elem);
+		elem.setBorder(BorderFactory.createEmptyBorder());
 		wrapper.setMaximumSize(new Dimension(Integer.MAX_VALUE, elem.getPreferredSize().height));
 
 		return wrapper;
@@ -90,16 +120,9 @@ public class GuiCreationPage {
 
 		// --- InputName ---
 		JTextField inputName = new JTextField("Enter name");
-		inputName.setOpaque(false);
-		inputName.setFont(new Font("Ancient Modern Tales", Font.ITALIC, 25));
-		inputName.setColumns(15);
-		inputName.setHorizontalAlignment(JTextField.CENTER);
+		configureJTextField(inputName);
 
-		JPanel inputNameWrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		inputNameWrapper.setOpaque(false);
-		inputNameWrapper.add(inputName);
-		inputName.setBorder(BorderFactory.createEmptyBorder());
-		inputNameWrapper.setMaximumSize(new Dimension(Integer.MAX_VALUE, inputName.getPreferredSize().height));
+		JPanel inputNameWrapper = wrapperJTextFieldGenerator(inputName);
 		base.add(inputNameWrapper);
 
 		// --- Label Class ---
@@ -108,37 +131,14 @@ public class GuiCreationPage {
 				+ "</div></html>");
 		classType.setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
 
-		JPanel classTypeWrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		classTypeWrapper.setOpaque(false);
-		classTypeWrapper.add(classType);
-		classTypeWrapper.setBorder(BorderFactory.createCompoundBorder(
-				BorderFactory.createLineBorder(Color.BLACK, 0),
-				BorderFactory.createEmptyBorder(10, 10, 10, 10)
-		));
-		classTypeWrapper.setMaximumSize(new Dimension(Integer.MAX_VALUE, classType.getPreferredSize().height));
+		JPanel classTypeWrapper = wrapperLabelGenerator(classType, 10, 10, 10, 10);
 		base.add(classTypeWrapper);
 
 		// --- Combobox ---
 		JComboBox<String> choice = new JComboBox<>(new String[]{"Warrior", "Mage", "Archer", "Paladin", "Assassin"});
-		choice.setFont(new Font("Ancient Modern Tales", Font.ITALIC, 25));
-		/* Center items */
-		choice.setRenderer(new DefaultListCellRenderer() {
-			@Override
-			public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-				JLabel lbl = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-				lbl.setHorizontalAlignment(SwingConstants.CENTER);
-				return lbl;
-			}
-		});
+		configureComboBox(choice);
 
-		JPanel choiceWrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		choiceWrapper.setOpaque(false);
-		choiceWrapper.add(choice);
-		choiceWrapper.setBorder(BorderFactory.createCompoundBorder(
-				BorderFactory.createLineBorder(Color.ORANGE, 1),
-				BorderFactory.createEmptyBorder(10, 10, 10, 10)
-		));
-		choiceWrapper.setMaximumSize(new Dimension(Integer.MAX_VALUE, choice.getPreferredSize().height + 40));
+		JPanel choiceWrapper = wrapperComboBoxGenerator(choice, 10, 10, 10, 10);
 		base.add(choiceWrapper);
 
 		JLabel hidden = new JLabel("");
