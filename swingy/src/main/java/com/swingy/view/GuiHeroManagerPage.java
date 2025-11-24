@@ -10,6 +10,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
 import com.swingy.controller.Game;
@@ -41,67 +42,116 @@ public class GuiHeroManagerPage {
 		return content;
 	}
 
-	private static void configureConfirmButton(RoundedImageButton elem, String selectedName, JComboBox<String> choiceComboBox, JLabel hiddenNameLabel, JPanel hiddenNameLabelWrapper, JPanel base, Game rpg) {
+	private static void configureConfirmButton( RoundedImageButton elem, String selectedName, JComboBox<String> choiceComboBox, JLabel hiddenNameLabel, JPanel hiddenNameLabelWrapper, JPanel base, Game rpg) {
 		elem.setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
 		elem.setPreferredSize(new Dimension(150, 48));
 
-		Set<String> forbiddenChars = Set.of("|", ",", "*", "%", "=", "{", "}");
-
-		// ici tu peux décommenter et gérer l'action
-		/*
 		elem.addActionListener(e -> {
-			String txt;
-			String getName = inputName.getText().trim();
-			String getSelectedClass = (String) choiceComboBox.getSelectedItem();
-			boolean hasForbiddenChar = forbiddenChars.stream().anyMatch(getName::contains);
-			boolean invalidName = getName.isEmpty() || rpg.heroExists(getName) || hasForbiddenChar;
-
-			if (invalidName || getName.equalsIgnoreCase("x")) {
-				txt = "<html><div align='center' style='color: red;'>"
-					+ "Name already exists or contains Forbidden characters!<br/>"
-					+ "<b>Try again</b>"
-					+ "</div></html>";
+			String selectedHeroName = (String) choiceComboBox.getSelectedItem();
+			if (selectedHeroName == null) {
+				hiddenNameLabel.setText("<html><div style='color:red; text-align:center;'>No hero selected!</div></html>");
+				hiddenNameLabel.setVisible(true);
+				hiddenNameLabelWrapper.repaint();
+				hiddenNameLabelWrapper.revalidate();
+				return;
 			}
-			else {
-				rpg.registerHeroName(getName);
-				String characterClass = switch (getSelectedClass) {
-					case "Warrior" -> WARRIOR_CLASS;
-					case "Mage" -> MAGE_CLASS;
-					case "Archer" -> ARCHER_CLASS;
-					case "Paladin" -> PALADIN_CLASS;
-					case "Assassin" -> ASSASSIN_CLASS;
-					default -> "";
-				};
-				Characters newHero = CharactersFactory.getInstance().newCharacters(HERO_TYPE, getName, characterClass);
-				String att = Integer.toString(newHero.getAttack());
-				String def = Integer.toString(newHero.getDefense());
-				String hp = Integer.toString(newHero.getMaxHitPoint());
-
-				rpg.getListAvaible().add(newHero);
-
-				// Mets à jour la combo box avec le nouveau héros
-				updateHeroComboBox(rpg);
-
-				txt = "<html><div align='center'>"
-					+ "NAME<br/>"
-					+ "<b style='font-size: 25px'>" + getName + "</b><br/><br/>"
-					+ "CLASS<br/>"
-					+ "<b style='font-size: 25px'>" + getSelectedClass + "</b><br/><br/>"
-					+ "ATT<br/>"
-					+ "<b style='font-size: 25px'>" + att + "</b><br/><br/>"
-					+ "DEF<br/>"
-					+ "<b style='font-size: 25px'>" + def + "</b><br/><br/>"
-					+ "HP<br/>"
-					+ "<b style='font-size: 25px'>" + hp + "</b>"
-					+ "</div></html>";
+			Characters hero = null;
+			for (Characters target : rpg.getListAvaible()) {
+				if (target.getName().equals(selectedHeroName)) {
+					hero = target;
+					break;
+				}
 			}
-			hiddenNameLabel.setText(txt);
+			if (hero == null) {
+				hiddenNameLabel.setText("<html><div style='color:red; text-align:center;'>Hero not found!</div></html>");
+				hiddenNameLabel.setVisible(true);
+				hiddenNameLabelWrapper.repaint();
+				hiddenNameLabelWrapper.revalidate();
+				return;
+			}
+
+			// Construction du HTML (style console → html)
+			StringBuilder sb = new StringBuilder("<html><div style='font-family: Ancient Modern Tales; font-size: 17px; color: #444444;'>");
+
+			// Titre
+			sb.append("<div style='font-weight: bold; font-size: 25px; margin-bottom: 10px;'>⚔️ ")
+			.append(hero.getName())
+			.append(" the ")
+			.append(hero.getCharacterClass().toUpperCase())
+			.append(" ⚔️")
+			.append("</div>");
+
+			// Stats de base (Level, XP)
+			sb.append("<div><i>Level</i>: <span style='color: #ff3c00ff;'>")
+			.append(hero.getLevel())
+			.append("</span> &nbsp;&nbsp; <i>XP</i>: <span style='color: #ff3c00ff;'>")
+			.append(hero.getXp())
+			.append("</span></div>");
+
+			// Attack, Defense
+			sb.append("<div><i>Attack</i>: <span style='color: #008000;'>")
+			.append(hero.getAttack())
+			.append("</span> &nbsp;&nbsp; <i>Defense</i>: <span style='color: #008000;'>")
+			.append(hero.getDefense())
+			.append("</span></div>");
+
+			// Hit Points
+			sb.append("<div><i>Hit Points</i>: <span style='color: #FF0000;'>")
+			.append(hero.getHitPoint())
+			.append("/")
+			.append(hero.getMaxHitPoint())
+			.append("</span></div>");
+
+			// Bag contents
+			sb.append("<div><i>Bag contents:</i></div>");
+			if (hero.getArtefacts().isEmpty()) {
+				sb.append("<div style='margin-left: 15px; color: #FF0000;'>Empty bag.</div>");
+			} else {
+				for (var item : hero.getArtefacts()) {
+					String equippedMark = item.getIsEquipped() ? "<span style='color:#008000;'>  (E)</span>" : "";
+
+					// Couleur selon la rareté
+					String color;
+					switch (item.getRarity()) {
+						case COMMON -> color = "#A0A0A0"; // gris clair
+						case RARE -> color = "#0000FF";   // bleu
+						case EPIC -> color = "#800080";   // violet
+						case LEGENDARY -> color = "#FFA500"; // orange
+						default -> color = "#000000";
+					}
+
+					// Type
+					String type;
+					switch (item.getType()) {
+						case CONSOMMABLE_TYPE -> type = "HP";
+						case WEAPON_TYPE -> type = "ATT";
+						case ARMOR_TYPE -> type = "DEF";
+						case HELM_TYPE -> type = "HP";
+						default -> type = "";
+					}
+
+					sb.append("<div style='margin-left: 15px;'>• <span style='color: ")
+					.append(color)
+					.append("; font-style: italic;'>")
+					.append(item.getName())
+					.append(" (+")
+					.append(item.getBonus())
+					.append(") ")
+					.append(type)
+					.append("</span>")
+					.append(equippedMark)
+					.append("</div>");
+				}
+			}
+
+			sb.append("</div></html>");
+
+			hiddenNameLabel.setText(sb.toString());
 			hiddenNameLabel.setVisible(true);
 			hiddenNameLabelWrapper.repaint();
 			hiddenNameLabelWrapper.revalidate();
 			base.repaint();
 		});
-		*/
 	}
 
 	// Mets à jour le modèle de la combo box existante
@@ -135,7 +185,7 @@ public class GuiHeroManagerPage {
 		wrapper.setOpaque(false);
 		wrapper.add(elem);
 		elem.setBorder(BorderFactory.createCompoundBorder(
-				BorderFactory.createLineBorder(Color.GREEN, 2),
+				BorderFactory.createLineBorder(Color.GREEN, 0),
 				BorderFactory.createEmptyBorder(top, left, bottom, right)
 		));
 		wrapper.setMaximumSize(new Dimension(Integer.MAX_VALUE, elem.getPreferredSize().height));
@@ -161,7 +211,7 @@ public class GuiHeroManagerPage {
 		wrapper.setOpaque(false);
 		wrapper.add(elem);
 		wrapper.setBorder(BorderFactory.createCompoundBorder(
-				BorderFactory.createLineBorder(Color.BLACK, 1),
+				BorderFactory.createLineBorder(Color.BLACK, 0),
 				BorderFactory.createEmptyBorder(top, left, bottom, right)
 		));
 		if (setSize)
@@ -175,7 +225,7 @@ public class GuiHeroManagerPage {
 		// --- Panel à retourner ---
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.setOpaque(false);
-		panel.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+		panel.setBorder(BorderFactory.createLineBorder(Color.RED, 0));
 
 		// --- Zone verticale principale ---
 		JPanel base = createBaseStructure();
@@ -215,14 +265,56 @@ public class GuiHeroManagerPage {
 
 		JPanel hiddenNameLabelWrapper = wrapperLabelGenerator(hiddenNameLabel, 20, 0, 0, 0, false);
 
+		// Création du JScrollPane autour du label
+		JScrollPane scrollPane = new JScrollPane(hiddenNameLabel);
+		scrollPane.setOpaque(false);
+		scrollPane.getViewport().setOpaque(false);
+		scrollPane.setBorder(BorderFactory.createLineBorder(Color.GREEN, 0));
+		// scrollPane.setPreferredSize(new Dimension(Integer.MAX_VALUE, hiddenNameLabel.getPreferredSize().height));
+
+		// Ajout du JScrollPane à la place du wrapper du label
+		
 		// --- Button Confirm ---
 		RoundedImageButton btnConfirm = new RoundedImageButton("Confirm", icon);
 		String selectedName = (String) choiceComboBox.getSelectedItem();
 		configureConfirmButton(btnConfirm, selectedName, choiceComboBox, hiddenNameLabel, hiddenNameLabelWrapper, base, rpg);
 
-		JPanel btnConfirmWrapper = wrapperButtonGenerator(btnConfirm, 0, 0, 0, 0);
-		base.add(btnConfirmWrapper);
+		RoundedImageButton btnDelete = new RoundedImageButton("Delete", icon);
+		btnDelete.setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
+		btnDelete.setPreferredSize(new Dimension(150, 48));
+
+		btnDelete.addActionListener(e -> {
+			String selectedHeroName = (String) choiceComboBox.getSelectedItem();
+			if (selectedHeroName != null) {
+				Characters target = null;
+				for (Characters elem : rpg.getListAvaible()) {
+					if (elem.getName().equals(selectedHeroName)) {
+						target = elem;
+						break;
+					}
+				}
+				if (target != null) {
+					rpg.getHeroesNameList().remove(selectedHeroName);
+					rpg.getListAvaible().remove(target);
+				}
+				updateHeroComboBox(rpg);
+				hiddenNameLabel.setText("<html><div style='color:red; text-align:center;'>Hero deleted!</div></html>");
+				hiddenNameLabel.setVisible(true);
+				hiddenNameLabelWrapper.repaint();
+				hiddenNameLabelWrapper.revalidate();
+				base.repaint();
+			}
+		});
+
+		// Panel pour contenir les deux boutons côte à côte
+		JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
+		buttonsPanel.setOpaque(false);
+		buttonsPanel.add(wrapperButtonGenerator(btnConfirm, 0, 0, 0, 0));
+		buttonsPanel.add(wrapperButtonGenerator(btnDelete, 0, 0, 0, 0));
+
+		base.add(buttonsPanel);
 		base.add(Box.createVerticalStrut(20));
+		base.add(scrollPane);
 		base.add(hiddenNameLabelWrapper);
 
 		// --- Button Menu ---

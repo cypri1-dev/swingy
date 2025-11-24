@@ -2,7 +2,6 @@ package com.swingy.view.components;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.Timer;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
