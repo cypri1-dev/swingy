@@ -16,22 +16,21 @@ public class App {
 			return;
 		}
 
+		Game rpg = new Game();
+		boolean loadingSave = Import.fileChecker();
+		if (loadingSave)
+			Import.fileParser(rpg);
+
 		switch (args[0]) {
 			case CONSOLE:
-				Game rpg = new Game();
-				boolean loadingSave = Import.fileChecker();
-				if (loadingSave)
-					Import.fileParser(rpg);
-				while (true) {
+				while (true)
 					rpg.getMenu().launchGame();
-				}
 
 			case GUI:
-				DisplayController.getInstance().printNormal("GUI coming soon...");
-
+				// DisplayController.getInstance().printNormal("GUI coming soon...");
 				SwingUtilities.invokeLater(() -> {
 					try {
-						GuiMainWindow frame = new GuiMainWindow();
+						GuiMainWindow frame = new GuiMainWindow(rpg);
 						frame.setVisible(true);
 					} catch (IOException e) {
 						e.printStackTrace();

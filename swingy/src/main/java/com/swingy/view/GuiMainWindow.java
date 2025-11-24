@@ -5,6 +5,8 @@ import java.awt.*;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
+import com.swingy.controller.Game;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,6 +17,7 @@ public class GuiMainWindow extends JFrame {
 	private CardLayout cardLayout;
 	private JPanel cardPanel;
 	private Map<String, ImageIcon> listToken = new HashMap<>();
+	private Game rpg;
 
 	private void initTokens() {
 		String[] tokenPaths = {
@@ -41,8 +44,9 @@ public class GuiMainWindow extends JFrame {
 		}
 	}
 
-	public GuiMainWindow() throws IOException {
-		// --- Init tokens ---
+	public GuiMainWindow(Game rpg) throws IOException {
+		// --- Init ---
+		this.rpg = rpg;
 		initTokens();
 
 		setTitle("RetroRPG");
@@ -65,9 +69,9 @@ public class GuiMainWindow extends JFrame {
 		ImageIcon iconTest = new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/test_button.png")));
 		ImageIcon iconButton = new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/test_button.png")));
 		JPanel welcomePage = GuiWelcomePage.createPageWelcome("RetroRPG", cardLayout, cardPanel, iconTest, listToken);
-		JPanel mainMenuPage = GuiMainMenuPage.createPageMainMenu(iconButton, cardPanel, cardLayout);
+		JPanel mainMenuPage = GuiMainMenuPage.createPageMainMenu(iconButton, cardPanel, cardLayout, rpg);
 		// JPanel createPage = createPageTest("Creation");
-		JPanel createPage = GuiCreationPage.createCreationPage("New Hero", cardLayout, cardPanel, iconTest);
+		JPanel createPage = GuiCreationPage.createCreationPage("New Hero", cardLayout, cardPanel, iconTest, rpg);
 		JPanel displayPage = createPageTest("Heroes");
 		JPanel playPage = createPageTest("Play");
 		JPanel exitPage = createPageTest("Exit");
@@ -113,4 +117,5 @@ public class GuiMainWindow extends JFrame {
 	public CardLayout getCardLayout() {return this.cardLayout;}
 	public JPanel getCardPanel() {return this.cardPanel;}
 	public Map<String, ImageIcon> getListTokens() {return this.listToken;}
+	public Game getGame() {return this.rpg;}
 }

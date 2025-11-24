@@ -1,6 +1,11 @@
 package com.swingy.view;
 
 import com.swingy.view.components.RoundedImageButton;
+import com.swingy.controller.Game;
+import com.swingy.model.CharactersFactory;
+import com.swingy.model.Characters;
+
+import static com.swingy.utils.Constants.*;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -20,11 +25,76 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.util.Set;
 import java.awt.Dimension;
 
 public class GuiCreationPage {
 
 	/* ---------------------- METHOD FOR CREATION_PAGE CREATION ----------------------*/
+
+	private static void configureConfirmButton (RoundedImageButton elem, JTextField inputName, JComboBox<String> choiceComboBox, JLabel hiddenNameLabel, JPanel hiddenNameLabelWrapper, JPanel base, Game rpg) {
+		elem.setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
+		elem.setPreferredSize(new Dimension(150, 48));
+
+		Set<String> forbiddenChars = Set.of("|", ",", "*", "%", "=", "{", "}");
+
+		elem.addActionListener(e -> {
+			String txt;
+			String getName = inputName.getText().trim();
+			String getSelectedClass = (String) choiceComboBox.getSelectedItem();
+			boolean hasForbiddenChar = forbiddenChars.stream().anyMatch(getName::contains);
+			boolean invalidName = getName.isEmpty() || rpg.heroExists(getName) || hasForbiddenChar;
+
+			if (invalidName || getName.equalsIgnoreCase("x")) {
+				txt = "<html><div align='center' style='color: red;'>"
+					+ "Name already exists or contains Forbidden characters!<br/>"
+					+ "<b>Try again</b>"
+					+ "</div></html>";
+			}
+			else {
+				rpg.registerHeroName(getName);
+				String characterClass = switch (getSelectedClass) {
+					case "Warrior" -> WARRIOR_CLASS;
+					case "Mage" -> MAGE_CLASS;
+					case "Archer" -> ARCHER_CLASS;
+					case "Paladin" -> PALADIN_CLASS;
+					case "Assassin" -> ASSASSIN_CLASS;
+					default -> "";
+				};
+				Characters newHero = CharactersFactory.getInstance().newCharacters(HERO_TYPE, getName, characterClass);
+				String att = Integer.toString(newHero.getAttack());
+				String def = Integer.toString(newHero.getDefense());
+				String hp = Integer.toString(newHero.getMaxHitPoint());
+
+				rpg.getListAvaible().add(CharactersFactory.getInstance().newCharacters(HERO_TYPE, getName, characterClass));
+
+				txt = "<html><div align='center'>"
+					+ "NAME<br/>"
+					+ "<b style='font-size: 25px'>" + getName + "</b><br/><br/>"
+					+ "CLASS<br/>"
+					+ "<b style='font-size: 25px'>" + getSelectedClass + "</b><br/><br/>"
+					+ "ATT<br/>"
+					+ "<b style='font-size: 25px'>" + att + "</b><br/><br/>"
+					+ "DEF<br/>"
+					+ "<b style='font-size: 25px'>" + def + "</b><br/><br/>"
+					+ "HP<br/>"
+					+ "<b style='font-size: 25px'>" + hp + "</b>"
+					+ "</div></html>";
+			}
+			hiddenNameLabel.setText(txt);
+			hiddenNameLabel.setVisible(true);
+			hiddenNameLabelWrapper.repaint();
+			hiddenNameLabelWrapper.revalidate();
+			base.repaint();
+
+		});
+	}
+
+	private static void configureHiddenLabel(JLabel elem) {
+		elem.setVisible(false);
+		elem.setFont(new Font("Ancient Modern Tales", Font.PLAIN, 20));
+		elem.setHorizontalAlignment(SwingConstants.CENTER);
+	}
 
 	private static void configureComboBox(JComboBox<String> elem) {
 		elem.setFont(new Font("Ancient Modern Tales", Font.ITALIC, 25));
@@ -44,6 +114,20 @@ public class GuiCreationPage {
 		elem.setFont(new Font("Ancient Modern Tales", Font.ITALIC, 25));
 		elem.setColumns(15);
 		elem.setHorizontalAlignment(JTextField.CENTER);
+	}
+
+
+	private static JPanel wrapperButtonGenerator(RoundedImageButton elem, int top, int left, int bottom, int right) {
+		JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		wrapper.setOpaque(false);
+		wrapper.add(elem);
+		elem.setBorder(BorderFactory.createCompoundBorder(
+			BorderFactory.createLineBorder(Color.GREEN, 2),
+			BorderFactory.createEmptyBorder(top, left, bottom, right)
+		));
+		wrapper.setMaximumSize(new Dimension(Integer.MAX_VALUE, elem.getPreferredSize().height));
+
+		return wrapper;
 	}
 
 	private static JPanel wrapperComboBoxGenerator(JComboBox<String> elem, int top, int left, int bottom, int right) {
@@ -69,7 +153,7 @@ public class GuiCreationPage {
 		return wrapper;
 	}
 
-	private static JPanel wrapperLabelGenerator(JLabel elem, int top, int left, int bottom, int right) {
+	private static JPanel wrapperLabelGenerator(JLabel elem, int top, int left, int bottom, int right, boolean setSize) {
 		JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		wrapper.setOpaque(false);
 		wrapper.add(elem);
@@ -77,7 +161,8 @@ public class GuiCreationPage {
 				BorderFactory.createLineBorder(Color.BLACK, 0),
 				BorderFactory.createEmptyBorder(top, left, bottom, right)
 		));
-		wrapper.setMaximumSize(new Dimension(Integer.MAX_VALUE, elem.getPreferredSize().height));
+		if (setSize)
+			wrapper.setMaximumSize(new Dimension(Integer.MAX_VALUE, elem.getPreferredSize().height));
 
 		return wrapper;
 	}
@@ -91,7 +176,7 @@ public class GuiCreationPage {
 		return content;
 	}
 
-	public static JPanel createCreationPage(String title, CardLayout cardLayout, JPanel cardPanel, ImageIcon icon) {
+	public static JPanel createCreationPage(String title, CardLayout cardLayout, JPanel cardPanel, ImageIcon icon, Game rpg) {
 
 		// --- Panel/Card a return ---
 		JPanel panel = new JPanel(new BorderLayout());
@@ -106,7 +191,7 @@ public class GuiCreationPage {
 		JLabel titleLabel = new JLabel(title);
 		titleLabel.setFont(new Font("Ancient Modern Tales", Font.BOLD, 60));
 
-		JPanel titleLabelWrapper = wrapperLabelGenerator(titleLabel, 60, 0, 20, 0);
+		JPanel titleLabelWrapper = wrapperLabelGenerator(titleLabel, 60, 0, 20, 0, true);
 		base.add(titleLabelWrapper);
 
 		// --- Label Name ---
@@ -115,7 +200,7 @@ public class GuiCreationPage {
 				+ "</div></html>");
 		nameLabel.setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
 
-		JPanel nameLabelWrapper = wrapperLabelGenerator(nameLabel, 10, 10, 10, 10);
+		JPanel nameLabelWrapper = wrapperLabelGenerator(nameLabel, 10, 10, 10, 10, true);
 		base.add(nameLabelWrapper);
 
 		// --- InputName ---
@@ -131,7 +216,7 @@ public class GuiCreationPage {
 				+ "</div></html>");
 		classType.setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
 
-		JPanel classTypeWrapper = wrapperLabelGenerator(classType, 10, 10, 10, 10);
+		JPanel classTypeWrapper = wrapperLabelGenerator(classType, 10, 10, 10, 10, true);
 		base.add(classTypeWrapper);
 
 		// --- Combobox ---
@@ -141,54 +226,17 @@ public class GuiCreationPage {
 		JPanel choiceWrapper = wrapperComboBoxGenerator(choiceComboBox, 10, 10, 10, 10);
 		base.add(choiceWrapper);
 
+		// --- Label Hidden ---
 		JLabel hiddenNameLabel = new JLabel(" ");
-		hiddenNameLabel.setVisible(false);
-		hiddenNameLabel.setFont(new Font("Ancient Modern Tales", Font.PLAIN, 20));
-		hiddenNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		configureHiddenLabel(hiddenNameLabel);
 
-		JPanel hiddenNameLabelWrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		hiddenNameLabelWrapper.setOpaque(false);
-		hiddenNameLabelWrapper.add(hiddenNameLabel);
-		hiddenNameLabelWrapper.setBorder(BorderFactory.createCompoundBorder(
-			BorderFactory.createEmptyBorder(30, 0, 0, 0),
-			BorderFactory.createLineBorder(Color.BLACK, 0)
-		));
-		// hiddenNameLabelWrapper.setMaximumSize(new Dimension(Integer.MAX_VALUE, hiddenNameLabel.getPreferredSize().height));
+		JPanel hiddenNameLabelWrapper = wrapperLabelGenerator(hiddenNameLabel, 20, 0, 0, 0, false);
 
 		// --- Button Confirm ---
 		RoundedImageButton btnConfirm = new RoundedImageButton("Confirm", icon);
-		btnConfirm.setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
-		btnConfirm.setPreferredSize(new Dimension(150, 48));
-		btnConfirm.addActionListener(e -> {
-			String getName = inputName.getText();
-			String getSelectedClass = (String) choiceComboBox.getSelectedItem();
-			String att = "<html><div align='center'>"
-				+ "NAME<br/>"
-				+ "<b style='font-size: 32px'>" + getName + "</b><br/><br/>"
-				+ "CLASS<br/>"
-				+ "<b style='font-size: 32px'>" + getSelectedClass + "</b>"
-				+ "</div></html>";
+		configureConfirmButton(btnConfirm, inputName, choiceComboBox, hiddenNameLabel, hiddenNameLabelWrapper, base, rpg);
 
-			// String heroTxt = "<html><div align='center'>"
-			// 	+ "Your name = <b>" + getName + "</b><br/>"
-			// 	+ "Your class = <b>" + getSelectedClass + "</b>"
-			// 	+ "</div></html>";
-
-			hiddenNameLabel.setText(att);
-			hiddenNameLabel.setVisible(true);
-			hiddenNameLabelWrapper.repaint();
-			hiddenNameLabelWrapper.revalidate();
-			base.repaint();
-		});
-
-		JPanel btnConfirmWrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		btnConfirmWrapper.setOpaque(false);
-		btnConfirmWrapper.add(btnConfirm);
-		btnConfirm.setBorder(BorderFactory.createCompoundBorder(
-			BorderFactory.createLineBorder(Color.GREEN, 2),
-			BorderFactory.createEmptyBorder(0, 0, 0, 0)
-		));
-		btnConfirmWrapper.setMaximumSize(new Dimension(Integer.MAX_VALUE, btnConfirm.getPreferredSize().height));
+		JPanel btnConfirmWrapper = wrapperButtonGenerator(btnConfirm, 0, 0, 0, 0);
 		base.add(btnConfirmWrapper);
 		base.add(hiddenNameLabelWrapper);
 

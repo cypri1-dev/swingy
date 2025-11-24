@@ -262,9 +262,7 @@ public class Menu {
 			default -> "";
 		};
 
-		ref.getListAvaible().add(
-			CharactersFactory.getInstance().newCharacters(HERO_TYPE, inputName, characterClass)
-		);
+		ref.getListAvaible().add(CharactersFactory.getInstance().newCharacters(HERO_TYPE, inputName, characterClass));
 	}
 
 

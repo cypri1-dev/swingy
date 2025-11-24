@@ -7,6 +7,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.swingy.controller.Export;
 import com.swingy.utils.LabelAnimator;
 import com.swingy.view.components.FadingLabel;
 import com.swingy.view.components.RoundedImageButton;
@@ -19,6 +20,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Component;
 
+import com.swingy.controller.Game;
+
 public class GuiMainMenuPage {
 
 	/* ---------------------- METHOD FOR MAIN MENU PAGE CREATION ----------------------*/
@@ -30,7 +33,7 @@ public class GuiMainMenuPage {
 		btn.setMaximumSize(size);
 	}
 
-	public static JPanel createPageMainMenu(ImageIcon icon, JPanel cardPanel, CardLayout cardLayout) {
+	public static JPanel createPageMainMenu(ImageIcon icon, JPanel cardPanel, CardLayout cardLayout, Game rpg) {
 
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.setOpaque(false);
@@ -86,7 +89,10 @@ public class GuiMainMenuPage {
 
 		RoundedImageButton btnExit = new RoundedImageButton("Exit", icon);
 		configButtons(btnExit, Size);
-		btnExit.addActionListener(e -> System.exit(0));
+		btnExit.addActionListener(e -> {
+			Export.exportData(rpg.getListAvaible());
+			System.exit(0);
+		});
 
 		JPanel btnWrapper = new JPanel();
 		btnWrapper.setLayout(new BoxLayout(btnWrapper, BoxLayout.Y_AXIS));
@@ -96,7 +102,7 @@ public class GuiMainMenuPage {
 		btnSelect.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnPlay.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnExit.setAlignmentX(Component.CENTER_ALIGNMENT);
-		
+
 		btnWrapper.add(btnCreate);
 		btnWrapper.add(Box.createRigidArea(new Dimension(0, 20)));
 		btnWrapper.add(btnSelect);
