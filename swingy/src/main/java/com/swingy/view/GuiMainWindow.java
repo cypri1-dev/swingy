@@ -72,7 +72,7 @@ public class GuiMainWindow extends JFrame {
 		JPanel mainMenuPage = GuiMainMenuPage.createPageMainMenu(iconButton, cardPanel, cardLayout, rpg);
 		// JPanel createPage = createPageTest("Creation");
 		JPanel createPage = GuiCreationPage.createCreationPage("New Hero", cardLayout, cardPanel, iconTest, rpg);
-		JPanel displayPage = createPageTest("Heroes");
+		JPanel displayPage = GuiHeroManagerPage.createViewPage("New Hero", cardLayout, cardPanel, iconTest, rpg);
 		JPanel playPage = createPageTest("Play");
 		JPanel exitPage = createPageTest("Exit");
 

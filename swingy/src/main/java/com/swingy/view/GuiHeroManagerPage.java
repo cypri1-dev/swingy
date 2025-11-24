@@ -1,43 +1,54 @@
 package com.swingy.view;
 
-import com.swingy.view.components.RoundedImageButton;
-import com.swingy.controller.Game;
-import com.swingy.model.CharactersFactory;
-import com.swingy.model.Characters;
-
-import static com.swingy.utils.Constants.*;
-
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
-import java.awt.CardLayout;
-import java.awt.FlowLayout;
-import java.awt.BorderLayout;
+import com.swingy.controller.Game;
+import com.swingy.model.Characters;
+import com.swingy.model.CharactersFactory;
+import com.swingy.view.components.RoundedImageButton;
+import static com.swingy.utils.Constants.*;
+
 import java.awt.Color;
-import java.awt.Component;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Font;
-import java.awt.Dimension;
-
 import java.util.Set;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Component;
 
-public class GuiCreationPage {
+public class GuiHeroManagerPage {
 
-	/* ---------------------- METHOD FOR CREATION_PAGE CREATION ----------------------*/
+	// La combo box statique pour garder la même instance
+	private static JComboBox<String> choiceComboBox = null;
 
-	private static void configureConfirmButton (RoundedImageButton elem, JTextField inputName, JComboBox<String> choiceComboBox, JLabel hiddenNameLabel, JPanel hiddenNameLabelWrapper, JPanel base, Game rpg) {
+	private static JPanel createBaseStructure() {
+		JPanel content = new JPanel();
+		content.setOpaque(false);
+		content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
+		content.setBorder(BorderFactory.createLineBorder(Color.GREEN, 0));
+
+		return content;
+	}
+
+	private static void configureConfirmButton(RoundedImageButton elem, String selectedName, JComboBox<String> choiceComboBox, JLabel hiddenNameLabel, JPanel hiddenNameLabelWrapper, JPanel base, Game rpg) {
 		elem.setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
 		elem.setPreferredSize(new Dimension(150, 48));
 
 		Set<String> forbiddenChars = Set.of("|", ",", "*", "%", "=", "{", "}");
 
+		// ici tu peux décommenter et gérer l'action
+		/*
 		elem.addActionListener(e -> {
 			String txt;
 			String getName = inputName.getText().trim();
@@ -66,8 +77,11 @@ public class GuiCreationPage {
 				String def = Integer.toString(newHero.getDefense());
 				String hp = Integer.toString(newHero.getMaxHitPoint());
 
-				rpg.getListAvaible().add(CharactersFactory.getInstance().newCharacters(HERO_TYPE, getName, characterClass));
-				GuiHeroManagerPage.updateHeroComboBox(rpg);
+				rpg.getListAvaible().add(newHero);
+
+				// Mets à jour la combo box avec le nouveau héros
+				updateHeroComboBox(rpg);
+
 				txt = "<html><div align='center'>"
 					+ "NAME<br/>"
 					+ "<b style='font-size: 25px'>" + getName + "</b><br/><br/>"
@@ -86,19 +100,20 @@ public class GuiCreationPage {
 			hiddenNameLabelWrapper.repaint();
 			hiddenNameLabelWrapper.revalidate();
 			base.repaint();
-
 		});
+		*/
 	}
 
-	private static void configureHiddenLabel(JLabel elem) {
-		elem.setVisible(false);
-		elem.setFont(new Font("Ancient Modern Tales", Font.PLAIN, 20));
-		elem.setHorizontalAlignment(SwingConstants.CENTER);
+	// Mets à jour le modèle de la combo box existante
+	public static void updateHeroComboBox(Game rpg) {
+		if (choiceComboBox != null) {
+			choiceComboBox.setModel(new DefaultComboBoxModel<>(rpg.getHeroesNameList().toArray(new String[0])));
+		}
 	}
 
 	private static void configureComboBox(JComboBox<String> elem) {
 		elem.setFont(new Font("Ancient Modern Tales", Font.ITALIC, 25));
-		/* Center items */
+		/* Centrer les éléments */
 		elem.setRenderer(new DefaultListCellRenderer() {
 			@Override
 			public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
@@ -109,21 +124,19 @@ public class GuiCreationPage {
 		});
 	}
 
-	private static void configureJTextField(JTextField elem) {
-		elem.setOpaque(false);
-		elem.setFont(new Font("Ancient Modern Tales", Font.ITALIC, 25));
-		elem.setColumns(15);
-		elem.setHorizontalAlignment(JTextField.CENTER);
+	private static void configureHiddenLabel(JLabel elem) {
+		elem.setVisible(false);
+		elem.setFont(new Font("Ancient Modern Tales", Font.PLAIN, 20));
+		elem.setHorizontalAlignment(SwingConstants.CENTER);
 	}
-
 
 	private static JPanel wrapperButtonGenerator(RoundedImageButton elem, int top, int left, int bottom, int right) {
 		JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		wrapper.setOpaque(false);
 		wrapper.add(elem);
 		elem.setBorder(BorderFactory.createCompoundBorder(
-			BorderFactory.createLineBorder(Color.GREEN, 2),
-			BorderFactory.createEmptyBorder(top, left, bottom, right)
+				BorderFactory.createLineBorder(Color.GREEN, 2),
+				BorderFactory.createEmptyBorder(top, left, bottom, right)
 		));
 		wrapper.setMaximumSize(new Dimension(Integer.MAX_VALUE, elem.getPreferredSize().height));
 
@@ -143,22 +156,12 @@ public class GuiCreationPage {
 		return wrapper;
 	}
 
-	private static JPanel wrapperJTextFieldGenerator(JTextField elem) {
-		JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		wrapper.setOpaque(false);
-		wrapper.add(elem);
-		elem.setBorder(BorderFactory.createEmptyBorder());
-		wrapper.setMaximumSize(new Dimension(Integer.MAX_VALUE, elem.getPreferredSize().height));
-
-		return wrapper;
-	}
-
 	private static JPanel wrapperLabelGenerator(JLabel elem, int top, int left, int bottom, int right, boolean setSize) {
 		JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		wrapper.setOpaque(false);
 		wrapper.add(elem);
 		wrapper.setBorder(BorderFactory.createCompoundBorder(
-				BorderFactory.createLineBorder(Color.BLACK, 0),
+				BorderFactory.createLineBorder(Color.BLACK, 1),
 				BorderFactory.createEmptyBorder(top, left, bottom, right)
 		));
 		if (setSize)
@@ -167,64 +170,44 @@ public class GuiCreationPage {
 		return wrapper;
 	}
 
-	private static JPanel createBaseStructure() {
-		JPanel content = new JPanel();
-		content.setOpaque(false);
-		content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
-		content.setBorder(BorderFactory.createLineBorder(Color.GREEN, 0));
+	public static JPanel createViewPage(String title, CardLayout cardLayout, JPanel cardPanel, ImageIcon icon, Game rpg) {
 
-		return content;
-	}
-
-	public static JPanel createCreationPage(String title, CardLayout cardLayout, JPanel cardPanel, ImageIcon icon, Game rpg) {
-
-		// --- Panel/Card a return ---
+		// --- Panel à retourner ---
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.setOpaque(false);
-		panel.setBorder(BorderFactory.createLineBorder(Color.RED, 0));
+		panel.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
 
 		// --- Zone verticale principale ---
 		JPanel base = createBaseStructure();
 		panel.add(base, BorderLayout.CENTER);
 
-		// --- Titre ---
+		// --- Label Titre ---
 		JLabel titleLabel = new JLabel(title);
 		titleLabel.setFont(new Font("Ancient Modern Tales", Font.BOLD, 60));
 
 		JPanel titleLabelWrapper = wrapperLabelGenerator(titleLabel, 60, 0, 20, 0, true);
 		base.add(titleLabelWrapper);
 
-		// --- Label Name ---
+		// --- Label Hero ---
 		JLabel nameLabel = new JLabel("<html><div align=center>"
-				+ "ᛁᚾ ᛖᚲᛊᛈᛚᛟᚱᛖ - Choose a name - ᛁᚾ ᚨᛖᚲᛊᛈᛚᛟᚱᛖ"
+				+ "ᛁᚾ ᛖᚲᛊᛈᛚᛟᚱᛖ - Choose a Hero - ᛁᚾ ᚨᛖᚲᛊᛈᛚᛟᚱᛖ"
 				+ "</div></html>");
 		nameLabel.setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
 
 		JPanel nameLabelWrapper = wrapperLabelGenerator(nameLabel, 10, 10, 10, 10, true);
 		base.add(nameLabelWrapper);
 
-		// --- InputName ---
-		JTextField inputName = new JTextField("Enter name");
-		configureJTextField(inputName);
-
-		JPanel inputNameWrapper = wrapperJTextFieldGenerator(inputName);
-		base.add(inputNameWrapper);
-
-		// --- Label Class ---
-		JLabel classType = new JLabel("<html><div align=center>"
-				+ "ᛁᚾ ᛖᚲᛊᛈᛚᛟᚱᛖ - Select a class - ᛁᚾ ᚨᛖᚲᛊᛈᛚᛟᚱᛖ"
-				+ "</div></html>");
-		classType.setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
-
-		JPanel classTypeWrapper = wrapperLabelGenerator(classType, 10, 10, 10, 10, true);
-		base.add(classTypeWrapper);
-
 		// --- Combobox ---
-		JComboBox<String> choiceComboBox = new JComboBox<>(new String[]{"Warrior", "Mage", "Archer", "Paladin", "Assassin"});
-		configureComboBox(choiceComboBox);
-
-		JPanel choiceWrapper = wrapperComboBoxGenerator(choiceComboBox, 10, 10, 10, 10);
-		base.add(choiceWrapper);
+		if (choiceComboBox == null) {
+			String[] array = rpg.getHeroesNameList().toArray(new String[0]);
+			choiceComboBox = new JComboBox<>(array);
+			configureComboBox(choiceComboBox);
+			JPanel choiceWrapper = wrapperComboBoxGenerator(choiceComboBox, 10, 10, 10, 10);
+			base.add(choiceWrapper);
+		} else {
+			// Mets à jour le modèle sans recréer le composant
+			updateHeroComboBox(rpg);
+		}
 
 		// --- Label Hidden ---
 		JLabel hiddenNameLabel = new JLabel(" ");
@@ -234,10 +217,12 @@ public class GuiCreationPage {
 
 		// --- Button Confirm ---
 		RoundedImageButton btnConfirm = new RoundedImageButton("Confirm", icon);
-		configureConfirmButton(btnConfirm, inputName, choiceComboBox, hiddenNameLabel, hiddenNameLabelWrapper, base, rpg);
+		String selectedName = (String) choiceComboBox.getSelectedItem();
+		configureConfirmButton(btnConfirm, selectedName, choiceComboBox, hiddenNameLabel, hiddenNameLabelWrapper, base, rpg);
 
 		JPanel btnConfirmWrapper = wrapperButtonGenerator(btnConfirm, 0, 0, 0, 0);
 		base.add(btnConfirmWrapper);
+		base.add(Box.createVerticalStrut(20));
 		base.add(hiddenNameLabelWrapper);
 
 		// --- Button Menu ---
@@ -253,5 +238,8 @@ public class GuiCreationPage {
 		panel.add(bottom, BorderLayout.SOUTH);
 
 		return panel;
+
 	}
+
 }
+
