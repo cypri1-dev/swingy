@@ -46,7 +46,7 @@ public class GuiCreationPage {
 		elem.setHorizontalAlignment(JTextField.CENTER);
 	}
 
-	private static JPanel wrapperComboBoxGenerator(JComboBox elem, int top, int left, int bottom, int right) {
+	private static JPanel wrapperComboBoxGenerator(JComboBox<String> elem, int top, int left, int bottom, int right) {
 		JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		wrapper.setOpaque(false);
 		wrapper.add(elem);
@@ -135,26 +135,25 @@ public class GuiCreationPage {
 		base.add(classTypeWrapper);
 
 		// --- Combobox ---
-		JComboBox<String> choice = new JComboBox<>(new String[]{"Warrior", "Mage", "Archer", "Paladin", "Assassin"});
-		configureComboBox(choice);
+		JComboBox<String> choiceComboBox = new JComboBox<>(new String[]{"Warrior", "Mage", "Archer", "Paladin", "Assassin"});
+		configureComboBox(choiceComboBox);
 
-		JPanel choiceWrapper = wrapperComboBoxGenerator(choice, 10, 10, 10, 10);
+		JPanel choiceWrapper = wrapperComboBoxGenerator(choiceComboBox, 10, 10, 10, 10);
 		base.add(choiceWrapper);
 
-		JLabel hidden = new JLabel("");
-		hidden.setVisible(false);
-		hidden.setFont(new Font("Ancient Modern Tales", Font.ITALIC, 22));
-		hidden.setHorizontalAlignment(SwingConstants.CENTER);
-		
-		JPanel hiddenWrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		hiddenWrapper.setOpaque(false);
-		hiddenWrapper.add(hidden);
-		hiddenWrapper.setBorder(BorderFactory.createCompoundBorder(
-			BorderFactory.createEmptyBorder(30, 0, 0, 0), 
-			BorderFactory.createLineBorder(Color.BLACK, 2)
+		JLabel hiddenNameLabel = new JLabel(" ");
+		hiddenNameLabel.setVisible(false);
+		hiddenNameLabel.setFont(new Font("Ancient Modern Tales", Font.PLAIN, 20));
+		hiddenNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+		JPanel hiddenNameLabelWrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		hiddenNameLabelWrapper.setOpaque(false);
+		hiddenNameLabelWrapper.add(hiddenNameLabel);
+		hiddenNameLabelWrapper.setBorder(BorderFactory.createCompoundBorder(
+			BorderFactory.createEmptyBorder(30, 0, 0, 0),
+			BorderFactory.createLineBorder(Color.BLACK, 0)
 		));
-		// hiddenWrapper.setMaximumSize(new Dimension(Integer.MAX_VALUE, hidden.getPreferredSize().height));
-		// base.add(hiddenWrapper);
+		// hiddenNameLabelWrapper.setMaximumSize(new Dimension(Integer.MAX_VALUE, hiddenNameLabel.getPreferredSize().height));
 
 		// --- Button Confirm ---
 		RoundedImageButton btnConfirm = new RoundedImageButton("Confirm", icon);
@@ -162,17 +161,23 @@ public class GuiCreationPage {
 		btnConfirm.setPreferredSize(new Dimension(150, 48));
 		btnConfirm.addActionListener(e -> {
 			String getName = inputName.getText();
-			String getSelectedClass = (String) choice.getSelectedItem();
-
-			String heroTxt = "<html><div align='center'>"
-				+ "Your name = <b>" + getName + "</b><br/>"
-				+ "Your class = <b>" + getSelectedClass + "</b>"
+			String getSelectedClass = (String) choiceComboBox.getSelectedItem();
+			String att = "<html><div align='center'>"
+				+ "NAME<br/>"
+				+ "<b style='font-size: 32px'>" + getName + "</b><br/><br/>"
+				+ "CLASS<br/>"
+				+ "<b style='font-size: 32px'>" + getSelectedClass + "</b>"
 				+ "</div></html>";
 
-			hidden.setText(heroTxt);
-			hidden.setVisible(true);
-			hiddenWrapper.repaint();
-			hiddenWrapper.revalidate();
+			// String heroTxt = "<html><div align='center'>"
+			// 	+ "Your name = <b>" + getName + "</b><br/>"
+			// 	+ "Your class = <b>" + getSelectedClass + "</b>"
+			// 	+ "</div></html>";
+
+			hiddenNameLabel.setText(att);
+			hiddenNameLabel.setVisible(true);
+			hiddenNameLabelWrapper.repaint();
+			hiddenNameLabelWrapper.revalidate();
 			base.repaint();
 		});
 
@@ -185,7 +190,7 @@ public class GuiCreationPage {
 		));
 		btnConfirmWrapper.setMaximumSize(new Dimension(Integer.MAX_VALUE, btnConfirm.getPreferredSize().height));
 		base.add(btnConfirmWrapper);
-		base.add(hiddenWrapper);
+		base.add(hiddenNameLabelWrapper);
 
 		// --- Button Menu ---
 		RoundedImageButton btn = new RoundedImageButton("Menu", icon);
