@@ -15,7 +15,6 @@ import javax.swing.SwingConstants;
 
 import com.swingy.controller.Game;
 import com.swingy.model.Characters;
-import com.swingy.model.CharactersFactory;
 import com.swingy.view.components.RoundedImageButton;
 import static com.swingy.utils.Constants.*;
 
@@ -23,15 +22,15 @@ import java.awt.Color;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Font;
-import java.util.Set;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Component;
 
 public class GuiHeroManagerPage {
 
-	// La combo box statique pour garder la même instance
 	private static JComboBox<String> choiceComboBox = null;
+
+	/************************************************************************ CONSTRUCTOR ************************************************************************/
 
 	private static JPanel createBaseStructure() {
 		JPanel content = new JPanel();
@@ -41,6 +40,8 @@ public class GuiHeroManagerPage {
 
 		return content;
 	}
+
+	/************************************************************************ CONFIGURATION BUTTONS ************************************************************************/
 
 	private static void configureConfirmButton( RoundedImageButton elem, String selectedName, JComboBox<String> choiceComboBox, JLabel hiddenNameLabel, JPanel hiddenNameLabelWrapper, JPanel base, Game rpg) {
 		elem.setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
@@ -154,132 +155,7 @@ public class GuiHeroManagerPage {
 		});
 	}
 
-	// Mets à jour le modèle de la combo box existante
-	public static void updateHeroComboBox(Game rpg) {
-		if (choiceComboBox != null) {
-			choiceComboBox.setModel(new DefaultComboBoxModel<>(rpg.getHeroesNameList().toArray(new String[0])));
-		}
-	}
-
-	private static void configureComboBox(JComboBox<String> elem) {
-		elem.setFont(new Font("Ancient Modern Tales", Font.ITALIC, 25));
-		/* Centrer les éléments */
-		elem.setRenderer(new DefaultListCellRenderer() {
-			@Override
-			public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-				JLabel lbl = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-				lbl.setHorizontalAlignment(SwingConstants.CENTER);
-				return lbl;
-			}
-		});
-	}
-
-	private static void configureHiddenLabel(JLabel elem) {
-		elem.setVisible(false);
-		elem.setFont(new Font("Ancient Modern Tales", Font.PLAIN, 20));
-		elem.setHorizontalAlignment(SwingConstants.CENTER);
-	}
-
-	private static JPanel wrapperButtonGenerator(RoundedImageButton elem, int top, int left, int bottom, int right) {
-		JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		wrapper.setOpaque(false);
-		wrapper.add(elem);
-		elem.setBorder(BorderFactory.createCompoundBorder(
-				BorderFactory.createLineBorder(Color.GREEN, 0),
-				BorderFactory.createEmptyBorder(top, left, bottom, right)
-		));
-		wrapper.setMaximumSize(new Dimension(Integer.MAX_VALUE, elem.getPreferredSize().height));
-
-		return wrapper;
-	}
-
-	private static JPanel wrapperComboBoxGenerator(JComboBox<String> elem, int top, int left, int bottom, int right) {
-		JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		wrapper.setOpaque(false);
-		wrapper.add(elem);
-		wrapper.setBorder(BorderFactory.createCompoundBorder(
-				BorderFactory.createLineBorder(Color.ORANGE, 0),
-				BorderFactory.createEmptyBorder(10, 10, 10, 10)
-		));
-		wrapper.setMaximumSize(new Dimension(Integer.MAX_VALUE, elem.getPreferredSize().height + 40));
-
-		return wrapper;
-	}
-
-	private static JPanel wrapperLabelGenerator(JLabel elem, int top, int left, int bottom, int right, boolean setSize) {
-		JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		wrapper.setOpaque(false);
-		wrapper.add(elem);
-		wrapper.setBorder(BorderFactory.createCompoundBorder(
-				BorderFactory.createLineBorder(Color.BLACK, 0),
-				BorderFactory.createEmptyBorder(top, left, bottom, right)
-		));
-		if (setSize)
-			wrapper.setMaximumSize(new Dimension(Integer.MAX_VALUE, elem.getPreferredSize().height));
-
-		return wrapper;
-	}
-
-	public static JPanel createViewPage(String title, CardLayout cardLayout, JPanel cardPanel, ImageIcon icon, Game rpg) {
-
-		// --- Panel à retourner ---
-		JPanel panel = new JPanel(new BorderLayout());
-		panel.setOpaque(false);
-		panel.setBorder(BorderFactory.createLineBorder(Color.RED, 0));
-
-		// --- Zone verticale principale ---
-		JPanel base = createBaseStructure();
-		panel.add(base, BorderLayout.CENTER);
-
-		// --- Label Titre ---
-		JLabel titleLabel = new JLabel(title);
-		titleLabel.setFont(new Font("Ancient Modern Tales", Font.BOLD, 60));
-
-		JPanel titleLabelWrapper = wrapperLabelGenerator(titleLabel, 60, 0, 20, 0, true);
-		base.add(titleLabelWrapper);
-
-		// --- Label Hero ---
-		JLabel nameLabel = new JLabel("<html><div align=center>"
-				+ "ᛁᚾ ᛖᚲᛊᛈᛚᛟᚱᛖ - Choose a Hero - ᛁᚾ ᚨᛖᚲᛊᛈᛚᛟᚱᛖ"
-				+ "</div></html>");
-		nameLabel.setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
-
-		JPanel nameLabelWrapper = wrapperLabelGenerator(nameLabel, 10, 10, 10, 10, true);
-		base.add(nameLabelWrapper);
-
-		// --- Combobox ---
-		if (choiceComboBox == null) {
-			String[] array = rpg.getHeroesNameList().toArray(new String[0]);
-			choiceComboBox = new JComboBox<>(array);
-			configureComboBox(choiceComboBox);
-			JPanel choiceWrapper = wrapperComboBoxGenerator(choiceComboBox, 10, 10, 10, 10);
-			base.add(choiceWrapper);
-		} else {
-			// Mets à jour le modèle sans recréer le composant
-			updateHeroComboBox(rpg);
-		}
-
-		// --- Label Hidden ---
-		JLabel hiddenNameLabel = new JLabel(" ");
-		configureHiddenLabel(hiddenNameLabel);
-
-		JPanel hiddenNameLabelWrapper = wrapperLabelGenerator(hiddenNameLabel, 20, 0, 0, 0, false);
-
-		// Création du JScrollPane autour du label
-		JScrollPane scrollPane = new JScrollPane(hiddenNameLabel);
-		scrollPane.setOpaque(false);
-		scrollPane.getViewport().setOpaque(false);
-		scrollPane.setBorder(BorderFactory.createLineBorder(Color.GREEN, 0));
-		// scrollPane.setPreferredSize(new Dimension(Integer.MAX_VALUE, hiddenNameLabel.getPreferredSize().height));
-
-		// Ajout du JScrollPane à la place du wrapper du label
-		
-		// --- Button Confirm ---
-		RoundedImageButton btnConfirm = new RoundedImageButton("Confirm", icon);
-		String selectedName = (String) choiceComboBox.getSelectedItem();
-		configureConfirmButton(btnConfirm, selectedName, choiceComboBox, hiddenNameLabel, hiddenNameLabelWrapper, base, rpg);
-
-		RoundedImageButton btnDelete = new RoundedImageButton("Delete", icon);
+	private static void configureDeleteButton(RoundedImageButton btnDelete, Game rpg, JLabel hiddenNameLabel, JPanel hiddenNameLabelWrapper, JPanel base) {
 		btnDelete.setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
 		btnDelete.setPreferredSize(new Dimension(150, 48));
 
@@ -305,6 +181,156 @@ public class GuiHeroManagerPage {
 				base.repaint();
 			}
 		});
+	}
+
+	/************************************************************************ CONFIGURATION JSCROLLPANE ************************************************************************/
+
+	private static void configureJScrollPane(JScrollPane scrollPane) {
+		scrollPane.setOpaque(false);
+		scrollPane.getViewport().setOpaque(false);
+		scrollPane.setBorder(BorderFactory.createLineBorder(Color.GREEN, 0));
+	}
+
+	/************************************************************************ CONFIGURATION JCOMBOBOX ************************************************************************/
+
+	private static void configureComboBox(JComboBox<String> elem) {
+		elem.setFont(new Font("Ancient Modern Tales", Font.ITALIC, 25));
+		/* Centrer les éléments */
+		elem.setRenderer(new DefaultListCellRenderer() {
+			@Override
+			public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+				JLabel lbl = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+				lbl.setHorizontalAlignment(SwingConstants.CENTER);
+				return lbl;
+			}
+		});
+	}
+
+	/************************************************************************ CONFIGURATION HIDDENLABEL ************************************************************************/
+
+	private static void configureHiddenLabel(JLabel elem) {
+		elem.setVisible(false);
+		elem.setFont(new Font("Ancient Modern Tales", Font.PLAIN, 20));
+		elem.setHorizontalAlignment(SwingConstants.CENTER);
+	}
+
+	/************************************************************************ WRAPPER BUTTON ************************************************************************/
+
+	private static JPanel wrapperButtonGenerator(RoundedImageButton elem, int top, int left, int bottom, int right) {
+		JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		wrapper.setOpaque(false);
+		wrapper.add(elem);
+		elem.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createLineBorder(Color.GREEN, 0),
+				BorderFactory.createEmptyBorder(top, left, bottom, right)
+		));
+		wrapper.setMaximumSize(new Dimension(Integer.MAX_VALUE, elem.getPreferredSize().height));
+
+		return wrapper;
+	}
+
+	/************************************************************************ WRAPPER COMBOBOX ************************************************************************/
+
+	private static JPanel wrapperComboBoxGenerator(JComboBox<String> elem, int top, int left, int bottom, int right) {
+		JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		wrapper.setOpaque(false);
+		wrapper.add(elem);
+		wrapper.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createLineBorder(Color.ORANGE, 0),
+				BorderFactory.createEmptyBorder(10, 10, 10, 10)
+		));
+		wrapper.setMaximumSize(new Dimension(Integer.MAX_VALUE, elem.getPreferredSize().height + 40));
+
+		return wrapper;
+	}
+
+	/************************************************************************ WRAPPER LABEL ************************************************************************/
+
+	private static JPanel wrapperLabelGenerator(JLabel elem, int top, int left, int bottom, int right, boolean setSize) {
+		JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		wrapper.setOpaque(false);
+		wrapper.add(elem);
+		wrapper.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createLineBorder(Color.BLACK, 0),
+				BorderFactory.createEmptyBorder(top, left, bottom, right)
+		));
+		if (setSize)
+			wrapper.setMaximumSize(new Dimension(Integer.MAX_VALUE, elem.getPreferredSize().height));
+
+		return wrapper;
+	}
+
+	/************************************************************************ UPDATE COMBOBOX METHOD ************************************************************************/
+
+		// Mets à jour le modèle de la combo box existante
+	public static void updateHeroComboBox(Game rpg) {
+		if (choiceComboBox != null) {
+			choiceComboBox.setModel(new DefaultComboBoxModel<>(rpg.getHeroesNameList().toArray(new String[0])));
+		}
+	}
+
+	/************************************************************************ VIEW PAGE BUILDER METHOD ************************************************************************/
+
+	public static JPanel createViewPage(String title, CardLayout cardLayout, JPanel cardPanel, ImageIcon icon, Game rpg) {
+
+		// --- Panel à retourner ---
+		JPanel panel = new JPanel(new BorderLayout());
+		panel.setOpaque(false);
+		panel.setBorder(BorderFactory.createLineBorder(Color.RED, 0));
+
+		// --- Zone verticale principale ---
+		JPanel base = createBaseStructure();
+		panel.add(base, BorderLayout.CENTER);
+
+		// --- Label Titre ---
+		JLabel titleLabel = new JLabel(title);
+		titleLabel.setFont(new Font("Ancient Modern Tales", Font.BOLD, 60));
+
+		JPanel titleLabelWrapper = wrapperLabelGenerator(titleLabel, 60, 0, 20, 0, true);
+		base.add(titleLabelWrapper);
+
+		// --- Label Hero ---
+		JLabel nameLabel = new JLabel("<html><div align=center>"
+				+ "<span style='font-size:10px;'>ᛁᚾ ᛖᚲᛊᛈᛚᛟᚱᛖᛁ ᛞᛖᛊᛏᛁᚾᛁ ᛏᚺᛖ ᚨᛞᚢᛖ </span>"
+				+ " - Choose a hero -"
+				+ "<span style='font-size:10px;'> ᚾ ᛖᚲᛊᛈᛚᛟᚱᛖᛁ ᛞᛖᛊᛏᛁᚾᛁ ᛏᚺᛖ ᚨᛞᚢᛖ</span>"
+				+ "</div></html>");
+		nameLabel.setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
+
+		JPanel nameLabelWrapper = wrapperLabelGenerator(nameLabel, 10, 10, 10, 10, true);
+		base.add(nameLabelWrapper);
+
+		// --- Combobox ---
+		if (choiceComboBox == null) {
+			String[] array = rpg.getHeroesNameList().toArray(new String[0]);
+			choiceComboBox = new JComboBox<>(array);
+			configureComboBox(choiceComboBox);
+			JPanel choiceWrapper = wrapperComboBoxGenerator(choiceComboBox, 10, 10, 10, 10);
+			base.add(choiceWrapper);
+		} else {
+			updateHeroComboBox(rpg);
+		}
+
+		// --- Label Hidden ---
+		JLabel hiddenNameLabel = new JLabel(" ");
+		configureHiddenLabel(hiddenNameLabel);
+
+		JPanel hiddenNameLabelWrapper = wrapperLabelGenerator(hiddenNameLabel, 20, 0, 0, 0, false);
+
+		// Création du JScrollPane autour du label
+		JScrollPane scrollPane = new JScrollPane(hiddenNameLabel);
+		// scrollPane.setOpaque(false);
+		// scrollPane.getViewport().setOpaque(false);
+		// scrollPane.setBorder(BorderFactory.createLineBorder(Color.GREEN, 0));
+		configureJScrollPane(scrollPane);
+
+		// --- Button Confirm ---
+		RoundedImageButton btnConfirm = new RoundedImageButton("Confirm", icon);
+		String selectedName = (String) choiceComboBox.getSelectedItem();
+		configureConfirmButton(btnConfirm, selectedName, choiceComboBox, hiddenNameLabel, hiddenNameLabelWrapper, base, rpg);
+
+		RoundedImageButton btnDelete = new RoundedImageButton("Delete", icon);
+		configureDeleteButton(btnDelete, rpg, hiddenNameLabel, hiddenNameLabelWrapper, base);
 
 		// Panel pour contenir les deux boutons côte à côte
 		JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));

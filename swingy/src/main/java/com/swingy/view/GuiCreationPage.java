@@ -196,7 +196,9 @@ public class GuiCreationPage {
 
 		// --- Label Name ---
 		JLabel nameLabel = new JLabel("<html><div align=center>"
-				+ "ᛁᚾ ᛖᚲᛊᛈᛚᛟᚱᛖ - Choose a name - ᛁᚾ ᚨᛖᚲᛊᛈᛚᛟᚱᛖ"
+				+ "<span style='font-size:10px;'>ᛁᚾ ᛖᚲᛊᛈᛚᛟᚱᛖᛁ ᛞᛖᛊᛏᛁᚾᛁ ᛏᚺᛖ ᚨᛞᚢᛖ </span>"
+				+ " - Choose a name -"
+				+ "<span style='font-size:10px;'> ᚾ ᛖᚲᛊᛈᛚᛟᚱᛖᛁ ᛞᛖᛊᛏᛁᚾᛁ ᛏᚺᛖ ᚨᛞᚢᛖ</span>"
 				+ "</div></html>");
 		nameLabel.setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
 
@@ -212,7 +214,9 @@ public class GuiCreationPage {
 
 		// --- Label Class ---
 		JLabel classType = new JLabel("<html><div align=center>"
-				+ "ᛁᚾ ᛖᚲᛊᛈᛚᛟᚱᛖ - Select a class - ᛁᚾ ᚨᛖᚲᛊᛈᛚᛟᚱᛖ"
+				+ "<span style='font-size:10px;'>ᛁᚾ ᛖᚲᛊᛈᛚᛟᚱᛖᛁ ᛞᛖᛊᛏᛁᚾᛁ ᛏᚺᛖ ᚨᛞᚢᛖ </span>"
+				+ " - Select a class -"
+				+ "<span style='font-size:10px;'> ᚾ ᛖᚲᛊᛈᛚᛟᚱᛖᛁ ᛞᛖᛊᛏᛁᚾᛁ ᛏᚺᛖ ᚨᛞᚢᛖ</span>"
 				+ "</div></html>");
 		classType.setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
 
