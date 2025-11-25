@@ -1,0 +1,4 @@
++ Create a method to change font size instead of loading a new Font!
++ Create an abstact class for application's pages!
++ Find a solution to dl the right font while compiling!
++ In: GuiMainWindow.java -> exit proprely if fail to load tokens!
