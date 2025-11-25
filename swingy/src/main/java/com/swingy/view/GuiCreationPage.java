@@ -30,7 +30,7 @@ import java.util.Set;
 
 public class GuiCreationPage {
 
-	/* ---------------------- METHOD FOR CREATION_PAGE CREATION ----------------------*/
+	/************************************************************************ CONFIGURATION CONFIRM BUTTON ************************************************************************/
 
 	private static void configureConfirmButton (RoundedImageButton elem, JTextField inputName, JComboBox<String> choiceComboBox, JLabel hiddenNameLabel, JPanel hiddenNameLabelWrapper, JPanel base, Game rpg) {
 		elem.setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
@@ -90,11 +90,15 @@ public class GuiCreationPage {
 		});
 	}
 
+	/************************************************************************ CONFIGURATION HIDDEN LABEL ************************************************************************/
+
 	private static void configureHiddenLabel(JLabel elem) {
 		elem.setVisible(false);
 		elem.setFont(new Font("Ancient Modern Tales", Font.PLAIN, 20));
 		elem.setHorizontalAlignment(SwingConstants.CENTER);
 	}
+
+	/************************************************************************ CONFIGURATION COMBOBOX ************************************************************************/
 
 	private static void configureComboBox(JComboBox<String> elem) {
 		elem.setFont(new Font("Ancient Modern Tales", Font.ITALIC, 25));
@@ -109,6 +113,8 @@ public class GuiCreationPage {
 		});
 	}
 
+	/************************************************************************ CONFIGURATION JTEXTFIELD ************************************************************************/
+
 	private static void configureJTextField(JTextField elem) {
 		elem.setOpaque(false);
 		elem.setFont(new Font("Ancient Modern Tales", Font.ITALIC, 25));
@@ -116,6 +122,7 @@ public class GuiCreationPage {
 		elem.setHorizontalAlignment(JTextField.CENTER);
 	}
 
+	/************************************************************************ WRAPPER BUTTON ************************************************************************/
 
 	private static JPanel wrapperButtonGenerator(RoundedImageButton elem, int top, int left, int bottom, int right) {
 		JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
@@ -130,6 +137,8 @@ public class GuiCreationPage {
 		return wrapper;
 	}
 
+	/************************************************************************ WRAPPER COMBOBOX ************************************************************************/
+
 	private static JPanel wrapperComboBoxGenerator(JComboBox<String> elem, int top, int left, int bottom, int right) {
 		JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		wrapper.setOpaque(false);
@@ -143,6 +152,8 @@ public class GuiCreationPage {
 		return wrapper;
 	}
 
+	/************************************************************************ WRAPPER JTEXTFIELD ************************************************************************/
+
 	private static JPanel wrapperJTextFieldGenerator(JTextField elem) {
 		JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		wrapper.setOpaque(false);
@@ -152,6 +163,8 @@ public class GuiCreationPage {
 
 		return wrapper;
 	}
+
+	/************************************************************************ WRAPPER LABEL ************************************************************************/
 
 	private static JPanel wrapperLabelGenerator(JLabel elem, int top, int left, int bottom, int right, boolean setSize) {
 		JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
@@ -167,6 +180,8 @@ public class GuiCreationPage {
 		return wrapper;
 	}
 
+	/************************************************************************ METHOD BASE STRUCTURE BUILDER ************************************************************************/
+
 	private static JPanel createBaseStructure() {
 		JPanel content = new JPanel();
 		content.setOpaque(false);
@@ -175,6 +190,8 @@ public class GuiCreationPage {
 
 		return content;
 	}
+
+	/************************************************************************ CREATION PAGE BUIDER METHOD ************************************************************************/
 
 	public static JPanel createCreationPage(String title, CardLayout cardLayout, JPanel cardPanel, ImageIcon icon, Game rpg) {
 

@@ -8,13 +8,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.swingy.controller.Export;
-import com.swingy.utils.LabelAnimator;
-import com.swingy.view.components.FadingLabel;
 import com.swingy.view.components.RoundedImageButton;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -24,7 +21,43 @@ import com.swingy.controller.Game;
 
 public class GuiMainMenuPage {
 
-	/* ---------------------- METHOD FOR MAIN MENU PAGE CREATION ----------------------*/
+	/************************************************************************ WRAPPER BUTTONS ************************************************************************/
+
+	private static JPanel wrapperButtonGenerator(RoundedImageButton btnCreate, RoundedImageButton btnSelect, RoundedImageButton btnPlay, RoundedImageButton btnExit) {
+		JPanel wrapper = new JPanel();
+		wrapper.setLayout(new BoxLayout(wrapper, BoxLayout.Y_AXIS));
+		wrapper.setOpaque(false);
+
+		btnCreate.setAlignmentX(Component.CENTER_ALIGNMENT);
+		btnSelect.setAlignmentX(Component.CENTER_ALIGNMENT);
+		btnPlay.setAlignmentX(Component.CENTER_ALIGNMENT);
+		btnExit.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+		wrapper.add(btnCreate);
+		wrapper.add(Box.createRigidArea(new Dimension(0, 20)));
+		wrapper.add(btnSelect);
+		wrapper.add(Box.createRigidArea(new Dimension(0, 20)));
+		wrapper.add(btnPlay);
+		wrapper.add(Box.createRigidArea(new Dimension(0, 20)));
+		wrapper.add(btnExit);
+		wrapper.setBorder(BorderFactory.createEmptyBorder(10, 0, 150, 0));
+
+		return wrapper;
+	}
+
+	/************************************************************************ WRAPPER LABEL ************************************************************************/
+
+	private static JPanel wrapperLabelGenerator(JLabel elem, int top, int left, int bottom, int right, boolean setBorder) {
+		JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		wrapper.setOpaque(false);
+		wrapper.add(elem);
+		if (setBorder)
+			wrapper.setBorder(BorderFactory.createEmptyBorder(top, left, bottom, right));
+
+		return wrapper;
+	}
+
+	/************************************************************************ CONFIGURATION BUTTONS ************************************************************************/
 
 	private static void configButtons(RoundedImageButton btn, Dimension size) {
 		btn.setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
@@ -33,28 +66,24 @@ public class GuiMainMenuPage {
 		btn.setMaximumSize(size);
 	}
 
+	/************************************************************************ MAIN MENU PAGE BUILDER METHOD ************************************************************************/
+
 	public static JPanel createPageMainMenu(ImageIcon icon, JPanel cardPanel, CardLayout cardLayout, Game rpg) {
 
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.setOpaque(false);
-		// panel.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
 
 		// --- Zone Verticale principale (au CENTRE) ---
 		JPanel content = new JPanel();
 		content.setOpaque(false);
 		content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
-		// content.setBorder(BorderFactory.createLineBorder(Color.GREEN, 2));
 		panel.add(content, BorderLayout.CENTER);
 
 		// --- Titre ---
 		JLabel label = new JLabel("Main Menu");
 		label.setFont(new Font("Ancient Modern Tales", Font.BOLD, 60));
-		// label.setBorder(BorderFactory.createLineBorder(Color.BLUE, 2));
 
-		JPanel labelWrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		labelWrapper.setOpaque(false);
-		labelWrapper.add(label);
-		labelWrapper.setBorder(BorderFactory.createEmptyBorder(60, 20, 0, 20));
+		JPanel labelWrapper = wrapperLabelGenerator(label, 60, 20, 0, 20, true);
 		content.add(labelWrapper);
 
 		// --- Description ---
@@ -68,9 +97,7 @@ public class GuiMainMenuPage {
 		);
 		description.setFont(new Font("Ancient Modern Tales", Font.ITALIC, 25));
 
-		JPanel descWrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		descWrapper.setOpaque(false);
-		descWrapper.add(description);
+		JPanel descWrapper = wrapperLabelGenerator(description, 0, 0, 0, 0, false);
 		content.add(descWrapper);
 
 		// --- Buttons ---
@@ -94,24 +121,7 @@ public class GuiMainMenuPage {
 			System.exit(0);
 		});
 
-		JPanel btnWrapper = new JPanel();
-		btnWrapper.setLayout(new BoxLayout(btnWrapper, BoxLayout.Y_AXIS));
-		btnWrapper.setOpaque(false);
-
-		btnCreate.setAlignmentX(Component.CENTER_ALIGNMENT);
-		btnSelect.setAlignmentX(Component.CENTER_ALIGNMENT);
-		btnPlay.setAlignmentX(Component.CENTER_ALIGNMENT);
-		btnExit.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-		btnWrapper.add(btnCreate);
-		btnWrapper.add(Box.createRigidArea(new Dimension(0, 20)));
-		btnWrapper.add(btnSelect);
-		btnWrapper.add(Box.createRigidArea(new Dimension(0, 20)));
-		btnWrapper.add(btnPlay);
-		btnWrapper.add(Box.createRigidArea(new Dimension(0, 20)));
-		btnWrapper.add(btnExit);
-		btnWrapper.setBorder(BorderFactory.createEmptyBorder(10, 0, 150, 0));
-
+		JPanel btnWrapper = wrapperButtonGenerator(btnCreate, btnSelect, btnPlay, btnExit);
 		content.add(btnWrapper, BorderLayout.CENTER);
 
 		// --- Texte bas ---
@@ -123,9 +133,7 @@ public class GuiMainMenuPage {
 		);
 		runes.setFont(new Font("Ancient Modern Tales", Font.BOLD, 14));
 
-		JPanel runesWrapper = new JPanel();
-		runesWrapper.setOpaque(false);
-		runesWrapper.add(runes);
+		JPanel runesWrapper = wrapperLabelGenerator(runes, 0, 0, 0, 0, false);
 		content.add(runesWrapper, BorderLayout.SOUTH);
 
 		return panel;

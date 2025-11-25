@@ -19,6 +19,8 @@ public class GuiMainWindow extends JFrame {
 	private Map<String, ImageIcon> listToken = new HashMap<>();
 	private Game rpg;
 
+	/************************************************************************ INIT TOKENS METHOD ************************************************************************/
+
 	private void initTokens() {
 		String[] tokenPaths = {
 			"/Araignee_geante_token.png",
@@ -39,13 +41,13 @@ public class GuiMainWindow extends JFrame {
 				listToken.put(name, icon);
 			} catch (IOException e) {
 				e.printStackTrace();
-				// fail so exit !
 			}
 		}
 	}
 
+	/************************************************************************ CONSTRUCTOR ************************************************************************/
+
 	public GuiMainWindow(Game rpg) throws IOException {
-		// --- Init ---
 		this.rpg = rpg;
 		initTokens();
 
@@ -58,39 +60,42 @@ public class GuiMainWindow extends JFrame {
 
 		// Création du panel fond parchemin
 		BackgroundPanel backgroundPanel = new BackgroundPanel(ImageIO.read(getClass().getResourceAsStream("/parchment.jpeg")));
-		backgroundPanel.setLayout(new BorderLayout()); // pour placer d autres elements dessus
+		backgroundPanel.setLayout(new BorderLayout());
 
 		// Création du CardLayout
 		cardLayout = new CardLayout(); // gestionnaire agencemment pour afficher une page a la fois
 		cardPanel = new JPanel(cardLayout);
-		cardPanel.setOpaque(false);  // IMPORTANT : le panel de cartes doit être transparent
+		cardPanel.setOpaque(false);
 
-		// Création des pages, toutes transparentes
+		// Chargement des images pour les boutons customs
 		ImageIcon iconTest = new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/test_button.png")));
 		ImageIcon iconButton = new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/test_button.png")));
+
+		// Création des pages, toutes transparentes
 		JPanel welcomePage = GuiWelcomePage.createPageWelcome("RetroRPG", cardLayout, cardPanel, iconTest, listToken);
 		JPanel mainMenuPage = GuiMainMenuPage.createPageMainMenu(iconButton, cardPanel, cardLayout, rpg);
-		// JPanel createPage = createPageTest("Creation");
 		JPanel createPage = GuiCreationPage.createCreationPage("New Hero", cardLayout, cardPanel, iconTest, rpg);
 		JPanel displayPage = GuiHeroManagerPage.createViewPage("Heroes", cardLayout, cardPanel, iconTest, rpg);
 		JPanel playPage = createPageTest("Play");
-		JPanel exitPage = createPageTest("Exit");
 
+		// ajout des pages au cardPanel
 		cardPanel.add(welcomePage, "welcome");
 		cardPanel.add(mainMenuPage, "main_menu");
 		cardPanel.add(createPage, "create");
 		cardPanel.add(displayPage, "display");
 		cardPanel.add(playPage, "play");
-		cardPanel.add(exitPage, "exit");
 
-		// Ajout du cardPanel dans le backgroundPanel (avec fond parchemin)
+		// Ajout du cardPanel dans le backgroundPanel
 		backgroundPanel.add(cardPanel, BorderLayout.CENTER);
 
 		// Définir backgroundPanel comme content pane
 		setContentPane(backgroundPanel);
 
+		// Affiche la premiere page
 		cardLayout.show(cardPanel, "welcome");
 	}
+
+	/************************************************************************ PAGES TEST BUILDER METHOD ************************************************************************/
 
 	private JPanel createPageTest(String title) {
 		JPanel panel = new JPanel(new BorderLayout());
@@ -113,6 +118,8 @@ public class GuiMainWindow extends JFrame {
 
 		return panel;
 	}
+
+	/************************************************************************ GETTERS ************************************************************************/
 
 	public CardLayout getCardLayout() {return this.cardLayout;}
 	public JPanel getCardPanel() {return this.cardPanel;}

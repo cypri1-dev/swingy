@@ -25,30 +25,53 @@ import java.util.Collections;
 
 public class GuiWelcomePage {
 
-	/* ---------------------- METHOD FOR WELCOME_PAGE CREATION ----------------------*/
+	/************************************************************************ CONFIGURATION PANEL TOKENS ************************************************************************/
+
+	private static void configureButton(RoundedImageButton btn, CardLayout cardLayout, JPanel cardPanel) {
+		btn.setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
+		btn.setPreferredSize(new Dimension(152, 52));
+		btn.addActionListener(e -> cardLayout.show(cardPanel, "main_menu"));
+	}
+
+	/************************************************************************ CONFIGURATION PANEL TOKENS ************************************************************************/
+
+	private static void configurePanelTokens(JPanel elem) {
+		elem.setOpaque(false);
+		elem.setLayout(new BoxLayout(elem, BoxLayout.Y_AXIS));
+		elem.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+		elem.setPreferredSize(new Dimension(400, 500));
+	}
+
+	/************************************************************************ WRAPPER LABEL ************************************************************************/
+
+	private static JPanel wrapperLabelGenerator(JLabel elem, int top, int left, int bottom, int right, boolean setBorder) {
+		JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		wrapper.setOpaque(false);
+		wrapper.add(elem);
+		if (setBorder)
+			wrapper.setBorder(BorderFactory.createEmptyBorder(top, left, bottom, right));
+
+		return wrapper;
+	}
+
+	/************************************************************************ WELCOME PAGE BUILDER METHOD ************************************************************************/
 
 	public static JPanel createPageWelcome(String title, CardLayout cardLayout, JPanel cardPanel, ImageIcon icon, Map<String, ImageIcon> listToken) {
 
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.setOpaque(false);
-		// panel.setBorder(BorderFactory.createLineBorder(Color.RED, 2));  // DEBUG
 
 		// --- Zone verticale principale (au CENTRE) ---
 		JPanel content = new JPanel();
 		content.setOpaque(false);
 		content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
-		// content.setBorder(BorderFactory.createLineBorder(Color.GREEN, 2));  // DEBUG
 		panel.add(content, BorderLayout.CENTER);
 
 		// --- Titre ---
 		JLabel label = new JLabel(title);
 		label.setFont(new Font("Ancient Modern Tales", Font.BOLD, 60));
-		// label.setBorder(BorderFactory.createLineBorder(Color.BLUE, 2)); // debug
 
-		JPanel labelWrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		labelWrapper.setOpaque(false);
-		labelWrapper.add(label);
-		labelWrapper.setBorder(BorderFactory.createEmptyBorder(60, 20, 50, 20));
+		JPanel labelWrapper = wrapperLabelGenerator(label, 60, 20, 50, 20, true);
 		content.add(labelWrapper);
 
 		// --- Description ---
@@ -60,24 +83,13 @@ public class GuiWelcomePage {
 			+ "</div></html>"
 		);
 		description.setFont(new Font("Ancient Modern Tales", Font.ITALIC, 30));
-		// description.setBorder(BorderFactory.createLineBorder(Color.ORANGE, 2));
 
-		JPanel descWrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		descWrapper.setOpaque(false);
-		descWrapper.add(description);
-		descWrapper.setBorder(BorderFactory.createEmptyBorder(0, 0, 60, 0));
+		JPanel descWrapper = wrapperLabelGenerator(description, 0, 0, 60, 0, true);
 		content.add(descWrapper);
 
 		// --- Tokens ---
 		JPanel tokenContent = new JPanel();
-		tokenContent.setOpaque(false);
-		tokenContent.setLayout(new BoxLayout(tokenContent, BoxLayout.Y_AXIS));
-		tokenContent.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-		// tokenContent.setBorder(BorderFactory.createCompoundBorder(
-		// 	BorderFactory.createLineBorder(Color.BLACK, 2),
-		// 	BorderFactory.createEmptyBorder(0, 0, 0, 0)
-		// ));
-		tokenContent.setPreferredSize(new Dimension(400, 500)); // largeur x hauteur
+		configurePanelTokens(tokenContent);
 
 		ImageIcon iconSpider = listToken.get("Araignee_geante");
 		ImageIcon iconSkull = listToken.get("Cranefeu");
@@ -100,7 +112,7 @@ public class GuiWelcomePage {
 		Collections.shuffle(tokenList);
 		tokenList.toArray(tokens);
 		TokenAnimator.fadeTokensSequentially(tokens);
-		
+
 		JPanel tokenWrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		tokenWrapper.setOpaque(false);
 		tokenWrapper.add(tokenSpider);
@@ -116,15 +128,11 @@ public class GuiWelcomePage {
 
 		// --- Bouton en bas ---
 		RoundedImageButton btn = new RoundedImageButton("Enter Game", icon);
-		btn.setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
-		btn.setPreferredSize(new Dimension(152, 52));
-		btn.addActionListener(e -> cardLayout.show(cardPanel, "main_menu"));
-		// btn.setBorder(BorderFactory.createLineBorder(Color.MAGENTA, 2)); // DEBUG
+		configureButton(btn, cardLayout, cardPanel);
 
 		JPanel bottom = new JPanel();
 		bottom.setOpaque(false);
 		bottom.setBorder(BorderFactory.createEmptyBorder(0, 0, 40, 0));
-		// bottom.setBorder(BorderFactory.createLineBorder(Color.CYAN, 2)); // DEBUG
 		bottom.add(btn);
 		panel.add(bottom, BorderLayout.SOUTH);
 		LabelAnimator.animateLabel(description);
