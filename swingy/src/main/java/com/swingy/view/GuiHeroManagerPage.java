@@ -174,6 +174,7 @@ public class GuiHeroManagerPage {
 					rpg.getListAvaible().remove(target);
 				}
 				updateHeroComboBox(rpg);
+				GuiPlayPage.updateHeroComboBox(rpg);
 				hiddenNameLabel.setText("<html><div style='color:red; text-align:center;'>Hero deleted!</div></html>");
 				hiddenNameLabel.setVisible(true);
 				hiddenNameLabelWrapper.repaint();
@@ -262,7 +263,7 @@ public class GuiHeroManagerPage {
 
 	/************************************************************************ UPDATE COMBOBOX METHOD ************************************************************************/
 
-		// Mets à jour le modèle de la combo box existante
+	// Mets à jour le modèle de la combo box existante
 	public static void updateHeroComboBox(Game rpg) {
 		if (choiceComboBox != null) {
 			choiceComboBox.setModel(new DefaultComboBoxModel<>(rpg.getHeroesNameList().toArray(new String[0])));
@@ -356,8 +357,10 @@ public class GuiHeroManagerPage {
 		panel.add(bottom, BorderLayout.SOUTH);
 
 		return panel;
-
 	}
 
+	/************************************************************************ GETTERS ************************************************************************/
+
+	public static JComboBox<String> getComboBox() {return choiceComboBox;}
 }
 

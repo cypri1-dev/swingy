@@ -67,7 +67,10 @@ public class GuiCreationPage {
 				String hp = Integer.toString(newHero.getMaxHitPoint());
 
 				rpg.getListAvaible().add(CharactersFactory.getInstance().newCharacters(HERO_TYPE, getName, characterClass));
+
 				GuiHeroManagerPage.updateHeroComboBox(rpg);
+				GuiPlayPage.updateHeroComboBox(rpg);
+				
 				txt = "<html><div align='center'>"
 					+ "NAME<br/>"
 					+ "<b style='font-size: 25px'>" + getName + "</b><br/><br/>"

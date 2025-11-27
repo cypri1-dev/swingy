@@ -31,7 +31,11 @@ public class GuiMainWindow extends JFrame {
 			"/manticore_token.png",
 			"/Orc_token.png",
 			"/Ozi_token.png",
-			"/volothamp_geddarm_token.png"
+			"/volothamp_geddarm_token.png",
+			"/token1_token.png",
+			"/token2_token.png",
+			"/token3_token.png",
+			"/token4_token.png"
 		};
 
 		for (String path : tokenPaths) {
@@ -76,7 +80,7 @@ public class GuiMainWindow extends JFrame {
 		JPanel mainMenuPage = GuiMainMenuPage.createPageMainMenu(iconButton, cardPanel, cardLayout, rpg);
 		JPanel createPage = GuiCreationPage.createCreationPage("New Hero", cardLayout, cardPanel, iconTest, rpg);
 		JPanel displayPage = GuiHeroManagerPage.createViewPage("Heroes", cardLayout, cardPanel, iconTest, rpg);
-		JPanel playPage = createPageTest("Play");
+		JPanel playPage = GuiPlayPage.createPlayPage("Game", cardLayout, cardPanel, iconButton, listToken, rpg);
 
 		// ajout des pages au cardPanel
 		cardPanel.add(welcomePage, "welcome");
@@ -93,30 +97,6 @@ public class GuiMainWindow extends JFrame {
 
 		// Affiche la premiere page
 		cardLayout.show(cardPanel, "welcome");
-	}
-
-	/************************************************************************ PAGES TEST BUILDER METHOD ************************************************************************/
-
-	private JPanel createPageTest(String title) {
-		JPanel panel = new JPanel(new BorderLayout());
-		panel.setOpaque(false);  // FOND TRANSPARENT pour laisser voir l'image
-
-		JLabel label = new JLabel(title, SwingConstants.CENTER);
-		label.setFont(new Font("Serif", Font.BOLD, 36));
-		// label.setForeground(Color.BLACK);
-		panel.add(label, BorderLayout.CENTER);
-
-		JButton switchButton = new JButton("Switch page");
-		switchButton.addActionListener(e -> {
-			if (title.equals("RetroRPG")) {
-				cardLayout.show(cardPanel, "main_menu");
-			} else {
-				cardLayout.show(cardPanel, "main_menu");
-			}
-		});
-		panel.add(switchButton, BorderLayout.SOUTH);
-
-		return panel;
 	}
 
 	/************************************************************************ GETTERS ************************************************************************/
