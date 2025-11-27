@@ -129,7 +129,7 @@ public class GuiPlayPage {
 
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.setOpaque(false);
-		panel.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+		panel.setBorder(BorderFactory.createLineBorder(Color.RED, 0));
 
 		JPanel base = createBaseStructure();
 		panel.add(base, BorderLayout.CENTER);
@@ -198,7 +198,7 @@ public class GuiPlayPage {
 				if (selected[0] != null)
 					selected[0].setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 				JLabel clicked = (JLabel) e.getSource();
-				clicked.setBorder(BorderFactory.createLineBorder(Color.GREEN, 3));
+				clicked.setBorder(BorderFactory.createLineBorder(Color.ORANGE, 2));
 				selected[0] = clicked;
 			}
 		};
