@@ -81,6 +81,7 @@ public class GuiMainWindow extends JFrame {
 		JPanel createPage = GuiCreationPage.createCreationPage("New Hero", cardLayout, cardPanel, iconTest, rpg);
 		JPanel displayPage = GuiHeroManagerPage.createViewPage("Heroes", cardLayout, cardPanel, iconTest, rpg);
 		JPanel playPage = GuiPlayPage.createPlayPage("Game", cardLayout, cardPanel, iconButton, listToken, rpg);
+		JPanel gamePage = GuiGamePage.createGamePage();
 
 		// ajout des pages au cardPanel
 		cardPanel.add(welcomePage, "welcome");
@@ -88,6 +89,7 @@ public class GuiMainWindow extends JFrame {
 		cardPanel.add(createPage, "create");
 		cardPanel.add(displayPage, "display");
 		cardPanel.add(playPage, "play");
+		cardPanel.add(gamePage, "game");
 
 		// Ajout du cardPanel dans le backgroundPanel
 		backgroundPanel.add(cardPanel, BorderLayout.CENTER);

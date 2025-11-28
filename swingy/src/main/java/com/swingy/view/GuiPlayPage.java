@@ -261,7 +261,7 @@ public class GuiPlayPage {
 		});
 
 		btnPlay.addActionListener(e -> {
-			cardLayout.show(cardPanel, "game_page");
+			cardLayout.show(cardPanel, "game");
 		});
 
 		JLabel runesBottom = new JLabel(
