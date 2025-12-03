@@ -226,6 +226,7 @@ public class GuiPlayPage {
 
 		btnConfirm.addActionListener(e -> {
 			String selectedHeroName = (String) choiceComboBox.getSelectedItem();
+
 			if (selectedHeroName == null) {
 				infoLabel.setText("<html><div style='color:red;'>Please select a hero.</div></html>");
 				return;
@@ -240,6 +241,7 @@ public class GuiPlayPage {
 			int level = 0;
 			for (Characters hero : rpg.getListAvaible()) {
 				if (selectedHeroName.equals(hero.getName())) {
+					rpg.setSelectedHero(hero);
 					level = hero.getLevel();
 					break;
 				}
@@ -261,6 +263,8 @@ public class GuiPlayPage {
 		});
 
 		btnPlay.addActionListener(e -> {
+			JPanel gamePage = GuiGamePage.createGamePage(rpg, cardLayout, cardPanel, icon);
+			cardPanel.add(gamePage, "game");
 			cardLayout.show(cardPanel, "game");
 		});
 
