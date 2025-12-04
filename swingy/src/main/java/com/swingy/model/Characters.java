@@ -7,6 +7,8 @@ import static com.swingy.utils.Constants.*;
 import com.swingy.controller.GameMovement;
 import com.swingy.view.DisplayController;
 
+import javax.swing.Icon;
+
 public class Characters {
 
 	private String type;
@@ -21,6 +23,7 @@ public class Characters {
 	private List<Artefact> bag;
 	private Coordinates coord;
 	private Knowledge knowledge;
+	private Icon token;
 
 	/* -------------------------------------------------- CONSTRUCTOR -------------------------------------------------- */
 
@@ -32,6 +35,7 @@ public class Characters {
 		this.bag = new ArrayList<Artefact>();
 		this.knowledge = Knowledge.getInstance();
 		this.coord = new Coordinates(0, 0);
+		this.token = null;
 
 		switch (characterClass) {
 			case WARRIOR_CLASS:
@@ -410,6 +414,7 @@ public class Characters {
 	public void setHitPoint(int hp) {this.hitPoint += hp;}
 	public void setMaxHitPoint(int hp) {this.maxHitPoint = hp;}
 	public void setHealHp(int hp) {this.hitPoint = hp;}
+	public void setToken(Icon token) {this.token = token;}
 
 	public String getName() {return this.name;}
 	public String getType() {return this.type;}
@@ -424,6 +429,7 @@ public class Characters {
 	public List<Artefact> getArtefacts() {return this.bag;}
 	public Coordinates getCoordinates() {return this.coord;}
 	public Knowledge getKnowledge() {return this.knowledge;}
+	public Icon getToken() {return this.token;}
 
 	/* -------------------------------------------------- CHARACTERS METHOD -------------------------------------------------- */
 
