@@ -2,13 +2,17 @@ package com.swingy.view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+
+import java.awt.image.BufferedImage;
 
 import com.swingy.controller.Game;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 import com.swingy.view.components.BackgroundPanel;
 
@@ -18,6 +22,7 @@ public class GuiMainWindow extends JFrame {
 	private JPanel cardPanel;
 	private Map<String, ImageIcon> listToken = new HashMap<>();
 	private Game rpg;
+	private static BufferedImage imgBackgroundMap;
 
 	/************************************************************************ INIT TOKENS METHOD ************************************************************************/
 
@@ -35,7 +40,15 @@ public class GuiMainWindow extends JFrame {
 			"/token1_token.png",
 			"/token2_token.png",
 			"/token3_token.png",
-			"/token4_token.png"
+			"/token4_token.png",
+			"/bandit_token.png",
+			"/bat_token.png",
+			"/gobelin_token.png",
+			"/mudling_token.png",
+			"/rat_token.png",
+			"/skeletal_hand_token.png",
+			"/slime_token.png",
+			"/spider_token.png"
 		};
 
 		for (String path : tokenPaths) {
@@ -46,6 +59,16 @@ public class GuiMainWindow extends JFrame {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		}
+
+		BufferedImage backgroundImage1 = null;
+		BufferedImage backgroundImage2 = null;
+		try {
+			backgroundImage1 = ImageIO.read(getClass().getResourceAsStream("/test_map.jpg"));
+			backgroundImage2 = ImageIO.read(getClass().getResourceAsStream("/test_map2.jpeg"));
+			this.imgBackgroundMap = backgroundImage2;
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -107,4 +130,10 @@ public class GuiMainWindow extends JFrame {
 	public JPanel getCardPanel() {return this.cardPanel;}
 	public Map<String, ImageIcon> getListTokens() {return this.listToken;}
 	public Game getGame() {return this.rpg;}
+	public static BufferedImage getImgBackgroundMap() {return imgBackgroundMap;}
+	// public static void setImgBackgroundMap() {
+	// 	int rdm = ThreadLocalRandom.current().nextInt(1, 3);
+	// 	if (rdm % 2 == 0)
+	// 			imgBackgroundMap = 
+	// }
 }
