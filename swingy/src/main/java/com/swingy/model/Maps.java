@@ -37,6 +37,7 @@ public class Maps {
 	public List<Artefact> getListConsommable() {return this.consommableList;}
 	public List<Characters> getListEnemies() { return this.enemiesList;}
 	public boolean getLevelCompleted() {return this.levelCompleted;}
+	public String[][] getMapTab() {return this.map;}
 	
 	public void setLevelCompleted(boolean state) {this.levelCompleted = state;}
 
