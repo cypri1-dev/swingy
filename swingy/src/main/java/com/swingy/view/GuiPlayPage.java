@@ -242,6 +242,7 @@ public class GuiPlayPage {
 			for (Characters hero : rpg.getListAvaible()) {
 				if (selectedHeroName.equals(hero.getName())) {
 					rpg.setSelectedHero(hero);
+					rpg.getMainHero().setToken(tokenIcon);
 					level = hero.getLevel();
 					break;
 				}
@@ -263,7 +264,7 @@ public class GuiPlayPage {
 		});
 
 		btnPlay.addActionListener(e -> {
-			JPanel gamePage = GuiGamePage.createGamePage(rpg, cardLayout, cardPanel, icon);
+			JPanel gamePage = GuiGamePage.createGamePage(rpg, cardLayout, cardPanel, listToken, icon);
 			cardPanel.add(gamePage, "game");
 			cardLayout.show(cardPanel, "game");
 		});
