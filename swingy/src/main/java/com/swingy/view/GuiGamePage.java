@@ -7,7 +7,9 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.SwingConstants;
 import javax.swing.plaf.basic.BasicTabbedPaneUI;
+import javax.swing.Icon;
 
 import com.swingy.controller.Game;
 import com.swingy.model.Artefact;
@@ -15,9 +17,12 @@ import com.swingy.model.Characters;
 import com.swingy.view.components.RoundedImageButton;
 
 import static com.swingy.utils.Constants.*;
+import com.swingy.model.Maps;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -25,7 +30,6 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Dimension;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -213,11 +217,31 @@ public class GuiGamePage {
 						hero.unequipArtefact(artefact);
 						artefact.setIsEquipped(false);
 					}
+					refreshInventory(rpg, baseInventory);
 				});
 			
 			JPanel wrapperCheckBox = wrapperCheckboxGenerator(checkBox, 0, 0, 0, 0);
 			baseInventory.add(wrapperCheckBox);
 		}
+	}
+
+	/************************************************************************ LOAD AND CONFIG TOKEN METHOD ************************************************************************/
+
+	private static void loadToken(Map<String, ImageIcon> listToken, JPanel cell, String nameEnemy) {
+		JLabel ratLabel = new JLabel(rescaleToken(listToken.get(nameEnemy)));
+		ratLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		ratLabel.setVerticalAlignment(SwingConstants.CENTER);
+		cell.add(ratLabel);
+	}
+
+
+	/************************************************************************ RESCALE TOKEN METHOD ************************************************************************/
+
+	private static Icon rescaleToken(Icon token) {
+		Image img = ((ImageIcon) token).getImage();
+		Image scaled = img.getScaledInstance(65, 65, Image.SCALE_SMOOTH);
+		Icon resizedToken = new ImageIcon(scaled);
+		return resizedToken;
 	}
 
 	/************************************************************************ BASE STRUCTURE ************************************************************************/
@@ -233,7 +257,7 @@ public class GuiGamePage {
 
 	/************************************************************************ GAME PAGE BUILDER ************************************************************************/
 
-	public static JPanel createGamePage(Game rpg, CardLayout cardLayout, JPanel cardPanel, ImageIcon icon) {
+	public static JPanel createGamePage(Game rpg, CardLayout cardLayout, JPanel cardPanel, Map<String, ImageIcon> listToken, ImageIcon icon) {
 
 		// Main panel
 		JPanel panel = new JPanel(new BorderLayout());
@@ -247,8 +271,7 @@ public class GuiGamePage {
 
 		tabPanel.setUI(new BasicTabbedPaneUI() {
 			@Override
-			protected void paintTabBackground(Graphics g, int tabPlacement, int tabIndex,
-											  int x, int y, int w, int h, boolean isSelected) {
+			protected void paintTabBackground(Graphics g, int tabPlacement, int tabIndex, int x, int y, int w, int h, boolean isSelected) {
 				g.setColor(new Color(0, 0, 0, 0));
 				g.fillRect(x, y, w, h);
 			}
@@ -259,14 +282,127 @@ public class GuiGamePage {
 
 		/****************************** TAB 1 — MAP ******************************/
 
-		JPanel map = new JPanel();
-		map.setOpaque(false);
-		map.setBackground(new Color(0, 0, 0, 0));
+		JPanel baseMap = createBaseStructure();
 
-		JLabel mapLabel = new JLabel("Map");
-		mapLabel.setFont(new Font("Ancient Modern Tales", Font.BOLD, 45));
-		mapLabel.setOpaque(false);
-		map.add(mapLabel);
+		// Title
+		JLabel titleMap = new JLabel("Map");
+		titleMap.setFont(new Font("Ancient Modern Tales", Font.BOLD, 45));
+
+		JPanel wrapperTitleMap = wrapperLabelGenerator(titleMap, 0, 0, 20, 0, true);
+		baseMap.add(wrapperTitleMap);
+
+		// --- TESTING MAP ---
+		rpg.placeHero(rpg.getMainHero());
+
+		Maps map = rpg.getMap();
+		String mapTab[][] = map.getMapTab();
+		int mapSize = map.getSize();
+
+		int viewportSize = 9;
+		int halfViewport = viewportSize / 2;
+
+		int heroX = rpg.getMainHero().getCoordinates().getX();
+		int heroY = rpg.getMainHero().getCoordinates().getY();
+
+		// Calcul bornes du viewport dans la map, en limitant aux bords
+		int startX = Math.max(0, heroX - halfViewport);
+		int startY = Math.max(0, heroY - halfViewport);
+		int endX = Math.min(mapSize - 1, heroX + halfViewport);
+		int endY = Math.min(mapSize - 1, heroY + halfViewport);
+
+		// Ajuster si la fenêtre est plus petite que 9 (proche bord)
+		if (endX - startX + 1 < viewportSize) {
+			if (startX == 0)
+				endX = viewportSize - 1;
+			else
+				startX = mapSize - viewportSize;
+		}
+		if (endY - startY + 1 < viewportSize) {
+			if (startY == 0)
+				endY = viewportSize - 1;
+			else
+				startY = mapSize - viewportSize;
+		}
+
+		// Créer une grille 9x9 fixe
+		JPanel grid = new JPanel(new GridLayout(viewportSize, viewportSize)) {
+			@Override
+			protected void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				if (GuiMainWindow.getImgBackgroundMap() != null) {
+					g.drawImage(GuiMainWindow.getImgBackgroundMap(), 0, 0, getWidth(), getHeight(), null);
+				}
+			}
+		};
+		grid.setOpaque(false);
+
+		for (int y = startY; y <= endY; y++) {
+			for (int x = startX; x <= endX; x++) {
+				JPanel cell = new JPanel();
+				cell.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
+				cell.setOpaque(false);
+
+				System.out.println("Symbol:[" + mapTab[x][y] + "] | x:" + x + " | y:" + y);
+
+				switch(mapTab[x][y]) {
+					case SYMBOL_MAIN_HERO:
+						JLabel heroLabel = new JLabel(rescaleToken(rpg.getMainHero().getToken()));
+						heroLabel.setHorizontalAlignment(SwingConstants.CENTER);
+						heroLabel.setVerticalAlignment(SwingConstants.CENTER);
+						cell.add(heroLabel);
+						break;
+
+					case SYMBOL_ENEMY_RAT: loadToken(listToken, cell, "rat"); break;
+					case SYMBOL_ENEMY_SLIME: loadToken(listToken, cell, "slime"); break;
+					case SYMBOL_ENEMY_GOBLIN: loadToken(listToken, cell, "gobelin"); break;
+					case SYMBOL_ENEMY_BANDIT: loadToken(listToken, cell, "bandit"); break;
+					case SYMBOL_ENEMY_BAT: loadToken(listToken, cell, "bat"); break;
+					case SYMBOL_ENEMY_SPIDERLING: loadToken(listToken, cell, "spider"); break;
+					case SYMBOL_ENEMY_SKELETAL_HAND: loadToken(listToken, cell, "skeletal_hand"); break;
+					case SYMBOL_ENEMY_MUDLING: loadToken(listToken, cell, "mudling"); break;
+
+					case SYMBOL_ENEMY_SKELETON: cell.setBackground(Color.ORANGE); break;
+					case SYMBOL_ENEMY_WOLF: cell.setBackground(Color.ORANGE); break;
+					case SYMBOL_ENEMY_CULTIST: cell.setBackground(Color.ORANGE); break;
+					case SYMBOL_ENEMY_ORC: cell.setBackground(Color.ORANGE); break;
+					case SYMBOL_ENEMY_BANDIT_CHIEF: cell.setBackground(Color.ORANGE); break;
+					case SYMBOL_ENEMY_GOBLIN_SHAMAN: cell.setBackground(Color.ORANGE); break;
+					case SYMBOL_ENEMY_WARG: cell.setBackground(Color.ORANGE); break;
+					case SYMBOL_ENEMY_GRAVE_ROBBER: cell.setBackground(Color.ORANGE); break;
+
+					case SYMBOL_ENEMY_DARK_MAGE: cell.setBackground(Color.RED); break;
+					case SYMBOL_ENEMY_ELEMENTAL: cell.setBackground(Color.RED); break;
+					case SYMBOL_ENEMY_TROLL: cell.setBackground(Color.RED); break;
+					case SYMBOL_ENEMY_ASSASSIN: cell.setBackground(Color.RED); break;
+					case SYMBOL_ENEMY_NECROMANCER: cell.setBackground(Color.RED); break;
+					case SYMBOL_ENEMY_WARLOCK: cell.setBackground(Color.RED); break;
+					case SYMBOL_ENEMY_SHADOW_BEAST: cell.setBackground(Color.RED); break;
+					case SYMBOL_ENEMY_GOLEM: cell.setBackground(Color.RED); break;
+
+					case SYMBOL_ENEMY_LICH: cell.setBackground(Color.YELLOW); break;
+					case SYMBOL_ENEMY_MINOTAUR: cell.setBackground(Color.YELLOW); break;
+					case SYMBOL_ENEMY_VAMPIRE_LORD: cell.setBackground(Color.YELLOW); break;
+					case SYMBOL_ENEMY_DEMON_KNIGHT: cell.setBackground(Color.YELLOW); break;
+					case SYMBOL_ENEMY_DREAD_KNIGHT: cell.setBackground(Color.YELLOW); break;
+					case SYMBOL_ENEMY_PLAGUE_BRINGER: cell.setBackground(Color.YELLOW); break;
+					case SYMBOL_ENEMY_PYROMANCER: cell.setBackground(Color.YELLOW); break;
+					case SYMBOL_ENEMY_SPECTER: cell.setBackground(Color.YELLOW); break;
+
+					case SYMBOL_ENEMY_DRAGON_WHELP: cell.setBackground(Color.PINK); break;
+					case SYMBOL_ENEMY_ANCIENT_DRAGON: cell.setBackground(Color.PINK); break;
+					case SYMBOL_ENEMY_ABYSSAL_HYDRA: cell.setBackground(Color.PINK); break;
+					case SYMBOL_ENEMY_FALLEN_GOD: cell.setBackground(Color.PINK); break;
+					case SYMBOL_ENEMY_DEMON_OVERLORD: cell.setBackground(Color.PINK); break;
+					case SYMBOL_ENEMY_TITAN: cell.setBackground(Color.PINK); break;
+					case SYMBOL_ENEMY_VOID_SERPENT: cell.setBackground(Color.PINK); break;
+					case SYMBOL_ENEMY_COSMIC_DRAGON: cell.setBackground(Color.PINK); break;
+
+					default: cell.setBackground(Color.LIGHT_GRAY); break;
+				}
+				grid.add(cell);
+			}
+		}
+		baseMap.add(grid);
 
 		/****************************** TAB 2 — INVENTORY ******************************/
 
@@ -308,7 +444,7 @@ public class GuiGamePage {
 		JLabel inventoryTabLabel = new JLabel("Inventory");
 		inventoryTabLabel.setFont(new Font("Ancient Modern Tales", Font.PLAIN, 20));
 
-		tabPanel.addTab("Map", map);
+		tabPanel.addTab("Map", baseMap);
 		tabPanel.setTabComponentAt(0, mapTabLabel);
 
 		tabPanel.addTab("Inventory", baseInventory);
@@ -322,13 +458,7 @@ public class GuiGamePage {
 		btn.setPreferredSize(new Dimension(150, 48));
 		btn.addActionListener(e -> cardLayout.show(cardPanel, "main_menu"));
 
-		// --- Button Refresh ---
-		RoundedImageButton btnRefresh = new RoundedImageButton("Refresh", icon);
-		btnRefresh.setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
-		btnRefresh.setPreferredSize(new Dimension(150, 48));
-		btnRefresh.addActionListener(e -> refreshInventory(rpg, baseInventory));
-
-		// --- Button Potion
+		// --- Button Potion ---
 		RoundedImageButton btnPotion = new RoundedImageButton("Use Potion", icon);
 		btnPotion.setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
 		btnPotion.setPreferredSize(new Dimension(150, 48));
@@ -336,9 +466,9 @@ public class GuiGamePage {
 
 		JPanel bottom = new JPanel();
 		bottom.setOpaque(false);
-		bottom.setBorder(BorderFactory.createEmptyBorder(0, 0, 40, 0));
+		bottom.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
 		bottom.add(btn);
-		bottom.add(btnRefresh);
+		// bottom.add(btnRefresh);
 		bottom.add(btnPotion);
 		panel.add(bottom, BorderLayout.SOUTH);
 
