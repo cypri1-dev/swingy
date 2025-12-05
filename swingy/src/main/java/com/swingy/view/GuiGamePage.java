@@ -319,13 +319,6 @@ public class GuiGamePage {
 						heroLabel.setVerticalAlignment(SwingConstants.CENTER);
 						cell.add(heroLabel);
 						break;
-					
-					case SYMBOL_ENEMY:
-						JLabel deadEnemyLabel = new JLabel(rescaleToken(rpg.getMainHero().getToken()));
-						deadEnemyLabel.setHorizontalAlignment(SwingConstants.CENTER);
-						deadEnemyLabel.setVerticalAlignment(SwingConstants.CENTER);
-						cell.add(deadEnemyLabel);
-						break;
 
 					case SYMBOL_ENEMY_RAT: loadToken(listToken, cell, "rat"); break;
 					case SYMBOL_ENEMY_SLIME: loadToken(listToken, cell, "slime"); break;

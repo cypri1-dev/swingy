@@ -34,18 +34,42 @@ public class GuiInputController {
 
 		bind(panel, "UP", () -> {
 			movement.moveWest(hero, map, menu);
+			if (map.getLevelCompleted()) {
+				System.out.println("[GG]: LvL completed!");
+				panel.remove(grid);
+				panel.revalidate();
+				panel.repaint();
+			}
 			GuiGamePage.updateMap(rpg, listToken, grid);
 		});
 		bind(panel, "DOWN", () -> {
 			movement.moveEast(hero, map, menu);
+			if (map.getLevelCompleted()) {
+				System.out.println("[GG]: LvL completed!");
+				panel.remove(grid);
+				panel.revalidate();
+				panel.repaint();
+			}
 			GuiGamePage.updateMap(rpg, listToken, grid);
 		});
 		bind(panel, "LEFT", () -> {
 			movement.moveNorth(hero, map, menu);
+			if (map.getLevelCompleted()) {
+				System.out.println("[GG]: LvL completed!");
+				panel.remove(grid);
+				panel.revalidate();
+				panel.repaint();
+			}
 			GuiGamePage.updateMap(rpg, listToken, grid);
 		});
 		bind(panel, "RIGHT", () -> {
 			movement.moveSouth(hero, map, menu);
+			if (map.getLevelCompleted()) {
+				System.out.println("[GG]: LvL completed!");
+				panel.remove(grid);
+				panel.revalidate();
+				panel.repaint();
+			}
 			GuiGamePage.updateMap(rpg, listToken, grid);
 		});
 	}
