@@ -5,6 +5,8 @@ import com.swingy.model.Characters;
 import com.swingy.model.Maps;
 import com.swingy.view.DisplayController;
 
+import java.util.Iterator;
+
 import static com.swingy.utils.Constants.*;
 
 public class GameMovement {
@@ -17,19 +19,25 @@ public class GameMovement {
 			map.map[hero.getCoordinates().getPrevX()][hero.getCoordinates().getPrevY()] = BLUE + "*" + RESET;
 		}
 
-		for (Characters enemy : map.getListEnemies()) {
-			if (hero.getCoordinates().getX() == enemy.getCoordinates().getX() && hero.getCoordinates().getY() == enemy.getCoordinates().getY()) {
+		Iterator<Characters> iterator = map.getListEnemies().iterator();
+		while (iterator.hasNext()) {
+			Characters enemy = iterator.next();
+			if (hero.getCoordinates().getX() == enemy.getCoordinates().getX() &&
+				hero.getCoordinates().getY() == enemy.getCoordinates().getY()) {
 
 				FightLogic.fight(enemy, hero, menu);
-				map.map[hero.getCoordinates().getX()][hero.getCoordinates().getY()] = BLUE + "!" + RESET;
-				map.getListEnemies().remove(enemy);
+
+				iterator.remove();  // Suppression sécurisée
+
+				map.map[hero.getCoordinates().getX()][hero.getCoordinates().getY()] = SYMBOL_MAIN_HERO;
+
 				return;
 			}
 		}
-		if (map.map[hero.getCoordinates().getX()][hero.getCoordinates().getY()].contains("!"))
-			;
-		else
+
+		if (!map.map[hero.getCoordinates().getX()][hero.getCoordinates().getY()].contains("!")) {
 			map.map[hero.getCoordinates().getX()][hero.getCoordinates().getY()] = SYMBOL_MAIN_HERO;
+		}
 	}
 
 	/* -------------------------------------------------- CHECK CONSOMMABLE METHOD -------------------------------------------------- */

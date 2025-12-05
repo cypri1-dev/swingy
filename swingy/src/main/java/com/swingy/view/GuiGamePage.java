@@ -12,6 +12,7 @@ import javax.swing.plaf.basic.BasicTabbedPaneUI;
 import javax.swing.Icon;
 
 import com.swingy.controller.Game;
+import com.swingy.controller.GuiInputController;
 import com.swingy.model.Artefact;
 import com.swingy.model.Characters;
 import com.swingy.view.components.RoundedImageButton;
@@ -270,47 +271,13 @@ public class GuiGamePage {
 		return content;
 	}
 
-	/************************************************************************ GAME PAGE BUILDER ************************************************************************/
+	/************************************************************************ DRAW MAP METHOD ************************************************************************/
 
-	public static JPanel createGamePage(Game rpg, CardLayout cardLayout, JPanel cardPanel, Map<String, ImageIcon> listToken, ImageIcon icon) {
-
-		// Main panel
-		JPanel panel = new JPanel(new BorderLayout());
-		panel.setOpaque(false);
-		panel.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
-
-		// Tabs container
-		JTabbedPane tabPanel = new JTabbedPane();
-		tabPanel.setOpaque(false);
-		tabPanel.setBackground(new Color(0, 0, 0, 0));
-
-		tabPanel.setUI(new BasicTabbedPaneUI() {
-			@Override
-			protected void paintTabBackground(Graphics g, int tabPlacement, int tabIndex, int x, int y, int w, int h, boolean isSelected) {
-				g.setColor(new Color(0, 0, 0, 0));
-				g.fillRect(x, y, w, h);
-			}
-
-			@Override
-			protected void paintContentBorder(Graphics g, int tabPlacement, int selectedIndex) { }
-		});
-
-		/****************************** TAB 1 — MAP ******************************/
-
-		JPanel baseMap = createBaseStructure();
-
-		// Title
-		JLabel titleMap = new JLabel("Map");
-		titleMap.setFont(new Font("Ancient Modern Tales", Font.BOLD, 45));
-
-		JPanel wrapperTitleMap = wrapperLabelGenerator(titleMap, 0, 0, 20, 0, true);
-		baseMap.add(wrapperTitleMap);
-
-		// --- TESTING MAP ---
-		rpg.placeHero(rpg.getMainHero());
+	private static void drawMap(Game rpg, Map<String, ImageIcon> listToken, JPanel grid) {
+		grid.removeAll();  // Vide la grille avant remplissage
 
 		Maps map = rpg.getMap();
-		String mapTab[][] = map.getMapTab();
+		String[][] mapTab = map.getMapTab();
 		int mapSize = map.getSize();
 
 		int viewportSize = 9;
@@ -339,33 +306,25 @@ public class GuiGamePage {
 				startY = mapSize - viewportSize;
 		}
 
-		// Créer une grille 9x9 fixe
-		BufferedImage bg = selectRandomBackground();
-		JPanel grid = new JPanel(new GridLayout(viewportSize, viewportSize)) {
-			@Override
-			protected void paintComponent(Graphics g) {
-				super.paintComponent(g);
-				if (bg != null) {
-					g.drawImage(bg, 0, 0, getWidth(), getHeight(), null);
-				}
-			}
-		};
-		grid.setOpaque(false);
-
 		for (int y = startY; y <= endY; y++) {
 			for (int x = startX; x <= endX; x++) {
 				JPanel cell = new JPanel();
 				cell.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
 				cell.setOpaque(false);
 
-				System.out.println("Symbol:[" + mapTab[x][y] + "] | x:" + x + " | y:" + y);
-
-				switch(mapTab[x][y]) {
+				switch (mapTab[x][y]) {
 					case SYMBOL_MAIN_HERO:
 						JLabel heroLabel = new JLabel(rescaleToken(rpg.getMainHero().getToken()));
 						heroLabel.setHorizontalAlignment(SwingConstants.CENTER);
 						heroLabel.setVerticalAlignment(SwingConstants.CENTER);
 						cell.add(heroLabel);
+						break;
+					
+					case SYMBOL_ENEMY:
+						JLabel deadEnemyLabel = new JLabel(rescaleToken(rpg.getMainHero().getToken()));
+						deadEnemyLabel.setHorizontalAlignment(SwingConstants.CENTER);
+						deadEnemyLabel.setVerticalAlignment(SwingConstants.CENTER);
+						cell.add(deadEnemyLabel);
 						break;
 
 					case SYMBOL_ENEMY_RAT: loadToken(listToken, cell, "rat"); break;
@@ -418,7 +377,76 @@ public class GuiGamePage {
 				grid.add(cell);
 			}
 		}
+
+		grid.revalidate();
+		grid.repaint();
+	}
+
+	/************************************************************************ UPDATE MAP METHOD ************************************************************************/
+
+	public static void updateMap(Game rpg, Map<String, ImageIcon> listToken, JPanel grid) {
+		drawMap(rpg, listToken, grid);
+	}
+
+	/************************************************************************ GAME PAGE BUILDER ************************************************************************/
+
+	public static JPanel createGamePage(Game rpg, CardLayout cardLayout, JPanel cardPanel, Map<String, ImageIcon> listToken, ImageIcon icon) {
+
+		// Main panel
+		JPanel panel = new JPanel(new BorderLayout());
+		panel.setOpaque(false);
+		panel.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+
+		// Tabs container
+		JTabbedPane tabPanel = new JTabbedPane();
+		tabPanel.setOpaque(false);
+		tabPanel.setBackground(new Color(0, 0, 0, 0));
+
+		tabPanel.setUI(new BasicTabbedPaneUI() {
+			@Override
+			protected void paintTabBackground(Graphics g, int tabPlacement, int tabIndex, int x, int y, int w, int h, boolean isSelected) {
+				g.setColor(new Color(0, 0, 0, 0));
+				g.fillRect(x, y, w, h);
+			}
+
+			@Override
+			protected void paintContentBorder(Graphics g, int tabPlacement, int selectedIndex) { }
+		});
+
+		/****************************** TAB 1 — MAP ******************************/
+
+		JPanel baseMap = createBaseStructure();
+
+		// Title
+		JLabel titleMap = new JLabel("Map");
+		titleMap.setFont(new Font("Ancient Modern Tales", Font.BOLD, 45));
+
+		JPanel wrapperTitleMap = wrapperLabelGenerator(titleMap, 0, 0, 20, 0, true);
+		baseMap.add(wrapperTitleMap);
+
+		// Création de la grille unique
+		int viewportSize = 9;
+		BufferedImage bg = selectRandomBackground();
+		JPanel grid = new JPanel(new GridLayout(viewportSize, viewportSize)) {
+			@Override
+			protected void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				if (bg != null) {
+					g.drawImage(bg, 0, 0, getWidth(), getHeight(), null);
+				}
+			}
+		};
+		grid.setOpaque(false);
 		baseMap.add(grid);
+
+		// Place le héros sur la map
+		rpg.placeHero(rpg.getMainHero());
+
+		// Crée le contrôleur en lui passant la grille (à adapter dans GuiInputController)
+		GuiInputController inputController = new GuiInputController(baseMap, rpg.getMainHero().getMovement(), rpg.getMainHero(), rpg.getMap(), rpg.getMenu(), grid, rpg, listToken);
+
+		// Dessine la map initiale dans la grille
+		drawMap(rpg, listToken, grid);
 
 		/****************************** TAB 2 — INVENTORY ******************************/
 
@@ -455,7 +483,6 @@ public class GuiGamePage {
 
 		JLabel mapTabLabel = new JLabel("Map");
 		mapTabLabel.setFont(new Font("Ancient Modern Tales", Font.PLAIN, 20));
-
 
 		JLabel inventoryTabLabel = new JLabel("Inventory");
 		inventoryTabLabel.setFont(new Font("Ancient Modern Tales", Font.PLAIN, 20));
