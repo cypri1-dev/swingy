@@ -35,6 +35,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import java.util.concurrent.ThreadLocalRandom;
+import java.awt.image.BufferedImage;
+
 public class GuiGamePage {
 
 	/************************************************************************ WRAPPER BUTTON ************************************************************************/
@@ -235,6 +238,18 @@ public class GuiGamePage {
 	}
 
 
+	/************************************************************************ RANDOM BACKGROUND METHOD ************************************************************************/
+
+	private static BufferedImage selectRandomBackground() {
+		int size = GuiMainWindow.getBackgrounds().size();
+		int random = ThreadLocalRandom.current().nextInt(size);
+
+		System.out.println("[MAP]: " + random);
+
+		return (GuiMainWindow.getBackgrounds().get(random));
+
+	}
+
 	/************************************************************************ RESCALE TOKEN METHOD ************************************************************************/
 
 	private static Icon rescaleToken(Icon token) {
@@ -325,12 +340,13 @@ public class GuiGamePage {
 		}
 
 		// Créer une grille 9x9 fixe
+		BufferedImage bg = selectRandomBackground();
 		JPanel grid = new JPanel(new GridLayout(viewportSize, viewportSize)) {
 			@Override
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				if (GuiMainWindow.getImgBackgroundMap() != null) {
-					g.drawImage(GuiMainWindow.getImgBackgroundMap(), 0, 0, getWidth(), getHeight(), null);
+				if (bg != null) {
+					g.drawImage(bg, 0, 0, getWidth(), getHeight(), null);
 				}
 			}
 		};

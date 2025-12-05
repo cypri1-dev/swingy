@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+
 import javax.imageio.ImageIO;
 
 import java.awt.image.BufferedImage;
@@ -22,7 +24,8 @@ public class GuiMainWindow extends JFrame {
 	private JPanel cardPanel;
 	private Map<String, ImageIcon> listToken = new HashMap<>();
 	private Game rpg;
-	private static BufferedImage imgBackgroundMap;
+	// private static BufferedImage imgBackgroundMap;
+	private static Map<Integer, BufferedImage> listBackground = new HashMap<>();
 
 	/************************************************************************ INIT TOKENS METHOD ************************************************************************/
 
@@ -51,26 +54,49 @@ public class GuiMainWindow extends JFrame {
 			"/spider_token.png"
 		};
 
+		String[] backgroundPaths = {
+			"/forest_map.jpg",
+			"/cavern_map.jpeg"
+		};
+
 		for (String path : tokenPaths) {
-			try {
-				ImageIcon icon = new ImageIcon(ImageIO.read(getClass().getResourceAsStream(path)));
+			try (InputStream is = getClass().getResourceAsStream(path)) {
+
+				if (is == null) {
+					System.err.println("❌ Token introuvable : " + path);
+					continue;
+				}
+
+				BufferedImage img = ImageIO.read(is);
+				ImageIcon icon = new ImageIcon(img);
+
 				String name = path.substring(path.lastIndexOf("/") + 1, path.lastIndexOf("_token.png"));
 				listToken.put(name, icon);
+
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 
-		BufferedImage backgroundImage1 = null;
-		BufferedImage backgroundImage2 = null;
-		try {
-			backgroundImage1 = ImageIO.read(getClass().getResourceAsStream("/test_map.jpg"));
-			backgroundImage2 = ImageIO.read(getClass().getResourceAsStream("/test_map2.jpeg"));
-			this.imgBackgroundMap = backgroundImage2;
-		} catch (IOException e) {
-			e.printStackTrace();
+		int idx = 0;
+		for (String path : backgroundPaths) {
+			try (InputStream is = getClass().getResourceAsStream(path)) {
+
+				if (is == null) {
+					System.err.println("❌ Background introuvable : " + path);
+					continue;
+				}
+
+				BufferedImage bg = ImageIO.read(is);
+				listBackground.put(idx, bg);
+				idx++;
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
+
 
 	/************************************************************************ CONSTRUCTOR ************************************************************************/
 
@@ -104,7 +130,6 @@ public class GuiMainWindow extends JFrame {
 		JPanel createPage = GuiCreationPage.createCreationPage("New Hero", cardLayout, cardPanel, iconTest, rpg);
 		JPanel displayPage = GuiHeroManagerPage.createViewPage("Heroes", cardLayout, cardPanel, iconTest, rpg);
 		JPanel playPage = GuiPlayPage.createPlayPage("Game", cardLayout, cardPanel, iconButton, listToken, rpg);
-		// JPanel gamePage = GuiGamePage.createGamePage(rpg);
 
 		// ajout des pages au cardPanel
 		cardPanel.add(welcomePage, "welcome");
@@ -112,7 +137,6 @@ public class GuiMainWindow extends JFrame {
 		cardPanel.add(createPage, "create");
 		cardPanel.add(displayPage, "display");
 		cardPanel.add(playPage, "play");
-		// cardPanel.add(gamePage, "game");
 
 		// Ajout du cardPanel dans le backgroundPanel
 		backgroundPanel.add(cardPanel, BorderLayout.CENTER);
@@ -130,10 +154,5 @@ public class GuiMainWindow extends JFrame {
 	public JPanel getCardPanel() {return this.cardPanel;}
 	public Map<String, ImageIcon> getListTokens() {return this.listToken;}
 	public Game getGame() {return this.rpg;}
-	public static BufferedImage getImgBackgroundMap() {return imgBackgroundMap;}
-	// public static void setImgBackgroundMap() {
-	// 	int rdm = ThreadLocalRandom.current().nextInt(1, 3);
-	// 	if (rdm % 2 == 0)
-	// 			imgBackgroundMap = 
-	// }
+	public static Map<Integer, BufferedImage> getBackgrounds() {return listBackground;}
 }
