@@ -71,24 +71,28 @@ public class GameMovement {
 	/* -------------------------------------------------- MOVING METHOD -------------------------------------------------- */
 
 	public void moveNorth(Characters hero, Maps map, Menu menu) {
-
+		// Sauvegarde de la position précédente
 		hero.getCoordinates().setPrevX(hero.getCoordinates().getX());
 		hero.getCoordinates().setPrevY(hero.getCoordinates().getY());
 
-		hero.getCoordinates().setX(-1);
+		// Vérifie si possible de monter
+		if (hero.getCoordinates().getX() > 0) {
+			hero.getCoordinates().setX(-1); // x += -1
+		}
 
 		checkFight(hero, map, menu);
 		checkConsommable(hero, map);
 		checkEndLevel(hero, map);
 	}
 
-
 	public void moveEast(Characters hero, Maps map, Menu menu) {
 		hero.getCoordinates().setPrevX(hero.getCoordinates().getX());
 		hero.getCoordinates().setPrevY(hero.getCoordinates().getY());
 
-		hero.getCoordinates().setY(+1);
-		
+		if (hero.getCoordinates().getY() < map.getSize() - 1) {
+			hero.getCoordinates().setY(1); // y += 1
+		}
+
 		checkFight(hero, map, menu);
 		checkConsommable(hero, map);
 		checkEndLevel(hero, map);
@@ -97,9 +101,11 @@ public class GameMovement {
 	public void moveSouth(Characters hero, Maps map, Menu menu) {
 		hero.getCoordinates().setPrevX(hero.getCoordinates().getX());
 		hero.getCoordinates().setPrevY(hero.getCoordinates().getY());
-		
-		hero.getCoordinates().setX(+1);
-		
+
+		if (hero.getCoordinates().getX() < map.getSize() - 1) {
+			hero.getCoordinates().setX(1); // x += 1
+		}
+
 		checkFight(hero, map, menu);
 		checkConsommable(hero, map);
 		checkEndLevel(hero, map);
@@ -108,9 +114,11 @@ public class GameMovement {
 	public void moveWest(Characters hero, Maps map, Menu menu) {
 		hero.getCoordinates().setPrevX(hero.getCoordinates().getX());
 		hero.getCoordinates().setPrevY(hero.getCoordinates().getY());
-		
-		hero.getCoordinates().setY(-1);
-		
+
+		if (hero.getCoordinates().getY() > 0) {
+			hero.getCoordinates().setY(-1); // y += -1
+		}
+
 		checkFight(hero, map, menu);
 		checkConsommable(hero, map);
 		checkEndLevel(hero, map);

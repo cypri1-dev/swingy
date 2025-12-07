@@ -437,7 +437,6 @@ public class GuiGamePage {
 
 		// Crée le contrôleur en lui passant la grille (à adapter dans GuiInputController)
 		GuiInputController inputController = new GuiInputController(baseMap, rpg.getMainHero().getMovement(), rpg.getMainHero(), rpg.getMap(), rpg.getMenu(), grid, rpg, listToken);
-
 		// Dessine la map initiale dans la grille
 		drawMap(rpg, listToken, grid);
 
