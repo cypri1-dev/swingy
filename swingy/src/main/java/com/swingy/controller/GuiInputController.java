@@ -7,6 +7,7 @@ import com.swingy.view.GuiGamePage;
 
 import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -88,30 +89,67 @@ public class GuiInputController {
         return !(x < 0 || y < 0 || x >= size || y >= size);
     }
 
-    private void update(JComponent panel) {
-        if (map.getLevelCompleted()) {
-            if (!levelFinished) { // S'assure que ça s'exécute qu'une seule fois
-                System.out.println("[GG]: LvL completed!");
-                panel.remove(grid);
+	private void update(JComponent panel) {
+		if (map.getLevelCompleted()) {
+			if (!levelFinished) {
+				System.out.println("[GG]: LvL completed!");
+				panel.remove(grid);
 
-                JLabel endLabel = new JLabel("<html><div align='center'>"
-                        + "Congratulation !<br/>"
-                        + "Level Completed!"
-                        + "</div></html>");
+				JLabel endLabel = new JLabel("<html><div align='center'>"
+						+ "Congratulation !<br/>"
+						+ "Level Completed!"
+						+ "</div></html>");
 
-                endLabel.setFont(new Font("Ancient Modern Tales", Font.BOLD, 65));
-                JPanel wrapperEndLabel = wrapperLabelGenerator(endLabel, 60, 0, 0, 0, true);
-                panel.add(wrapperEndLabel);
+				endLabel.setFont(new Font("Ancient Modern Tales", Font.BOLD, 65));
+				JPanel wrapperEndLabel = wrapperLabelGenerator(endLabel, 60, 0, 30, 0, true);
+				panel.add(wrapperEndLabel);
 
-                panel.revalidate();
-                panel.repaint();
+				int level = hero.getLevel();
+				int xp = hero.getXp();
+				String name = hero.getName();
+				Icon tokenIcon = hero.getToken();
 
-                levelFinished = true; // Bloque les mouvements futurs
-            }
-            return;
-        }
-        GuiGamePage.updateMap(rpg, listToken, grid);
-    }
+				// HTML : tout centré
+				String inlineStats = String.format(
+					"<html><div style='font-family: Ancient Modern Tales; font-size: 18px; color: #444444; text-align: center;'>"
+					+ "%s<br/>"
+					+ "<b>Level</b>: %d<br/>"
+					+ "<b>XP</b>: %d<br/><br/>"
+					+ "<i>Attack</i>: <span style='color: #008000;'>%d</span><br/>"
+					+ "<i>Defense</i>: <span style='color: #008000;'>%d</span><br/>"
+					+ "<i>Hit Points</i>: <span style='color: #FF0000;'>%d/%d</span>"
+					+ "</div></html>",
+
+					name,
+					level,
+					xp,
+					rpg.getMainHero().getAttack(),
+					rpg.getMainHero().getDefense(),
+					rpg.getMainHero().getHitPoint(),
+					rpg.getMainHero().getMaxHitPoint()
+				);
+
+				JLabel statsLabel = new JLabel(inlineStats);
+				statsLabel.setIcon(tokenIcon);
+
+				statsLabel.setHorizontalTextPosition(JLabel.CENTER);
+				statsLabel.setVerticalTextPosition(JLabel.BOTTOM);
+				statsLabel.setIconTextGap(15);
+				statsLabel.setHorizontalAlignment(JLabel.CENTER);
+
+				JPanel wrapperStats = wrapperLabelGenerator(statsLabel, 0, 0, 20, 0, true);
+				panel.add(wrapperStats);
+
+				panel.revalidate();
+				panel.repaint();
+
+				levelFinished = true;
+			}
+			return;
+		}
+		GuiGamePage.updateMap(rpg, listToken, grid);
+	}
+
 
     private static JPanel wrapperLabelGenerator(JLabel elem, int top, int left, int bottom, int right, boolean setSize) {
         JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
