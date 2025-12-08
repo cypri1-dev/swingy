@@ -42,7 +42,7 @@ public class GameMovement {
 
 	/* -------------------------------------------------- CHECK CONSOMMABLE METHOD -------------------------------------------------- */
 
-	private void checkConsommable(Characters hero, Maps map) {
+	public void checkConsommable(Characters hero, Maps map, boolean gui) {
 
 		Artefact tmp = null;
 		DisplayController display = DisplayController.getInstance();
@@ -51,13 +51,17 @@ public class GameMovement {
 			if (hero.getCoordinates().getX() == healingPotion.getCoordinates().getX() && hero.getCoordinates().getY() == healingPotion.getCoordinates().getY()) {
 				
 				hero.addArtefact(healingPotion);
-				display.printSlow(HP_POTION);
-				tmp = healingPotion;
-				display.getUserInput();
+				if (gui) 
+					System.out.println("SALOPE");
+				else {
+					tmp = healingPotion;
+					display.printSlow(HP_POTION);
+					display.getUserInput();
+					if (tmp != null)
+						map.getListConsommable().remove(tmp);
+				}
 			}
 		}
-		if (tmp != null)
-			map.getListConsommable().remove(tmp);
 	}
 
 	/* -------------------------------------------------- CHECK END LEVEL METHOD -------------------------------------------------- */
@@ -70,7 +74,7 @@ public class GameMovement {
 
 	/* -------------------------------------------------- MOVING METHOD -------------------------------------------------- */
 
-	public void moveNorth(Characters hero, Maps map, Menu menu) {
+	public void moveNorth(Characters hero, Maps map, Menu menu, boolean gui) {
 		// Sauvegarde de la position précédente
 		hero.getCoordinates().setPrevX(hero.getCoordinates().getX());
 		hero.getCoordinates().setPrevY(hero.getCoordinates().getY());
@@ -81,11 +85,11 @@ public class GameMovement {
 		}
 
 		checkFight(hero, map, menu);
-		checkConsommable(hero, map);
+		checkConsommable(hero, map, gui);
 		checkEndLevel(hero, map);
 	}
 
-	public void moveEast(Characters hero, Maps map, Menu menu) {
+	public void moveEast(Characters hero, Maps map, Menu menu, boolean gui) {
 		hero.getCoordinates().setPrevX(hero.getCoordinates().getX());
 		hero.getCoordinates().setPrevY(hero.getCoordinates().getY());
 
@@ -94,11 +98,11 @@ public class GameMovement {
 		}
 
 		checkFight(hero, map, menu);
-		checkConsommable(hero, map);
+		checkConsommable(hero, map, gui);
 		checkEndLevel(hero, map);
 	}
 
-	public void moveSouth(Characters hero, Maps map, Menu menu) {
+	public void moveSouth(Characters hero, Maps map, Menu menu, boolean gui) {
 		hero.getCoordinates().setPrevX(hero.getCoordinates().getX());
 		hero.getCoordinates().setPrevY(hero.getCoordinates().getY());
 
@@ -107,11 +111,11 @@ public class GameMovement {
 		}
 
 		checkFight(hero, map, menu);
-		checkConsommable(hero, map);
+		checkConsommable(hero, map, gui);
 		checkEndLevel(hero, map);
 	}
 
-	public void moveWest(Characters hero, Maps map, Menu menu) {
+	public void moveWest(Characters hero, Maps map, Menu menu, boolean gui) {
 		hero.getCoordinates().setPrevX(hero.getCoordinates().getX());
 		hero.getCoordinates().setPrevY(hero.getCoordinates().getY());
 
@@ -120,7 +124,7 @@ public class GameMovement {
 		}
 
 		checkFight(hero, map, menu);
-		checkConsommable(hero, map);
+		checkConsommable(hero, map, gui);
 		checkEndLevel(hero, map);
 	}
 

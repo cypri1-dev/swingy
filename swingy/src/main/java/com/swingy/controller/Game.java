@@ -80,10 +80,10 @@ public class Game {
 
 	public void moveHero(char arrow, Menu menu) {
 		switch (arrow) {
-			case 'A' -> getMainHero().getMovement().moveNorth(getMainHero(), getMap(), menu);
-			case 'B' -> getMainHero().getMovement().moveSouth(getMainHero(), getMap(), menu);
-			case 'C' -> getMainHero().getMovement().moveEast(getMainHero(), getMap(), menu);
-			case 'D' -> getMainHero().getMovement().moveWest(getMainHero(), getMap(), menu);
+			case 'A' -> getMainHero().getMovement().moveNorth(getMainHero(), getMap(), menu, false);
+			case 'B' -> getMainHero().getMovement().moveSouth(getMainHero(), getMap(), menu, false);
+			case 'C' -> getMainHero().getMovement().moveEast(getMainHero(), getMap(), menu, false);
+			case 'D' -> getMainHero().getMovement().moveWest(getMainHero(), getMap(), menu, false);
 			default -> {}
 		}
 	}

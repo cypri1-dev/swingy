@@ -320,6 +320,8 @@ public class GuiGamePage {
 						cell.add(heroLabel);
 						break;
 
+					case ")": loadToken(listToken, cell, "potion");
+
 					case SYMBOL_ENEMY_RAT: loadToken(listToken, cell, "rat"); break;
 					case SYMBOL_ENEMY_SLIME: loadToken(listToken, cell, "slime"); break;
 					case SYMBOL_ENEMY_GOBLIN: loadToken(listToken, cell, "gobelin"); break;

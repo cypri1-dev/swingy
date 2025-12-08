@@ -77,8 +77,8 @@ public class Maps {
 
 			occupiedCoords.add(consommableCoord);
 			this.consommableList.add(healingPotion);
-
-			this.map[tmpX][tmpY] = "*";
+			
+			this.map[tmpX][tmpY] = ")";
 		}
 
 	}
@@ -196,7 +196,7 @@ public class Maps {
 			}
 
 
-			if ((mainHero.getLevel() == tmpEnemy.getLevel() || mainHero.getLevel() + 1 == tmpEnemy.getLevel()))
+			if ((mainHero.getLevel() == tmpEnemy.getLevel() || mainHero.getLevel() >= tmpEnemy.getLevel()))
 				this.map[tmpX][tmpY] = symbol;
 			else
 				this.map[tmpX][tmpY] = "*";

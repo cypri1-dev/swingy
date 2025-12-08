@@ -1,25 +1,15 @@
 package com.swingy.controller;
 
 import com.swingy.controller.GameMovement;
+import com.swingy.model.Artefact;
 import com.swingy.model.Characters;
 import com.swingy.model.Maps;
 import com.swingy.view.GuiGamePage;
 
-import javax.swing.AbstractAction;
-import javax.swing.BorderFactory;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.KeyStroke;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.Font;
 import java.util.Map;
-import java.awt.FlowLayout;
-import java.awt.Dimension;
-import java.awt.Color;
-import java.awt.Component;
 
 public class GuiInputController {
 
@@ -27,11 +17,12 @@ public class GuiInputController {
     private Characters hero;
     private Maps map;
     private Menu menu;
-    private JPanel grid;
+    private static JPanel grid;
     private Game rpg;
-    private Map<String, ImageIcon> listToken;
-    
-    private boolean levelFinished = false;  // Flag pour bloquer les actions après fin de niveau
+    private static Map<String, ImageIcon> listToken;
+
+    private boolean levelFinished = false;  // bloque actions après fin niveau
+    private static boolean showingPotionPage = false; // bloque update normal pendant potion
 
     public GuiInputController(
             JComponent panel,
@@ -52,34 +43,34 @@ public class GuiInputController {
         this.listToken = listToken;
 
         bind(panel, "UP", () -> {
-            if (levelFinished) return;
+            if (levelFinished || showingPotionPage) return;
             if (!canMove(hero.getCoordinates().getX() - 1, hero.getCoordinates().getY()))
                 return;
-            movement.moveWest(hero, map, menu);
+            movement.moveWest(hero, map, menu, true);
             update(panel);
         });
 
         bind(panel, "DOWN", () -> {
-            if (levelFinished) return;
+            if (levelFinished || showingPotionPage) return;
             if (!canMove(hero.getCoordinates().getX() + 1, hero.getCoordinates().getY()))
                 return;
-            movement.moveEast(hero, map, menu);
+            movement.moveEast(hero, map, menu, true);
             update(panel);
         });
 
         bind(panel, "LEFT", () -> {
-            if (levelFinished) return;
+            if (levelFinished || showingPotionPage) return;
             if (!canMove(hero.getCoordinates().getX(), hero.getCoordinates().getY() - 1))
                 return;
-            movement.moveNorth(hero, map, menu);
+            movement.moveNorth(hero, map, menu, true);
             update(panel);
         });
 
         bind(panel, "RIGHT", () -> {
-            if (levelFinished) return;
+            if (levelFinished || showingPotionPage) return;
             if (!canMove(hero.getCoordinates().getX(), hero.getCoordinates().getY() + 1))
                 return;
-            movement.moveSouth(hero, map, menu);
+            movement.moveSouth(hero, map, menu, true);
             update(panel);
         });
     }
@@ -89,67 +80,148 @@ public class GuiInputController {
         return !(x < 0 || y < 0 || x >= size || y >= size);
     }
 
-	private void update(JComponent panel) {
-		if (map.getLevelCompleted()) {
-			if (!levelFinished) {
-				System.out.println("[GG]: LvL completed!");
-				panel.remove(grid);
+    private void update(JComponent panel) {
 
-				JLabel endLabel = new JLabel("<html><div align='center'>"
-						+ "Congratulation !<br/>"
-						+ "Level Completed!"
-						+ "</div></html>");
-
-				endLabel.setFont(new Font("Ancient Modern Tales", Font.BOLD, 65));
-				JPanel wrapperEndLabel = wrapperLabelGenerator(endLabel, 60, 0, 30, 0, true);
-				panel.add(wrapperEndLabel);
-
-				int level = hero.getLevel();
-				int xp = hero.getXp();
-				String name = hero.getName();
-				Icon tokenIcon = hero.getToken();
-
-				// HTML : tout centré
-				String inlineStats = String.format(
-					"<html><div style='font-family: Ancient Modern Tales; font-size: 18px; color: #444444; text-align: center;'>"
-					+ "%s<br/>"
-					+ "<b>Level</b>: %d<br/>"
-					+ "<b>XP</b>: %d<br/><br/>"
-					+ "<i>Attack</i>: <span style='color: #008000;'>%d</span><br/>"
-					+ "<i>Defense</i>: <span style='color: #008000;'>%d</span><br/>"
-					+ "<i>Hit Points</i>: <span style='color: #FF0000;'>%d/%d</span>"
-					+ "</div></html>",
-
-					name,
-					level,
-					xp,
-					rpg.getMainHero().getAttack(),
-					rpg.getMainHero().getDefense(),
-					rpg.getMainHero().getHitPoint(),
-					rpg.getMainHero().getMaxHitPoint()
-				);
-
-				JLabel statsLabel = new JLabel(inlineStats);
-				statsLabel.setIcon(tokenIcon);
-
-				statsLabel.setHorizontalTextPosition(JLabel.CENTER);
-				statsLabel.setVerticalTextPosition(JLabel.BOTTOM);
-				statsLabel.setIconTextGap(15);
-				statsLabel.setHorizontalAlignment(JLabel.CENTER);
-
-				JPanel wrapperStats = wrapperLabelGenerator(statsLabel, 0, 0, 20, 0, true);
-				panel.add(wrapperStats);
-
-				panel.revalidate();
-				panel.repaint();
-
-				levelFinished = true;
+        // Potion détectée ?
+		System.out.println("Hero coords: (" + hero.getCoordinates().getX() + ", " + hero.getCoordinates().getY() + ")");
+		for (Artefact healingPotion : map.getListConsommable()) {
+			System.out.println("Potion coords: (" + healingPotion.getCoordinates().getX() + ", " + healingPotion.getCoordinates().getY() + ")");
+			if (hero.getCoordinates().getX() == healingPotion.getCoordinates().getX() && hero.getCoordinates().getY() == healingPotion.getCoordinates().getY()) {
+				System.out.println("Potion trouvée !");
+				map.getListConsommable().remove(healingPotion);
+				showPotionPage(panel, healingPotion);
+				return;
 			}
-			return;
 		}
-		GuiGamePage.updateMap(rpg, listToken, grid);
-	}
 
+        // Game Over
+        if (hero.getHitPoint() <= 0) {
+            Icon deadIcon = listToken.get("Cranefeu");
+
+            if (!levelFinished) {
+                panel.removeAll();
+                panel.setLayout(new BorderLayout());
+
+                JLabel deadLabel = new JLabel("<html><div align='center'>"
+                        + "<span style='color: #FF0000;'>Game Over !</span><br/>"
+                        + "Your journey ends here… for now."
+                        + "</div></html>");
+
+                deadLabel.setFont(new Font("Ancient Modern Tales", Font.BOLD, 45));
+                deadLabel.setIcon(deadIcon);
+                deadLabel.setHorizontalTextPosition(JLabel.CENTER);
+                deadLabel.setVerticalTextPosition(JLabel.BOTTOM);
+
+                JPanel wrapperEndLabel = wrapperLabelGenerator(deadLabel, 30, 0, 30, 0, true);
+                panel.add(wrapperEndLabel, BorderLayout.CENTER);
+
+                panel.revalidate();
+                panel.repaint();
+                levelFinished = true;
+            }
+            return;
+        }
+
+        // Level Completed
+        if (map.getLevelCompleted()) {
+            if (!levelFinished) {
+                panel.removeAll();
+                panel.setLayout(new BorderLayout());
+
+                JLabel endLabel = new JLabel("<html><div align='center'>"
+                        + "Congratulation !<br/>"
+                        + "Level Completed!"
+                        + "</div></html>");
+
+                endLabel.setFont(new Font("Ancient Modern Tales", Font.BOLD, 65));
+                JPanel wrapperEndLabel = wrapperLabelGenerator(endLabel, 60, 0, 30, 0, true);
+                panel.add(wrapperEndLabel, BorderLayout.NORTH);
+
+                String inlineStats = String.format(
+                        "<html><div style='font-family: Ancient Modern Tales; font-size: 18px; color: #444444; text-align: center;'>"
+                                + "%s<br/>"
+                                + "<b>Level</b>: %d<br/>"
+                                + "<b>XP</b>: %d<br/><br/>"
+                                + "<i>Attack</i>: <span style='color: #008000;'>%d</span><br/>"
+                                + "<i>Defense</i>: <span style='color: #008000;'>%d</span><br/>"
+                                + "<i>Hit Points</i>: <span style='color: #FF0000;'>%d/%d</span>"
+                                + "</div></html>",
+                        hero.getName(),
+                        hero.getLevel(),
+                        hero.getXp(),
+                        rpg.getMainHero().getAttack(),
+                        rpg.getMainHero().getDefense(),
+                        rpg.getMainHero().getHitPoint(),
+                        rpg.getMainHero().getMaxHitPoint()
+                );
+
+                JLabel statsLabel = new JLabel(inlineStats);
+                statsLabel.setIcon(hero.getToken());
+                statsLabel.setHorizontalTextPosition(JLabel.CENTER);
+                statsLabel.setVerticalTextPosition(JLabel.BOTTOM);
+                statsLabel.setIconTextGap(15);
+                statsLabel.setHorizontalAlignment(JLabel.CENTER);
+
+                JPanel wrapperStats = wrapperLabelGenerator(statsLabel, 0, 0, 20, 0, true);
+                panel.add(wrapperStats, BorderLayout.CENTER);
+
+                panel.revalidate();
+                panel.repaint();
+
+                levelFinished = true;
+            }
+            return;
+        }
+
+        // Update normal
+        GuiGamePage.updateMap(rpg, listToken, grid);
+    }
+
+    public static void showPotionPage(JComponent panel, Artefact potion) {
+        showingPotionPage = true;
+
+        panel.removeAll();
+        panel.setLayout(new BorderLayout());
+
+        Icon potionIcon = listToken.get(potion.getName());
+        if (potionIcon == null) {
+            System.err.println("Warning: potion icon not found for " + potion.getName());
+            potionIcon = new ImageIcon();  // icône vide pour éviter erreur
+        }
+
+        JLabel potionLabel = new JLabel("<html><div align='center'>"
+                + "You found a Healing Potion !<br/>"
+                + "</div></html>");
+        potionLabel.setFont(new Font("Ancient Modern Tales", Font.BOLD, 40));
+        potionLabel.setHorizontalAlignment(JLabel.CENTER);
+
+        JLabel iconLabel = new JLabel(potionIcon);
+        iconLabel.setHorizontalAlignment(JLabel.CENTER);
+
+        JButton backButton = new JButton("Back to Map");
+        backButton.setFont(new Font("Ancient Modern Tales", Font.BOLD, 30));
+        backButton.addActionListener(e -> {
+            showingPotionPage = false;
+            panel.removeAll();
+            panel.setLayout(new BorderLayout());
+            panel.add(grid, BorderLayout.CENTER);
+            panel.revalidate();
+            panel.repaint();
+        });
+
+        JPanel container = new JPanel();
+        container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+        container.setOpaque(false);
+        container.add(potionLabel);
+        container.add(iconLabel);
+        container.add(Box.createRigidArea(new Dimension(0, 20)));
+        container.add(backButton);
+
+        panel.add(container, BorderLayout.CENTER);
+
+        panel.revalidate();
+        panel.repaint();
+    }
 
     private static JPanel wrapperLabelGenerator(JLabel elem, int top, int left, int bottom, int right, boolean setSize) {
         JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
@@ -161,7 +233,6 @@ public class GuiInputController {
                 BorderFactory.createEmptyBorder(top, left, bottom, right)
         ));
 
-        // 🔥 FIX IMPORTANT : empêche le wrapper de prendre toute la hauteur !
         if (setSize) {
             Dimension pref = wrapper.getPreferredSize();
             wrapper.setMaximumSize(new Dimension(pref.width, pref.height));

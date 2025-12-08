@@ -51,7 +51,8 @@ public class GuiMainWindow extends JFrame {
 			"/rat_token.png",
 			"/skeletal_hand_token.png",
 			"/slime_token.png",
-			"/spider_token.png"
+			"/spider_token.png",
+			"/potion_token.png"
 		};
 
 		String[] backgroundPaths = {
