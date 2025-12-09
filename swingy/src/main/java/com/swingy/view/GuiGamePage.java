@@ -232,7 +232,7 @@ public class GuiGamePage {
 	/************************************************************************ LOAD AND CONFIG TOKEN METHOD ************************************************************************/
 
 	private static void loadToken(Map<String, ImageIcon> listToken, JPanel cell, String nameEnemy) {
-		JLabel ratLabel = new JLabel(rescaleToken(listToken.get(nameEnemy)));
+		JLabel ratLabel = new JLabel(rescaleToken(listToken.get(nameEnemy), 65));
 		ratLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		ratLabel.setVerticalAlignment(SwingConstants.CENTER);
 		cell.add(ratLabel);
@@ -253,9 +253,9 @@ public class GuiGamePage {
 
 	/************************************************************************ RESCALE TOKEN METHOD ************************************************************************/
 
-	private static Icon rescaleToken(Icon token) {
+	public static Icon rescaleToken(Icon token, int size) {
 		Image img = ((ImageIcon) token).getImage();
-		Image scaled = img.getScaledInstance(65, 65, Image.SCALE_SMOOTH);
+		Image scaled = img.getScaledInstance(size, size, Image.SCALE_SMOOTH);
 		Icon resizedToken = new ImageIcon(scaled);
 		return resizedToken;
 	}
@@ -314,7 +314,7 @@ public class GuiGamePage {
 
 				switch (mapTab[x][y]) {
 					case SYMBOL_MAIN_HERO:
-						JLabel heroLabel = new JLabel(rescaleToken(rpg.getMainHero().getToken()));
+						JLabel heroLabel = new JLabel(rescaleToken(rpg.getMainHero().getToken(), 65));
 						heroLabel.setHorizontalAlignment(SwingConstants.CENTER);
 						heroLabel.setVerticalAlignment(SwingConstants.CENTER);
 						cell.add(heroLabel);
@@ -381,6 +381,52 @@ public class GuiGamePage {
 		drawMap(rpg, listToken, grid);
 	}
 
+	
+	/************************************************************************ RESET PAGE METHOD ************************************************************************/
+	
+	public static void resetPage(
+		JPanel baseMap,
+		Game rpg,
+		Map<String, ImageIcon> listToken,
+		JPanel grid,
+		JPanel baseInventory
+	) {
+		baseMap.removeAll();
+		baseMap.setLayout(new BoxLayout(baseMap, BoxLayout.Y_AXIS));
+		
+		// --- Title ---
+		JLabel titleMap = new JLabel("Map");
+		titleMap.setFont(new Font("Ancient Modern Tales", Font.BOLD, 45));
+		JPanel wrapperTitleMap = wrapperLabelGenerator(titleMap, 0, 0, 20, 0, true);
+		baseMap.add(wrapperTitleMap);
+		
+		// --- Background ---
+		BufferedImage bg = selectRandomBackground();
+		
+		grid.setOpaque(false);
+		grid.setLayout(new GridLayout(9, 9));
+		grid = new JPanel(new GridLayout(9, 9)) {
+			@Override
+			protected void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				if (bg != null)
+					g.drawImage(bg, 0, 0, getWidth(), getHeight(), null);
+			}
+		};
+		
+		baseMap.add(grid);
+		
+		// --- Replace inventory if exists ---
+		if (baseInventory != null)
+			refreshInventory(rpg, baseInventory);
+		
+		// --- Update map ---
+		updateMap(rpg, listToken, grid);
+		
+		baseMap.revalidate();
+		baseMap.repaint();
+	}
+	
 	/************************************************************************ GAME PAGE BUILDER ************************************************************************/
 
 	public static JPanel createGamePage(Game rpg, CardLayout cardLayout, JPanel cardPanel, Map<String, ImageIcon> listToken, ImageIcon icon) {

@@ -3,6 +3,11 @@ package com.swingy.model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+
+import javax.swing.ImageIcon;
+
+import com.swingy.view.GuiMainWindow;
+
 import java.util.Map;
 
 import static com.swingy.utils.Constants.*;
@@ -15,6 +20,7 @@ public class Maps {
 	private Characters mainHero;
 	private boolean levelCompleted;
 	private List<Artefact> consommableList;
+	public static Map<String, ImageIcon> listToken = GuiMainWindow.getListTokens();
 
 	/* -------------------------------------------------- CONSTRUCTOR -------------------------------------------------- */
 
@@ -143,56 +149,90 @@ public class Maps {
 
 			switch(tmpEnemy.getCharacterClass()) {
 				// ---- Tier 1 : basiques ----
-				case ENEMY_CLASS_RAT -> symbol = "r";
-				case ENEMY_CLASS_SLIME -> symbol = "s";
-				case ENEMY_CLASS_GOBLIN -> symbol = "g";
-				case ENEMY_CLASS_BANDIT -> symbol = "b";
-				case ENEMY_CLASS_BAT -> symbol = "v"; // volant
-				case ENEMY_CLASS_SPIDERLING -> symbol = "x"; // petite araignée
-				case ENEMY_CLASS_SKELETAL_HAND -> symbol = "h"; // main squelettique
-				case ENEMY_CLASS_MUDLING -> symbol = "m"; // boueux
+				case ENEMY_CLASS_RAT: 
+					symbol = "r";
+					if (listToken != null)
+						tmpEnemy.setToken(listToken.get("rat"));
+					break;
+
+				case ENEMY_CLASS_SLIME:
+					symbol = "s";
+					if (listToken != null)
+						tmpEnemy.setToken(listToken.get("slime"));
+					break;
+
+				case ENEMY_CLASS_GOBLIN: {
+					symbol = "g";
+					if (listToken != null)
+						tmpEnemy.setToken(listToken.get("goblin"));
+				}
+				case ENEMY_CLASS_BANDIT: {
+					symbol = "b";
+					if (listToken != null)
+						tmpEnemy.setToken(listToken.get("bandit"));
+				}
+				case ENEMY_CLASS_BAT: {
+					symbol = "v"; // volant
+					if (listToken != null)
+						tmpEnemy.setToken(listToken.get("bat"));
+				}
+				case ENEMY_CLASS_SPIDERLING: {
+					symbol = "x"; // petite araignée
+					if (listToken != null)
+						tmpEnemy.setToken(listToken.get("spiderling"));
+				}
+				case ENEMY_CLASS_SKELETAL_HAND: {
+					symbol = "h"; // main squelettique
+					if (listToken != null)
+						tmpEnemy.setToken(listToken.get("skeletal_hand"));
+				}
+				case ENEMY_CLASS_MUDLING: {
+					symbol = "m"; // boueux
+					if (listToken != null)
+						tmpEnemy.setToken(listToken.get("mudling"));
+				}
 
 				// ---- Tier 2 : intermédiaires (niv. 5–8) ----
-				case ENEMY_CLASS_SKELETON -> symbol = "S";
-				case ENEMY_CLASS_WOLF -> symbol = "w";
-				case ENEMY_CLASS_CULTIST -> symbol = "c";
-				case ENEMY_CLASS_ORC -> symbol = "O";
-				case ENEMY_CLASS_BANDIT_CHIEF -> symbol = "B";
-				case ENEMY_CLASS_GOBLIN_SHAMAN -> symbol = "G";
-				case ENEMY_CLASS_WARG -> symbol = "W";
-				case ENEMY_CLASS_GRAVE_ROBBER -> symbol = "R";
+				// case ENEMY_CLASS_SKELETON -> symbol = "S";
+				// case ENEMY_CLASS_WOLF -> symbol = "w";
+				// case ENEMY_CLASS_CULTIST -> symbol = "c";
+				// case ENEMY_CLASS_ORC -> symbol = "O";
+				// case ENEMY_CLASS_BANDIT_CHIEF -> symbol = "B";
+				// case ENEMY_CLASS_GOBLIN_SHAMAN -> symbol = "G";
+				// case ENEMY_CLASS_WARG -> symbol = "W";
+				// case ENEMY_CLASS_GRAVE_ROBBER -> symbol = "R";
 
-				// ---- Tier 3 : avancés (niv. 9–12) ----
-				case ENEMY_CLASS_DARK_MAGE -> symbol = "M";
-				case ENEMY_CLASS_ELEMENTAL -> symbol = "E";
-				case ENEMY_CLASS_TROLL -> symbol = "T";
-				case ENEMY_CLASS_ASSASSIN -> symbol = "A";
-				case ENEMY_CLASS_NECROMANCER -> symbol = "N";
-				case ENEMY_CLASS_WARLOCK -> symbol = "℧"; // symbole mystique
-				case ENEMY_CLASS_SHADOW_BEAST -> symbol = "§";
-				case ENEMY_CLASS_GOLEM -> symbol = "Gm";
+				// // ---- Tier 3 : avancés (niv. 9–12) ----
+				// case ENEMY_CLASS_DARK_MAGE -> symbol = "M";
+				// case ENEMY_CLASS_ELEMENTAL -> symbol = "E";
+				// case ENEMY_CLASS_TROLL -> symbol = "T";
+				// case ENEMY_CLASS_ASSASSIN -> symbol = "A";
+				// case ENEMY_CLASS_NECROMANCER -> symbol = "N";
+				// case ENEMY_CLASS_WARLOCK -> symbol = "℧"; // symbole mystique
+				// case ENEMY_CLASS_SHADOW_BEAST -> symbol = "§";
+				// case ENEMY_CLASS_GOLEM -> symbol = "Gm";
 
-				// ---- Tier 4 : élite (niv. 13–16) ----
-				case ENEMY_CLASS_LICH -> symbol = "L";
-				case ENEMY_CLASS_MINOTAUR -> symbol = "Mʈ";
-				case ENEMY_CLASS_VAMPIRE_LORD -> symbol = "V";
-				case ENEMY_CLASS_DEMON_KNIGHT -> symbol = "K";
-				case ENEMY_CLASS_DREAD_KNIGHT -> symbol = "Đ";
-				case ENEMY_CLASS_PLAGUE_BRINGER -> symbol = "P";
-				case ENEMY_CLASS_PYROMANCER -> symbol = "Ψ";
-				case ENEMY_CLASS_SPECTER -> symbol = "Ʃ";
+				// // ---- Tier 4 : élite (niv. 13–16) ----
+				// case ENEMY_CLASS_LICH -> symbol = "L";
+				// case ENEMY_CLASS_MINOTAUR -> symbol = "Mʈ";
+				// case ENEMY_CLASS_VAMPIRE_LORD -> symbol = "V";
+				// case ENEMY_CLASS_DEMON_KNIGHT -> symbol = "K";
+				// case ENEMY_CLASS_DREAD_KNIGHT -> symbol = "Đ";
+				// case ENEMY_CLASS_PLAGUE_BRINGER -> symbol = "P";
+				// case ENEMY_CLASS_PYROMANCER -> symbol = "Ψ";
+				// case ENEMY_CLASS_SPECTER -> symbol = "Ʃ";
 
-				// ---- Tier 5 : boss & divinités (niv. 17–20) ----
-				case ENEMY_CLASS_DRAGON_WHELP -> symbol = "D";
-				case ENEMY_CLASS_ANCIENT_DRAGON -> symbol = "Ω";
-				case ENEMY_CLASS_ABYSSAL_HYDRA -> symbol = "H";
-				case ENEMY_CLASS_FALLEN_GOD -> symbol = "Φ";
-				case ENEMY_CLASS_DEMON_OVERLORD -> symbol = "Ð";
-				case ENEMY_CLASS_TITAN -> symbol = "τ";
-				case ENEMY_CLASS_VOID_SERPENT -> symbol = "∑";
-				case ENEMY_CLASS_COSMIC_DRAGON -> symbol = "∞";
+				// // ---- Tier 5 : boss & divinités (niv. 17–20) ----
+				// case ENEMY_CLASS_DRAGON_WHELP -> symbol = "D";
+				// case ENEMY_CLASS_ANCIENT_DRAGON -> symbol = "Ω";
+				// case ENEMY_CLASS_ABYSSAL_HYDRA -> symbol = "H";
+				// case ENEMY_CLASS_FALLEN_GOD -> symbol = "Φ";
+				// case ENEMY_CLASS_DEMON_OVERLORD -> symbol = "Ð";
+				// case ENEMY_CLASS_TITAN -> symbol = "τ";
+				// case ENEMY_CLASS_VOID_SERPENT -> symbol = "∑";
+				// case ENEMY_CLASS_COSMIC_DRAGON -> symbol = "∞";
 
-				default -> symbol = "?"; // cas par défaut
+				// default -> symbol = "?"; // cas par défaut
 			}
 
 

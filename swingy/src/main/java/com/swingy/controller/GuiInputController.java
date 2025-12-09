@@ -16,267 +16,364 @@ import java.util.Map;
 
 public class GuiInputController {
 
-	private GameMovement movement;
-	private Characters hero;
-	private Maps map;
-	private Menu menu;
-	private static JPanel grid;
-	private Game rpg;
-	private static Map<String, ImageIcon> listToken;
-	private static Icon icon;
-	private static JPanel baseInventory;
+    private GameMovement movement;
+    private Characters hero;
+    private Maps map;
+    private Menu menu;
+    private static JPanel grid;
+    private static Game rpg;
+    private static Map<String, ImageIcon> listToken;
+    private static Icon icon;
+    private static JPanel baseInventory;
 
-	private boolean levelFinished = false;  // bloque actions après fin niveau
-	private static boolean showingPotionPage = false; // bloque update normal pendant potion
+    private boolean levelFinished = false;
+    private static boolean showingPotionPage = false;
+    private static boolean showingFightPage = false;
 
-	public GuiInputController(
-		JComponent panel,
-		GameMovement movement,
-		Characters hero,
-		Maps map,
-		Menu menu,
-		JPanel grid,
-		Game rpg,
-		Map<String, ImageIcon> listToken,
-		Icon icon,
-		JPanel baseInventory
-	) {
-	this.movement = movement;
-	this.hero = hero;
-	this.map = map;
-	this.menu = menu;
-	this.grid = grid;
-	this.rpg = rpg;
-	this.listToken = listToken;
-	this.icon = icon;
-	this.baseInventory = baseInventory;
+    public GuiInputController(
+            JComponent panel,
+            GameMovement movement,
+            Characters hero,
+            Maps map,
+            Menu menu,
+            JPanel grid,
+            Game rpg,
+            Map<String, ImageIcon> listToken,
+            Icon icon,
+            JPanel baseInventory
+    ) {
+        this.movement = movement;
+        this.hero = hero;
+        this.map = map;
+        this.menu = menu;
+        this.grid = grid;
+        this.rpg = rpg;
+        this.listToken = listToken;
+        this.icon = icon;
+        this.baseInventory = baseInventory;
 
-	bind(panel, "UP", () -> {
-		if (levelFinished || showingPotionPage) return;
-		if (!canMove(hero.getCoordinates().getX() - 1, hero.getCoordinates().getY()))
-		return;
-		movement.moveWest(hero, map, menu, true);
-		update(panel);
-	});
+        bind(panel, "UP", () -> {
+            if (levelFinished || showingPotionPage || showingFightPage) return;
+            if (!canMove(hero.getCoordinates().getX() - 1, hero.getCoordinates().getY())) return;
+            movement.moveWest(hero, map, menu, true);
+            update(panel);
+        });
 
-	bind(panel, "DOWN", () -> {
-		if (levelFinished || showingPotionPage) return;
-		if (!canMove(hero.getCoordinates().getX() + 1, hero.getCoordinates().getY()))
-		return;
-		movement.moveEast(hero, map, menu, true);
-		update(panel);
-	});
+        bind(panel, "DOWN", () -> {
+            if (levelFinished || showingPotionPage || showingFightPage) return;
+            if (!canMove(hero.getCoordinates().getX() + 1, hero.getCoordinates().getY())) return;
+            movement.moveEast(hero, map, menu, true);
+            update(panel);
+        });
 
-	bind(panel, "LEFT", () -> {
-		if (levelFinished || showingPotionPage) return;
-		if (!canMove(hero.getCoordinates().getX(), hero.getCoordinates().getY() - 1))
-		return;
-		movement.moveNorth(hero, map, menu, true);
-		update(panel);
-	});
+        bind(panel, "LEFT", () -> {
+            if (levelFinished || showingPotionPage || showingFightPage) return;
+            if (!canMove(hero.getCoordinates().getX(), hero.getCoordinates().getY() - 1)) return;
+            movement.moveNorth(hero, map, menu, true);
+            update(panel);
+        });
 
-	bind(panel, "RIGHT", () -> {
-		if (levelFinished || showingPotionPage) return;
-		if (!canMove(hero.getCoordinates().getX(), hero.getCoordinates().getY() + 1))
-		return;
-		movement.moveSouth(hero, map, menu, true);
-		update(panel);
-	});
-	}
+        bind(panel, "RIGHT", () -> {
+            if (levelFinished || showingPotionPage || showingFightPage) return;
+            if (!canMove(hero.getCoordinates().getX(), hero.getCoordinates().getY() + 1)) return;
+            movement.moveSouth(hero, map, menu, true);
+            update(panel);
+        });
+    }
 
-	private boolean canMove(int x, int y) {
-	int size = map.getSize();
-	return !(x < 0 || y < 0 || x >= size || y >= size);
-	}
+    private boolean canMove(int x, int y) {
+        int size = map.getSize();
+        return !(x < 0 || y < 0 || x >= size || y >= size);
+    }
 
-	private void update(JComponent panel) {
-		// Potion
-		for (Artefact healingPotion : map.getListConsommable()) {
-			if (hero.getCoordinates().getX() == healingPotion.getCoordinates().getX() && hero.getCoordinates().getY() == healingPotion.getCoordinates().getY()) {
-				map.getListConsommable().remove(healingPotion);
-				GuiGamePage.refreshInventory(rpg, baseInventory);
-				showPotionPage(panel, healingPotion);
-				return;
-			}
-		}
+    private void update(JComponent panel) {
 
-		// Game Over
-		if (hero.getHitPoint() <= 0) {
-			Icon deadIcon = listToken.get("Cranefeu");
-			rpg.getHeroesNameList().remove(hero.getName());
-			rpg.getListAvaible().remove(hero);
-			GuiPlayPage.updateHeroComboBox(rpg);
-			GuiHeroManagerPage.updateHeroComboBox(rpg);
+        /* --------------------- FIGHT --------------------- */
+        for (Characters enemy : map.getListEnemies()) {
+            if (hero.getCoordinates().getX() == enemy.getCoordinates().getX()
+                    && hero.getCoordinates().getY() == enemy.getCoordinates().getY()) {
 
-			if (!levelFinished) {
-			panel.removeAll();
-			panel.setLayout(new BorderLayout());
+                showFightPage(panel, enemy);
+                return;
+            }
+        }
 
-			JLabel deadLabel = new JLabel("<html><div align='center'>"
-				+ "<span style='color: #FF0000;'>Game Over !</span><br/>"
-				+ "Your journey ends here… for now."
-				+ "</div></html>");
+        /* -------------------- POTION --------------------- */
+        for (Artefact healingPotion : map.getListConsommable()) {
+            if (hero.getCoordinates().getX() == healingPotion.getCoordinates().getX()
+                    && hero.getCoordinates().getY() == healingPotion.getCoordinates().getY()) {
 
-			deadLabel.setFont(new Font("Ancient Modern Tales", Font.BOLD, 45));
-			deadLabel.setIcon(deadIcon);
-			deadLabel.setHorizontalTextPosition(JLabel.CENTER);
-			deadLabel.setVerticalTextPosition(JLabel.BOTTOM);
+                map.getListConsommable().remove(healingPotion);
+                GuiGamePage.refreshInventory(rpg, baseInventory);
+                showPotionPage(panel, healingPotion);
+                return;
+            }
+        }
 
-			JPanel wrapperEndLabel = wrapperLabelGenerator(deadLabel, 30, 0, 30, 0, true);
-			panel.add(wrapperEndLabel, BorderLayout.CENTER);
+        /* ------------------- GAME OVER ------------------- */
+        if (hero.getHitPoint() <= 0) {
 
-			panel.revalidate();
-			panel.repaint();
-			levelFinished = true;
-			}
-			return;
-		}
+            Icon deadIcon = listToken.get("Cranefeu");
+            rpg.getHeroesNameList().remove(hero.getName());
+            rpg.getListAvaible().remove(hero);
+            GuiPlayPage.updateHeroComboBox(rpg);
+            GuiHeroManagerPage.updateHeroComboBox(rpg);
 
-		// Level Completed
-		if (map.getLevelCompleted()) {
-			if (!levelFinished) {
-			panel.removeAll();
-			panel.setLayout(new BorderLayout());
+            if (!levelFinished) {
+                panel.removeAll();
+                panel.setLayout(new BorderLayout());
 
-			JLabel endLabel = new JLabel("<html><div align='center'>"
-				+ "Congratulation !<br/>"
-				+ "Level Completed!"
-				+ "</div></html>");
+                JLabel deadLabel = new JLabel(
+                        "<html><div align='center'>"
+                                + "<span style='color: #FF0000;'>Game Over !</span><br/>"
+                                + "Your journey ends here… for now."
+                                + "</div></html>"
+                );
 
-			endLabel.setFont(new Font("Ancient Modern Tales", Font.BOLD, 65));
-			JPanel wrapperEndLabel = wrapperLabelGenerator(endLabel, 60, 0, 30, 0, true);
-			panel.add(wrapperEndLabel, BorderLayout.NORTH);
+                deadLabel.setFont(new Font("Ancient Modern Tales", Font.BOLD, 45));
+                deadLabel.setIcon(deadIcon);
+                deadLabel.setHorizontalTextPosition(JLabel.CENTER);
+                deadLabel.setVerticalTextPosition(JLabel.BOTTOM);
 
-			String inlineStats = String.format(
-				"<html><div style='font-family: Ancient Modern Tales; font-size: 18px; color: #444444; text-align: center;'>"
-					+ "%s<br/>"
-					+ "<b>Level</b>: %d<br/>"
-					+ "<b>XP</b>: %d<br/><br/>"
-					+ "<i>Attack</i>: <span style='color: #008000;'>%d</span><br/>"
-					+ "<i>Defense</i>: <span style='color: #008000;'>%d</span><br/>"
-					+ "<i>Hit Points</i>: <span style='color: #FF0000;'>%d/%d</span>"
-					+ "</div></html>",
-				hero.getName(),
-				hero.getLevel(),
-				hero.getXp(),
-				rpg.getMainHero().getAttack(),
-				rpg.getMainHero().getDefense(),
-				rpg.getMainHero().getHitPoint(),
-				rpg.getMainHero().getMaxHitPoint()
-			);
+                JPanel wrapperEndLabel = wrapperLabelGenerator(deadLabel, 30, 0, 30, 0, true);
+                panel.add(wrapperEndLabel, BorderLayout.CENTER);
 
-			JLabel statsLabel = new JLabel(inlineStats);
-			statsLabel.setIcon(hero.getToken());
-			statsLabel.setHorizontalTextPosition(JLabel.CENTER);
-			statsLabel.setVerticalTextPosition(JLabel.BOTTOM);
-			statsLabel.setIconTextGap(15);
-			statsLabel.setHorizontalAlignment(JLabel.CENTER);
+                panel.revalidate();
+                panel.repaint();
+                levelFinished = true;
+            }
+            return;
+        }
 
-			JPanel wrapperStats = wrapperLabelGenerator(statsLabel, 0, 0, 20, 0, true);
-			panel.add(wrapperStats, BorderLayout.CENTER);
+        /* ---------------- LEVEL COMPLETED ---------------- */
+        if (map.getLevelCompleted()) {
 
-			panel.revalidate();
-			panel.repaint();
+            if (!levelFinished) {
+                panel.removeAll();
+                panel.setLayout(new BorderLayout());
 
-			levelFinished = true;
-			}
-			return;
-		}
+                JLabel endLabel = new JLabel(
+                        "<html><div align='center'>"
+                                + "Congratulation !<br/>"
+                                + "Level Completed!"
+                                + "</div></html>"
+                );
+                endLabel.setFont(new Font("Ancient Modern Tales", Font.BOLD, 65));
 
-		// Update normal
-		GuiGamePage.updateMap(rpg, listToken, grid);
-	}
+                JPanel wrapperEndLabel = wrapperLabelGenerator(endLabel, 60, 0, 30, 0, true);
+                panel.add(wrapperEndLabel, BorderLayout.NORTH);
 
-	public static void showPotionPage(JComponent panel, Artefact potion) {
-		showingPotionPage = true;
+                String inlineStats = String.format(
+                        "<html><div style='font-family: Ancient Modern Tales; font-size: 18px; color: #444444; text-align: center;'>"
+                                + "%s<br/>"
+                                + "<b>Level</b>: %d<br/>"
+                                + "<b>XP</b>: %d<br/><br/>"
+                                + "<i>Attack</i>: <span style='color: #008000;'>%d</span><br/>"
+                                + "<i>Defense</i>: <span style='color: #008000;'>%d</span><br/>"
+                                + "<i>Hit Points</i>: <span style='color: #FF0000;'>%d/%d</span>"
+                                + "</div></html>",
+                        hero.getName(),
+                        hero.getLevel(),
+                        hero.getXp(),
+                        rpg.getMainHero().getAttack(),
+                        rpg.getMainHero().getDefense(),
+                        rpg.getMainHero().getHitPoint(),
+                        rpg.getMainHero().getMaxHitPoint()
+                );
 
-		panel.removeAll();
-		panel.setLayout(new BorderLayout());
+                JLabel statsLabel = new JLabel(inlineStats);
+                statsLabel.setIcon(hero.getToken());
+                statsLabel.setHorizontalTextPosition(JLabel.CENTER);
+                statsLabel.setVerticalTextPosition(JLabel.BOTTOM);
+                statsLabel.setIconTextGap(15);
+                statsLabel.setHorizontalAlignment(JLabel.CENTER);
 
-		Icon potionIcon = listToken.get("potion");
-		if (potionIcon == null) potionIcon = new ImageIcon();
+                JPanel wrapperStats = wrapperLabelGenerator(statsLabel, 0, 0, 20, 0, true);
+                panel.add(wrapperStats, BorderLayout.CENTER);
 
-		JLabel potionLabel = new JLabel("<html><div align='center'>You found a Healing Potion !</div></html>");
-		potionLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 30, 0));
-		potionLabel.setFont(new Font("Ancient Modern Tales", Font.BOLD, 40));
-		potionLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+                panel.revalidate();
+                panel.repaint();
 
-		JLabel iconLabel = new JLabel(potionIcon);
-		iconLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-		iconLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 30, 0));
+                levelFinished = true;
+            }
+            return;
+        }
 
-		RoundedImageButton backButton = new RoundedImageButton("Back to Map", icon);
-		Dimension Size = new Dimension(150, 48);
-		configButtons(backButton, Size);
-		backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        /* -------------------- UPDATE --------------------- */
+        GuiGamePage.updateMap(rpg, listToken, grid);
+    }
 
-		backButton.addActionListener(e -> {
-			showingPotionPage = false;
-			panel.removeAll();
-			panel.setLayout(new BorderLayout());
-			panel.add(grid, BorderLayout.CENTER);
-			panel.revalidate();
-			panel.repaint();
-		});
+    /* =====================================================
+                     FIGHT PAGE
+       ===================================================== */
+public static void showFightPage(JComponent panel, Characters enemy) {
+    showingFightPage = true;
 
-		JPanel container = new JPanel();
-		container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
-		container.setOpaque(false);
+    panel.removeAll();
+    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-		container.add(potionLabel);
-		container.add(iconLabel);
-		container.add(Box.createRigidArea(new Dimension(0, 20)));
-		container.add(backButton);
+    // --- Titre ---
+    JLabel titleLabel = new JLabel("Fight");
+    titleLabel.setFont(new Font("Ancient Modern Tales", Font.BOLD, 45));
+    titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    JPanel wrapperTitleLabel = wrapperLabelGenerator(titleLabel, 0, 0, 20, 0, true);
+    panel.add(wrapperTitleLabel);
 
-		// ⭐ CENTRE VERTICALEMENT
-		JPanel centerWrapper = new JPanel(new GridBagLayout());
-		centerWrapper.setOpaque(false);
-		centerWrapper.add(container, new GridBagConstraints());
+    // --- Container horizontal pour héros & ennemi ---
+    JPanel fightersPanel = new JPanel();
+    fightersPanel.setLayout(new BoxLayout(fightersPanel, BoxLayout.X_AXIS));
+    fightersPanel.setOpaque(false);
+    fightersPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-		panel.add(centerWrapper, BorderLayout.CENTER);
+    // --- Bloc héros ---
+    JPanel heroPanel = new JPanel();
+    heroPanel.setLayout(new BoxLayout(heroPanel, BoxLayout.Y_AXIS));
+    heroPanel.setOpaque(false);
+    heroPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 0, 20));
+    heroPanel.setAlignmentY(Component.TOP_ALIGNMENT);
+    heroPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-		panel.revalidate();
-		panel.repaint();
-	}
+    Characters hero = rpg.getMainHero();
+
+    JLabel heroTokenLabel = new JLabel(GuiGamePage.rescaleToken(hero.getToken(), 150));
+    heroTokenLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    heroPanel.add(heroTokenLabel);
+
+    // Texte PV centré avec JLabel standard et HTML + centre forcé
+    String heroHPText = String.format(
+        "<html><div style='width: 215px; text-align: center;'>"
+        + "<b>HP</b>: <span style='color:red;'>%d/%d</span>"
+        + "</div></html>",
+        hero.getHitPoint(), hero.getMaxHitPoint()
+    );
+    JLabel heroHPLabel = new JLabel(heroHPText);
+    heroHPLabel.setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
+    heroHPLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    heroPanel.add(heroHPLabel);
+
+    // --- Bloc ennemi ---
+    JPanel enemyPanel = new JPanel();
+    enemyPanel.setLayout(new BoxLayout(enemyPanel, BoxLayout.Y_AXIS));
+    enemyPanel.setOpaque(false);
+    enemyPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 0, 20));
+    enemyPanel.setAlignmentY(Component.TOP_ALIGNMENT);
+    enemyPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+    JLabel enemyTokenLabel = new JLabel(GuiGamePage.rescaleToken(enemy.getToken(), 150));
+    enemyTokenLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    enemyPanel.add(enemyTokenLabel);
+
+    String enemyHPText = String.format(
+        "<html><div style='width: 215px; text-align: center;'>"
+        + "<b>HP</b>: <span style='color:red;'>%d/%d</span>"
+        + "</div></html>",
+        enemy.getHitPoint(), enemy.getMaxHitPoint()
+    );
+    JLabel enemyHPLabel = new JLabel(enemyHPText);
+    enemyHPLabel.setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
+    enemyHPLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    enemyPanel.add(enemyHPLabel);
+
+    fightersPanel.add(Box.createHorizontalGlue());
+    fightersPanel.add(heroPanel);
+    fightersPanel.add(Box.createHorizontalGlue());
+    fightersPanel.add(enemyPanel);
+    fightersPanel.add(Box.createHorizontalGlue());
+
+    panel.add(fightersPanel);
+
+    panel.revalidate();
+    panel.repaint();
+}
 
 
-	private static JPanel wrapperLabelGenerator(JLabel elem, int top, int left, int bottom, int right, boolean setSize) {
-		JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		wrapper.setOpaque(false);
-		wrapper.add(elem);
+    /* =====================================================
+                     POTION PAGE
+       ===================================================== */
+    public static void showPotionPage(JComponent panel, Artefact potion) {
+        showingPotionPage = true;
 
-		wrapper.setBorder(BorderFactory.createCompoundBorder(
-			BorderFactory.createLineBorder(Color.BLACK, 0),
-			BorderFactory.createEmptyBorder(top, left, bottom, right)
-		));
+        panel.removeAll();
+        panel.setLayout(new BorderLayout());
 
-		if (setSize) {
-			Dimension pref = wrapper.getPreferredSize();
-			wrapper.setMaximumSize(new Dimension(pref.width, pref.height));
-		}
+        Icon potionIcon = listToken.get("potion");
+        if (potionIcon == null)
+            potionIcon = new ImageIcon();
 
-		wrapper.setAlignmentX(Component.CENTER_ALIGNMENT);
-		return wrapper;
-	}
+        JLabel potionLabel = new JLabel("<html><div align='center'>You found a Healing Potion !</div></html>");
+        potionLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 30, 0));
+        potionLabel.setFont(new Font("Ancient Modern Tales", Font.BOLD, 40));
+        potionLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-	private void bind(JComponent comp, String key, Runnable action) {
-		comp.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
-			.put(KeyStroke.getKeyStroke(key), key);
+        JLabel iconLabel = new JLabel(potionIcon);
+        iconLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        iconLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 30, 0));
 
-		comp.getActionMap().put(key, new AbstractAction() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-			action.run();
-			}
-		});
-	}
+        RoundedImageButton backButton = new RoundedImageButton("Back to Map", icon);
+        Dimension Size = new Dimension(150, 48);
+        configButtons(backButton, Size);
+        backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-		/************************************************************************ CONFIGURATION BUTTONS ************************************************************************/
+        backButton.addActionListener(e -> {
+            showingPotionPage = false;
+			GuiGamePage.resetPage((JPanel)panel, rpg, listToken, grid, baseInventory);
+        });
 
-	private static void configButtons(RoundedImageButton btn, Dimension size) {
-		btn.setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
-		// btn.setPreferredSize(size);
-		btn.setMinimumSize(size);
-		btn.setMaximumSize(size);
-	}
+        JPanel container = new JPanel();
+        container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+        container.setOpaque(false);
+        container.add(potionLabel);
+        container.add(iconLabel);
+        container.add(Box.createRigidArea(new Dimension(0, 20)));
+        container.add(backButton);
+
+        JPanel centerWrapper = new JPanel(new GridBagLayout());
+        centerWrapper.setOpaque(false);
+        centerWrapper.add(container, new GridBagConstraints());
+
+        panel.add(centerWrapper, BorderLayout.CENTER);
+
+        panel.revalidate();
+        panel.repaint();
+    }
+
+    /* =====================================================
+                        UTILITIES
+       ===================================================== */
+    private static JPanel wrapperLabelGenerator(JLabel elem, int top, int left, int bottom, int right, boolean setSize) {
+        JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        wrapper.setOpaque(false);
+        wrapper.add(elem);
+
+        wrapper.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(Color.BLACK, 0),
+                BorderFactory.createEmptyBorder(top, left, bottom, right)
+        ));
+
+        if (setSize) {
+            Dimension pref = wrapper.getPreferredSize();
+            wrapper.setMaximumSize(new Dimension(pref.width, pref.height));
+        }
+
+        wrapper.setAlignmentX(Component.CENTER_ALIGNMENT);
+        return wrapper;
+    }
+
+    private void bind(JComponent comp, String key, Runnable action) {
+        comp.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+                .put(KeyStroke.getKeyStroke(key), key);
+
+        comp.getActionMap().put(key, new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                action.run();
+            }
+        });
+    }
+
+    private static void configButtons(RoundedImageButton btn, Dimension size) {
+        btn.setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
+        btn.setMinimumSize(size);
+        btn.setMaximumSize(size);
+    }
 }

@@ -22,7 +22,7 @@ public class GuiMainWindow extends JFrame {
 
 	private CardLayout cardLayout;
 	private JPanel cardPanel;
-	private Map<String, ImageIcon> listToken = new HashMap<>();
+	private static Map<String, ImageIcon> listToken = new HashMap<>();
 	private Game rpg;
 	// private static BufferedImage imgBackgroundMap;
 	private static Map<Integer, BufferedImage> listBackground = new HashMap<>();
@@ -153,7 +153,7 @@ public class GuiMainWindow extends JFrame {
 
 	public CardLayout getCardLayout() {return this.cardLayout;}
 	public JPanel getCardPanel() {return this.cardPanel;}
-	public Map<String, ImageIcon> getListTokens() {return this.listToken;}
+	public static Map<String, ImageIcon> getListTokens() {return listToken;}
 	public Game getGame() {return this.rpg;}
 	public static Map<Integer, BufferedImage> getBackgrounds() {return listBackground;}
 }

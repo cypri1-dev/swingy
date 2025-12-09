@@ -75,6 +75,7 @@ public class Characters {
 
 			case ENEMY_CLASS_RAT:
 				setHitPoint(HP_BASE_ENEMY + HP_RAT);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_RAT);
 				setAttack(ATT_BASE_ENEMY + ATT_RAT);
 				setDefense(DEF_BASE_ENEMY + DEF_RAT);
 				setXp(XP_RAT);
@@ -83,6 +84,7 @@ public class Characters {
 
 			case ENEMY_CLASS_SLIME:
 				setHitPoint(HP_BASE_ENEMY + HP_SLIME);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_SLIME);
 				setAttack(ATT_BASE_ENEMY + ATT_SLIME);
 				setDefense(DEF_BASE_ENEMY + DEF_SLIME);
 				setXp(XP_SLIME);
@@ -91,6 +93,7 @@ public class Characters {
 
 			case ENEMY_CLASS_GOBLIN:
 				setHitPoint(HP_BASE_ENEMY + HP_GOBLIN);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_GOBLIN);
 				setAttack(ATT_BASE_ENEMY + ATT_GOBLIN);
 				setDefense(DEF_BASE_ENEMY + DEF_GOBLIN);
 				setXp(XP_GOBLIN);
@@ -99,6 +102,7 @@ public class Characters {
 
 			case ENEMY_CLASS_BANDIT:
 				setHitPoint(HP_BASE_ENEMY + HP_BANDIT);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_BANDIT);
 				setAttack(ATT_BASE_ENEMY + ATT_BANDIT);
 				setDefense(DEF_BASE_ENEMY + DEF_BANDIT);
 				setXp(XP_BANDIT);
@@ -107,6 +111,7 @@ public class Characters {
 
 			case ENEMY_CLASS_SKELETON:
 				setHitPoint(HP_BASE_ENEMY + HP_SKELETON);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_SKELETON);
 				setAttack(ATT_BASE_ENEMY + ATT_SKELETON);
 				setDefense(DEF_BASE_ENEMY + DEF_SKELETON);
 				setXp(XP_SKELETON);
@@ -115,6 +120,7 @@ public class Characters {
 
 			case ENEMY_CLASS_WOLF:
 				setHitPoint(HP_BASE_ENEMY + HP_WOLF);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_WOLF);
 				setAttack(ATT_BASE_ENEMY + ATT_WOLF);
 				setDefense(DEF_BASE_ENEMY + DEF_WOLF);
 				setXp(XP_WOLF);
@@ -123,6 +129,7 @@ public class Characters {
 
 			case ENEMY_CLASS_CULTIST:
 				setHitPoint(HP_BASE_ENEMY + HP_CULTIST);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_CULTIST);
 				setAttack(ATT_BASE_ENEMY + ATT_CULTIST);
 				setDefense(DEF_BASE_ENEMY + DEF_CULTIST);
 				setXp(XP_CULTIST);
@@ -131,6 +138,7 @@ public class Characters {
 
 			case ENEMY_CLASS_ORC:
 				setHitPoint(HP_BASE_ENEMY + HP_ORC);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_ORC);
 				setAttack(ATT_BASE_ENEMY + ATT_ORC);
 				setDefense(DEF_BASE_ENEMY + DEF_ORC);
 				setXp(XP_ORC);
@@ -139,6 +147,7 @@ public class Characters {
 
 			case ENEMY_CLASS_DARK_MAGE:
 				setHitPoint(HP_BASE_ENEMY + HP_DARK_MAGE);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_DARK_MAGE);
 				setAttack(ATT_BASE_ENEMY + ATT_DARK_MAGE);
 				setDefense(DEF_BASE_ENEMY + DEF_DARK_MAGE);
 				setXp(XP_DARK_MAGE);
@@ -147,6 +156,7 @@ public class Characters {
 
 			case ENEMY_CLASS_ELEMENTAL:
 				setHitPoint(HP_BASE_ENEMY + HP_ELEMENTAL);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_ELEMENTAL);
 				setAttack(ATT_BASE_ENEMY + ATT_ELEMENTAL);
 				setDefense(DEF_BASE_ENEMY + DEF_ELEMENTAL);
 				setXp(XP_ELEMENTAL);
@@ -155,6 +165,7 @@ public class Characters {
 
 			case ENEMY_CLASS_TROLL:
 				setHitPoint(HP_BASE_ENEMY + HP_TROLL);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_TROLL);
 				setAttack(ATT_BASE_ENEMY + ATT_TROLL);
 				setDefense(DEF_BASE_ENEMY + DEF_TROLL);
 				setXp(XP_TROLL);
@@ -163,6 +174,7 @@ public class Characters {
 
 			case ENEMY_CLASS_ASSASSIN:
 				setHitPoint(HP_BASE_ENEMY + HP_ASSASSIN_ENEMY);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_ASSASSIN_ENEMY);
 				setAttack(ATT_BASE_ENEMY + ATT_ASSASSIN_ENEMY);
 				setDefense(DEF_BASE_ENEMY + DEF_ASSASSIN_ENEMY);
 				setXp(XP_ASSASSIN_ENEMY);
@@ -171,6 +183,7 @@ public class Characters {
 
 			case ENEMY_CLASS_LICH:
 				setHitPoint(HP_BASE_ENEMY + HP_LICH);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_LICH);
 				setAttack(ATT_BASE_ENEMY + ATT_LICH);
 				setDefense(DEF_BASE_ENEMY + DEF_LICH);
 				setXp(XP_LICH);
@@ -179,6 +192,7 @@ public class Characters {
 
 			case ENEMY_CLASS_MINOTAUR:
 				setHitPoint(HP_BASE_ENEMY + HP_MINOTAUR);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_MINOTAUR);
 				setAttack(ATT_BASE_ENEMY + ATT_MINOTAUR);
 				setDefense(DEF_BASE_ENEMY + DEF_MINOTAUR);
 				setXp(XP_MINOTAUR);
@@ -187,6 +201,7 @@ public class Characters {
 
 			case ENEMY_CLASS_VAMPIRE_LORD:
 				setHitPoint(HP_BASE_ENEMY + HP_VAMPIRE_LORD);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_VAMPIRE_LORD);
 				setAttack(ATT_BASE_ENEMY + ATT_VAMPIRE_LORD);
 				setDefense(DEF_BASE_ENEMY + DEF_VAMPIRE_LORD);
 				setXp(XP_VAMPIRE_LORD);
@@ -195,6 +210,7 @@ public class Characters {
 
 			case ENEMY_CLASS_DEMON_KNIGHT:
 				setHitPoint(HP_BASE_ENEMY + HP_DEMON_KNIGHT);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_DEMON_KNIGHT);
 				setAttack(ATT_BASE_ENEMY + ATT_DEMON_KNIGHT);
 				setDefense(DEF_BASE_ENEMY + DEF_DEMON_KNIGHT);
 				setXp(XP_DEMON_KNIGHT);
@@ -203,6 +219,7 @@ public class Characters {
 
 			case ENEMY_CLASS_DRAGON_WHELP:
 				setHitPoint(HP_BASE_ENEMY + HP_DRAGON_WHELP);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_DRAGON_WHELP);
 				setAttack(ATT_BASE_ENEMY + ATT_DRAGON_WHELP);
 				setDefense(DEF_BASE_ENEMY + DEF_DRAGON_WHELP);
 				setXp(XP_DRAGON_WHELP);
@@ -211,6 +228,7 @@ public class Characters {
 
 			case ENEMY_CLASS_ANCIENT_DRAGON:
 				setHitPoint(HP_BASE_ENEMY + HP_ANCIENT_DRAGON);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_ANCIENT_DRAGON);
 				setAttack(ATT_BASE_ENEMY + ATT_ANCIENT_DRAGON);
 				setDefense(DEF_BASE_ENEMY + DEF_ANCIENT_DRAGON);
 				setXp(XP_ANCIENT_DRAGON);
@@ -219,6 +237,7 @@ public class Characters {
 
 			case ENEMY_CLASS_ABYSSAL_HYDRA:
 				setHitPoint(HP_BASE_ENEMY + HP_ABYSSAL_HYDRA);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_ABYSSAL_HYDRA);
 				setAttack(ATT_BASE_ENEMY + ATT_ABYSSAL_HYDRA);
 				setDefense(DEF_BASE_ENEMY + DEF_ABYSSAL_HYDRA);
 				setXp(XP_ABYSSAL_HYDRA);
@@ -227,6 +246,7 @@ public class Characters {
 
 			case ENEMY_CLASS_FALLEN_GOD:
 				setHitPoint(HP_BASE_ENEMY + HP_FALLEN_GOD);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_FALLEN_GOD);
 				setAttack(ATT_BASE_ENEMY + ATT_FALLEN_GOD);
 				setDefense(DEF_BASE_ENEMY + DEF_FALLEN_GOD);
 				setXp(XP_FALLEN_GOD);
@@ -235,6 +255,7 @@ public class Characters {
 
 			case ENEMY_CLASS_BAT:
 				setHitPoint(HP_BASE_ENEMY + HP_BAT);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_BAT);
 				setAttack(ATT_BASE_ENEMY + ATT_BAT);
 				setDefense(DEF_BASE_ENEMY + DEF_BAT);
 				setXp(XP_BAT);
@@ -243,6 +264,7 @@ public class Characters {
 
 			case ENEMY_CLASS_SPIDERLING:
 				setHitPoint(HP_BASE_ENEMY + HP_SPIDERLING);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_SPIDERLING);
 				setAttack(ATT_BASE_ENEMY + ATT_SPIDERLING);
 				setDefense(DEF_BASE_ENEMY + DEF_SPIDERLING);
 				setXp(XP_SPIDERLING);
@@ -251,6 +273,7 @@ public class Characters {
 
 			case ENEMY_CLASS_SKELETAL_HAND:
 				setHitPoint(HP_BASE_ENEMY + HP_SKELETAL_HAND);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_SKELETAL_HAND);
 				setAttack(ATT_BASE_ENEMY + ATT_SKELETAL_HAND);
 				setDefense(DEF_BASE_ENEMY + DEF_SKELETAL_HAND);
 				setXp(XP_SKELETAL_HAND);
@@ -259,6 +282,7 @@ public class Characters {
 
 			case ENEMY_CLASS_MUDLING:
 				setHitPoint(HP_BASE_ENEMY + HP_MUDLING);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_MUDLING);
 				setAttack(ATT_BASE_ENEMY + ATT_MUDLING);
 				setDefense(DEF_BASE_ENEMY + DEF_MUDLING);
 				setXp(XP_MUDLING);
@@ -267,6 +291,7 @@ public class Characters {
 
 			case ENEMY_CLASS_BANDIT_CHIEF:
 				setHitPoint(HP_BASE_ENEMY + HP_BANDIT_CHIEF);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_BANDIT_CHIEF);
 				setAttack(ATT_BASE_ENEMY + ATT_BANDIT_CHIEF);
 				setDefense(DEF_BASE_ENEMY + DEF_BANDIT_CHIEF);
 				setXp(XP_BANDIT_CHIEF);
@@ -275,6 +300,7 @@ public class Characters {
 
 			case ENEMY_CLASS_GOBLIN_SHAMAN:
 				setHitPoint(HP_BASE_ENEMY + HP_GOBLIN_SHAMAN);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_GOBLIN_SHAMAN);
 				setAttack(ATT_BASE_ENEMY + ATT_GOBLIN_SHAMAN);
 				setDefense(DEF_BASE_ENEMY + DEF_GOBLIN_SHAMAN);
 				setXp(XP_GOBLIN_SHAMAN);
@@ -283,6 +309,7 @@ public class Characters {
 
 			case ENEMY_CLASS_WARG:
 				setHitPoint(HP_BASE_ENEMY + HP_WARG);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_WARG);
 				setAttack(ATT_BASE_ENEMY + ATT_WARG);
 				setDefense(DEF_BASE_ENEMY + DEF_WARG);
 				setXp(XP_WARG);
@@ -291,6 +318,7 @@ public class Characters {
 
 			case ENEMY_CLASS_GRAVE_ROBBER:
 				setHitPoint(HP_BASE_ENEMY + HP_GRAVE_ROBBER);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_GRAVE_ROBBER);
 				setAttack(ATT_BASE_ENEMY + ATT_GRAVE_ROBBER);
 				setDefense(DEF_BASE_ENEMY + DEF_GRAVE_ROBBER);
 				setXp(XP_GRAVE_ROBBER);
@@ -299,6 +327,7 @@ public class Characters {
 
 			case ENEMY_CLASS_NECROMANCER:
 				setHitPoint(HP_BASE_ENEMY + HP_NECROMANCER);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_NECROMANCER);
 				setAttack(ATT_BASE_ENEMY + ATT_NECROMANCER);
 				setDefense(DEF_BASE_ENEMY + DEF_NECROMANCER);
 				setXp(XP_NECROMANCER);
@@ -307,6 +336,7 @@ public class Characters {
 
 			case ENEMY_CLASS_WARLOCK:
 				setHitPoint(HP_BASE_ENEMY + HP_WARLOCK);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_WARLOCK);
 				setAttack(ATT_BASE_ENEMY + ATT_WARLOCK);
 				setDefense(DEF_BASE_ENEMY + DEF_WARLOCK);
 				setXp(XP_WARLOCK);
@@ -315,6 +345,7 @@ public class Characters {
 
 			case ENEMY_CLASS_SHADOW_BEAST:
 				setHitPoint(HP_BASE_ENEMY + HP_SHADOW_BEAST);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_SHADOW_BEAST);
 				setAttack(ATT_BASE_ENEMY + ATT_SHADOW_BEAST);
 				setDefense(DEF_BASE_ENEMY + DEF_SHADOW_BEAST);
 				setXp(XP_SHADOW_BEAST);
@@ -323,6 +354,7 @@ public class Characters {
 
 			case ENEMY_CLASS_GOLEM:
 				setHitPoint(HP_BASE_ENEMY + HP_GOLEM);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_GOLEM);
 				setAttack(ATT_BASE_ENEMY + ATT_GOLEM);
 				setDefense(DEF_BASE_ENEMY + DEF_GOLEM);
 				setXp(XP_GOLEM);
@@ -331,6 +363,7 @@ public class Characters {
 
 			case ENEMY_CLASS_DREAD_KNIGHT:
 				setHitPoint(HP_BASE_ENEMY + HP_DREAD_KNIGHT);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_DREAD_KNIGHT);
 				setAttack(ATT_BASE_ENEMY + ATT_DREAD_KNIGHT);
 				setDefense(DEF_BASE_ENEMY + DEF_DREAD_KNIGHT);
 				setXp(XP_DREAD_KNIGHT);
@@ -339,6 +372,7 @@ public class Characters {
 
 			case ENEMY_CLASS_PLAGUE_BRINGER:
 				setHitPoint(HP_BASE_ENEMY + HP_PLAGUE_BRINGER);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_PLAGUE_BRINGER);
 				setAttack(ATT_BASE_ENEMY + ATT_PLAGUE_BRINGER);
 				setDefense(DEF_BASE_ENEMY + DEF_PLAGUE_BRINGER);
 				setXp(XP_PLAGUE_BRINGER);
@@ -347,6 +381,7 @@ public class Characters {
 
 			case ENEMY_CLASS_PYROMANCER:
 				setHitPoint(HP_BASE_ENEMY + HP_PYROMANCER);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_PYROMANCER);
 				setAttack(ATT_BASE_ENEMY + ATT_PYROMANCER);
 				setDefense(DEF_BASE_ENEMY + DEF_PYROMANCER);
 				setXp(XP_PYROMANCER);
@@ -355,6 +390,7 @@ public class Characters {
 
 			case ENEMY_CLASS_SPECTER:
 				setHitPoint(HP_BASE_ENEMY + HP_SPECTER);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_SPECTER);
 				setAttack(ATT_BASE_ENEMY + ATT_SPECTER);
 				setDefense(DEF_BASE_ENEMY + DEF_SPECTER);
 				setXp(XP_SPECTER);
@@ -363,6 +399,7 @@ public class Characters {
 
 			case ENEMY_CLASS_DEMON_OVERLORD:
 				setHitPoint(HP_BASE_ENEMY + HP_DEMON_OVERLORD);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_DEMON_OVERLORD);
 				setAttack(ATT_BASE_ENEMY + ATT_DEMON_OVERLORD);
 				setDefense(DEF_BASE_ENEMY + DEF_DEMON_OVERLORD);
 				setXp(XP_DEMON_OVERLORD);
@@ -371,6 +408,7 @@ public class Characters {
 
 			case ENEMY_CLASS_TITAN:
 				setHitPoint(HP_BASE_ENEMY + HP_TITAN);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_TITAN);
 				setAttack(ATT_BASE_ENEMY + ATT_TITAN);
 				setDefense(DEF_BASE_ENEMY + DEF_TITAN);
 				setXp(XP_TITAN);
@@ -379,6 +417,7 @@ public class Characters {
 
 			case ENEMY_CLASS_VOID_SERPENT:
 				setHitPoint(HP_BASE_ENEMY + HP_VOID_SERPENT);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_VOID_SERPENT);
 				setAttack(ATT_BASE_ENEMY + ATT_VOID_SERPENT);
 				setDefense(DEF_BASE_ENEMY + DEF_VOID_SERPENT);
 				setXp(XP_VOID_SERPENT);
@@ -387,6 +426,7 @@ public class Characters {
 
 			case ENEMY_CLASS_COSMIC_DRAGON:
 				setHitPoint(HP_BASE_ENEMY + HP_COSMIC_DRAGON);
+				setMaxHitPoint(HP_BASE_ENEMY + HP_COSMIC_DRAGON);
 				setAttack(ATT_BASE_ENEMY + ATT_COSMIC_DRAGON);
 				setDefense(DEF_BASE_ENEMY + DEF_COSMIC_DRAGON);
 				setXp(XP_COSMIC_DRAGON);

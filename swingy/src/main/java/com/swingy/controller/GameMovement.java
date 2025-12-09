@@ -13,7 +13,7 @@ public class GameMovement {
 
 	/* -------------------------------------------------- CHECK FIGHT METHOD -------------------------------------------------- */
 
-	private void checkFight(Characters hero, Maps map, Menu menu) {
+	private void checkFight(Characters hero, Maps map, Menu menu, boolean gui) {
 
 		if (!map.map[hero.getCoordinates().getPrevX()][hero.getCoordinates().getPrevY()].contains("!")) {
 			map.map[hero.getCoordinates().getPrevX()][hero.getCoordinates().getPrevY()] = BLUE + "*" + RESET;
@@ -22,15 +22,13 @@ public class GameMovement {
 		Iterator<Characters> iterator = map.getListEnemies().iterator();
 		while (iterator.hasNext()) {
 			Characters enemy = iterator.next();
-			if (hero.getCoordinates().getX() == enemy.getCoordinates().getX() &&
-				hero.getCoordinates().getY() == enemy.getCoordinates().getY()) {
-
+			if (hero.getCoordinates().getX() == enemy.getCoordinates().getX() && hero.getCoordinates().getY() == enemy.getCoordinates().getY()) {
+				
+				if (gui)
+					return;
 				FightLogic.fight(enemy, hero, menu);
-
-				iterator.remove();  // Suppression sécurisée
-
+				iterator.remove();
 				map.map[hero.getCoordinates().getX()][hero.getCoordinates().getY()] = SYMBOL_MAIN_HERO;
-
 				return;
 			}
 		}
@@ -84,7 +82,7 @@ public class GameMovement {
 			hero.getCoordinates().setX(-1); // x += -1
 		}
 
-		checkFight(hero, map, menu);
+		checkFight(hero, map, menu, gui);
 		checkConsommable(hero, map, gui);
 		checkEndLevel(hero, map);
 	}
@@ -97,7 +95,7 @@ public class GameMovement {
 			hero.getCoordinates().setY(1); // y += 1
 		}
 
-		checkFight(hero, map, menu);
+		checkFight(hero, map, menu, gui);
 		checkConsommable(hero, map, gui);
 		checkEndLevel(hero, map);
 	}
@@ -110,7 +108,7 @@ public class GameMovement {
 			hero.getCoordinates().setX(1); // x += 1
 		}
 
-		checkFight(hero, map, menu);
+		checkFight(hero, map, menu, gui);
 		checkConsommable(hero, map, gui);
 		checkEndLevel(hero, map);
 	}
@@ -123,7 +121,7 @@ public class GameMovement {
 			hero.getCoordinates().setY(-1); // y += -1
 		}
 
-		checkFight(hero, map, menu);
+		checkFight(hero, map, menu, gui);
 		checkConsommable(hero, map, gui);
 		checkEndLevel(hero, map);
 	}
