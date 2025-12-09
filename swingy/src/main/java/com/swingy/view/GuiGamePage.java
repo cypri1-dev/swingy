@@ -103,7 +103,7 @@ public class GuiGamePage {
 
 	/************************************************************************ METHOD REFRESH CHECKBOXES ************************************************************************/
 
-	private static void refreshInventory(Game rpg, JPanel baseInventory) {
+	public static void refreshInventory(Game rpg, JPanel baseInventory) {
 		baseInventory.removeAll(); // vider les composants existants
 
 		// Title
@@ -320,8 +320,6 @@ public class GuiGamePage {
 						cell.add(heroLabel);
 						break;
 
-					case ")": loadToken(listToken, cell, "potion");
-
 					case SYMBOL_ENEMY_RAT: loadToken(listToken, cell, "rat"); break;
 					case SYMBOL_ENEMY_SLIME: loadToken(listToken, cell, "slime"); break;
 					case SYMBOL_ENEMY_GOBLIN: loadToken(listToken, cell, "gobelin"); break;
@@ -408,40 +406,6 @@ public class GuiGamePage {
 			protected void paintContentBorder(Graphics g, int tabPlacement, int selectedIndex) { }
 		});
 
-		/****************************** TAB 1 — MAP ******************************/
-
-		JPanel baseMap = createBaseStructure();
-
-		// Title
-		JLabel titleMap = new JLabel("Map");
-		titleMap.setFont(new Font("Ancient Modern Tales", Font.BOLD, 45));
-
-		JPanel wrapperTitleMap = wrapperLabelGenerator(titleMap, 0, 0, 20, 0, true);
-		baseMap.add(wrapperTitleMap);
-
-		// Création de la grille unique
-		int viewportSize = 9;
-		BufferedImage bg = selectRandomBackground();
-		JPanel grid = new JPanel(new GridLayout(viewportSize, viewportSize)) {
-			@Override
-			protected void paintComponent(Graphics g) {
-				super.paintComponent(g);
-				if (bg != null) {
-					g.drawImage(bg, 0, 0, getWidth(), getHeight(), null);
-				}
-			}
-		};
-		grid.setOpaque(false);
-		baseMap.add(grid);
-
-		// Place le héros sur la map
-		rpg.placeHero(rpg.getMainHero());
-
-		// Crée le contrôleur en lui passant la grille (à adapter dans GuiInputController)
-		GuiInputController inputController = new GuiInputController(baseMap, rpg.getMainHero().getMovement(), rpg.getMainHero(), rpg.getMap(), rpg.getMenu(), grid, rpg, listToken);
-		// Dessine la map initiale dans la grille
-		drawMap(rpg, listToken, grid);
-
 		/****************************** TAB 2 — INVENTORY ******************************/
 
 		JPanel baseInventory = createBaseStructure();
@@ -472,6 +436,41 @@ public class GuiGamePage {
 
 		// Checkboxes
 		createCheckBoxes(rpg, baseInventory);
+
+		/****************************** TAB 1 — MAP ******************************/
+
+		JPanel baseMap = createBaseStructure();
+
+		// Title
+		JLabel titleMap = new JLabel("Map");
+		titleMap.setFont(new Font("Ancient Modern Tales", Font.BOLD, 45));
+
+		JPanel wrapperTitleMap = wrapperLabelGenerator(titleMap, 0, 0, 20, 0, true);
+		baseMap.add(wrapperTitleMap);
+
+		// Création de la grille unique
+		int viewportSize = 9;
+		BufferedImage bg = selectRandomBackground();
+		JPanel grid = new JPanel(new GridLayout(viewportSize, viewportSize)) {
+			@Override
+			protected void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				if (bg != null) {
+					g.drawImage(bg, 0, 0, getWidth(), getHeight(), null);
+				}
+			}
+		};
+		grid.setOpaque(false);
+		baseMap.add(grid);
+
+		// Place le héros sur la map
+		rpg.placeHero(rpg.getMainHero());
+
+		// Crée le contrôleur en lui passant la grille (à adapter dans GuiInputController)
+		GuiInputController inputController = new GuiInputController(baseMap, rpg.getMainHero().getMovement(), rpg.getMainHero(), rpg.getMap(), rpg.getMenu(), grid, rpg, listToken, icon, baseInventory);
+		// Dessine la map initiale dans la grille
+		drawMap(rpg, listToken, grid);
+
 
 		/****************************** ADD TABS ******************************/
 

@@ -52,7 +52,7 @@ public class GameMovement {
 				
 				hero.addArtefact(healingPotion);
 				if (gui) 
-					System.out.println("SALOPE");
+					;
 				else {
 					tmp = healingPotion;
 					display.printSlow(HP_POTION);

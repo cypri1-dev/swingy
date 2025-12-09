@@ -78,7 +78,7 @@ public class Maps {
 			occupiedCoords.add(consommableCoord);
 			this.consommableList.add(healingPotion);
 			
-			this.map[tmpX][tmpY] = ")";
+			this.map[tmpX][tmpY] = "*";
 		}
 
 	}
