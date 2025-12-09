@@ -5,6 +5,8 @@ import com.swingy.model.Artefact;
 import com.swingy.model.Characters;
 import com.swingy.model.Maps;
 import com.swingy.view.GuiGamePage;
+import com.swingy.view.GuiHeroManagerPage;
+import com.swingy.view.GuiPlayPage;
 import com.swingy.view.components.RoundedImageButton;
 
 import javax.swing.*;
@@ -101,6 +103,10 @@ public class GuiInputController {
 		// Game Over
 		if (hero.getHitPoint() <= 0) {
 			Icon deadIcon = listToken.get("Cranefeu");
+			rpg.getHeroesNameList().remove(hero.getName());
+			rpg.getListAvaible().remove(hero);
+			GuiPlayPage.updateHeroComboBox(rpg);
+			GuiHeroManagerPage.updateHeroComboBox(rpg);
 
 			if (!levelFinished) {
 			panel.removeAll();

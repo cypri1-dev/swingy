@@ -264,6 +264,9 @@ public class GuiPlayPage {
 		});
 
 		btnPlay.addActionListener(e -> {
+			infoLabel.setText("");
+			btnPlay.setVisible(false);
+			infoLabel.setIcon(null);
 			JPanel gamePage = GuiGamePage.createGamePage(rpg, cardLayout, cardPanel, listToken, icon);
 			cardPanel.add(gamePage, "game");
 			cardLayout.show(cardPanel, "game");
