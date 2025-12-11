@@ -42,32 +42,23 @@ public class GuiWelcomePage extends GuiCustomPage {
 		elem.setPreferredSize(new Dimension(400, 500));
 	}
 
-	/************************************************************************ CONFIGURATION BOTTOM PANEL ************************************************************************/
-
-	private static void configureBottomPanel(JPanel elem, RoundedImageButton btn) {
-		elem.setOpaque(false);
-		elem.setBorder(BorderFactory.createEmptyBorder(0, 0, 40, 0));
-		elem.add(btn);
-	}
-
 	/************************************************************************ WELCOME PAGE BUILDER METHOD ************************************************************************/
 
 	public static JPanel createPageWelcome(String title, CardLayout cardLayout, JPanel cardPanel, ImageIcon icon, Map<String, ImageIcon> listToken) {
 
+		// --- Panel/Card a return ---
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.setOpaque(false);
 
 		// --- Zone verticale principale (au CENTRE) ---
-		JPanel content = new JPanel();
-		content.setOpaque(false);
-		content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
+		JPanel content = createBaseStructure();
 		panel.add(content, BorderLayout.CENTER);
 
 		// --- Titre ---
 		JLabel label = new JLabel(title);
 		setCustomFont(label, Font.BOLD, 60);
 
-		JPanel labelWrapper = wrapperLabelGenerator(label, 60, 20, 50, 20, true);
+		JPanel labelWrapper = wrapperLabelGenerator(label, 60, 20, 50, 20, true, false);
 		content.add(labelWrapper);
 
 		// --- Description ---
@@ -80,7 +71,7 @@ public class GuiWelcomePage extends GuiCustomPage {
 		);
 		setCustomFont(description, Font.ITALIC, 30);
 
-		JPanel descWrapper = wrapperLabelGenerator(description, 0, 0, 60, 0, true);
+		JPanel descWrapper = wrapperLabelGenerator(description, 0, 0, 60, 0, true, false);
 		content.add(descWrapper);
 
 		// --- Tokens ---

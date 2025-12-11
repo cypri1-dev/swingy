@@ -52,16 +52,14 @@ public class GuiMainMenuPage extends GuiCustomPage {
 		panel.setOpaque(false);
 
 		// --- Zone Verticale principale (au CENTRE) ---
-		JPanel content = new JPanel();
-		content.setOpaque(false);
-		content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
+		JPanel content = createBaseStructure();
 		panel.add(content, BorderLayout.CENTER);
 
 		// --- Titre ---
 		JLabel label = new JLabel("Main Menu");
 		setCustomFont(label, Font.BOLD, 60);
 
-		JPanel labelWrapper = wrapperLabelGenerator(label, 60, 20, 0, 20, true);
+		JPanel labelWrapper = wrapperLabelGenerator(label, 60, 20, 0, 20, true, false);
 		content.add(labelWrapper);
 
 		// --- Description ---
@@ -75,7 +73,7 @@ public class GuiMainMenuPage extends GuiCustomPage {
 		);
 		setCustomFont(description, Font.ITALIC, 25);
 
-		JPanel descWrapper = wrapperLabelGenerator(description, 0, 0, 0, 0, false);
+		JPanel descWrapper = wrapperLabelGenerator(description, 0, 0, 0, 0, false, false);
 		content.add(descWrapper);
 
 		// --- Buttons ---
@@ -111,7 +109,7 @@ public class GuiMainMenuPage extends GuiCustomPage {
 		);
 		setCustomFont(runes, Font.BOLD, 14);
 
-		JPanel runesWrapper = wrapperLabelGenerator(runes, 0, 0, 0, 0, false);
+		JPanel runesWrapper = wrapperLabelGenerator(runes, 0, 0, 0, 0, false, false);
 		content.add(runesWrapper, BorderLayout.SOUTH);
 
 		return panel;
