@@ -23,12 +23,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Collections;
 
-public class GuiWelcomePage {
+public class GuiWelcomePage extends GuiCustomPage {
 
-	/************************************************************************ CONFIGURATION PANEL TOKENS ************************************************************************/
+	/************************************************************************ CONFIGURATION BUTTON ************************************************************************/
 
 	private static void configureButton(RoundedImageButton btn, CardLayout cardLayout, JPanel cardPanel) {
-		btn.setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
+		setCustomFont(btn, Font.BOLD, 25);
 		btn.setPreferredSize(new Dimension(152, 52));
 		btn.addActionListener(e -> cardLayout.show(cardPanel, "main_menu"));
 	}
@@ -42,16 +42,12 @@ public class GuiWelcomePage {
 		elem.setPreferredSize(new Dimension(400, 500));
 	}
 
-	/************************************************************************ WRAPPER LABEL ************************************************************************/
+	/************************************************************************ CONFIGURATION BOTTOM PANEL ************************************************************************/
 
-	private static JPanel wrapperLabelGenerator(JLabel elem, int top, int left, int bottom, int right, boolean setBorder) {
-		JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		wrapper.setOpaque(false);
-		wrapper.add(elem);
-		if (setBorder)
-			wrapper.setBorder(BorderFactory.createEmptyBorder(top, left, bottom, right));
-
-		return wrapper;
+	private static void configureBottomPanel(JPanel elem, RoundedImageButton btn) {
+		elem.setOpaque(false);
+		elem.setBorder(BorderFactory.createEmptyBorder(0, 0, 40, 0));
+		elem.add(btn);
 	}
 
 	/************************************************************************ WELCOME PAGE BUILDER METHOD ************************************************************************/
@@ -69,7 +65,7 @@ public class GuiWelcomePage {
 
 		// --- Titre ---
 		JLabel label = new JLabel(title);
-		label.setFont(new Font("Ancient Modern Tales", Font.BOLD, 60));
+		setCustomFont(label, Font.BOLD, 60);
 
 		JPanel labelWrapper = wrapperLabelGenerator(label, 60, 20, 50, 20, true);
 		content.add(labelWrapper);
@@ -82,7 +78,7 @@ public class GuiWelcomePage {
 			+ "Where courage, strategy, and fate will decide your legend..."
 			+ "</div></html>"
 		);
-		description.setFont(new Font("Ancient Modern Tales", Font.ITALIC, 30));
+		setCustomFont(description, Font.ITALIC, 30);
 
 		JPanel descWrapper = wrapperLabelGenerator(description, 0, 0, 60, 0, true);
 		content.add(descWrapper);
@@ -91,21 +87,13 @@ public class GuiWelcomePage {
 		JPanel tokenContent = new JPanel();
 		configurePanelTokens(tokenContent);
 
-		ImageIcon iconSpider = listToken.get("Araignee_geante");
-		ImageIcon iconSkull = listToken.get("Cranefeu");
-		ImageIcon iconOzi = listToken.get("Ozi");
-		ImageIcon iconManticore = listToken.get("manticore");
-		ImageIcon iconEttins = listToken.get("ettins");
-		ImageIcon iconOrc = listToken.get("Orc");
-		ImageIcon iconVolo = listToken.get("volothamp_geddarm");
-
-		FadingToken tokenSpider = new FadingToken(iconSpider);
-		FadingToken tokenSkull = new FadingToken(iconSkull);
-		FadingToken tokenOzi = new FadingToken(iconOzi);
-		FadingToken tokenManticore = new FadingToken(iconManticore);
-		FadingToken tokenEttins = new FadingToken(iconEttins);
-		FadingToken tokenOrc = new FadingToken(iconOrc);
-		FadingToken tokenVolo = new FadingToken(iconVolo);
+		FadingToken tokenSpider = new FadingToken(listToken.get("Araignee_geante"));
+		FadingToken tokenSkull = new FadingToken(listToken.get("Cranefeu"));
+		FadingToken tokenOzi = new FadingToken(listToken.get("Ozi"));
+		FadingToken tokenManticore = new FadingToken(listToken.get("manticore"));
+		FadingToken tokenEttins = new FadingToken(listToken.get("ettins"));
+		FadingToken tokenOrc = new FadingToken(listToken.get("Orc"));
+		FadingToken tokenVolo = new FadingToken(listToken.get("volothamp_geddarm"));
 
 		FadingToken[] tokens = {tokenSpider, tokenSkull, tokenOzi, tokenManticore, tokenEttins, tokenOrc, tokenVolo};
 		List<FadingToken> tokenList = Arrays.asList(tokens);
@@ -131,9 +119,8 @@ public class GuiWelcomePage {
 		configureButton(btn, cardLayout, cardPanel);
 
 		JPanel bottom = new JPanel();
-		bottom.setOpaque(false);
-		bottom.setBorder(BorderFactory.createEmptyBorder(0, 0, 40, 0));
-		bottom.add(btn);
+		configureBottomPanel(bottom, btn);
+		
 		panel.add(bottom, BorderLayout.SOUTH);
 		LabelAnimator.animateLabel(description);
 

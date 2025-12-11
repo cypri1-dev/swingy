@@ -25,7 +25,7 @@ public class RoundedImageButton extends JButton {
 		setHorizontalTextPosition(SwingConstants.CENTER);
 		setVerticalTextPosition(SwingConstants.CENTER);
 		setForeground(Color.BLACK);
-		setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
+		// setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
 	}
 
 	@Override

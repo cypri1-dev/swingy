@@ -1,22 +1,20 @@
 package com.swingy.view;
 
+import com.swingy.controller.Game;
+import com.swingy.view.components.BackgroundPanel;
+
 import javax.swing.*;
+import javax.imageio.ImageIO;
+
 import java.awt.*;
-import java.io.File;
+import java.awt.image.BufferedImage;
+
 import java.io.IOException;
 import java.io.InputStream;
 
-import javax.imageio.ImageIO;
-
-import java.awt.image.BufferedImage;
-
-import com.swingy.controller.Game;
-
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ThreadLocalRandom;
 
-import com.swingy.view.components.BackgroundPanel;
 
 public class GuiMainWindow extends JFrame {
 
@@ -24,12 +22,11 @@ public class GuiMainWindow extends JFrame {
 	private JPanel cardPanel;
 	private static Map<String, ImageIcon> listToken = new HashMap<>();
 	private Game rpg;
-	// private static BufferedImage imgBackgroundMap;
 	private static Map<Integer, BufferedImage> listBackground = new HashMap<>();
 
 	/************************************************************************ INIT TOKENS METHOD ************************************************************************/
 
-	private void initTokens() {
+	private void initImages() {
 		String[] tokenPaths = {
 			"/Araignee_geante_token.png",
 			"/Cranefeu_token.png",
@@ -103,8 +100,8 @@ public class GuiMainWindow extends JFrame {
 
 	public GuiMainWindow(Game rpg) throws IOException {
 		this.rpg = rpg;
-		initTokens();
-
+		
+		initImages();
 		setTitle("RetroRPG");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setAlwaysOnTop(true);

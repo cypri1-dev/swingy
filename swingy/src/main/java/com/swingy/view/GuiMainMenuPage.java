@@ -13,13 +13,12 @@ import com.swingy.view.components.RoundedImageButton;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Component;
 
 import com.swingy.controller.Game;
 
-public class GuiMainMenuPage {
+public class GuiMainMenuPage extends GuiCustomPage {
 
 	/************************************************************************ WRAPPER BUTTONS ************************************************************************/
 
@@ -45,27 +44,6 @@ public class GuiMainMenuPage {
 		return wrapper;
 	}
 
-	/************************************************************************ WRAPPER LABEL ************************************************************************/
-
-	private static JPanel wrapperLabelGenerator(JLabel elem, int top, int left, int bottom, int right, boolean setBorder) {
-		JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		wrapper.setOpaque(false);
-		wrapper.add(elem);
-		if (setBorder)
-			wrapper.setBorder(BorderFactory.createEmptyBorder(top, left, bottom, right));
-
-		return wrapper;
-	}
-
-	/************************************************************************ CONFIGURATION BUTTONS ************************************************************************/
-
-	private static void configButtons(RoundedImageButton btn, Dimension size) {
-		btn.setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
-		btn.setPreferredSize(size);
-		btn.setMinimumSize(size);
-		btn.setMaximumSize(size);
-	}
-
 	/************************************************************************ MAIN MENU PAGE BUILDER METHOD ************************************************************************/
 
 	public static JPanel createPageMainMenu(ImageIcon icon, JPanel cardPanel, CardLayout cardLayout, Game rpg) {
@@ -81,7 +59,7 @@ public class GuiMainMenuPage {
 
 		// --- Titre ---
 		JLabel label = new JLabel("Main Menu");
-		label.setFont(new Font("Ancient Modern Tales", Font.BOLD, 60));
+		setCustomFont(label, Font.BOLD, 60);
 
 		JPanel labelWrapper = wrapperLabelGenerator(label, 60, 20, 0, 20, true);
 		content.add(labelWrapper);
@@ -95,7 +73,7 @@ public class GuiMainMenuPage {
 			+ "<b>Exit</b>: Exit the Game"
 			+ "</div></html>"
 		);
-		description.setFont(new Font("Ancient Modern Tales", Font.ITALIC, 25));
+		setCustomFont(description, Font.ITALIC, 25);
 
 		JPanel descWrapper = wrapperLabelGenerator(description, 0, 0, 0, 0, false);
 		content.add(descWrapper);
@@ -131,7 +109,7 @@ public class GuiMainMenuPage {
 			+ "ᚦᛖ ᚢᚾᚲᚾᛟᚹᚾ ᚨᚾᛞ ᚠᚨᚲᛖ ᛁᛟᚢᚱ ᛞᛖᛊᛏᛁᚾᛁ ᛏᚺᛖ ᚨᛞᚢᛖᚾᛏᚢᚱᛖ ᛊᛏᚨᚱᛏᛊ ᚾᛟᚹᚨᚱᛖ ᛁᛟᚢ ᚱᛖᛞᛁ ᛏᛟ ᛒᛖᚲᛟᛗᛖ ᛚᛖᚷᛖᚾᛞ"
 			+ "</div></html>"
 		);
-		runes.setFont(new Font("Ancient Modern Tales", Font.BOLD, 14));
+		setCustomFont(runes, Font.BOLD, 14);
 
 		JPanel runesWrapper = wrapperLabelGenerator(runes, 0, 0, 0, 0, false);
 		content.add(runesWrapper, BorderLayout.SOUTH);
