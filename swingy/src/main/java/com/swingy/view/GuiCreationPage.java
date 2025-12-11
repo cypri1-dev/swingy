@@ -1,21 +1,18 @@
 package com.swingy.view;
 
 import com.swingy.view.components.RoundedImageButton;
-import com.swingy.controller.CreationController;
+import com.swingy.controller.GuiCreationController;
 import com.swingy.controller.Game;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.DefaultListCellRenderer;
+
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 
 import java.awt.CardLayout;
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.Dimension;
 
@@ -29,45 +26,19 @@ public class GuiCreationPage extends GuiCustomPage {
 		elem.setPreferredSize(new Dimension(150, 48));
 
 		elem.addActionListener(e -> {
-			String txt = CreationController.createHero(rpg, inputName, choiceComboBox);
+			String name = inputName.getText().trim();
+			String selectedClass = (String) choiceComboBox.getSelectedItem();
+			String txt = GuiCreationController.createHero(rpg, name, selectedClass);
+
+			GuiHeroManagerPage.updateHeroComboBox(rpg);
+			GuiPlayPage.updateHeroComboBox(rpg);
+
 			hiddenNameLabel.setText(txt);
 			hiddenNameLabel.setVisible(true);
 			hiddenNameLabelWrapper.repaint();
 			hiddenNameLabelWrapper.revalidate();
 			base.repaint();
 		});
-	}
-
-	/************************************************************************ CONFIGURATION HIDDEN LABEL ************************************************************************/
-
-	private static void configureHiddenLabel(JLabel elem) {
-		elem.setVisible(false);
-		setCustomFont(elem, Font.PLAIN, 20);
-		elem.setHorizontalAlignment(SwingConstants.CENTER);
-	}
-
-	/************************************************************************ CONFIGURATION COMBOBOX ************************************************************************/
-
-	private static void configureComboBox(JComboBox<String> elem) {
-		setCustomFont(elem, Font.ITALIC, 25);
-		/* Center items */
-		elem.setRenderer(new DefaultListCellRenderer() {
-			@Override
-			public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-				JLabel lbl = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-				lbl.setHorizontalAlignment(SwingConstants.CENTER);
-				return lbl;
-			}
-		});
-	}
-
-	/************************************************************************ CONFIGURATION JTEXTFIELD ************************************************************************/
-
-	private static void configureJTextField(JTextField elem) {
-		elem.setOpaque(false);
-		setCustomFont(elem, Font.ITALIC, 25);
-		elem.setColumns(15);
-		elem.setHorizontalAlignment(JTextField.CENTER);
 	}
 
 	/************************************************************************ CREATION PAGE BUIDER METHOD ************************************************************************/
@@ -141,9 +112,8 @@ public class GuiCreationPage extends GuiCustomPage {
 
 		// --- Button Menu ---
 		RoundedImageButton btn = new RoundedImageButton("Menu", icon);
-		Dimension size = new Dimension(150, 48);
 
-		configButtons(btn, size);
+		configButtons(btn);
 		btn.addActionListener(e -> cardLayout.show(cardPanel, "main_menu"));
 
 		JPanel bottom = new JPanel();

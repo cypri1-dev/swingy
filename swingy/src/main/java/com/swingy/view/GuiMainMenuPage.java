@@ -77,21 +77,21 @@ public class GuiMainMenuPage extends GuiCustomPage {
 		content.add(descWrapper);
 
 		// --- Buttons ---
-		Dimension Size = new Dimension(150, 48);
+		// Dimension Size = new Dimension(150, 48);
 		RoundedImageButton btnCreate = new RoundedImageButton("New Hero", icon);
-		configButtons(btnCreate, Size);
+		configButtons(btnCreate);
 		btnCreate.addActionListener(e -> cardLayout.show(cardPanel, "create"));
 
 		RoundedImageButton btnSelect = new RoundedImageButton("My Heroes", icon);
-		configButtons(btnSelect, Size);
+		configButtons(btnSelect);
 		btnSelect.addActionListener(e -> cardLayout.show(cardPanel, "display"));
 
 		RoundedImageButton btnPlay = new RoundedImageButton("New Game", icon);
-		configButtons(btnPlay, Size);
+		configButtons(btnPlay);
 		btnPlay.addActionListener(e -> cardLayout.show(cardPanel, "play"));
 
 		RoundedImageButton btnExit = new RoundedImageButton("Exit", icon);
-		configButtons(btnExit, Size);
+		configButtons(btnExit);
 		btnExit.addActionListener(e -> {
 			Export.exportData(rpg.getListAvaible());
 			System.exit(0);

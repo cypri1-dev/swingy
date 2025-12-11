@@ -4,34 +4,27 @@ import static com.swingy.utils.Constants.*;
 
 import java.util.Set;
 
-import javax.swing.JComboBox;
-import javax.swing.JTextField;
-
 import com.swingy.model.Characters;
 import com.swingy.model.CharactersFactory;
-import com.swingy.view.GuiHeroManagerPage;
-import com.swingy.view.GuiPlayPage;
 
-public class CreationController {
+public class GuiCreationController {
 
-	public static String createHero(Game rpg, JTextField inputName, JComboBox<String> choiceComboBox) {
+	public static String createHero(Game rpg, String inputName, String selectedClass) {
 
 		Set<String> forbiddenChars = Set.of("|", ",", "*", "%", "=", "{", "}");
 		String txt;
-		String getName = inputName.getText().trim();
-		String getSelectedClass = (String) choiceComboBox.getSelectedItem();
-		boolean hasForbiddenChar = forbiddenChars.stream().anyMatch(getName::contains);
-		boolean invalidName = getName.isEmpty() || rpg.heroExists(getName) || hasForbiddenChar;
+		boolean hasForbiddenChar = forbiddenChars.stream().anyMatch(inputName::contains);
+		boolean invalidName = inputName.isEmpty() || rpg.heroExists(inputName) || hasForbiddenChar;
 	
-		if (invalidName || getName.equalsIgnoreCase("x")) {
+		if (invalidName || inputName.equalsIgnoreCase("x")) {
 			txt = "<html><div align='center' style='color: red;'>"
 				+ "Name already exists or contains Forbidden characters!<br/>"
 				+ "<b>Try again</b>"
 				+ "</div></html>";
 		}
 		else {
-			rpg.registerHeroName(getName);
-			String characterClass = switch (getSelectedClass) {
+			rpg.registerHeroName(inputName);
+			String characterClass = switch (selectedClass) {
 				case "Warrior" -> WARRIOR_CLASS;
 				case "Mage" -> MAGE_CLASS;
 				case "Archer" -> ARCHER_CLASS;
@@ -39,21 +32,18 @@ public class CreationController {
 				case "Assassin" -> ASSASSIN_CLASS;
 				default -> "";
 			};
-			Characters newHero = CharactersFactory.getInstance().newCharacters(HERO_TYPE, getName, characterClass);
+			Characters newHero = CharactersFactory.getInstance().newCharacters(HERO_TYPE, inputName, characterClass);
 			String att = Integer.toString(newHero.getAttack());
 			String def = Integer.toString(newHero.getDefense());
 			String hp = Integer.toString(newHero.getMaxHitPoint());
 	
-			rpg.getListAvaible().add(CharactersFactory.getInstance().newCharacters(HERO_TYPE, getName, characterClass));
-	
-			GuiHeroManagerPage.updateHeroComboBox(rpg);
-			GuiPlayPage.updateHeroComboBox(rpg);
+			rpg.getListAvaible().add(CharactersFactory.getInstance().newCharacters(HERO_TYPE, inputName, characterClass));
 			
 			txt = "<html><div align='center'>"
 				+ "NAME<br/>"
-				+ "<b style='font-size: 25px'>" + getName + "</b><br/><br/>"
+				+ "<b style='font-size: 25px'>" + inputName + "</b><br/><br/>"
 				+ "CLASS<br/>"
-				+ "<b style='font-size: 25px'>" + getSelectedClass + "</b><br/><br/>"
+				+ "<b style='font-size: 25px'>" + selectedClass + "</b><br/><br/>"
 				+ "ATT<br/>"
 				+ "<b style='font-size: 25px'>" + att + "</b><br/><br/>"
 				+ "DEF<br/>"

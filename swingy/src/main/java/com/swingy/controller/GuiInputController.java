@@ -1,6 +1,5 @@
 package com.swingy.controller;
 
-import com.swingy.controller.GameMovement;
 import com.swingy.model.Artefact;
 import com.swingy.model.Characters;
 import com.swingy.model.Maps;
