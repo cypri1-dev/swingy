@@ -9,8 +9,6 @@ import static com.swingy.utils.Constants.LEGENDARY;
 import static com.swingy.utils.Constants.RARE;
 import static com.swingy.utils.Constants.WEAPON_TYPE;
 
-import javax.swing.JComboBox;
-
 import com.swingy.model.Characters;
 
 public class GuiHeroManagementController {

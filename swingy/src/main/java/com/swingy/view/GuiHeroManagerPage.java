@@ -99,7 +99,7 @@ public class GuiHeroManagerPage extends GuiCustomPage {
 			String[] array = rpg.getHeroesNameList().toArray(new String[0]);
 			choiceComboBox = new JComboBox<>(array);
 			configureComboBox(choiceComboBox);
-			JPanel choiceWrapper = wrapperComboBoxGenerator(choiceComboBox, 10, 10, 10, 10);
+			JPanel choiceWrapper = wrapperComboBoxGenerator(choiceComboBox);
 			base.add(choiceWrapper);
 		} else {
 			updateHeroComboBox(rpg);

@@ -2,6 +2,7 @@ package com.swingy.view;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -12,6 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import com.swingy.controller.Game;
 import com.swingy.view.components.RoundedImageButton;
 
 import java.awt.FlowLayout;
@@ -26,13 +28,15 @@ public abstract class GuiCustomPage {
 
 	/************************************************************************ WRAPPER COMBOBOX (from GuiCreationPage) ************************************************************************/
 
-	public static JPanel wrapperComboBoxGenerator(JComboBox<String> elem, int top, int left, int bottom, int right) {
+	public static JPanel wrapperComboBoxGenerator(JComboBox<String> elem) {
 		JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
 
 		wrapper.setOpaque(false);
 		wrapper.add(elem);
 		wrapper.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		wrapper.setMaximumSize(new Dimension(Integer.MAX_VALUE, elem.getPreferredSize().height + 40));
+
+		wrapper.setAlignmentX(Component.CENTER_ALIGNMENT); // need to test - EDIT: seems to be OK
 
 		return wrapper;
 	}
@@ -71,9 +75,11 @@ public abstract class GuiCustomPage {
 		wrapper.setOpaque(false);
 		wrapper.add(elem);
 		if (setBorder) // GuiMainWindow
-		wrapper.setBorder(BorderFactory.createEmptyBorder(top, left, bottom, right));
+			wrapper.setBorder(BorderFactory.createEmptyBorder(top, left, bottom, right));
 		if (setSize) // GuiCreationPage
-		wrapper.setMaximumSize(new Dimension(Integer.MAX_VALUE, elem.getPreferredSize().height));
+			wrapper.setMaximumSize(new Dimension(Integer.MAX_VALUE, elem.getPreferredSize().height));
+
+		wrapper.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		return wrapper;
 	}
@@ -126,7 +132,7 @@ public abstract class GuiCustomPage {
 		elem.setBorder(BorderFactory.createLineBorder(Color.WHITE, 0));
 	}
 
-	/************************************************************************ CONFIGURATION JTEXTFIELD ************************************************************************/
+	/************************************************************************ CONFIGURATION JTEXTFIELD (from GuiCreationPage) ************************************************************************/
 
 	public static void configureJTextField(JTextField elem) {
 		elem.setOpaque(false);
@@ -147,6 +153,7 @@ public abstract class GuiCustomPage {
 		JPanel content = new JPanel();
 		content.setOpaque(false);
 		content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
+		content.setAlignmentX(Component.CENTER_ALIGNMENT); // need to test - EDIT: seems to be OK
 
 		return content;
 	}

@@ -93,7 +93,7 @@ public class GuiCreationPage extends GuiCustomPage {
 		JComboBox<String> choiceComboBox = new JComboBox<>(new String[]{"Warrior", "Mage", "Archer", "Paladin", "Assassin"});
 		configureComboBox(choiceComboBox);
 
-		JPanel choiceWrapper = wrapperComboBoxGenerator(choiceComboBox, 10, 10, 10, 10);
+		JPanel choiceWrapper = wrapperComboBoxGenerator(choiceComboBox);
 		base.add(choiceWrapper);
 
 		// --- Label Hidden ---
