@@ -8,14 +8,74 @@ import com.swingy.model.Characters;
 import static com.swingy.utils.Constants.*;
 
 import java.awt.event.ItemEvent;
+import java.awt.Color;
 
 import java.util.List;
 import java.util.Map;
 
 public class GuiInventoryController {
 
-	public static void inventoryManager(Map<JCheckBox, Artefact> checkBoxToArtefact, JCheckBox checkBox, Map<String, List<JCheckBox>> checkBoxesByType, Characters hero, ItemEvent e) {
-		Artefact artefact = checkBoxToArtefact.get(checkBox);
+	public static String buildFormattedStats(Game rpg) {
+
+		return String.format(
+			"<html><div style='font-family: Ancient Modern Tales; font-size: 17px; color: #444444;'>" +
+			"<i>Attack</i>: <span style='color: #008000;'>%d</span> &nbsp;&nbsp; " +
+			"<i>Defense</i>: <span style='color: #008000;'>%d</span> &nbsp;&nbsp; " +
+			"<i>Hit Points</i>: <span style='color: #FF0000;'>%d/%d</span>" +
+			"</div></html>",
+			rpg.getMainHero().getAttack(),
+			rpg.getMainHero().getDefense(),
+			rpg.getMainHero().getHitPoint(),
+			rpg.getMainHero().getMaxHitPoint()
+		);
+	}
+
+	public static String buildFormattedItem(Artefact items) {
+		String name  = items.getName() + " ";
+		Color color;
+
+		switch (items.getRarity()) {
+			case COMMON:
+				color = Color.BLACK;
+				break;
+			case RARE:
+				color = Color.BLUE;
+				break;
+			case EPIC:
+				color = new Color(128, 0, 128);
+				break;
+			case LEGENDARY:
+				color = new Color(255, 215, 0);
+				break;
+			default:
+				color = Color.WHITE;
+				break;
+		}
+
+		String bonus = "+" + items.getBonus();
+		switch (items.getType()) {
+			case HELM_TYPE:
+				bonus += " HP";
+				break;
+			case WEAPON_TYPE:
+				bonus += " ATT";
+				break;
+			case ARMOR_TYPE:
+				bonus += " DEF";
+				break;
+			case CONSOMMABLE_TYPE:
+				bonus += " HP";
+				break;
+		}
+
+		String hexColor = String.format("#%02x%02x%02x", color.getRed(), color.getGreen(), color.getBlue());
+		String checkboxText = "<html><span style='color:" + hexColor + "'>" + name + bonus + "</span></html>";
+
+		return checkboxText;
+	}
+
+	public static void inventoryManager(JCheckBox checkBox, Map<String, List<JCheckBox>> checkBoxesByType, Characters hero, ItemEvent e) {
+		Artefact artefact = (Artefact) checkBox.getClientProperty("artefact");
 		if (artefact == null) {
 			System.err.println("Erreur : Artefact introuvable pour cette checkbox !");
 			return;
@@ -31,7 +91,7 @@ public class GuiInventoryController {
 			for (JCheckBox cb : sameTypeCheckBoxes) {
 				if (cb != checkBox && cb.isSelected()) {
 					cb.setSelected(false);
-					Artefact otherItem = checkBoxToArtefact.get(cb);
+					Artefact otherItem = (Artefact) cb.getClientProperty("artefact");;
 					if (otherItem != null)
 						otherItem.setIsEquipped(false);
 				}
