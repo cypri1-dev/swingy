@@ -33,6 +33,8 @@ import java.util.concurrent.ThreadLocalRandom;
 public abstract class GuiCustomPage {
 
 	private static Dimension BtnDimension = new Dimension(150, 48);
+	private static boolean showingPotionPage = false;
+	private static boolean showingFightPage = false;
 
 	/************************************************************************ WRAPPER CHECKBOX (from GuiGamePage) ************************************************************************/
 
@@ -106,7 +108,7 @@ public abstract class GuiCustomPage {
 		return wrapper;
 	}
 
-	// ONLY FOR INVENTORY (from GuiGamePage)
+	// (from and for GuiGamePage / GuiInputController)
 	public static JPanel wrapperLabelGeneratorInventory(JLabel elem, int top, int left, int bottom, int right, boolean setSize) {
 		JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
 
@@ -120,6 +122,16 @@ public abstract class GuiCustomPage {
 		
 		wrapper.setAlignmentX(Component.CENTER_ALIGNMENT);
 		return wrapper;
+	}
+
+	/************************************************************************ CONFIGURATION JPANEL FIGHT (from GuiFightPage) ************************************************************************/
+
+	public static void configureJPanelFight(JPanel panel) {
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		panel.setOpaque(false);
+		panel.setBorder(BorderFactory.createEmptyBorder(10, 20, 0, 20));
+		panel.setAlignmentY(Component.TOP_ALIGNMENT);
+		panel.setAlignmentX(Component.CENTER_ALIGNMENT);
 	}
 
 	/************************************************************************ CONFIGURATION TAB PANEL (from GuiGamePage) ************************************************************************/
@@ -232,4 +244,10 @@ public abstract class GuiCustomPage {
 		return content;
 	}
 
+	/************************************************************************ GETTERS/SETTERS ************************************************************************/
+
+	public static boolean getShowingPagePotion() {return showingPotionPage;}
+	public static void setShowingPagePotion(boolean set) {showingPotionPage = set;}
+	public static boolean getShowingPageFight() {return showingFightPage;}
+	public static void setShowingPageFight(boolean set) {showingFightPage = set;}
 }

@@ -189,7 +189,7 @@ public class GuiGamePage extends GuiCustomPage {
 		// Place le héros sur la map
 		rpg.placeHero(rpg.getMainHero());
 
-		GuiInputController inputController = new GuiInputController( baseMap, rpg.getMainHero().getMovement(), rpg.getMainHero(), rpg.getMap(), rpg.getMenu(), grid, rpg, listToken, icon, baseInventory);
+		GuiInputController inputController = new GuiInputController(baseMap, rpg.getMainHero().getMovement(), rpg.getMainHero(), rpg.getMap(), rpg.getMenu(), grid, rpg, listToken, icon, baseInventory);
 
 		// Dessine la map initiale
 		GuiMapTab.drawMap(rpg, listToken, grid);

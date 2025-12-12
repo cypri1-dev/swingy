@@ -4,7 +4,6 @@ import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Color;
@@ -25,7 +24,6 @@ public class RoundedImageButton extends JButton {
 		setHorizontalTextPosition(SwingConstants.CENTER);
 		setVerticalTextPosition(SwingConstants.CENTER);
 		setForeground(Color.BLACK);
-		// setFont(new Font("Ancient Modern Tales", Font.BOLD, 25));
 	}
 
 	@Override

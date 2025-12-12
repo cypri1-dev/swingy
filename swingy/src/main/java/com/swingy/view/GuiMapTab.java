@@ -34,7 +34,7 @@ public class GuiMapTab extends GuiCustomPage {
 	/************************************************************************ DRAW MAP METHOD ************************************************************************/
 
 	public static void drawMap(Game rpg, Map<String, ImageIcon> listToken, JPanel grid) {
-		grid.removeAll();  // Vide la grille avant remplissage
+		grid.removeAll();
 
 		Maps map = rpg.getMap();
 		String[][] mapTab = map.getMapTab();
