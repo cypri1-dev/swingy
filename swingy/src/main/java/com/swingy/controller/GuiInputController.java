@@ -5,6 +5,7 @@ import com.swingy.model.Characters;
 import com.swingy.model.Maps;
 import com.swingy.view.GuiGamePage;
 import com.swingy.view.GuiHeroManagerPage;
+import com.swingy.view.GuiMapTab;
 import com.swingy.view.GuiPlayPage;
 import com.swingy.view.components.RoundedImageButton;
 
@@ -199,7 +200,7 @@ public class GuiInputController {
         }
 
         /* -------------------- UPDATE --------------------- */
-        GuiGamePage.updateMap(rpg, listToken, grid);
+        GuiMapTab.updateMap(rpg, listToken, grid);
     }
 
     /* =====================================================

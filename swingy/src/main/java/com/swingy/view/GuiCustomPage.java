@@ -2,18 +2,21 @@ package com.swingy.view;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.plaf.basic.BasicTabbedPaneUI;
 
-import com.swingy.controller.Game;
 import com.swingy.view.components.RoundedImageButton;
 
 import java.awt.FlowLayout;
@@ -21,10 +24,29 @@ import java.awt.Font;
 import java.awt.Dimension;
 import java.awt.Component;
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.awt.Graphics;
+
+import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class GuiCustomPage {
 
 	private static Dimension BtnDimension = new Dimension(150, 48);
+
+	/************************************************************************ WRAPPER CHECKBOX (from GuiGamePage) ************************************************************************/
+
+	public static JPanel wrapperCheckboxGenerator(JCheckBox elem, int top, int left, int bottom, int right) {
+		JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		
+		wrapper.setOpaque(false);
+		wrapper.add(elem);
+		elem.setBorder(BorderFactory.createEmptyBorder(top, left, bottom, right));
+		wrapper.setMaximumSize(new Dimension(Integer.MAX_VALUE, elem.getPreferredSize().height + top + bottom));
+		wrapper.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+		return wrapper;
+	}
 
 	/************************************************************************ WRAPPER COMBOBOX (from GuiCreationPage) ************************************************************************/
 
@@ -83,6 +105,40 @@ public abstract class GuiCustomPage {
 		
 		return wrapper;
 	}
+
+	// ONLY FOR INVENTORY (from GuiGamePage)
+	public static JPanel wrapperLabelGeneratorInventory(JLabel elem, int top, int left, int bottom, int right, boolean setSize) {
+		JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+
+		wrapper.setOpaque(false);
+		wrapper.add(elem);
+		wrapper.setBorder(BorderFactory.createEmptyBorder(top, left, bottom, right));
+		if (setSize) {
+			Dimension pref = wrapper.getPreferredSize();
+			wrapper.setMaximumSize(new Dimension(pref.width, pref.height));
+		}
+		
+		wrapper.setAlignmentX(Component.CENTER_ALIGNMENT);
+		return wrapper;
+	}
+
+	/************************************************************************ CONFIGURATION TAB PANEL (from GuiGamePage) ************************************************************************/
+
+	public static void configureTabPanel(JTabbedPane tabPanel) {
+		tabPanel.setOpaque(false);
+		tabPanel.setBackground(new Color(0, 0, 0, 0));
+
+		tabPanel.setUI(new BasicTabbedPaneUI() {
+			@Override
+			protected void paintTabBackground(Graphics g, int tabPlacement, int tabIndex, int x, int y, int w, int h, boolean isSelected) {
+				g.setColor(new Color(0, 0, 0, 0));
+				g.fillRect(x, y, w, h);
+			}
+
+			@Override
+			protected void paintContentBorder(Graphics g, int tabPlacement, int selectedIndex) { }
+		});
+	}
 	
 	/************************************************************************ CONFIGURATION BOTTOM PANEL (from GuiWelcomePage) ************************************************************************/
 
@@ -104,8 +160,8 @@ public abstract class GuiCustomPage {
 	/************************************************************************ CONFIGURATION JCOMBOBOX (from GuiCreationPage / GuiHeroManagerPage) ************************************************************************/
 
 	public static void configureComboBox(JComboBox<String> elem) {
-		elem.setFont(new Font("Ancient Modern Tales", Font.ITALIC, 25));
-		/* Centrer les éléments */
+		setCustomFont(elem, Font.ITALIC, 25);
+
 		elem.setRenderer(new DefaultListCellRenderer() {
 			@Override
 			public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
@@ -139,6 +195,24 @@ public abstract class GuiCustomPage {
 		setCustomFont(elem, Font.ITALIC, 25);
 		elem.setColumns(15);
 		elem.setHorizontalAlignment(JTextField.CENTER);
+	}
+
+	/************************************************************************ RANDOM BACKGROUND METHOD ************************************************************************/
+
+	public static BufferedImage selectRandomBackground() {
+		int size = GuiMainWindow.getBackgrounds().size();
+		int random = ThreadLocalRandom.current().nextInt(size);
+
+		return (GuiMainWindow.getBackgrounds().get(random));
+	}
+
+	/************************************************************************ RESCALE TOKEN METHOD (from GuiGamePage) ************************************************************************/
+
+	public static Icon rescaleToken(Icon token, int size) {
+		Image img = ((ImageIcon) token).getImage();
+		Image scaled = img.getScaledInstance(size, size, Image.SCALE_SMOOTH);
+		Icon resizedToken = new ImageIcon(scaled);
+		return resizedToken;
 	}
 
 	/************************************************************************ SET CUSTOM FONT METHOD ************************************************************************/
