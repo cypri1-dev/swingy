@@ -26,6 +26,7 @@ import com.swingy.view.components.RoundedImageButton;
 public class GuiPlayPage extends GuiCustomPage {
 
 	private static JComboBox<String> choiceComboBox = null;
+	private static final JLabel[] selected = {null};
 
 	/************************************************************************ UPDATE COMBOBOX METHOD ************************************************************************/
 
@@ -48,7 +49,7 @@ public class GuiPlayPage extends GuiCustomPage {
 		heroSelection.add(token3Label);
 		heroSelection.add(token4Label);
 
-		final JLabel[] selected = {null};
+		JLabel[] selected = getSelected();
 		MouseAdapter selectHero = new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -141,6 +142,7 @@ public class GuiPlayPage extends GuiCustomPage {
 				return;
 			}
 
+			JLabel[] selected = getSelected();
 			if (selected[0] == null) {
 				infoLabel.setText("<html><div style='color:red;'>Please select a token.</div></html>");
 				return;
@@ -200,4 +202,7 @@ public class GuiPlayPage extends GuiCustomPage {
 		return panel;
 	}
 
+	/************************************************************************ SETTERS/GETTERS ************************************************************************/
+
+	public static JLabel[] getSelected() {return selected;}
 }

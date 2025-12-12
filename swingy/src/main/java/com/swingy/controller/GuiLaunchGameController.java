@@ -6,7 +6,7 @@ import com.swingy.model.Characters;
 
 public class GuiLaunchGameController {
 
-	public static String electHeroGame(String selectedHeroName, Game rpg, Icon tokenIcon) {
+	public static String selectHeroGame(String selectedHeroName, Game rpg, Icon tokenIcon) {
 		String txt = "";
 
 		int level = 0;
