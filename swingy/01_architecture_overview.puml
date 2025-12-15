@@ -1,0 +1,14 @@
+@startuml
+title Swingy – Architecture MVC
+
+left to right direction
+
+package Model
+package Controller
+package View
+
+Model --> Controller : logique 
+Controller --> View : orchestration
+View ..> Model : affichage
+
+@enduml

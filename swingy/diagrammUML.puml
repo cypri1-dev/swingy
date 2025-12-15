@@ -267,6 +267,37 @@ package "Controller" #LightGreen {
 }
 
 package "View" #LightYellow {
+
+   package "components" <<UI Components>> {
+    class BackgroundPanel {
+      -final Image backgroundImage
+      +BackgroundPanel(Image img)
+      #void paintComponent(Graphics g)
+    }
+
+    class FadingLabel {
+      -float alpha
+      +FadingLabel(String text)
+      +void setAlpha(float alpha)
+      +float getAlpha()
+      #void paintComponent(Graphics g)
+    }
+
+    class FadingToken {
+      -float alpha
+      +FadingToken(ImageIcon token)
+      +void setAlpha(float alpha)
+      +float getAlpha()
+      #void paintComponent(Graphics g)
+    }
+
+    class RoundedImageButton {
+      -int radius
+      +RoundedImageButton(String text, Image Icon)
+      #void paintComponent(Graphics g)
+    }
+  }
+
   class DisplayController {
     -static DisplayController instance
     -DisplayController()

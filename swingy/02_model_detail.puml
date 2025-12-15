@@ -1,0 +1,46 @@
+@startuml
+title Swingy – Model
+
+package "Model" {
+
+class Characters
+class Hero
+class Enemy
+class Knowledge <<Singleton>>
+class Artefact
+class Weapon
+class Armor
+class Helm
+class Consommable
+class Coordinates
+class Maps
+
+class CharactersFactory <<Singleton>>
+class ArtefactFactory <<Singleton>>
+class MapFactory <<Singleton>>
+
+Characters <|-- Hero
+Characters <|-- Enemy
+
+Artefact <|-- Weapon
+Artefact <|-- Armor
+Artefact <|-- Helm
+Artefact <|-- Consommable
+
+Characters *-- Artefact
+Characters *-- Coordinates
+Characters *-- Knowledge
+
+Maps *-- Characters
+Maps *-- Artefact
+
+Hero --> GameMovement
+Knowledge --> Characters
+
+CharactersFactory ..> Hero
+CharactersFactory ..> Enemy
+ArtefactFactory ..> Artefact
+MapFactory ..> Maps
+}
+
+@enduml

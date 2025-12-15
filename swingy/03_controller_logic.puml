@@ -1,0 +1,72 @@
+@startuml
+title Swingy – Controllers
+
+package "Controller" {
+
+  ' ============
+  ' Core
+  ' ============
+  class Game
+  class Menu
+  class GameMovement
+  class FightLogic
+  class Import
+  class Export
+
+  ' ============
+  ' GUI controllers
+  ' ============
+  class GuiCreationController
+  class GuiInventoryController
+  class GuiHeroManagementController
+  class GuiInputController
+  class GuiLaunchGameController
+
+  ' ============
+  ' Core relations
+  ' ============
+  Game --> Menu
+  Menu --> Game
+
+  Game --> Maps
+  Game --> Characters
+
+  GameMovement --> Maps
+  GameMovement --> Characters
+
+  FightLogic --> Characters
+  FightLogic --> Menu
+  FightLogic --> DisplayController
+
+'   Import --> Game
+  Import --> Characters
+'   Import --> DisplayController
+
+  Export --> Characters
+'   Export --> DisplayController
+
+  ' ============
+  ' GUI controllers relations
+  ' ============
+  GuiCreationController --> Game
+  GuiCreationController --> Characters
+
+  GuiInventoryController --> Game
+  GuiInventoryController --> Characters
+  GuiInventoryController --> Artefact
+
+  GuiHeroManagementController --> Game
+  GuiHeroManagementController --> Characters
+
+  GuiLaunchGameController --> Game
+  GuiLaunchGameController --> Characters
+
+  GuiInputController --> GameMovement
+  GuiInputController --> Game
+  GuiInputController --> Maps
+  GuiInputController --> Characters
+}
+
+@enduml
+
+

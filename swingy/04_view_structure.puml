@@ -1,0 +1,65 @@
+@startuml
+title Swingy – Vue CLI & GUI avec accès au modèle
+
+package "View" #LightYellow {
+
+  package "CLI" {
+    class DisplayController <<Singleton>>
+    DisplayController --> Game
+    DisplayController --> Menu
+    DisplayController ..> Characters
+    DisplayController ..> Maps
+  }
+
+  package "GUI" {
+    package "components" <<UI Components>> {
+      class BackgroundPanel
+      class RoundedImageButton
+      class FadingLabel
+      class FadingToken
+    }
+
+    abstract class GuiCustomPage
+
+    class GuiMainWindow
+    class GuiWelcomePage
+    class GuiMainMenuPage
+    class GuiPlayPage
+    class GuiPotionPage
+    class GuiFightPage
+    class GuiEndLevelPage
+    class GuiHeroManagerPage
+    class GuiCreationPage
+    class GuiMapTab
+
+    ' Héritages GUI
+    GuiCustomPage <|-- GuiWelcomePage
+    GuiCustomPage <|-- GuiMainMenuPage
+    GuiCustomPage <|-- GuiPlayPage
+    GuiCustomPage <|-- GuiPotionPage
+    GuiCustomPage <|-- GuiFightPage
+    GuiCustomPage <|-- GuiEndLevelPage
+    GuiCustomPage <|-- GuiHeroManagerPage
+    GuiCustomPage <|-- GuiCreationPage
+    GuiCustomPage <|-- GuiMapTab
+    GuiCustomPage <|-- GuiMainWindow
+
+    ' Dépendances composants UI
+    GuiCustomPage ..> RoundedImageButton
+    GuiCustomPage ..> BackgroundPanel
+    GuiCustomPage ..> FadingLabel
+    GuiCustomPage ..> FadingToken
+
+    ' Relations GUI vers modèle
+    GuiCustomPage --> Game
+    GuiCustomPage ..> Characters
+    GuiCustomPage ..> Maps
+
+    ' Relations internes composants UI
+    ' BackgroundPanel ..> Image : uses
+    ' RoundedImageButton ..> Image : uses
+    ' FadingLabel ..> Graphics : uses
+    ' FadingToken ..> ImageIcon : uses
+  }
+}
+@enduml

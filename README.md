@@ -289,17 +289,106 @@ Inventory supports these actions:
 
 ## 📁 Project Structure
 ```
-swingy/
-├── src/
-│   ├── main/
-│   │   ├── java/
-│   │   │   ├── model/        ← Game entities (Hero, Enemy, Map, etc.)
-│   │   │   ├── view/         ← Views (ConsoleView, GUIView)
-│   │   │   ├── controller/   ← Game controllers and logic
-│   │   └── resources/        ← Assets and config files
-├── target/                   ← Build output
-├── pom.xml                   ← Maven configuration
-└── README.md                 ← Project documentation
+├── swingy
+│   ├── 01_architecture_overview.puml
+│   ├── 02_model_detail.puml
+│   ├── 03_controller_logic.puml
+│   ├── 04_view_structure.puml
+│   ├── diagrammUML.puml
+│   ├── pom.xml
+│   ├── save.txt
+│   └── src
+│       ├── main
+│       │   ├── java
+│       │   │   └── com
+│       │   │       └── swingy
+│       │   │           ├── App.java
+│       │   │           ├── controller
+│       │   │           │   ├── Export.java
+│       │   │           │   ├── FightLogic.java
+│       │   │           │   ├── Game.java
+│       │   │           │   ├── GameMovement.java
+│       │   │           │   ├── GuiCreationController.java
+│       │   │           │   ├── GuiHeroManagementController.java
+│       │   │           │   ├── GuiInputController.java
+│       │   │           │   ├── GuiInventoryController.java
+│       │   │           │   ├── GuiLaunchGameController.java
+│       │   │           │   ├── Import.java
+│       │   │           │   └── Menu.java
+│       │   │           ├── model
+│       │   │           │   ├── Armor.java
+│       │   │           │   ├── ArtefactFactory.java
+│       │   │           │   ├── Artefact.java
+│       │   │           │   ├── CharactersFactory.java
+│       │   │           │   ├── Characters.java
+│       │   │           │   ├── Consommable.java
+│       │   │           │   ├── Coordinates.java
+│       │   │           │   ├── Enemy.java
+│       │   │           │   ├── Helm.java
+│       │   │           │   ├── Hero.java
+│       │   │           │   ├── Knowledge.java
+│       │   │           │   ├── MapFactory.java
+│       │   │           │   ├── Maps.java
+│       │   │           │   └── Weapon.java
+│       │   │           ├── utils
+│       │   │           │   ├── Constants.java
+│       │   │           │   ├── LabelAnimator.java
+│       │   │           │   └── TokenAnimator.java
+│       │   │           └── view
+│       │   │               ├── components
+│       │   │               │   ├── BackgroundPanel.java
+│       │   │               │   ├── FadingLabel.java
+│       │   │               │   ├── FadingToken.java
+│       │   │               │   └── RoundedImageButton.java
+│       │   │               ├── DisplayController.java
+│       │   │               ├── DisplayInfos.java
+│       │   │               ├── GuiCreationPage.java
+│       │   │               ├── GuiCustomPage.java
+│       │   │               ├── GuiEndLevelPage.java
+│       │   │               ├── GuiFightPage.java
+│       │   │               ├── GuiGameOverPage.java
+│       │   │               ├── GuiGamePage.java
+│       │   │               ├── GuiHeroManagerPage.java
+│       │   │               ├── GuiMainMenuPage.java
+│       │   │               ├── GuiMainWindow.java
+│       │   │               ├── GuiMapTab.java
+│       │   │               ├── GuiPlayPage.java
+│       │   │               ├── GuiPotionPage.java
+│       │   │               └── GuiWelcomePage.java
+│       │   └── resources
+│       │       ├── Araignee_geante_token.png
+│       │       ├── bandit_token.png
+│       │       ├── bat_token.png
+│       │       ├── cavern_map.jpeg
+│       │       ├── Cranefeu_token.png
+│       │       ├── ettins_token.png
+│       │       ├── forest_map.jpg
+│       │       ├── gobelin_token.png
+│       │       ├── golem_de_chair_token.png
+│       │       ├── Jeune_dragon_vert_token.png
+│       │       ├── manticore_token.png
+│       │       ├── menu_btn.png
+│       │       ├── mudling_token.png
+│       │       ├── Orc_token.png
+│       │       ├── Ozi_token.png
+│       │       ├── parchment.jpeg
+│       │       ├── potion_token.png
+│       │       ├── rat_token.png
+│       │       ├── skeletal_hand_token.png
+│       │       ├── slime_token.png
+│       │       ├── spider_token.png
+│       │       ├── test_button.png
+│       │       ├── token1_token.png
+│       │       ├── token2_token.png
+│       │       ├── token3_token.png
+│       │       ├── token4_token.png
+│       │       └── volothamp_geddarm_token.png
+│       └── test
+│           └── java
+│               └── com
+│                   └── swingy
+│                       └── AppTest.java
+└── TODO.txt
 ```
 
 The project strictly follows MVC conventions for clean code separation and scalability.
@@ -310,7 +399,10 @@ The project strictly follows MVC conventions for clean code separation and scala
 
 UML diagrams illustrate the class structure and interactions, showing the system architecture and relationships between entities. The diagram is flexible and can evolve as the design changes, allowing adjustments to reflect new requirements or improvements in the system.
 
-![UML Diagram](diagrammUML.png)
+![UML Diagram](01_architecture_overview.png)
+![UML Diagram](02_model_detail.png)
+![UML Diagram](03_controller_logic.png)
+![UML Diagram](04_view_structure.png)
 
 ---
 
