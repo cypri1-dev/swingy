@@ -15,7 +15,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.util.Map;
 
-public class GuiInputController extends GuiCustomPage {
+public class GuiInputController {
 
 	private GameMovement movement;
 	private Characters hero;
@@ -31,10 +31,10 @@ public class GuiInputController extends GuiCustomPage {
 
 	public GuiInputController(JComponent panel, GameMovement movement, Characters hero, Maps map, Menu menu, JPanel grid, Game rpg, Map<String, ImageIcon> listToken, Icon icon, JPanel baseInventory) {
 
-		this.movement = movement;
+		// this.movement = movement;
 		this.hero = hero;
 		this.map = map;
-		this.menu = menu;
+		// this.menu = menu;
 		this.grid = grid;
 		this.rpg = rpg;
 		this.listToken = listToken;

@@ -237,6 +237,33 @@ package "Controller" #LightGreen {
   class Export {
     +static void exportData(List<Characters> avaibleHeros)
   }
+
+  class GuiCreationController {
+    +static String createHero(Game rpg, String inputName, String selectedClass)
+  }
+
+  class GuiInventoryController {
+    +static String buildFormatedString(Game rpg)
+    +static String buildFormattedItem(Artefact items)
+    +static void inventoryManager(JCheckBox checkBox, Map<String, List<JCheckBox>> checkBoxesByType, Characters hero, ItemEvent e)
+    +static void checkPotion(Game rpg, JPanel baseInventory)
+  }
+
+  class GuiHeroManagementController {
+    +static String displaySelectHero(String selectedHeroName, Game rpg)
+    +static String deleteHero(String selectedHeroName, Game rpg)
+  }
+
+  class GuiInputController {
+    +GuiInputController(JComponent panel, GameMovement movement, Characters hero, Maps map, Menu menu, JPanel grid, Game rpg, Map<String, ImageIcon> listToken, Icon icon, JPanel baseInventory)
+    -void bind(JComponent comp, String key, Runnable action)
+    -boolean canMove(int x, int y)
+    -void update(JComponent panel)
+  }
+
+  class GuiLaunchGamecontroller {
+    +static String selectHeroGame(String selectedHeroName, Game rpg, Icon tokenIcon)
+  }
 }
 
 package "View" #LightYellow {
@@ -255,6 +282,101 @@ package "View" #LightYellow {
     +String getUserInput()
     +void closeScanner()
   }
+
+  abstract class GuiCustomPage {
+    -static Dimension
+    -static boolean showingPagePotion
+    -static boolean showingFightPage
+    +static JPanel wrapperCheckboxGenerator(JCheckBox elem, int top, int left, int bottom, int right)
+    +static JPanel wrapperComboBox(JComboBox<String> elem)
+    +static JPanel wrapperJTextFieldGenerator(JTextField elem)
+    +static JPanel wrapperButtonGenerator(RoundedImageButton elem, int top, int left, int bottom, int right)
+    +static JPanel wrapperLabelGenerator(JLabel elem, int top, int left, int bottom, int right, boolean setBorder, boolean setSize)
+    +static JPanel wrapperLabelGeneratorInventory(JLabel elem, int top, int left, int bottom, int right, boolean setSize)
+    +static void configureJPanelFight(JPanel panel)
+    +static void configureTabPanel(JTabbedPane tabPanel)
+    +static void configureBottomPanel(JPanel elem, RoundedImageButton btn)
+    +static void configButtons(RoundedImageButton btn)
+    +static void configureComboBox(JComboBox<String> elem)
+    +static void configureHiddenLabel(JLabel elem)
+    +static void configureJScrollPane(JScrollPane elem)
+    +static void configureJTextField(JTextField elem)
+    +static BufferedImage selectRandomBackground()
+    +static Icon rescaleToken(Icon token, int size)
+    +static void setCustomFont(JComponent elem, int type, int size)
+    +static JPanel createBaseStructure()
+    +static boolean getShowingPagePotion()
+    +static void setShowingPagePotion(boolean set)
+    +static boolean getShowingPageFight()
+    +static void setShowingPageFight(boolean set)
+  }
+
+  class GuiMainWindow {
+    -CardLayout cardLayout
+    -JPanel cardPanel
+    -Game rpg
+    -static Map<String, ImageIcon> listToken
+    -static Map<Integer, BuffuredImage> listBackground
+    -void initImages()
+    +GuiMainWindow(Game rpg)
+    +CardLayout getCardLayout()
+    +JPanel getCardPanel()
+    +static Map<String, ImageIcon> getListTokens()
+    +Game getGame()
+    +static Map<Integer, BufferedImage> getBackgrounds()
+  }
+
+  class GuiCreationPage {
+    -static void configureConfirmButton(RoundedImageButton elem, JTextField inputName, JComboBox<String> choiceComboBox, JLabel hiddenNameLabel, JPanel hiddenNameLabelWrapper, JPanel base, Game rpg)
+    +static JPanel createCreationPage(String title, CardLayout cardLayout, JPanel cardPanel, ImageIcon icon, Game rpg)
+  }
+
+  class GuiEndLevelPage {
+    +static void showLevelCompletePage(JComponent panel, Characters hero, Game rpg)
+  }
+
+  class GuiFightPage {
+    +static void showFightPage(JComponent panel, Characters enemy, Game rpg)
+  }
+
+  class GuiHeroManagerPage {
+    -static JComboBox<String> choiceComboBox
+    -static void configureConfirmButton(RoundedImageButton elem, String selectedName, JComboBox<String> choiceComboBox, JLabel hiddenNameLabel, JPanel hiddenNameLabelWrapper, JPanel base, Game rpg)
+    -static void configureDeleteButton(RoundedImageButton btnDelete, Game rpg, JLabel hiddenNameLabel, JPanel hiddenNameLabelWrapper, JPanel base)
+    +static void updateHeroComboBox(Game rpg)
+    +static JPanel createViewPage(String title, CardLayout cardLayout, JPanel cardPanel, ImageIcon icon, Game rpg)
+    +static JComboBox<String> getComboBox()
+  }
+
+  class GuiMainMenuPage {
+    -static JPanel wrapperButtonGenerator(RoundedImageButton btnCreate, RoundedImageButton btnSelect, RoundedImageButton btnPlay, RoundedImageButton btnExit)
+    -static JPanel createPageMainMenu(ImageIcon icon, JPanel cardPanel, CardLayout cardLayout, Game rpg)
+  }
+
+  class GuiMapTab {
+    +static void updateMap(Game rpg, Map<String, ImageIcon> listToken, JPanel grid)
+    +static void loadToken(Map<String, ImageIcon> listToken, JPanel cell, String nameEnemy)
+    +static void drawMap(Game rpg, Map<String, ImageIcon> listToken, JPanel grid)
+  }
+
+  class GuiPlayPage {
+    -static JComboBox<String> choiceComboBox
+    -static final JLabel[] selected
+    -static JPanel createTokenSelector(Map<String, ImageIcon> listToken)
+    +static void updateHeroComboBox(Game rpg)
+    +static JPanel createPlayPage(String title, CardLayout cardLayout, JPanel cardPanel, ImageIcon icon, Map<String, ImageIcon> listToken, Game rpg)
+    +static JLabel[] getSelected()
+  }
+
+  class GuiPotionPage {
+    +static void showPotionPage(JComponent panel, Artefact potion, Map<String, ImageIcon> listToken, Icon icon, JPanel grid, JPanel baseInventory, Game rpg)
+  }
+
+  class GuiWelcomePage {
+    -static void configureButton(RoundedImageButton btn, CardLayout cardLayout, JPanel cardPanel)
+    -static void configurePanelTokens(JPanel elem)
+    +static JPanel createPageWelcome(String title, CardLayout cardLayout, JPanel cardPanel, ImageIcon icon, Map<String, ImageIcon> listToken)
+  }
 }
 
 ' =======================
@@ -268,6 +390,17 @@ Artefact <|-- Armor
 Artefact <|-- Weapon
 Artefact <|-- Helm
 Artefact <|-- Consommable
+
+GuiCustomPage <|-- GuiWelcomePage
+GuiCustomPage <|-- GuiPotionPage
+GuiCustomPage <|-- GuiPlayPage
+GuiCustomPage <|-- GuiMapTab
+GuiCustomPage <|-- GuiMainMenuPage
+GuiCustomPage <|-- GuiHeroManagerPage
+GuiCustomPage <|-- GuiFightPage
+GuiCustomPage <|-- GuiEndLevelPage
+GuiCustomPage <|-- GuiCreationPage
+GuiCustomPage <|-- GuiMainWindow
 
 ' --- Associations internes du modèle ---
 Characters *-- Artefact

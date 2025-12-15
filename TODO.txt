@@ -3,3 +3,4 @@
 + Find a solution to dl the right font while compiling!
 + In: GuiMainWindow.java -> exit proprely if failed to load tokens!
 + Add all tokens enemy!
++ check bug potion on console
