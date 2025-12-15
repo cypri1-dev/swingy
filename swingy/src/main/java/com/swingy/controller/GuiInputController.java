@@ -4,16 +4,14 @@ import com.swingy.model.Artefact;
 import com.swingy.model.Characters;
 import com.swingy.model.Maps;
 import com.swingy.view.GuiCustomPage;
+import com.swingy.view.GuiEndLevelPage;
 import com.swingy.view.GuiGamePage;
-import com.swingy.view.GuiHeroManagerPage;
 import com.swingy.view.GuiMapTab;
 import com.swingy.view.GuiPotionPage;
-import com.swingy.view.GuiPlayPage;
 import com.swingy.view.GuiFightPage;
-import com.swingy.view.components.RoundedImageButton;
+import com.swingy.view.GuiGameOverPage;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.Map;
 
@@ -44,8 +42,8 @@ public class GuiInputController extends GuiCustomPage {
 		this.baseInventory = baseInventory;
 		
 		bind(panel, "UP", () -> {
-		if (map.getLevelCompleted() || GuiCustomPage.getShowingPagePotion() || GuiCustomPage.getShowingPageFight())
-			return;
+			if (map.getLevelCompleted() || GuiCustomPage.getShowingPagePotion() || GuiCustomPage.getShowingPageFight())
+				return;
 			if (!canMove(hero.getCoordinates().getX() - 1, hero.getCoordinates().getY()))
 				return;
 			movement.moveWest(hero, map, menu, true);
@@ -122,85 +120,15 @@ public class GuiInputController extends GuiCustomPage {
 
 		/* ------------------- GAME OVER ------------------- */
 		if (hero.getHitPoint() <= 0) {
-			Icon deadIcon = listToken.get("Cranefeu");
 			rpg.getHeroesNameList().remove(hero.getName());
 			rpg.getListAvaible().remove(hero);
-			GuiPlayPage.updateHeroComboBox(rpg);
-			GuiHeroManagerPage.updateHeroComboBox(rpg);
-
-			if (!map.getLevelCompleted()) {
-				panel.removeAll();
-				panel.setLayout(new BorderLayout());
-
-				JLabel deadLabel = new JLabel(
-					"<html><div align='center'>"
-					+ "<span style='color: #FF0000;'>Game Over !</span><br/>"
-					+ "Your journey ends here… for now."
-					+ "</div></html>"
-				);
-
-				deadLabel.setFont(new Font("Ancient Modern Tales", Font.BOLD, 45));
-				deadLabel.setIcon(deadIcon);
-				deadLabel.setHorizontalTextPosition(JLabel.CENTER);
-				deadLabel.setVerticalTextPosition(JLabel.BOTTOM);
-
-				JPanel wrapperEndLabel = wrapperLabelGeneratorInventory(deadLabel, 30, 0, 30, 0, true);
-				panel.add(wrapperEndLabel, BorderLayout.CENTER);
-
-				panel.revalidate();
-				panel.repaint();
-				map.setLevelCompleted(true);
-			}
+			GuiGameOverPage.showGameOverPage(panel, listToken, map, rpg);
 			return;
 		}
 
 		/* ---------------- LEVEL COMPLETED ---------------- */
 		if (map.getLevelCompleted()) {
-			panel.removeAll();
-			panel.setLayout(new BorderLayout());
-
-			JLabel endLabel = new JLabel(
-				"<html><div align='center'>"
-				+ "Congratulation !<br/>"
-				+ "Level Completed!"
-				+ "</div></html>"
-			);
-			endLabel.setFont(new Font("Ancient Modern Tales", Font.BOLD, 65));
-
-			JPanel wrapperEndLabel = wrapperLabelGeneratorInventory(endLabel, 60, 0, 30, 0, true);
-			panel.add(wrapperEndLabel, BorderLayout.NORTH);
-
-			String inlineStats = String.format(
-				"<html><div style='font-family: Ancient Modern Tales; font-size: 18px; color: #444444; text-align: center;'>"
-				+ "%s<br/>"
-				+ "<b>Level</b>: %d<br/>"
-				+ "<b>XP</b>: %d<br/><br/>"
-				+ "<i>Attack</i>: <span style='color: #008000;'>%d</span><br/>"
-				+ "<i>Defense</i>: <span style='color: #008000;'>%d</span><br/>"
-				+ "<i>Hit Points</i>: <span style='color: #FF0000;'>%d/%d</span>"
-				+ "</div></html>",
-				hero.getName(),
-				hero.getLevel(),
-				hero.getXp(),
-				rpg.getMainHero().getAttack(),
-				rpg.getMainHero().getDefense(),
-				rpg.getMainHero().getHitPoint(),
-				rpg.getMainHero().getMaxHitPoint()
-			);
-
-			JLabel statsLabel = new JLabel(inlineStats);
-			statsLabel.setIcon(hero.getToken());
-			statsLabel.setHorizontalTextPosition(JLabel.CENTER);
-			statsLabel.setVerticalTextPosition(JLabel.BOTTOM);
-			statsLabel.setIconTextGap(15);
-			statsLabel.setHorizontalAlignment(JLabel.CENTER);
-
-			JPanel wrapperStats = wrapperLabelGeneratorInventory(statsLabel, 0, 0, 20, 0, true);
-			panel.add(wrapperStats, BorderLayout.CENTER);
-
-			panel.revalidate();
-			panel.repaint();
-
+			GuiEndLevelPage.showLevelCompletePage(panel, hero, rpg);
 			map.setLevelCompleted(true);
 			return;
 		}
