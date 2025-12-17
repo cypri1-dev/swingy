@@ -24,9 +24,11 @@ public class GameMovement {
 			Characters enemy = iterator.next();
 			if (hero.getCoordinates().getX() == enemy.getCoordinates().getX() && hero.getCoordinates().getY() == enemy.getCoordinates().getY()) {
 				
-				if (gui)
+				if (gui) {
 					return;
-				FightLogic.fight(enemy, hero, menu);
+				}
+				else
+					FightLogic.fight(enemy, hero, menu);
 				iterator.remove();
 				map.map[hero.getCoordinates().getX()][hero.getCoordinates().getY()] = SYMBOL_MAIN_HERO;
 				return;

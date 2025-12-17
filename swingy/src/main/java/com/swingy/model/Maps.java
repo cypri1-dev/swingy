@@ -44,6 +44,7 @@ public class Maps {
 	public List<Characters> getListEnemies() { return this.enemiesList;}
 	public boolean getLevelCompleted() {return this.levelCompleted;}
 	public String[][] getMapTab() {return this.map;}
+	public void setMapTab(String map[][]) {this.map = map;}
 	
 	public void setLevelCompleted(boolean state) {this.levelCompleted = state;}
 

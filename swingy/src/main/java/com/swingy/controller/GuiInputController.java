@@ -21,63 +21,64 @@ public class GuiInputController {
 	private Characters hero;
 	private Maps map;
 	private Menu menu;
-	private static JPanel grid;
-	private static Game rpg;
-	private static Map<String, ImageIcon> listToken;
-	private static Icon icon;
-	private static JPanel baseInventory;
+	private JPanel baseMap; // Panel principal où on dessine map et combat
+	private JPanel grid; // grille map
+	private Game rpg;
+	private Map<String, ImageIcon> listToken;
+	private Icon icon;
+	private JPanel baseInventory;
 
 	/************************************************************************ CONSTRUCTOR ************************************************************************/
 
-	public GuiInputController(JComponent panel, GameMovement movement, Characters hero, Maps map, Menu menu, JPanel grid, Game rpg, Map<String, ImageIcon> listToken, Icon icon, JPanel baseInventory) {
-
-		// this.movement = movement;
+	public GuiInputController(JComponent baseMap, GameMovement movement, Characters hero, Maps map, Menu menu, JPanel grid, Game rpg, Map<String, ImageIcon> listToken, Icon icon, JPanel baseInventory) {
+		this.baseMap = (JPanel) baseMap;
+		this.movement = movement;
 		this.hero = hero;
 		this.map = map;
-		// this.menu = menu;
+		this.menu = menu;
 		this.grid = grid;
 		this.rpg = rpg;
 		this.listToken = listToken;
 		this.icon = icon;
 		this.baseInventory = baseInventory;
-		
-		bind(panel, "UP", () -> {
+
+		bind(baseMap, "UP", () -> {
 			if (map.getLevelCompleted() || GuiCustomPage.getShowingPagePotion() || GuiCustomPage.getShowingPageFight())
 				return;
 			if (!canMove(hero.getCoordinates().getX() - 1, hero.getCoordinates().getY()))
 				return;
 			movement.moveWest(hero, map, menu, true);
-			update(panel);
+			update();
 		});
-		
-		bind(panel, "DOWN", () -> {
+
+		bind(baseMap, "DOWN", () -> {
 			if (map.getLevelCompleted() || GuiCustomPage.getShowingPagePotion() || GuiCustomPage.getShowingPageFight())
 				return;
 			if (!canMove(hero.getCoordinates().getX() + 1, hero.getCoordinates().getY()))
 				return;
 			movement.moveEast(hero, map, menu, true);
-			update(panel);
+			update();
 		});
-		
-		bind(panel, "LEFT", () -> {
+
+		bind(baseMap, "LEFT", () -> {
 			if (map.getLevelCompleted() || GuiCustomPage.getShowingPagePotion() || GuiCustomPage.getShowingPageFight())
 				return;
 			if (!canMove(hero.getCoordinates().getX(), hero.getCoordinates().getY() - 1))
 				return;
 			movement.moveNorth(hero, map, menu, true);
-			update(panel);
+			update();
 		});
-		
-		bind(panel, "RIGHT", () -> {
+
+		bind(baseMap, "RIGHT", () -> {
 			if (map.getLevelCompleted() || GuiCustomPage.getShowingPagePotion() || GuiCustomPage.getShowingPageFight())
 				return;
 			if (!canMove(hero.getCoordinates().getX(), hero.getCoordinates().getY() + 1))
 				return;
 			movement.moveSouth(hero, map, menu, true);
-			update(panel);
+			update();
 		});
 	}
-	
+
 	/************************************************************************ BIND KEYS METHOD ************************************************************************/
 
 	private void bind(JComponent comp, String key, Runnable action) {
@@ -89,7 +90,7 @@ public class GuiInputController {
 			}
 		});
 	}
-	
+
 	/************************************************************************ MOVEMENTS ALLOW METHOD ************************************************************************/
 
 	private boolean canMove(int x, int y) {
@@ -99,11 +100,11 @@ public class GuiInputController {
 
 	/************************************************************************ UPDATE METHOD - CHECK FIGHT - POTION - GAME OVER -WIN ************************************************************************/
 
-	private void update(JComponent panel) {
+	private void update() {
 		/* --------------------- FIGHT --------------------- */
 		for (Characters enemy : map.getListEnemies()) {
 			if (hero.getCoordinates().getX() == enemy.getCoordinates().getX() && hero.getCoordinates().getY() == enemy.getCoordinates().getY()) {
-				GuiFightPage.showFightPage(panel, enemy, rpg);
+				GuiFightPage.showFightPage(baseMap, enemy, icon, rpg, listToken, grid, baseInventory);
 				return;
 			}
 		}
@@ -113,7 +114,7 @@ public class GuiInputController {
 			if (hero.getCoordinates().getX() == healingPotion.getCoordinates().getX() && hero.getCoordinates().getY() == healingPotion.getCoordinates().getY()) {
 				map.getListConsommable().remove(healingPotion);
 				GuiGamePage.refreshInventory(rpg, baseInventory);
-				GuiPotionPage.showPotionPage(panel, healingPotion, listToken, icon, grid, baseInventory, rpg);
+				GuiPotionPage.showPotionPage(baseMap, healingPotion, listToken, icon, grid, baseInventory, rpg);
 				return;
 			}
 		}
@@ -122,13 +123,13 @@ public class GuiInputController {
 		if (hero.getHitPoint() <= 0) {
 			rpg.getHeroesNameList().remove(hero.getName());
 			rpg.getListAvaible().remove(hero);
-			GuiGameOverPage.showGameOverPage(panel, listToken, map, rpg);
+			GuiGameOverPage.showGameOverPage(baseMap, listToken, map, rpg);
 			return;
 		}
 
 		/* ---------------- LEVEL COMPLETED ---------------- */
 		if (map.getLevelCompleted()) {
-			GuiEndLevelPage.showLevelCompletePage(panel, hero, rpg);
+			GuiEndLevelPage.showLevelCompletePage(baseMap, hero, rpg);
 			map.setLevelCompleted(true);
 			return;
 		}

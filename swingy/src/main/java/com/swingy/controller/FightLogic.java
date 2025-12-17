@@ -37,73 +37,73 @@ public class FightLogic {
 			switch (option) {
 				/* -------- ATTACK -------- */
 				case "1":
-				int diceHero1 = ThreadLocalRandom.current().nextInt(1, 7);
-				int diceHero2 = ThreadLocalRandom.current().nextInt(1, 7);
-				int diceEnemy1 = ThreadLocalRandom.current().nextInt(1, 7);
-				int diceEnemy2 = ThreadLocalRandom.current().nextInt(1, 7);
+					int diceHero1 = ThreadLocalRandom.current().nextInt(1, 7);
+					int diceHero2 = ThreadLocalRandom.current().nextInt(1, 7);
+					int diceEnemy1 = ThreadLocalRandom.current().nextInt(1, 7);
+					int diceEnemy2 = ThreadLocalRandom.current().nextInt(1, 7);
 
-				int initH = (diceHero1 + diceHero2) + hero.getAttack();
-				int initE = (diceEnemy1 + diceEnemy2) + enemy.getAttack();
+					int initH = (diceHero1 + diceHero2) + hero.getAttack();
+					int initE = (diceEnemy1 + diceEnemy2) + enemy.getAttack();
 
-				if (initH == initE) {
-					display.printNormal("⚔️  Both fighters clash with equal strength ⚔️ No one was hurt!");
-					display.sleepTime(1400);
-					continue;
-				}
+					if (initH == initE) {
+						display.printNormal("⚔️  Both fighters clash with equal strength ⚔️ No one was hurt!");
+						display.sleepTime(1400);
+						continue;
+					}
 
-				if (initH > initE) {
-					int rawDamage = ThreadLocalRandom.current().nextInt(1, hero.getAttack() + 1);
-					int damage = rawDamage - (enemy.getDefense() / 2);
-					if (damage < 0)
-						damage = 0;
-					enemy.setHitPoint(-damage);
-					display.printNormal("💥 " + hero.getName() +  " hits " + enemy.getCharacterClass() +  " for " + damage + " damage!");
-				} else {
-					int rawDamage = ThreadLocalRandom.current().nextInt(1, enemy.getAttack() + 1);
-					int damage = rawDamage - (hero.getDefense() / 2);
-					if (damage < 0)
-						damage = 0;
-					hero.setHitPoint(-damage);
-					display.printNormal("🗡️  " + enemy.getCharacterClass() + " hits " + hero.getName() + " for " + damage + " damage!");
-				}
-				display.sleepTime(1400);
-				break;
-
-			case "2":
-				/* -------- BLOCK -------- */
-				int dmg = ThreadLocalRandom.current().nextInt(1, enemy.getAttack() + 1);
-				int fullBlock = dmg - hero.getDefense();
-				if (fullBlock <= 0)
-					fullBlock = 0;
-				hero.setHitPoint(-fullBlock);
-				display.printNormal("🛡️ The hero blocks it! Not today, villain! You took " + fullBlock + " damage!");
-				display.sleepTime(1400);
-				break;
-
-			case "3":
-				/* -------- RUN -------- */
-				int luck = ThreadLocalRandom.current().nextInt(0, 2);
-				if (luck == 0) {
-					int rawDamage = ThreadLocalRandom.current().nextInt(1, enemy.getAttack() + 1);
-					hero.setHitPoint(-rawDamage);
-					display.printNormal("💨 The hero tries to escape... but fails!");
-					display.printNormal("🗡️ " + enemy.getCharacterClass() + " hits " + hero.getName() + " for " + rawDamage + " damage!");
+					if (initH > initE) {
+						int rawDamage = ThreadLocalRandom.current().nextInt(1, hero.getAttack() + 1);
+						int damage = rawDamage - (enemy.getDefense() / 2);
+						if (damage < 0)
+							damage = 0;
+						enemy.setHitPoint(-damage);
+						display.printNormal("💥 " + hero.getName() +  " hits " + enemy.getCharacterClass() +  " for " + damage + " damage!");
+					} else {
+						int rawDamage = ThreadLocalRandom.current().nextInt(1, enemy.getAttack() + 1);
+						int damage = rawDamage - (hero.getDefense() / 2);
+						if (damage < 0)
+							damage = 0;
+						hero.setHitPoint(-damage);
+						display.printNormal("🗡️  " + enemy.getCharacterClass() + " hits " + hero.getName() + " for " + damage + " damage!");
+					}
 					display.sleepTime(1400);
 					break;
-				}
-				else {
-					hero.getCoordinates().setXBack(hero.getCoordinates().getPrevX());
-					hero.getCoordinates().setYBack(hero.getCoordinates().getPrevY());
-					display.printNormal("🏃‍♂️ With lightning reflexes, the hero escapes into the shadows!");
+
+				case "2":
+					/* -------- BLOCK -------- */
+					int dmg = ThreadLocalRandom.current().nextInt(1, enemy.getAttack() + 1);
+					int fullBlock = dmg - hero.getDefense();
+					if (fullBlock <= 0)
+						fullBlock = 0;
+					hero.setHitPoint(-fullBlock);
+					display.printNormal("🛡️ The hero blocks it! Not today, villain! You took " + fullBlock + " damage!");
 					display.sleepTime(1400);
-					return;
-				}
+					break;
+
+				case "3":
+					/* -------- RUN -------- */
+					int luck = ThreadLocalRandom.current().nextInt(0, 2);
+					if (luck == 0) {
+						int rawDamage = ThreadLocalRandom.current().nextInt(1, enemy.getAttack() + 1);
+						hero.setHitPoint(-rawDamage);
+						display.printNormal("💨 The hero tries to escape... but fails!");
+						display.printNormal("🗡️ " + enemy.getCharacterClass() + " hits " + hero.getName() + " for " + rawDamage + " damage!");
+						display.sleepTime(1400);
+						break;
+					}
+					else {
+						hero.getCoordinates().setXBack(hero.getCoordinates().getPrevX());
+						hero.getCoordinates().setYBack(hero.getCoordinates().getPrevY());
+						display.printNormal("🏃‍♂️ With lightning reflexes, the hero escapes into the shadows!");
+						display.sleepTime(1400);
+						return;
+					}
 			
-				case "4":
-				/* -------- INVENTORY -------- */
-					menu.inventoryMenu();
-					break;
-			}
+					case "4":
+					/* -------- INVENTORY -------- */
+						menu.inventoryMenu();
+						break;
+				}
 
 		} while ((enemy.getHitPoint() > 0 && hero.getHitPoint() > 0) || !validOption.contains(option));
 

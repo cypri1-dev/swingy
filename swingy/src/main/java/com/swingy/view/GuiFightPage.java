@@ -2,76 +2,58 @@ package com.swingy.view;
 
 import java.awt.Font;
 import java.awt.Component;
+import java.util.Map;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JComponent;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.swingy.model.Characters;
-import com.swingy.controller.Game;;
+import com.swingy.view.components.RoundedImageButton;
+import com.swingy.controller.Game;
+import com.swingy.controller.GuiFightController;
+import com.swingy.utils.TypeWriterEffect;
 
 public class GuiFightPage extends GuiCustomPage {
 
-	public static void showFightPage(JComponent panel, Characters enemy, Game rpg) {
+	private static FightLogPanel logPanel;
+
+	public static void showFightPage(
+			JPanel baseMap,
+			Characters enemy,
+			Icon icon,
+			Game rpg,
+			Map<String, ImageIcon> listToken,
+			JPanel grid,
+			JPanel baseInventory
+	) {
+
+		new GuiFightController(rpg.getMainHero(), enemy, rpg.getMap());
 		setShowingPageFight(true);
 
-		panel.removeAll();
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		baseMap.removeAll();
+		baseMap.setLayout(new BoxLayout(baseMap, BoxLayout.Y_AXIS));
 
-		// --- Titre ---
+		/****************************** TITLE ******************************/
 		JLabel titleLabel = new JLabel("Fight");
 		setCustomFont(titleLabel, Font.BOLD, 45);
-		JPanel wrapperTitleLabel = wrapperLabelGeneratorInventory(titleLabel, 0, 0, 20, 0, true);
-		panel.add(wrapperTitleLabel);
+		JPanel wrapperTitle = wrapperLabelGeneratorInventory(titleLabel, 0, 0, 20, 0, true);
+		baseMap.add(wrapperTitle);
 
-		// --- Container horizontal pour héros & ennemi ---
+		/****************************** FIGHTERS ******************************/
 		JPanel fightersPanel = new JPanel();
 		fightersPanel.setLayout(new BoxLayout(fightersPanel, BoxLayout.X_AXIS));
 		fightersPanel.setOpaque(false);
 		fightersPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-		// --- Bloc héros ---
-		JPanel heroPanel = new JPanel();
-		configureJPanelFight(heroPanel);
-
 		Characters hero = rpg.getMainHero();
 
-		JLabel heroTokenLabel = new JLabel(GuiGamePage.rescaleToken(hero.getToken(), 150));
-		heroTokenLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-		heroPanel.add(heroTokenLabel);
-
-		// Texte PV centré avec JLabel standard et HTML + centre forcé
-		String heroHPText = String.format(
-			"<html><div style='width: 215px; text-align: center;'>"
-			+ "<b>HP</b>: <span style='color:red;'>%d/%d</span>"
-			+ "</div></html>",
-			hero.getHitPoint(), hero.getMaxHitPoint()
-		);
-		JLabel heroHPLabel = new JLabel(heroHPText);
-		setCustomFont(heroHPLabel, Font.BOLD, 25);
-		heroHPLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-		heroPanel.add(heroHPLabel);
-
-		// --- Bloc ennemi ---
-		JPanel enemyPanel = new JPanel();
-		configureJPanelFight(enemyPanel);
-
-		JLabel enemyTokenLabel = new JLabel(GuiGamePage.rescaleToken(enemy.getToken(), 150));
-		enemyTokenLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-		enemyPanel.add(enemyTokenLabel);
-
-		String enemyHPText = String.format(
-			"<html><div style='width: 215px; text-align: center;'>"
-			+ "<b>HP</b>: <span style='color:red;'>%d/%d</span>"
-			+ "</div></html>",
-			enemy.getHitPoint(), enemy.getMaxHitPoint()
-		);
-		JLabel enemyHPLabel = new JLabel(enemyHPText);
-		setCustomFont(enemyHPLabel, Font.BOLD, 25);
-		enemyHPLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-		enemyPanel.add(enemyHPLabel);
+		JPanel heroPanel = buildCharacterPanel(hero);
+		JPanel enemyPanel = buildCharacterPanel(enemy);
 
 		fightersPanel.add(Box.createHorizontalGlue());
 		fightersPanel.add(heroPanel);
@@ -79,9 +61,114 @@ public class GuiFightPage extends GuiCustomPage {
 		fightersPanel.add(enemyPanel);
 		fightersPanel.add(Box.createHorizontalGlue());
 
-		panel.add(fightersPanel);
+		/****************************** BUTTONS ******************************/
+		RoundedImageButton attackButton = new RoundedImageButton("Attack", icon);
+		configButtons(attackButton);
+		attackButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-		panel.revalidate();
-		panel.repaint();
+		JLabel heroHPLabel = (JLabel) heroPanel.getClientProperty("hpLabel");
+		JLabel enemyHPLabel = (JLabel) enemyPanel.getClientProperty("hpLabel");
+
+		attackButton.addActionListener(e -> {
+			String result = GuiFightController.attackAction();
+
+			if ("DEAD HERO".equals(result)) {
+				rpg.getHeroesNameList().remove(hero.getName());
+				rpg.getListAvaible().remove(hero);
+				GuiGameOverPage.showGameOverPage(baseMap, listToken, rpg.getMap(), rpg);
+				return;
+			}
+
+			if ("DEAD ENEMY".equals(result)) {
+				setShowingPageFight(false);
+				
+				GuiGamePage.resetPage(
+					baseMap,
+					rpg,
+					listToken,
+					grid,
+					baseInventory
+				);
+				return;
+			}
+
+			log(result);
+			heroHPLabel.setText(buildHPText(hero));
+			enemyHPLabel.setText(buildHPText(enemy));
+		});
+
+		RoundedImageButton blockButton = new RoundedImageButton("Block", icon);
+		configButtons(blockButton);
+		blockButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+		RoundedImageButton runButton = new RoundedImageButton("Run", icon);
+		configButtons(runButton);
+		runButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+		/****************************** LOG ******************************/
+		JLabel historyLabel = new JLabel("Fight History:");
+		setCustomFont(historyLabel, Font.ITALIC, 20);
+
+		JPanel historyWrapper = new JPanel();
+		historyWrapper.setLayout(new BoxLayout(historyWrapper, BoxLayout.X_AXIS));
+		historyWrapper.setOpaque(false);
+		historyWrapper.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+		historyWrapper.add(historyLabel);
+		historyWrapper.add(Box.createHorizontalGlue());
+
+		logPanel = new FightLogPanel();
+
+		/****************************** ADD ******************************/
+		baseMap.add(fightersPanel);
+		baseMap.add(Box.createVerticalStrut(10));
+		baseMap.add(attackButton);
+		baseMap.add(Box.createVerticalStrut(5));
+		baseMap.add(blockButton);
+		baseMap.add(Box.createVerticalStrut(5));
+		baseMap.add(runButton);
+		baseMap.add(Box.createVerticalStrut(10));
+		baseMap.add(historyWrapper);
+		baseMap.add(logPanel);
+
+		baseMap.revalidate();
+		baseMap.repaint();
+	}
+
+	/****************************** HELPERS ******************************/
+
+	private static JPanel buildCharacterPanel(Characters c) {
+		JPanel panel = new JPanel();
+		configureJPanelFight(panel);
+
+		JLabel token = new JLabel(GuiGamePage.rescaleToken(c.getToken(), 150));
+		token.setBorder(BorderFactory.createEmptyBorder(0, 0, 15, 0));
+		token.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+		JLabel hpLabel = new JLabel(buildHPText(c));
+		setCustomFont(hpLabel, Font.BOLD, 25);
+		hpLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+		panel.add(token);
+		panel.add(hpLabel);
+
+		panel.putClientProperty("hpLabel", hpLabel);
+
+		return panel;
+	}
+
+	private static String buildHPText(Characters c) {
+		return String.format(
+			"<html><div style='width: 215px; text-align: center;'>"
+			+ "<b>HP</b>: <span style='color:red;'>%d/%d</span>"
+			+ "</div></html>",
+			c.getHitPoint(),
+			c.getMaxHitPoint()
+		);
+	}
+
+	public static void log(String text) {
+		if (logPanel == null)
+			return;
+		TypeWriterEffect.appendAnimated(logPanel.getLogArea(), text, 25);
 	}
 }
