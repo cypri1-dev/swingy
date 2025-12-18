@@ -85,7 +85,7 @@ public class Maps {
 			occupiedCoords.add(consommableCoord);
 			this.consommableList.add(healingPotion);
 			
-			this.map[tmpX][tmpY] = "*";
+			this.map[tmpX][tmpY] = "P";
 		}
 
 	}
@@ -146,7 +146,7 @@ public class Maps {
 			if (loot != null)
 				tmpEnemy.addArtefact(loot);
 
-			this.enemiesList.add(tmpEnemy);;
+			this.enemiesList.add(tmpEnemy);
 
 			switch(tmpEnemy.getCharacterClass()) {
 				// ---- Tier 1 : basiques ----
@@ -166,31 +166,37 @@ public class Maps {
 					symbol = "g";
 					if (listToken != null)
 						tmpEnemy.setToken(listToken.get("goblin"));
+					break;
 				}
 				case ENEMY_CLASS_BANDIT: {
 					symbol = "b";
 					if (listToken != null)
 						tmpEnemy.setToken(listToken.get("bandit"));
+					break;
 				}
 				case ENEMY_CLASS_BAT: {
 					symbol = "v"; // volant
 					if (listToken != null)
 						tmpEnemy.setToken(listToken.get("bat"));
+					break;
 				}
 				case ENEMY_CLASS_SPIDERLING: {
 					symbol = "x"; // petite araignée
 					if (listToken != null)
 						tmpEnemy.setToken(listToken.get("spiderling"));
+					break;
 				}
 				case ENEMY_CLASS_SKELETAL_HAND: {
 					symbol = "h"; // main squelettique
 					if (listToken != null)
 						tmpEnemy.setToken(listToken.get("skeletal_hand"));
+					break;
 				}
 				case ENEMY_CLASS_MUDLING: {
 					symbol = "m"; // boueux
 					if (listToken != null)
 						tmpEnemy.setToken(listToken.get("mudling"));
+					break;
 				}
 
 				// ---- Tier 2 : intermédiaires (niv. 5–8) ----
@@ -241,6 +247,7 @@ public class Maps {
 				this.map[tmpX][tmpY] = symbol;
 			else
 				this.map[tmpX][tmpY] = "*";
+			System.out.println("[DEBUG]: add enemy: " + tmpEnemy.getCharacterClass());
 		}
 		return occupiedCoords;
 	}

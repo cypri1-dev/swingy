@@ -3,7 +3,9 @@ package com.swingy.view;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
+import java.awt.FlowLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -20,12 +22,24 @@ public class GuiMapTab extends GuiCustomPage {
 
 	public static void updateMap(Game rpg, Map<String, ImageIcon> listToken, JPanel grid) {
 		GuiMapTab.drawMap(rpg, listToken, grid);
+		System.out.println("PASSE DANS UPDATE");
 	}
 
 	/************************************************************************ LOAD AND CONFIG TOKEN METHOD ************************************************************************/
 
 	public static void loadToken(Map<String, ImageIcon> listToken, JPanel cell, String nameEnemy) {
 		JLabel enemyLabel = new JLabel(rescaleToken(listToken.get(nameEnemy), 65));
+		// System.out.println("[DEBUG TOKEN]: loading token... " + nameEnemy);
+		// JFrame frame = new JFrame("Tokens");
+		// frame.setLayout(new FlowLayout());
+
+		// for (ImageIcon icon : listToken.values()) {
+		// 	frame.add(new JLabel(icon));
+		// }
+
+		// frame.pack();
+		// frame.setVisible(true);
+
 		enemyLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		enemyLabel.setVerticalAlignment(SwingConstants.CENTER);
 		cell.add(enemyLabel);
@@ -66,12 +80,16 @@ public class GuiMapTab extends GuiCustomPage {
 				startY = mapSize - viewportSize;
 		}
 
+		System.out.println("[MAP]");
+		DisplayInfos.printMap(map);
 		for (int y = startY; y <= endY; y++) {
 			for (int x = startX; x <= endX; x++) {
+
 				JPanel cell = new JPanel();
 				cell.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
 				cell.setOpaque(false);
 
+				// System.out.println(mapTab[x][y]);
 				switch (mapTab[x][y]) {
 					case SYMBOL_MAIN_HERO:
 						JLabel heroLabel = new JLabel(rescaleToken(rpg.getMainHero().getToken(), 65));

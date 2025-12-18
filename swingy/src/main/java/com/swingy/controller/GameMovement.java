@@ -66,7 +66,7 @@ public class GameMovement {
 
 	/* -------------------------------------------------- CHECK END LEVEL METHOD -------------------------------------------------- */
 
-	private void checkEndLevel(Characters hero, Maps map) {
+	public void checkEndLevel(Characters hero, Maps map) {
 		if (hero.getCoordinates().getX() == 0 || hero.getCoordinates().getX() == map.getSize() - 1 || hero.getCoordinates().getY() == 0 || hero.getCoordinates().getY() == map.getSize() - 1) {
 			map.setLevelCompleted(true);
 		}

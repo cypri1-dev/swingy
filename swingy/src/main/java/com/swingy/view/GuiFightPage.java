@@ -51,9 +51,14 @@ public class GuiFightPage extends GuiCustomPage {
 		fightersPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 		Characters hero = rpg.getMainHero();
-
-		JPanel heroPanel = buildCharacterPanel(hero);
-		JPanel enemyPanel = buildCharacterPanel(enemy);
+		Icon tokenH = hero.getToken();
+		Icon tokenE = enemy.getToken();
+		if (tokenH == null)
+			System.out.println("[DEBUG]: tokenH null");
+		if (tokenE == null)
+			System.out.println("[DEBUG]: tokenE null");
+		JPanel heroPanel = buildCharacterPanel(hero, tokenH);
+		JPanel enemyPanel = buildCharacterPanel(enemy,tokenE);
 
 		fightersPanel.add(Box.createHorizontalGlue());
 		fightersPanel.add(heroPanel);
@@ -70,7 +75,7 @@ public class GuiFightPage extends GuiCustomPage {
 		JLabel enemyHPLabel = (JLabel) enemyPanel.getClientProperty("hpLabel");
 
 		attackButton.addActionListener(e -> {
-			String result = GuiFightController.attackAction();
+			String result = GuiFightController.attackAction(baseMap, listToken, icon, grid, baseInventory, rpg);
 
 			if ("DEAD HERO".equals(result)) {
 				rpg.getHeroesNameList().remove(hero.getName());
@@ -81,15 +86,16 @@ public class GuiFightPage extends GuiCustomPage {
 
 			if ("DEAD ENEMY".equals(result)) {
 				setShowingPageFight(false);
-				
-				GuiGamePage.resetPage(
-					baseMap,
-					rpg,
-					listToken,
-					grid,
-					baseInventory
-				);
+				if (hero.getCoordinates().getX() == 0 || hero.getCoordinates().getX() == rpg.getMap().getSize() - 1 || hero.getCoordinates().getY() == 0 || hero.getCoordinates().getY() == rpg.getMap().getSize() - 1)
+					GuiEndLevelPage.showLevelCompletePage(baseMap, hero, rpg);
+				else
+					GuiWinPage.showWinPage(baseMap, listToken, rpg.getMap(), rpg, icon, grid, baseInventory);
 				return;
+			}
+
+			if ("LOOT".equals(result)) {
+				setShowingPageFight(false);
+				GuiLootPage.showLootPage(baseMap, listToken, rpg.getMap(), rpg, icon, grid, baseInventory, enemy);
 			}
 
 			log(result);
@@ -136,11 +142,11 @@ public class GuiFightPage extends GuiCustomPage {
 
 	/****************************** HELPERS ******************************/
 
-	private static JPanel buildCharacterPanel(Characters c) {
+	private static JPanel buildCharacterPanel(Characters c, Icon iconToken) {
 		JPanel panel = new JPanel();
 		configureJPanelFight(panel);
 
-		JLabel token = new JLabel(GuiGamePage.rescaleToken(c.getToken(), 150));
+		JLabel token = new JLabel(GuiGamePage.rescaleToken(iconToken, 150));
 		token.setBorder(BorderFactory.createEmptyBorder(0, 0, 15, 0));
 		token.setAlignmentX(Component.CENTER_ALIGNMENT);
 

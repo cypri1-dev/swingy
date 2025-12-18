@@ -48,7 +48,10 @@ public class GuiPotionPage extends GuiCustomPage {
 
 		backButton.addActionListener(e -> {
 		    GuiCustomPage.setShowingPagePotion(false);
-			GuiGamePage.resetPage((JPanel)panel, rpg, listToken, grid, baseInventory);
+			if (rpg.getMainHero().getCoordinates().getX() == 0 || rpg.getMainHero().getCoordinates().getX() == rpg.getMap().getSize() - 1 || rpg.getMainHero().getCoordinates().getY() == 0 || rpg.getMainHero().getCoordinates().getY() == rpg.getMap().getSize() - 1)
+				GuiEndLevelPage.showLevelCompletePage(panel, rpg.getMainHero(), rpg);
+			else
+				GuiGamePage.resetPage((JPanel)panel, rpg, listToken, grid, baseInventory);
 		});
 
 		JPanel container = new JPanel();

@@ -126,6 +126,11 @@ public class GuiGamePage extends GuiCustomPage {
 
 	public static JPanel createGamePage(Game rpg, CardLayout cardLayout, JPanel cardPanel, Map<String, ImageIcon> listToken, ImageIcon icon) {
 
+		for (Map.Entry<String, ImageIcon> entry : listToken.entrySet()) {
+			System.out.println("Clé : " + entry.getKey());
+			System.out.println("Valeur : " + entry.getValue());
+		}
+
 		// Main panel
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.setOpaque(false);

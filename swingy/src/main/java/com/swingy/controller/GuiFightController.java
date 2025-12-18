@@ -1,9 +1,16 @@
 package com.swingy.controller;
 
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
+
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
 
 import com.swingy.model.Characters;
 import com.swingy.model.Maps;
+import com.swingy.view.GuiLootPage;
 
 public class GuiFightController {
 	
@@ -17,7 +24,7 @@ public class GuiFightController {
 		this.map = map;
 	}
 
-	public static String attackAction() {
+	public static String attackAction(JComponent panel, Map<String, ImageIcon> listToken, Icon icon, JPanel grid, JPanel baseInventory, Game rpg) {
 		int diceHero1 = ThreadLocalRandom.current().nextInt(1, 7);
 		int diceHero2 = ThreadLocalRandom.current().nextInt(1, 7);
 		int diceEnemy1 = ThreadLocalRandom.current().nextInt(1, 7);
@@ -36,7 +43,15 @@ public class GuiFightController {
 			enemy.setHitPoint(-damage);
 			if (enemy.getHitPoint() <= 0) {
 				String[][] tmp = map.getMapTab();
-				tmp[enemy.getCoordinates().getX()][enemy.getCoordinates().getY()] = "@";
+				hero.addXP(enemy.getXp());
+				hero.getKnowledge().addKnowledge(enemy);
+				tmp[enemy.getCoordinates().getX()][enemy.getCoordinates().getY()] = "\u001b[34m@\u001b[0m";
+				if (!enemy.getArtefacts().isEmpty())
+				{
+					// GuiLootPage.showLootPage(panel, listToken, map, rpg, icon, grid, baseInventory, enemy);
+					// System.out.println("[DEBUG]: item!");
+					return "LOOT";
+				}
 				map.getListEnemies().remove(enemy);
 				return "DEAD ENEMY";
 			}

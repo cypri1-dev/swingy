@@ -35,6 +35,7 @@ public abstract class GuiCustomPage {
 	private static Dimension BtnDimension = new Dimension(150, 48);
 	private static boolean showingPotionPage = false;
 	private static boolean showingFightPage = false;
+	private static boolean showingWinPage = false;
 
 	/************************************************************************ WRAPPER CHECKBOX (from GuiGamePage) ************************************************************************/
 
@@ -250,4 +251,6 @@ public abstract class GuiCustomPage {
 	public static void setShowingPagePotion(boolean set) {showingPotionPage = set;}
 	public static boolean getShowingPageFight() {return showingFightPage;}
 	public static void setShowingPageFight(boolean set) {showingFightPage = set;}
+	public static boolean getShowingPageWin() {return showingWinPage;}
+	public static void setShowingPageWin(boolean set) {showingWinPage = set;}
 }
