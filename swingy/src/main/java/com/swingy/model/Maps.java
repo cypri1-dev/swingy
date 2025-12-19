@@ -165,7 +165,7 @@ public class Maps {
 				case ENEMY_CLASS_GOBLIN: {
 					symbol = "g";
 					if (listToken != null)
-						tmpEnemy.setToken(listToken.get("goblin"));
+						tmpEnemy.setToken(listToken.get("gobelin"));
 					break;
 				}
 				case ENEMY_CLASS_BANDIT: {
@@ -204,41 +204,49 @@ public class Maps {
 					symbol = "S";
 					if (listToken != null)
 						tmpEnemy.setToken(listToken.get("skeletal"));
+					break;
 				}
 				case ENEMY_CLASS_WOLF: {
 					symbol = "w";
 					if (listToken != null)
 						tmpEnemy.setToken(listToken.get("wolf"));
+					break;
 				}
 				case ENEMY_CLASS_CULTIST: {
 					symbol = "c";
 					if (listToken != null)
 						tmpEnemy.setToken(listToken.get("cultist"));
+					break;
 				}
 				case ENEMY_CLASS_ORC: {
 					symbol = "O";
 					if (listToken != null)
 						tmpEnemy.setToken(listToken.get("Orc"));
+					break;
 				}
 				case ENEMY_CLASS_BANDIT_CHIEF: {
 					symbol = "B";
 					if (listToken != null)
 						tmpEnemy.setToken(listToken.get("bandit_chief"));
+					break;
 				}
 				case ENEMY_CLASS_GOBLIN_SHAMAN: {
 					symbol = "G";
 					if (listToken != null)
 						tmpEnemy.setToken(listToken.get("gobelin_mage"));
+					break;
 				}
 				case ENEMY_CLASS_WARG: {
 					symbol = "W";
 					if (listToken != null)
 						tmpEnemy.setToken(listToken.get("warg"));
+					break;
 				}
 				case ENEMY_CLASS_GRAVE_ROBBER: {
 					symbol = "R";
 					if (listToken != null)
 						tmpEnemy.setToken(listToken.get("grave_robber"));
+					break;
 				}
 
 				// // ---- Tier 3 : avancés (niv. 9–12) ----
@@ -246,41 +254,49 @@ public class Maps {
 					symbol = "M";
 					if (listToken != null)
 						tmpEnemy.setToken(listToken.get("dark_mage"));
+					break;
 				}
 				case ENEMY_CLASS_ELEMENTAL: {
 					symbol = "E";
 					if (listToken != null)
 						tmpEnemy.setToken(listToken.get("elemental"));
+					break;
 				}
 				case ENEMY_CLASS_TROLL: {
 					symbol = "T";
 					if (listToken != null)
 						tmpEnemy.setToken(listToken.get("troll"));
+					break;
 				}
 				case ENEMY_CLASS_ASSASSIN: {
 					symbol = "A";
 					if (listToken != null)
 						tmpEnemy.setToken(listToken.get("assassin"));
+					break;
 				}
 				case ENEMY_CLASS_NECROMANCER: {
 					symbol = "N";
 					if (listToken != null)
 						tmpEnemy.setToken(listToken.get("necromancer"));
+					break;
 				}
 				case ENEMY_CLASS_WARLOCK: {
 					symbol = "℧";
 					if (listToken != null)
 						tmpEnemy.setToken(listToken.get("warlock"));
+					break;
 				}
 				case ENEMY_CLASS_SHADOW_BEAST: {
 					symbol = "§";
 					if (listToken != null)
 						tmpEnemy.setToken(listToken.get("shadow_beast"));
+					break;
 				}
 				case ENEMY_CLASS_GOLEM: {
 					symbol = "Gm";
 					if (listToken != null)
 						tmpEnemy.setToken(listToken.get("golem"));
+					break;
 				}
 
 				// // ---- Tier 4 : élite (niv. 13–16) ----
@@ -288,26 +304,107 @@ public class Maps {
 					symbol = "L";
 					if (listToken != null)
 						tmpEnemy.setToken(listToken.get("lich"));
+					break;
 				}
-				// case ENEMY_CLASS_MINOTAUR -> symbol = "Mʈ";
-				// case ENEMY_CLASS_VAMPIRE_LORD -> symbol = "V";
-				// case ENEMY_CLASS_DEMON_KNIGHT -> symbol = "K";
-				// case ENEMY_CLASS_DREAD_KNIGHT -> symbol = "Đ";
-				// case ENEMY_CLASS_PLAGUE_BRINGER -> symbol = "P";
-				// case ENEMY_CLASS_PYROMANCER -> symbol = "Ψ";
-				// case ENEMY_CLASS_SPECTER -> symbol = "Ʃ";
+				case ENEMY_CLASS_MINOTAUR: {
+					symbol = "Mʈ";
+					if (listToken != null)
+						tmpEnemy.setToken(listToken.get("minotaur"));
+					break;
+				}
+				case ENEMY_CLASS_VAMPIRE_LORD: {
+					symbol = "V";
+					if (listToken != null)
+						tmpEnemy.setToken(listToken.get("vampire"));
+					break;
+				}
+				case ENEMY_CLASS_DEMON_KNIGHT: {
+					symbol = "K";
+					if (listToken != null)
+						tmpEnemy.setToken(listToken.get("demon_knight"));
+					break;
+				} 
+				case ENEMY_CLASS_DREAD_KNIGHT: {
+					symbol = "Đ";
+					if (listToken != null)
+						tmpEnemy.setToken(listToken.get("dread_knight"));
+					break;
+				}
+				case ENEMY_CLASS_PLAGUE_BRINGER: {
+					symbol = "P";
+					if (listToken != null)
+						tmpEnemy.setToken(listToken.get("plague_bringer"));
+					break;
+				}
+				case ENEMY_CLASS_PYROMANCER: {
+					symbol = "Ψ";
+					if (listToken != null)
+						tmpEnemy.setToken(listToken.get("pyromancer"));
+					break;
+				}
+				case ENEMY_CLASS_SPECTER: {
+					symbol = "Ʃ";
+					if (listToken != null)
+						tmpEnemy.setToken(listToken.get("specter"));
+					break;
+				}
 
 				// // ---- Tier 5 : boss & divinités (niv. 17–20) ----
-				// case ENEMY_CLASS_DRAGON_WHELP -> symbol = "D";
-				// case ENEMY_CLASS_ANCIENT_DRAGON -> symbol = "Ω";
-				// case ENEMY_CLASS_ABYSSAL_HYDRA -> symbol = "H";
-				// case ENEMY_CLASS_FALLEN_GOD -> symbol = "Φ";
-				// case ENEMY_CLASS_DEMON_OVERLORD -> symbol = "Ð";
-				// case ENEMY_CLASS_TITAN -> symbol = "τ";
-				// case ENEMY_CLASS_VOID_SERPENT -> symbol = "∑";
-				// case ENEMY_CLASS_COSMIC_DRAGON -> symbol = "∞";
+				case ENEMY_CLASS_DRAGON_WHELP: {
+					symbol = "D";
+					if (listToken != null)
+						tmpEnemy.setToken(listToken.get("Jeune_dragon_vert"));
+					break;
+				}
+				case ENEMY_CLASS_ANCIENT_DRAGON: {
+					symbol = "Ω";
+					if (listToken != null)
+						tmpEnemy.setToken(listToken.get("ancient_dragon"));
+					break;
+				}
+				case ENEMY_CLASS_ABYSSAL_HYDRA: {
+					symbol = "H";
+					if (listToken != null)
+						tmpEnemy.setToken(listToken.get("hydra"));
+					break;
+				}
+				case ENEMY_CLASS_FALLEN_GOD: {
+					symbol = "Φ";
+					if (listToken != null)
+						tmpEnemy.setToken(listToken.get("fallen_god"));
+					break;
+				}
+				case ENEMY_CLASS_DEMON_OVERLORD: {
+					symbol = "Ð";
+					if (listToken != null)
+						tmpEnemy.setToken(listToken.get("demon_overlord"));
+					break;
+				}
+				case ENEMY_CLASS_TITAN: {
+					symbol = "τ";
+					if (listToken != null)
+						tmpEnemy.setToken(listToken.get("titan"));
+					break;
+				}
+				case ENEMY_CLASS_VOID_SERPENT: {
+					symbol = "∑";
+					if (listToken != null)
+						tmpEnemy.setToken(listToken.get("serpent"));
+					break;
+				}
+				case ENEMY_CLASS_COSMIC_DRAGON: {
+					symbol = "∞";
+					if (listToken != null)
+						tmpEnemy.setToken(listToken.get("cosmic_dragon"));
+					break;
+				}
 
-				// default -> symbol = "?"; // cas par défaut
+				default: {
+					symbol = "?"; // cas par défaut
+					if (listToken != null)
+						tmpEnemy.setToken(listToken.get("error"));
+					break;
+				}
 			}
 
 

@@ -1,6 +1,13 @@
-+ Create a method to change font size instead of loading a new Font! OK
-+ Create an abstact class for application's pages! OK
 + Find a solution to dl the right font while compiling!
-+ In: GuiMainWindow.java -> exit proprely if failed to load tokens!
-+ Add all tokens enemy!
-+ check bug potion on console
++ bug when click on menu in fight GUI
++ bug win fight and end level map - EDIT: its after a fight with loot !!!
++ add btn block and run
++ add delete option for items in GUI
+
+/******************  OK  ***********************/
+
++ Add all tokens enemy! OK
++ In: GuiMainWindow.java -> exit proprely if failed to load tokens! OK
++ Create an abstact class for application's pages! OK
++ Create a method to change font size instead of loading a new Font! OK
++ check bug potion on console OK

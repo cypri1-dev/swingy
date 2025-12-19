@@ -65,7 +65,22 @@ public class GuiMainWindow extends JFrame {
 			"/warlock_token.png",
 			"/shadow_beast_token.png",
 			"/golem_token.png",
-			"/lich_token.png"
+			"/lich_token.png",
+			"/minotaur_token.png",
+			"/vampire_token.png",
+			"/demon_knight_token.png",
+			"/dread_knight_token.png",
+			"/plague_bringer_token.png",
+			"/pyromancer_token.png",
+			"/specter_token.png",
+			"/ancient_dragon_token.png",
+			"/hydra_token.png",
+			"/fallen_god_token.png",
+			"/demon_overlord_token.png",
+			"/titan_token.png",
+			"/serpent_token.png",
+			"/cosmic_dragon_token.png",
+			"/error_token.png"
 		};
 
 		String[] backgroundPaths = {
@@ -78,6 +93,7 @@ public class GuiMainWindow extends JFrame {
 
 				if (is == null) {
 					System.err.println("❌ Token introuvable : " + path);
+					System.exit(1);
 					continue;
 				}
 
