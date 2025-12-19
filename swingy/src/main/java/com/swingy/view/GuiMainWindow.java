@@ -49,7 +49,23 @@ public class GuiMainWindow extends JFrame {
 			"/skeletal_hand_token.png",
 			"/slime_token.png",
 			"/spider_token.png",
-			"/potion_token.png"
+			"/potion_token.png",
+			"/skeletal_token.png",
+			"/wolf_token.png",
+			"/cultist_token.png",
+			"/bandit_chief_token.png",
+			"/gobelin_mage_token.png",
+			"/warg_token.png",
+			"/grave_robber_token.png",
+			"/dark_mage_token.png",
+			"/elemental_token.png",
+			"/troll_token.png",
+			"/assassin_token.png",
+			"/necromancer_token.png",
+			"/warlock_token.png",
+			"/shadow_beast_token.png",
+			"/golem_token.png",
+			"/lich_token.png"
 		};
 
 		String[] backgroundPaths = {

@@ -80,8 +80,8 @@ public class GuiMapTab extends GuiCustomPage {
 				startY = mapSize - viewportSize;
 		}
 
-		System.out.println("[MAP]");
-		DisplayInfos.printMap(map);
+		// System.out.println("[MAP]");
+		// DisplayInfos.printMap(map);
 		for (int y = startY; y <= endY; y++) {
 			for (int x = startX; x <= endX; x++) {
 

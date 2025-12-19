@@ -33,7 +33,7 @@ public class GuiInputController {
 	public GuiInputController(JComponent baseMap, GameMovement movement, Characters hero, Maps map, Menu menu, JPanel grid, Game rpg, Map<String, ImageIcon> listToken, Icon icon, JPanel baseInventory) {
 		this.baseMap = (JPanel) baseMap;
 		this.movement = movement;
-		this.hero = hero;
+		this.hero = hero;	
 		this.map = map;
 		this.menu = menu;
 		this.grid = grid;
@@ -41,6 +41,11 @@ public class GuiInputController {
 		this.listToken = listToken;
 		this.icon = icon;
 		this.baseInventory = baseInventory;
+
+		for (Map.Entry<String, ImageIcon> entry : listToken.entrySet()) {
+			System.out.println("Clé : " + entry.getKey());
+			System.out.println("Valeur : " + entry.getValue());
+		}
 
 		bind(baseMap, "UP", () -> {
 			if (map.getLevelCompleted() || GuiCustomPage.getShowingPagePotion() || GuiCustomPage.getShowingPageFight())
@@ -104,6 +109,7 @@ public class GuiInputController {
 		/* --------------------- FIGHT --------------------- */
 		for (Characters enemy : map.getListEnemies()) {
 			if (hero.getCoordinates().getX() == enemy.getCoordinates().getX() && hero.getCoordinates().getY() == enemy.getCoordinates().getY()) {
+				// System.out.println("[DEBUG]: enemy: " + enemy.getName() + " token: " + enemy.getToken());
 				GuiFightPage.showFightPage(baseMap, enemy, icon, rpg, listToken, grid, baseInventory);
 				return;
 			}

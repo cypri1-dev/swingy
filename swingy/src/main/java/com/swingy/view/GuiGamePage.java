@@ -126,10 +126,10 @@ public class GuiGamePage extends GuiCustomPage {
 
 	public static JPanel createGamePage(Game rpg, CardLayout cardLayout, JPanel cardPanel, Map<String, ImageIcon> listToken, ImageIcon icon) {
 
-		for (Map.Entry<String, ImageIcon> entry : listToken.entrySet()) {
-			System.out.println("Clé : " + entry.getKey());
-			System.out.println("Valeur : " + entry.getValue());
-		}
+		// for (Map.Entry<String, ImageIcon> entry : listToken.entrySet()) {
+		// 	System.out.println("Clé : " + entry.getKey());
+		// 	System.out.println("Valeur : " + entry.getValue());
+		// }
 
 		// Main panel
 		JPanel panel = new JPanel(new BorderLayout());
@@ -192,6 +192,10 @@ public class GuiGamePage extends GuiCustomPage {
 		baseMap.add(grid);
 
 		// Place le héros sur la map
+		// for (Map.Entry<String, ImageIcon> entry : listToken.entrySet()) {
+		// 	System.out.println("Clé : " + entry.getKey());
+		// 	System.out.println("Valeur : " + entry.getValue());
+		// }
 		rpg.placeHero(rpg.getMainHero());
 
 		GuiInputController inputController = new GuiInputController(baseMap, rpg.getMainHero().getMovement(), rpg.getMainHero(), rpg.getMap(), rpg.getMenu(), grid, rpg, listToken, icon, baseInventory);

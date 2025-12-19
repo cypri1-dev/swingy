@@ -23,6 +23,7 @@ public class GameMovement {
 		while (iterator.hasNext()) {
 			Characters enemy = iterator.next();
 			if (hero.getCoordinates().getX() == enemy.getCoordinates().getX() && hero.getCoordinates().getY() == enemy.getCoordinates().getY()) {
+				// System.out.println("[DEBUG]: token in checkFight: " + enemy.getToken());
 				
 				if (gui) {
 					return;
@@ -43,24 +44,21 @@ public class GameMovement {
 	/* -------------------------------------------------- CHECK CONSOMMABLE METHOD -------------------------------------------------- */
 
 	public void checkConsommable(Characters hero, Maps map, boolean gui) {
-
-		Artefact tmp = null;
+		Artefact toRemove = null;
 		DisplayController display = DisplayController.getInstance();
-
 		for (Artefact healingPotion : map.getListConsommable()) {
 			if (hero.getCoordinates().getX() == healingPotion.getCoordinates().getX() && hero.getCoordinates().getY() == healingPotion.getCoordinates().getY()) {
-				
 				hero.addArtefact(healingPotion);
-				if (gui) 
-					;
-				else {
-					tmp = healingPotion;
+				if (!gui) {
 					display.printSlow(HP_POTION);
 					display.getUserInput();
-					if (tmp != null)
-						map.getListConsommable().remove(tmp);
 				}
+				toRemove = healingPotion;
+				break;
 			}
+		}
+		if (toRemove != null) {
+			map.getListConsommable().remove(toRemove);
 		}
 	}
 
@@ -75,11 +73,9 @@ public class GameMovement {
 	/* -------------------------------------------------- MOVING METHOD -------------------------------------------------- */
 
 	public void moveNorth(Characters hero, Maps map, Menu menu, boolean gui) {
-		// Sauvegarde de la position précédente
 		hero.getCoordinates().setPrevX(hero.getCoordinates().getX());
 		hero.getCoordinates().setPrevY(hero.getCoordinates().getY());
 
-		// Vérifie si possible de monter
 		if (hero.getCoordinates().getX() > 0) {
 			hero.getCoordinates().setX(-1); // x += -1
 		}

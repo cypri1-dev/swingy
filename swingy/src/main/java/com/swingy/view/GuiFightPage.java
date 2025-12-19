@@ -53,10 +53,10 @@ public class GuiFightPage extends GuiCustomPage {
 		Characters hero = rpg.getMainHero();
 		Icon tokenH = hero.getToken();
 		Icon tokenE = enemy.getToken();
-		if (tokenH == null)
-			System.out.println("[DEBUG]: tokenH null");
-		if (tokenE == null)
-			System.out.println("[DEBUG]: tokenE null");
+		// if (tokenH == null)
+		// 	System.out.println("[DEBUG]: tokenH null");
+		// if (tokenE == null)
+		// 	System.out.println("[DEBUG]: tokenE null");
 		JPanel heroPanel = buildCharacterPanel(hero, tokenH);
 		JPanel enemyPanel = buildCharacterPanel(enemy,tokenE);
 
