@@ -114,7 +114,7 @@ public class GuiMainWindow extends JFrame {
 
 				if (is == null) {
 					System.err.println("❌ Background introuvable : " + path);
-					continue;
+					System.exit(1);
 				}
 
 				BufferedImage bg = ImageIO.read(is);
