@@ -1,14 +1,16 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
+<project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                              http://maven.apache.org/maven-v4_0_0.xsd">
+
   <modelVersion>4.0.0</modelVersion>
+
   <groupId>com.swingy</groupId>
   <artifactId>swingy</artifactId>
-  <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
   <name>swingy</name>
-  <url>http://maven.apache.org</url>
 
   <dependencies>
     <dependency>
@@ -20,8 +22,19 @@
   </dependencies>
 
   <build>
+
+    <!-- Déclare les fonts générées comme resources -->
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+      </resource>
+      <resource>
+        <directory>${project.build.directory}/fonts</directory>
+      </resource>
+    </resources>
+
     <plugins>
-      <!-- Configuration du compilateur pour Java 18 -->
+      <!-- Java 18 -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -30,6 +43,61 @@
           <source>18</source>
           <target>18</target>
         </configuration>
+      </plugin>
+
+      <!-- Téléchargement de la police -->
+      <plugin>
+        <groupId>com.googlecode.maven-download-plugin</groupId>
+        <artifactId>download-maven-plugin</artifactId>
+        <version>1.6.8</version>
+        <executions>
+          <execution>
+            <id>download-font</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>wget</goal>
+            </goals>
+            <configuration>
+              <url>https://dl.dafont.com/dl/?f=ancient_modern_tales</url>
+              <outputDirectory>${project.build.directory}/fonts</outputDirectory>
+              <fileName>ancient_modern_tales.zip</fileName>
+
+              <followRedirects>true</followRedirects>
+              <overwrite>true</overwrite>
+
+              <httpHeaders>
+                <header>
+                  <name>User-Agent</name>
+                  <value>Mozilla/5.0</value>
+                </header>
+              </httpHeaders>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+
+      <!-- Décompression de la police -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>3.1.0</version>
+        <executions>
+          <execution>
+            <id>unzip-font</id>
+            <phase>generate-resources</phase>
+            <configuration>
+              <target>
+                <unzip
+                  src="${project.build.directory}/fonts/dl"
+                  dest="${project.build.directory}/fonts"/>
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
 
       <!-- JAR exécutable -->
@@ -45,6 +113,8 @@
           </archive>
         </configuration>
       </plugin>
+
     </plugins>
   </build>
+
 </project>
