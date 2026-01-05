@@ -29,17 +29,6 @@ public class GuiMapTab extends GuiCustomPage {
 
 	public static void loadToken(Map<String, ImageIcon> listToken, JPanel cell, String nameEnemy) {
 		JLabel enemyLabel = new JLabel(rescaleToken(listToken.get(nameEnemy), 65));
-		// System.out.println("[DEBUG TOKEN]: loading token... " + nameEnemy);
-		// JFrame frame = new JFrame("Tokens");
-		// frame.setLayout(new FlowLayout());
-
-		// for (ImageIcon icon : listToken.values()) {
-		// 	frame.add(new JLabel(icon));
-		// }
-
-		// frame.pack();
-		// frame.setVisible(true);
-
 		enemyLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		enemyLabel.setVerticalAlignment(SwingConstants.CENTER);
 		cell.add(enemyLabel);
@@ -80,8 +69,8 @@ public class GuiMapTab extends GuiCustomPage {
 				startY = mapSize - viewportSize;
 		}
 
-		System.out.println("[MAP]");
-		DisplayInfos.printMap(map);
+		// System.out.println("[MAP]");
+		// DisplayInfos.printMap(map);
 		for (int x = startX; x <= endX; x++) {
 			for (int y = startY; y <= endY; y++) {
 
@@ -89,7 +78,6 @@ public class GuiMapTab extends GuiCustomPage {
 				cell.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
 				cell.setOpaque(false);
 
-				// System.out.println(mapTab[x][y]);
 				switch (mapTab[x][y]) {
 					case SYMBOL_MAIN_HERO:
 						JLabel heroLabel = new JLabel(rescaleToken(rpg.getMainHero().getToken(), 65));

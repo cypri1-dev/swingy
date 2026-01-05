@@ -49,10 +49,10 @@ public class GameMovement {
 		for (Artefact healingPotion : map.getListConsommable()) {
 			if (hero.getCoordinates().getX() == healingPotion.getCoordinates().getX() && hero.getCoordinates().getY() == healingPotion.getCoordinates().getY()) {
 				hero.addArtefact(healingPotion);
-				if (!gui) {
-					display.printSlow(HP_POTION);
-					display.getUserInput();
-				}
+				if (gui)
+					return;
+				display.printSlow(HP_POTION);
+				display.getUserInput();
 				toRemove = healingPotion;
 				break;
 			}

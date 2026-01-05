@@ -24,6 +24,8 @@ import com.swingy.view.components.RoundedImageButton;
 public class GuiPotionPage extends GuiCustomPage {
 
 	public static void showPotionPage(JComponent panel, Artefact potion, Map<String, ImageIcon> listToken, Icon icon, JPanel grid, JPanel baseInventory, Game rpg) {
+		System.out.println("GUIPotionPage");
+		
 		GuiCustomPage.setShowingPagePotion(true);
 
 		panel.removeAll();

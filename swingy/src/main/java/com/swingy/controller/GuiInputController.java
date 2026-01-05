@@ -140,12 +140,14 @@ public class GuiInputController {
 
 		if (!fightFound) {
 			/* -------------------- POTION --------------------- */
+			// System.out.println("[HERO] | x: " + hero.getCoordinates().getX() + " - y: " + hero.getCoordinates().getY());
 			for (Artefact healingPotion : map.getListConsommable()) {
-				if (hero.getCoordinates().getX() == healingPotion.getCoordinates().getX()
-					&& hero.getCoordinates().getY() == healingPotion.getCoordinates().getY()) {
+				// System.out.println("[POPO] | x: " + healingPotion.getCoordinates().getX() + " - y: " + healingPotion.getCoordinates().getY());
+				if (hero.getCoordinates().getX() == healingPotion.getCoordinates().getX() && hero.getCoordinates().getY() == healingPotion.getCoordinates().getY()) {
+					// System.out.println("Potion detected!");
+					GuiPotionPage.showPotionPage(baseMap, healingPotion, listToken, icon, grid, baseInventory, rpg);
 					map.getListConsommable().remove(healingPotion);
 					GuiGamePage.refreshInventory(rpg, baseInventory);
-					GuiPotionPage.showPotionPage(baseMap, healingPotion, listToken, icon, grid, baseInventory, rpg);
 					return;
 				}
 			}
