@@ -1,6 +1,6 @@
 + add btn block and run
 + add delete option for items in GUI
-+ No btn menu with fight no loot and end level
++ add all tokens in GuiMapTab
 
 /******************  OK  ***********************/
 
@@ -13,3 +13,4 @@
 + bug when click on menu in fight GUI OK
 + bug win fight and end level map - EDIT: its after a fight with loot !!! -> not same page as a simple winning need to remove the enemy inside. OK
 + Potions dont display OK
++ No btn menu with fight no loot and end level OK
