@@ -113,9 +113,7 @@ public class GuiInputController {
 		/* --------------------- FIGHT --------------------- */
 		boolean fightFound = false;
 		for (Characters enemy : map.getListEnemies()) {
-			if (hero.getCoordinates().getX() == enemy.getCoordinates().getX()
-				&& hero.getCoordinates().getY() == enemy.getCoordinates().getY()) {
-
+			if (hero.getCoordinates().getX() == enemy.getCoordinates().getX() && hero.getCoordinates().getY() == enemy.getCoordinates().getY()) {
 				fightFound = true;
 
 				if (!inFight) {
@@ -140,11 +138,8 @@ public class GuiInputController {
 
 		if (!fightFound) {
 			/* -------------------- POTION --------------------- */
-			// System.out.println("[HERO] | x: " + hero.getCoordinates().getX() + " - y: " + hero.getCoordinates().getY());
 			for (Artefact healingPotion : map.getListConsommable()) {
-				// System.out.println("[POPO] | x: " + healingPotion.getCoordinates().getX() + " - y: " + healingPotion.getCoordinates().getY());
 				if (hero.getCoordinates().getX() == healingPotion.getCoordinates().getX() && hero.getCoordinates().getY() == healingPotion.getCoordinates().getY()) {
-					// System.out.println("Potion detected!");
 					GuiPotionPage.showPotionPage(baseMap, healingPotion, listToken, icon, grid, baseInventory, rpg);
 					map.getListConsommable().remove(healingPotion);
 					GuiGamePage.refreshInventory(rpg, baseInventory);
@@ -162,6 +157,9 @@ public class GuiInputController {
 
 			/* ---------------- LEVEL COMPLETED ---------------- */
 			if (map.getLevelCompleted()) {
+				btn.setVisible(true);
+				bottom.revalidate();
+				bottom.repaint();
 				GuiEndLevelPage.showLevelCompletePage(baseMap, hero, rpg);
 				map.setLevelCompleted(true);
 				return;
