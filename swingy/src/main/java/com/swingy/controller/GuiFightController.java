@@ -47,11 +47,7 @@ public class GuiFightController {
 				hero.getKnowledge().addKnowledge(enemy);
 				tmp[enemy.getCoordinates().getX()][enemy.getCoordinates().getY()] = "\u001b[34m@\u001b[0m";
 				if (!enemy.getArtefacts().isEmpty())
-				{
-					// GuiLootPage.showLootPage(panel, listToken, map, rpg, icon, grid, baseInventory, enemy);
-					// System.out.println("[DEBUG]: item!");
 					return "LOOT";
-				}
 				map.getListEnemies().remove(enemy);
 				return "DEAD ENEMY";
 			}
@@ -67,6 +63,7 @@ public class GuiFightController {
 				return "DEAD HERO";
 			return enemy.getCharacterClass() + " hits " + hero.getName() + " for " + damage + " damage!";
 		}
-
 	}
+
+
 }

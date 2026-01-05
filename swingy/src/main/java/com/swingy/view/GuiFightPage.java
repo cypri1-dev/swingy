@@ -22,14 +22,7 @@ public class GuiFightPage extends GuiCustomPage {
 
 	private static FightLogPanel logPanel;
 
-	public static void showFightPage(
-			JPanel baseMap,
-			Characters enemy,
-			Icon icon,
-			Game rpg,
-			Map<String, ImageIcon> listToken,
-			JPanel grid,
-			JPanel baseInventory) {
+	public static void showFightPage(JPanel baseMap, Characters enemy, Icon icon, Game rpg, Map<String, ImageIcon> listToken, JPanel grid, JPanel baseInventory, RoundedImageButton btn, JPanel bottom) {
 
 		new GuiFightController(rpg.getMainHero(), enemy, rpg.getMap());
 		setShowingPageFight(true);
@@ -90,7 +83,7 @@ public class GuiFightPage extends GuiCustomPage {
 
 			if ("LOOT".equals(result)) {
 				setShowingPageFight(false);
-				GuiLootPage.showLootPage(baseMap, listToken, rpg.getMap(), rpg, icon, grid, baseInventory, enemy);
+				GuiLootPage.showLootPage(baseMap, listToken, rpg.getMap(), rpg, icon, grid, baseInventory, enemy, btn, bottom);
 			}
 
 			log(result);

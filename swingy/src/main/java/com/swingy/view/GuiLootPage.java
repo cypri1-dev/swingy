@@ -35,7 +35,9 @@ public class GuiLootPage extends GuiCustomPage {
 		Icon icon,
 		JPanel grid,
 		JPanel baseInventory,
-		Characters enemy
+		Characters enemy,
+		RoundedImageButton btn,
+		JPanel bottom
 	) {
 		panel.removeAll();
 		panel.setLayout(new BorderLayout());
@@ -88,15 +90,24 @@ public class GuiLootPage extends GuiCustomPage {
 
 		configButtons(yesButton);
 		configButtons(noButton);
+		btn.setVisible(true);
+		bottom.revalidate();
+		bottom.repaint();
 
 		yesButton.addActionListener(e -> {
-			rpg.getMainHero().addArtefact(tmp); // ← ta logique loot
+			rpg.getMainHero().addArtefact(tmp);
+			rpg.getMap().getListEnemies().remove(enemy);
 			GuiGamePage.refreshInventory(rpg, baseInventory);
 			GuiGamePage.resetPage((JPanel) panel, rpg, listToken, grid, baseInventory);
+			if (rpg.getMainHero().getCoordinates().getX() == 0 || rpg.getMainHero().getCoordinates().getX() == rpg.getMap().getSize() - 1 || rpg.getMainHero().getCoordinates().getY() == 0 || rpg.getMainHero().getCoordinates().getY() == rpg.getMap().getSize() - 1)
+					GuiEndLevelPage.showLevelCompletePage(panel, rpg.getMainHero(), rpg);
 		});
 
 		noButton.addActionListener(e -> {
+			rpg.getMap().getListEnemies().remove(enemy);
 			GuiGamePage.resetPage((JPanel) panel, rpg, listToken, grid, baseInventory);
+			if (rpg.getMainHero().getCoordinates().getX() == 0 || rpg.getMainHero().getCoordinates().getX() == rpg.getMap().getSize() - 1 || rpg.getMainHero().getCoordinates().getY() == 0 || rpg.getMainHero().getCoordinates().getY() == rpg.getMap().getSize() - 1)
+					GuiEndLevelPage.showLevelCompletePage(panel, rpg.getMainHero(), rpg);
 		});
 
 		JPanel buttonRow = new JPanel();

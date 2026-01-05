@@ -126,7 +126,7 @@ public class GuiInputController {
 					inFight = true;
 				}
 
-				GuiFightPage.showFightPage(baseMap, enemy, icon, rpg, listToken, grid, baseInventory);
+				GuiFightPage.showFightPage(baseMap, enemy, icon, rpg, listToken, grid, baseInventory, btn, bottom);
 				break;
 			}
 		}
@@ -135,8 +135,6 @@ public class GuiInputController {
 			btn.setVisible(true);
 			bottom.revalidate();
 			bottom.repaint();
-			System.out.println("Je passe");
-
 			inFight = false;
 		}
 
