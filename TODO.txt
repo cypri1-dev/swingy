@@ -1,4 +1,3 @@
-+ bug when click on menu in fight GUI
 + bug win fight and end level map - EDIT: its after a fight with loot !!! -> not same page as a simple winning need to remove the enemy inside.
 + add btn block and run
 + add delete option for items in GUI
@@ -11,3 +10,4 @@
 + Create a method to change font size instead of loading a new Font! OK
 + check bug potion on console OK
 + Find a solution to dl the right font while compiling! OK
++ bug when click on menu in fight GUI OK
