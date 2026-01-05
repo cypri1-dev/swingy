@@ -127,6 +127,24 @@ public class GuiMainWindow extends JFrame {
 		}
 	}
 
+	/************************************************************************ INIT TOKENS METHOD ************************************************************************/
+
+	private void initFont() {
+		try (InputStream is = getClass().getResourceAsStream("/Ancient Modern Tales.otf")) {
+
+			if (is == null) {
+				System.err.println("❌ Font introuvable (classpath)");
+				System.exit(1);
+			}
+
+			Font font = Font.createFont(Font.TRUETYPE_FONT, is);
+			GraphicsEnvironment.getLocalGraphicsEnvironment()
+							.registerFont(font);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	/************************************************************************ CONSTRUCTOR ************************************************************************/
 
@@ -134,6 +152,7 @@ public class GuiMainWindow extends JFrame {
 		this.rpg = rpg;
 		
 		initImages();
+		initFont();
 		setTitle("RetroRPG");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setAlwaysOnTop(true);
