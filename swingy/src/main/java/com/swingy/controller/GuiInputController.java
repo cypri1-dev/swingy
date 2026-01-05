@@ -8,6 +8,7 @@ import com.swingy.view.GuiEndLevelPage;
 import com.swingy.view.GuiGamePage;
 import com.swingy.view.GuiMapTab;
 import com.swingy.view.GuiPotionPage;
+import com.swingy.view.components.RoundedImageButton;
 import com.swingy.view.GuiFightPage;
 import com.swingy.view.GuiGameOverPage;
 
@@ -16,21 +17,29 @@ import java.awt.event.ActionEvent;
 import java.util.Map;
 
 public class GuiInputController {
-
+	
+	private JPanel panel;
+	private RoundedImageButton btn;
+	private JPanel bottom;
 	private GameMovement movement;
 	private Characters hero;
 	private Maps map;
 	private Menu menu;
-	private JPanel baseMap; // Panel principal où on dessine map et combat
-	private JPanel grid; // grille map
+	private JPanel baseMap;
+	private JPanel grid;
 	private Game rpg;
 	private Map<String, ImageIcon> listToken;
 	private Icon icon;
 	private JPanel baseInventory;
+	private boolean inFight = false;
 
 	/************************************************************************ CONSTRUCTOR ************************************************************************/
 
-	public GuiInputController(JComponent baseMap, GameMovement movement, Characters hero, Maps map, Menu menu, JPanel grid, Game rpg, Map<String, ImageIcon> listToken, Icon icon, JPanel baseInventory) {
+	public GuiInputController(JPanel panel, RoundedImageButton btn, JComponent baseMap, GameMovement movement, Characters hero, Maps map, Menu menu, JPanel grid, Game rpg,	Map<String, ImageIcon> listToken, Icon icon, JPanel baseInventory, JPanel bottom) {
+
+		this.panel = panel;
+		this.btn = btn;
+		this.bottom = bottom;
 		this.baseMap = (JPanel) baseMap;
 		this.movement = movement;
 		this.hero = hero;	
@@ -41,11 +50,6 @@ public class GuiInputController {
 		this.listToken = listToken;
 		this.icon = icon;
 		this.baseInventory = baseInventory;
-
-		for (Map.Entry<String, ImageIcon> entry : listToken.entrySet()) {
-			System.out.println("Clé : " + entry.getKey());
-			System.out.println("Valeur : " + entry.getValue());
-		}
 
 		bind(baseMap, "UP", () -> {
 			if (map.getLevelCompleted() || GuiCustomPage.getShowingPagePotion() || GuiCustomPage.getShowingPageFight())
@@ -107,40 +111,64 @@ public class GuiInputController {
 
 	private void update() {
 		/* --------------------- FIGHT --------------------- */
+		boolean fightFound = false;
 		for (Characters enemy : map.getListEnemies()) {
-			if (hero.getCoordinates().getX() == enemy.getCoordinates().getX() && hero.getCoordinates().getY() == enemy.getCoordinates().getY()) {
-				// System.out.println("[DEBUG]: enemy: " + enemy.getName() + " token: " + enemy.getToken());
+			if (hero.getCoordinates().getX() == enemy.getCoordinates().getX()
+				&& hero.getCoordinates().getY() == enemy.getCoordinates().getY()) {
+
+				fightFound = true;
+
+				if (!inFight) {
+					btn.setVisible(false);
+					bottom.revalidate();
+					bottom.repaint();
+
+					inFight = true;
+				}
+
 				GuiFightPage.showFightPage(baseMap, enemy, icon, rpg, listToken, grid, baseInventory);
-				return;
+				break;
 			}
 		}
 
-		/* -------------------- POTION --------------------- */
-		for (Artefact healingPotion : map.getListConsommable()) {
-			if (hero.getCoordinates().getX() == healingPotion.getCoordinates().getX() && hero.getCoordinates().getY() == healingPotion.getCoordinates().getY()) {
-				map.getListConsommable().remove(healingPotion);
-				GuiGamePage.refreshInventory(rpg, baseInventory);
-				GuiPotionPage.showPotionPage(baseMap, healingPotion, listToken, icon, grid, baseInventory, rpg);
+		if (!fightFound && inFight) {
+			btn.setVisible(true);
+			bottom.revalidate();
+			bottom.repaint();
+			System.out.println("Je passe");
+
+			inFight = false;
+		}
+
+		if (!fightFound) {
+			/* -------------------- POTION --------------------- */
+			for (Artefact healingPotion : map.getListConsommable()) {
+				if (hero.getCoordinates().getX() == healingPotion.getCoordinates().getX()
+					&& hero.getCoordinates().getY() == healingPotion.getCoordinates().getY()) {
+					map.getListConsommable().remove(healingPotion);
+					GuiGamePage.refreshInventory(rpg, baseInventory);
+					GuiPotionPage.showPotionPage(baseMap, healingPotion, listToken, icon, grid, baseInventory, rpg);
+					return;
+				}
+			}
+
+			/* ------------------- GAME OVER ------------------- */
+			if (hero.getHitPoint() <= 0) {
+				rpg.getHeroesNameList().remove(hero.getName());
+				rpg.getListAvaible().remove(hero);
+				GuiGameOverPage.showGameOverPage(baseMap, listToken, map, rpg);
 				return;
 			}
-		}
 
-		/* ------------------- GAME OVER ------------------- */
-		if (hero.getHitPoint() <= 0) {
-			rpg.getHeroesNameList().remove(hero.getName());
-			rpg.getListAvaible().remove(hero);
-			GuiGameOverPage.showGameOverPage(baseMap, listToken, map, rpg);
-			return;
-		}
+			/* ---------------- LEVEL COMPLETED ---------------- */
+			if (map.getLevelCompleted()) {
+				GuiEndLevelPage.showLevelCompletePage(baseMap, hero, rpg);
+				map.setLevelCompleted(true);
+				return;
+			}
 
-		/* ---------------- LEVEL COMPLETED ---------------- */
-		if (map.getLevelCompleted()) {
-			GuiEndLevelPage.showLevelCompletePage(baseMap, hero, rpg);
-			map.setLevelCompleted(true);
-			return;
+			/* -------------------- UPDATE --------------------- */
+			GuiMapTab.updateMap(rpg, listToken, grid);
 		}
-
-		/* -------------------- UPDATE --------------------- */
-		GuiMapTab.updateMap(rpg, listToken, grid);
 	}
 }

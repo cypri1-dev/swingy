@@ -29,8 +29,7 @@ public class GuiFightPage extends GuiCustomPage {
 			Game rpg,
 			Map<String, ImageIcon> listToken,
 			JPanel grid,
-			JPanel baseInventory
-	) {
+			JPanel baseInventory) {
 
 		new GuiFightController(rpg.getMainHero(), enemy, rpg.getMap());
 		setShowingPageFight(true);
@@ -53,10 +52,6 @@ public class GuiFightPage extends GuiCustomPage {
 		Characters hero = rpg.getMainHero();
 		Icon tokenH = hero.getToken();
 		Icon tokenE = enemy.getToken();
-		// if (tokenH == null)
-		// 	System.out.println("[DEBUG]: tokenH null");
-		// if (tokenE == null)
-		// 	System.out.println("[DEBUG]: tokenE null");
 		JPanel heroPanel = buildCharacterPanel(hero, tokenH);
 		JPanel enemyPanel = buildCharacterPanel(enemy,tokenE);
 

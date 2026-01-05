@@ -190,50 +190,43 @@ public class GuiGamePage extends GuiCustomPage {
 
 		grid.setOpaque(false);
 		baseMap.add(grid);
-
-		// Place le héros sur la map
-		// for (Map.Entry<String, ImageIcon> entry : listToken.entrySet()) {
-		// 	System.out.println("Clé : " + entry.getKey());
-		// 	System.out.println("Valeur : " + entry.getValue());
-		// }
 		rpg.placeHero(rpg.getMainHero());
-
-		GuiInputController inputController = new GuiInputController(baseMap, rpg.getMainHero().getMovement(), rpg.getMainHero(), rpg.getMap(), rpg.getMenu(), grid, rpg, listToken, icon, baseInventory);
-
+		
 		// Dessine la map initiale
 		GuiMapTab.drawMap(rpg, listToken, grid);
 
 
 		/****************************** ADD TABS ******************************/
-
+		
 		JLabel mapTabLabel = new JLabel("Map");
 		setCustomFont(mapTabLabel, Font.PLAIN, 20);
 
 		JLabel inventoryTabLabel = new JLabel("Inventory");
 		setCustomFont(inventoryTabLabel, Font.PLAIN, 20);
-
+		
 		tabPanel.addTab("Map", baseMap);
 		tabPanel.setTabComponentAt(0, mapTabLabel);
-
+		
 		tabPanel.addTab("Inventory", baseInventory);
 		tabPanel.setTabComponentAt(1, inventoryTabLabel);
-
+		
 		panel.add(tabPanel, BorderLayout.CENTER);
-
-		// --- Button Menu ---
-		RoundedImageButton btn = new RoundedImageButton("Menu", icon);
-		configButtons(btn);
-		btn.addActionListener(e -> cardLayout.show(cardPanel, "main_menu"));
 
 		// --- Button Potion ---
 		RoundedImageButton btnPotion = new RoundedImageButton("Use Potion", icon);
 		configButtons(btnPotion);
 		btnPotion.addActionListener(e -> usePotion(rpg, baseInventory));
-
+		// --- Button Menu ---
+		RoundedImageButton btn = new RoundedImageButton("Menu", icon);
+		configButtons(btn);
+		btn.addActionListener(e -> cardLayout.show(cardPanel, "main_menu"));
+		
 		JPanel bottom = new JPanel();
 		bottom.add(btn);
 		configureBottomPanel(bottom, btnPotion);
 		panel.add(bottom, BorderLayout.SOUTH);
+
+		GuiInputController inputController = new GuiInputController(panel, btn, baseMap, rpg.getMainHero().getMovement(), rpg.getMainHero(), rpg.getMap(), rpg.getMenu(), grid, rpg, listToken, icon, baseInventory, bottom);
 
 		return panel;
 	}
