@@ -51,7 +51,7 @@ public class GuiInputController {
 		this.icon = icon;
 		this.baseInventory = baseInventory;
 
-		bind(baseMap, "UP", () -> {
+		bind(baseMap, "LEFT", () -> {
 			if (map.getLevelCompleted() || GuiCustomPage.getShowingPagePotion() || GuiCustomPage.getShowingPageFight())
 				return;
 			if (!canMove(hero.getCoordinates().getX() - 1, hero.getCoordinates().getY()))
@@ -60,7 +60,7 @@ public class GuiInputController {
 			update();
 		});
 
-		bind(baseMap, "DOWN", () -> {
+		bind(baseMap, "RIGHT", () -> {
 			if (map.getLevelCompleted() || GuiCustomPage.getShowingPagePotion() || GuiCustomPage.getShowingPageFight())
 				return;
 			if (!canMove(hero.getCoordinates().getX() + 1, hero.getCoordinates().getY()))
@@ -69,7 +69,7 @@ public class GuiInputController {
 			update();
 		});
 
-		bind(baseMap, "LEFT", () -> {
+		bind(baseMap, "UP", () -> {
 			if (map.getLevelCompleted() || GuiCustomPage.getShowingPagePotion() || GuiCustomPage.getShowingPageFight())
 				return;
 			if (!canMove(hero.getCoordinates().getX(), hero.getCoordinates().getY() - 1))
@@ -78,7 +78,7 @@ public class GuiInputController {
 			update();
 		});
 
-		bind(baseMap, "RIGHT", () -> {
+		bind(baseMap, "DOWN", () -> {
 			if (map.getLevelCompleted() || GuiCustomPage.getShowingPagePotion() || GuiCustomPage.getShowingPageFight())
 				return;
 			if (!canMove(hero.getCoordinates().getX(), hero.getCoordinates().getY() + 1))
