@@ -63,7 +63,7 @@ public class GuiFightPage extends GuiCustomPage {
 		JLabel enemyHPLabel = (JLabel) enemyPanel.getClientProperty("hpLabel");
 
 		attackButton.addActionListener(e -> {
-			String result = GuiFightController.attackAction(baseMap, listToken, icon, grid, baseInventory, rpg);
+			String result = GuiFightController.attackAction();
 
 			if ("DEAD HERO".equals(result)) {
 				rpg.getHeroesNameList().remove(hero.getName());
@@ -94,6 +94,20 @@ public class GuiFightPage extends GuiCustomPage {
 		RoundedImageButton blockButton = new RoundedImageButton("Block", icon);
 		configButtons(blockButton);
 		blockButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+		blockButton.addActionListener(e -> {
+			String result = GuiFightController.blockAction();
+
+			if ("DEAD HERO".equals(result)) {
+				rpg.getHeroesNameList().remove(hero.getName());
+				rpg.getListAvaible().remove(hero);
+				GuiGameOverPage.showGameOverPage(baseMap, listToken, rpg.getMap(), rpg);
+				return;
+			}
+			log(result);
+			heroHPLabel.setText(buildHPText(hero));
+			enemyHPLabel.setText(buildHPText(enemy));
+		});
 
 		RoundedImageButton runButton = new RoundedImageButton("Run", icon);
 		configButtons(runButton);

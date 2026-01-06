@@ -24,7 +24,22 @@ public class GuiFightController {
 		this.map = map;
 	}
 
-	public static String attackAction(JComponent panel, Map<String, ImageIcon> listToken, Icon icon, JPanel grid, JPanel baseInventory, Game rpg) {
+	public static String runAction() {
+		return null;
+	}
+
+	public static String blockAction() {
+		int dmg = ThreadLocalRandom.current().nextInt(1, enemy.getAttack() + 1);
+		int fullBlock = dmg - hero.getDefense();
+		if (fullBlock <= 0)
+			fullBlock = 0;
+		hero.setHitPoint(-fullBlock);
+		if (hero.getHitPoint() <= 0)
+			return "DEAD ENEMY";
+		return "🛡️ The hero blocks it! Not today, villain! You took " + fullBlock + " damage!";
+	}
+
+	public static String attackAction() {
 		int diceHero1 = ThreadLocalRandom.current().nextInt(1, 7);
 		int diceHero2 = ThreadLocalRandom.current().nextInt(1, 7);
 		int diceEnemy1 = ThreadLocalRandom.current().nextInt(1, 7);
