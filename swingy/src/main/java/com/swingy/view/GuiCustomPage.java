@@ -36,6 +36,7 @@ public abstract class GuiCustomPage {
 	private static boolean showingPotionPage = false;
 	private static boolean showingFightPage = false;
 	private static boolean showingWinPage = false;
+	private static boolean showingEscapePage = false;
 
 	/************************************************************************ WRAPPER CHECKBOX (from GuiGamePage) ************************************************************************/
 
@@ -253,4 +254,6 @@ public abstract class GuiCustomPage {
 	public static void setShowingPageFight(boolean set) {showingFightPage = set;}
 	public static boolean getShowingPageWin() {return showingWinPage;}
 	public static void setShowingPageWin(boolean set) {showingWinPage = set;}
+	public static boolean getShowingPageEscape() {return showingEscapePage;}
+	public static void setShowingPageEscape(boolean set) {showingEscapePage = set;}
 }

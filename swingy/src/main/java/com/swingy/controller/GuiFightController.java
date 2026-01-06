@@ -25,7 +25,24 @@ public class GuiFightController {
 	}
 
 	public static String runAction() {
-		return null;
+		int luck = ThreadLocalRandom.current().nextInt(0, 2);
+		System.out.println("LUCK: " + luck);
+		if (luck == 0) {
+			int rawDamage = ThreadLocalRandom.current().nextInt(1, enemy.getAttack() + 1);
+			hero.setHitPoint(-rawDamage);
+			if (hero.getHitPoint() <= 0)
+				return "DEAD HERO";
+			return "💨 The hero tries to escape... but fails!\n🗡️ " + enemy.getCharacterClass() + " hits " + hero.getName() + " for " + rawDamage + " damage!";
+		}
+		else {
+			map.getMapTab()[enemy.getCoordinates().getX()][enemy.getCoordinates().getY()] = "*";
+			map.getListEnemies().remove(enemy);
+			hero.getCoordinates().setXBack(hero.getCoordinates().getPrevX());
+			hero.getCoordinates().setYBack(hero.getCoordinates().getPrevY());
+			map.getMapTab()[hero.getCoordinates().getX()][hero.getCoordinates().getY()] = "\u001b[34m@\u001b[0m";
+			// return "🏃‍♂️ With lightning reflexes, the hero escapes into the shadows!";
+			return "ESCAPE";
+		}
 	}
 
 	public static String blockAction() {

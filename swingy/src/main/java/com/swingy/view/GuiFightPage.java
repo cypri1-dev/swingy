@@ -113,6 +113,26 @@ public class GuiFightPage extends GuiCustomPage {
 		configButtons(runButton);
 		runButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+		runButton.addActionListener(e -> {
+			String result = GuiFightController.runAction();
+			if ("DEAD HERO".equals(result)) {
+				rpg.getHeroesNameList().remove(hero.getName());
+				rpg.getListAvaible().remove(hero);
+				GuiGameOverPage.showGameOverPage(baseMap, listToken, rpg.getMap(), rpg);
+				return;
+			}
+			if ("ESCAPE".equals(result)) {
+				GuiEscapePage.showEscapePage(baseMap, listToken, icon, grid, baseInventory, rpg);
+				setShowingPageEscape(false);
+				GuiCustomPage.setShowingPageFight(false);
+				GuiGamePage.resetPage(baseMap, rpg, listToken, grid, baseInventory);
+				return;
+			}
+			log(result);
+			heroHPLabel.setText(buildHPText(hero));
+			enemyHPLabel.setText(buildHPText(enemy));
+		});
+
 		/****************************** LOG ******************************/
 		JLabel historyLabel = new JLabel("Fight History:");
 		setCustomFont(historyLabel, Font.ITALIC, 20);

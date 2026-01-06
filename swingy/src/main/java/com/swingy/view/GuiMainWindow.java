@@ -80,7 +80,8 @@ public class GuiMainWindow extends JFrame {
 			"/titan_token.png",
 			"/serpent_token.png",
 			"/cosmic_dragon_token.png",
-			"/error_token.png"
+			"/error_token.png",
+			"/elementaire_air_token.png"
 		};
 
 		String[] backgroundPaths = {
