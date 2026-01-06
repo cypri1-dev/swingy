@@ -3,9 +3,7 @@ package com.swingy.view;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
-import java.awt.FlowLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -22,7 +20,6 @@ public class GuiMapTab extends GuiCustomPage {
 
 	public static void updateMap(Game rpg, Map<String, ImageIcon> listToken, JPanel grid) {
 		GuiMapTab.drawMap(rpg, listToken, grid);
-		System.out.println("PASSE DANS UPDATE");
 	}
 
 	/************************************************************************ LOAD AND CONFIG TOKEN METHOD ************************************************************************/
@@ -95,41 +92,41 @@ public class GuiMapTab extends GuiCustomPage {
 					case SYMBOL_ENEMY_SKELETAL_HAND: loadToken(listToken, cell, "skeletal_hand"); break;
 					case SYMBOL_ENEMY_MUDLING: loadToken(listToken, cell, "mudling"); break;
 
-					case SYMBOL_ENEMY_SKELETON: cell.setBackground(Color.ORANGE); break;
-					case SYMBOL_ENEMY_WOLF: cell.setBackground(Color.ORANGE); break;
-					case SYMBOL_ENEMY_CULTIST: cell.setBackground(Color.ORANGE); break;
-					case SYMBOL_ENEMY_ORC: cell.setBackground(Color.ORANGE); break;
-					case SYMBOL_ENEMY_BANDIT_CHIEF: cell.setBackground(Color.ORANGE); break;
-					case SYMBOL_ENEMY_GOBLIN_SHAMAN: cell.setBackground(Color.ORANGE); break;
-					case SYMBOL_ENEMY_WARG: cell.setBackground(Color.ORANGE); break;
-					case SYMBOL_ENEMY_GRAVE_ROBBER: cell.setBackground(Color.ORANGE); break;
+					case SYMBOL_ENEMY_SKELETON: loadToken(listToken, cell, "skeletal"); break;
+					case SYMBOL_ENEMY_WOLF: loadToken(listToken, cell, "wolf"); break;
+					case SYMBOL_ENEMY_CULTIST: loadToken(listToken, cell, "cultist"); break;
+					case SYMBOL_ENEMY_ORC: loadToken(listToken, cell, "Orc"); break;
+					case SYMBOL_ENEMY_BANDIT_CHIEF: loadToken(listToken, cell, "bandit_chief"); break;
+					case SYMBOL_ENEMY_GOBLIN_SHAMAN: loadToken(listToken, cell, "gobelin_mage"); break;
+					case SYMBOL_ENEMY_WARG: loadToken(listToken, cell, "warg"); break;
+					case SYMBOL_ENEMY_GRAVE_ROBBER: loadToken(listToken, cell, "grave_robber"); break;
 
-					case SYMBOL_ENEMY_DARK_MAGE: cell.setBackground(Color.RED); break;
-					case SYMBOL_ENEMY_ELEMENTAL: cell.setBackground(Color.RED); break;
-					case SYMBOL_ENEMY_TROLL: cell.setBackground(Color.RED); break;
-					case SYMBOL_ENEMY_ASSASSIN: cell.setBackground(Color.RED); break;
-					case SYMBOL_ENEMY_NECROMANCER: cell.setBackground(Color.RED); break;
-					case SYMBOL_ENEMY_WARLOCK: cell.setBackground(Color.RED); break;
-					case SYMBOL_ENEMY_SHADOW_BEAST: cell.setBackground(Color.RED); break;
-					case SYMBOL_ENEMY_GOLEM: cell.setBackground(Color.RED); break;
+					case SYMBOL_ENEMY_DARK_MAGE: loadToken(listToken, cell, "dark_mage"); break;
+					case SYMBOL_ENEMY_ELEMENTAL: loadToken(listToken, cell, "elemental"); break;
+					case SYMBOL_ENEMY_TROLL: loadToken(listToken, cell, "troll"); break;
+					case SYMBOL_ENEMY_ASSASSIN: loadToken(listToken, cell, "assassin"); break;
+					case SYMBOL_ENEMY_NECROMANCER: loadToken(listToken, cell, "necromancer"); break;
+					case SYMBOL_ENEMY_WARLOCK: loadToken(listToken, cell, "warlock"); break;
+					case SYMBOL_ENEMY_SHADOW_BEAST: loadToken(listToken, cell, "shadow_beast"); break;
+					case SYMBOL_ENEMY_GOLEM: loadToken(listToken, cell, "golem"); break;
 
-					case SYMBOL_ENEMY_LICH: cell.setBackground(Color.YELLOW); break;
-					case SYMBOL_ENEMY_MINOTAUR: cell.setBackground(Color.YELLOW); break;
-					case SYMBOL_ENEMY_VAMPIRE_LORD: cell.setBackground(Color.YELLOW); break;
-					case SYMBOL_ENEMY_DEMON_KNIGHT: cell.setBackground(Color.YELLOW); break;
-					case SYMBOL_ENEMY_DREAD_KNIGHT: cell.setBackground(Color.YELLOW); break;
-					case SYMBOL_ENEMY_PLAGUE_BRINGER: cell.setBackground(Color.YELLOW); break;
-					case SYMBOL_ENEMY_PYROMANCER: cell.setBackground(Color.YELLOW); break;
-					case SYMBOL_ENEMY_SPECTER: cell.setBackground(Color.YELLOW); break;
+					case SYMBOL_ENEMY_LICH: loadToken(listToken, cell, "lich"); break;
+					case SYMBOL_ENEMY_MINOTAUR: loadToken(listToken, cell, "minotaur"); break;
+					case SYMBOL_ENEMY_VAMPIRE_LORD: loadToken(listToken, cell, "vampire"); break;
+					case SYMBOL_ENEMY_DEMON_KNIGHT: loadToken(listToken, cell, "demon_knight"); break;
+					case SYMBOL_ENEMY_DREAD_KNIGHT: loadToken(listToken, cell, "dread_knight"); break;
+					case SYMBOL_ENEMY_PLAGUE_BRINGER: loadToken(listToken, cell, "plague_bringer"); break;
+					case SYMBOL_ENEMY_PYROMANCER: loadToken(listToken, cell, "pyromancer"); break;
+					case SYMBOL_ENEMY_SPECTER: loadToken(listToken, cell, "specter"); break;
 
-					case SYMBOL_ENEMY_DRAGON_WHELP: cell.setBackground(Color.PINK); break;
-					case SYMBOL_ENEMY_ANCIENT_DRAGON: cell.setBackground(Color.PINK); break;
-					case SYMBOL_ENEMY_ABYSSAL_HYDRA: cell.setBackground(Color.PINK); break;
-					case SYMBOL_ENEMY_FALLEN_GOD: cell.setBackground(Color.PINK); break;
-					case SYMBOL_ENEMY_DEMON_OVERLORD: cell.setBackground(Color.PINK); break;
-					case SYMBOL_ENEMY_TITAN: cell.setBackground(Color.PINK); break;
-					case SYMBOL_ENEMY_VOID_SERPENT: cell.setBackground(Color.PINK); break;
-					case SYMBOL_ENEMY_COSMIC_DRAGON: cell.setBackground(Color.PINK); break;
+					case SYMBOL_ENEMY_DRAGON_WHELP: loadToken(listToken, cell, "Jeune_dragon_vert"); break;
+					case SYMBOL_ENEMY_ANCIENT_DRAGON: loadToken(listToken, cell, "ancient_dragon"); break;
+					case SYMBOL_ENEMY_ABYSSAL_HYDRA: loadToken(listToken, cell, "hydra"); break;
+					case SYMBOL_ENEMY_FALLEN_GOD: loadToken(listToken, cell, "fallen_god"); break;
+					case SYMBOL_ENEMY_DEMON_OVERLORD: loadToken(listToken, cell, "demon_overlord"); break;
+					case SYMBOL_ENEMY_TITAN: loadToken(listToken, cell, "titan"); break;
+					case SYMBOL_ENEMY_VOID_SERPENT: loadToken(listToken, cell, "serpent"); break;
+					case SYMBOL_ENEMY_COSMIC_DRAGON: loadToken(listToken, cell, "cosmic_dragon"); break;
 
 					default: cell.setBackground(Color.LIGHT_GRAY); break;
 				}

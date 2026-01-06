@@ -221,7 +221,7 @@ public class GuiGamePage extends GuiCustomPage {
 		configureBottomPanel(bottom, btnPotion);
 		panel.add(bottom, BorderLayout.SOUTH);
 
-		GuiInputController inputController = new GuiInputController(panel, btn, baseMap, rpg.getMainHero().getMovement(), rpg.getMainHero(), rpg.getMap(), rpg.getMenu(), grid, rpg, listToken, icon, baseInventory, bottom);
+		GuiInputController inputController = new GuiInputController(btn, baseMap, rpg.getMainHero().getMovement(), rpg.getMainHero(), rpg.getMap(), rpg.getMenu(), grid, rpg, listToken, icon, baseInventory, bottom);
 
 		return panel;
 	}

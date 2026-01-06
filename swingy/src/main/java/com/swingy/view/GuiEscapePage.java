@@ -17,7 +17,6 @@ import java.awt.GridBagLayout;
 import java.util.Map;
 import java.awt.GridBagConstraints;
 
-import com.swingy.model.Artefact;
 import com.swingy.controller.Game;
 import com.swingy.view.components.RoundedImageButton;
 

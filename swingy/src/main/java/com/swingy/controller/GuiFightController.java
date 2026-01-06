@@ -1,16 +1,9 @@
 package com.swingy.controller;
 
-import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
-
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JComponent;
-import javax.swing.JPanel;
 
 import com.swingy.model.Characters;
 import com.swingy.model.Maps;
-import com.swingy.view.GuiLootPage;
 
 public class GuiFightController {
 	
@@ -40,7 +33,6 @@ public class GuiFightController {
 			hero.getCoordinates().setXBack(hero.getCoordinates().getPrevX());
 			hero.getCoordinates().setYBack(hero.getCoordinates().getPrevY());
 			map.getMapTab()[hero.getCoordinates().getX()][hero.getCoordinates().getY()] = "\u001b[34m@\u001b[0m";
-			// return "🏃‍♂️ With lightning reflexes, the hero escapes into the shadows!";
 			return "ESCAPE";
 		}
 	}

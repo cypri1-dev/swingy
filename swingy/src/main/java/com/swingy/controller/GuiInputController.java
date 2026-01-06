@@ -18,13 +18,10 @@ import java.util.Map;
 
 public class GuiInputController {
 	
-	private JPanel panel;
 	private RoundedImageButton btn;
 	private JPanel bottom;
-	private GameMovement movement;
 	private Characters hero;
 	private Maps map;
-	private Menu menu;
 	private JPanel baseMap;
 	private JPanel grid;
 	private Game rpg;
@@ -35,16 +32,13 @@ public class GuiInputController {
 
 	/************************************************************************ CONSTRUCTOR ************************************************************************/
 
-	public GuiInputController(JPanel panel, RoundedImageButton btn, JComponent baseMap, GameMovement movement, Characters hero, Maps map, Menu menu, JPanel grid, Game rpg,	Map<String, ImageIcon> listToken, Icon icon, JPanel baseInventory, JPanel bottom) {
+	public GuiInputController(RoundedImageButton btn, JComponent baseMap, GameMovement movement, Characters hero, Maps map, Menu menu, JPanel grid, Game rpg,	Map<String, ImageIcon> listToken, Icon icon, JPanel baseInventory, JPanel bottom) {
 
-		this.panel = panel;
 		this.btn = btn;
 		this.bottom = bottom;
 		this.baseMap = (JPanel) baseMap;
-		this.movement = movement;
 		this.hero = hero;	
 		this.map = map;
-		this.menu = menu;
 		this.grid = grid;
 		this.rpg = rpg;
 		this.listToken = listToken;

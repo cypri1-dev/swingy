@@ -7,7 +7,6 @@ import com.swingy.model.Characters;
 import com.swingy.model.Maps;
 import com.swingy.view.components.RoundedImageButton;
 import com.swingy.controller.Game;
-import com.swingy.controller.GuiInventoryController;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
