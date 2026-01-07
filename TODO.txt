@@ -1,5 +1,5 @@
-+BUG: no menu btn after fight with no item in map border
-+BUG: bu with potion in gui mode
++BUG: bug with potion in gui mode -> too much heal and no synchro in the fight
++ remove debug print
 
 /******************  OK  ***********************/
 
@@ -16,3 +16,4 @@
 + add btn block and run OK
 + add all tokens in GuiMapTab OK
 + add delete option for items in GUI OK
++BUG: no menu btn after fight with no item in map border OK
