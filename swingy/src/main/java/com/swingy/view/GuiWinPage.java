@@ -53,7 +53,7 @@ public class GuiWinPage extends GuiCustomPage {
 
 			backButton.addActionListener(e -> {
 				GuiCustomPage.setShowingPageWin(false);
-				GuiGamePage.resetPage((JPanel)panel, rpg, listToken, grid, baseInventory);
+				GuiGamePage.resetPage((JPanel)panel, rpg, listToken, grid, baseInventory, icon);
 			});
 
 			JPanel container = new JPanel();

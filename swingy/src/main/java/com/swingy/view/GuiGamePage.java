@@ -1,6 +1,7 @@
 package com.swingy.view;
 
 import javax.swing.BoxLayout;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -30,38 +31,54 @@ public class GuiGamePage extends GuiCustomPage {
 
 	/************************************************************************ METHOD USE POTION ************************************************************************/
 
-	private static void usePotion(Game rpg, JPanel baseInventory) {
+	private static void usePotion(Game rpg, JPanel baseInventory, Icon icon) {
 		GuiInventoryController.checkPotion(rpg, baseInventory);
-		refreshInventory(rpg, baseInventory);
+		refreshInventory(rpg, baseInventory, icon);
 	}
 
 	/************************************************************************ METHOD REFRESH CHECKBOXES ************************************************************************/
 
-	public static void refreshInventory(Game rpg, JPanel baseInventory) {
+	public static void refreshInventory(Game rpg, JPanel baseInventory, Icon icon) {
 		baseInventory.removeAll();
 
-		// Title
+		/************** TITLE **************/
 		JLabel titleInventory = new JLabel("Inventory");
 		setCustomFont(titleInventory, Font.BOLD, 45);
 
 		JPanel wrapperTitleInventory = wrapperLabelGeneratorInventory(titleInventory, 0, 0, 40, 0, true);
 		baseInventory.add(wrapperTitleInventory);
 
-		// Stats
+		/************** STATS **************/
 		JLabel statsLabel = new JLabel(GuiInventoryController.buildFormattedStats(rpg));
+
 		JPanel wrapperStats = wrapperLabelGeneratorInventory(statsLabel, 0, 0, 20, 0, true);
 		baseInventory.add(wrapperStats);
 
-		// Checkboxes
-		createCheckBoxes(rpg, baseInventory);
+		/************** ITEMS **************/
+		createCheckBoxes(rpg, baseInventory, icon);
 
+		/************** DELETE BUTTON **************/
+		RoundedImageButton deleteButton = new RoundedImageButton("Supprimer", icon);
+		configButtons(deleteButton);
+		deleteButton.addActionListener(e -> {
+			GuiInventoryController.deleteSelectedItem(baseInventory, rpg.getMainHero(), rpg);
+			refreshInventory(rpg, baseInventory, icon);
+		});
+
+		JPanel deleteWrapper = new JPanel();
+		deleteWrapper.setOpaque(false);
+		deleteWrapper.add(deleteButton);
+		baseInventory.add(deleteWrapper);
+
+		/************** FINAL REFRESH **************/
 		baseInventory.revalidate();
 		baseInventory.repaint();
 	}
 
+
 	/************************************************************************ METHOD TO SET CHECKBOXES ************************************************************************/
 
-	private static void createCheckBoxes(Game rpg, JPanel baseInventory) {
+	private static void createCheckBoxes(Game rpg, JPanel baseInventory, Icon icon) {
 		Characters hero = rpg.getMainHero();
 		Map<String, List<JCheckBox>> checkBoxesByType = new HashMap<>();
 
@@ -81,7 +98,7 @@ public class GuiGamePage extends GuiCustomPage {
 
 			checkBox.addItemListener(e -> {
 				GuiInventoryController.inventoryManager(checkBox, checkBoxesByType, hero, e);
-				refreshInventory(rpg, baseInventory);
+				refreshInventory(rpg, baseInventory, icon);
 			});
 			
 			JPanel wrapperCheckBox = wrapperCheckboxGenerator(checkBox, 0, 0, 0, 0);
@@ -91,7 +108,7 @@ public class GuiGamePage extends GuiCustomPage {
 	
 	/************************************************************************ RESET PAGE METHOD ************************************************************************/
 	
-	public static void resetPage( JPanel baseMap, Game rpg, Map<String, ImageIcon> listToken, JPanel grid, JPanel baseInventory) {
+	public static void resetPage(JPanel baseMap, Game rpg, Map<String, ImageIcon> listToken, JPanel grid, JPanel baseInventory, Icon icon) {
 		baseMap.removeAll();
 		baseMap.setLayout(new BoxLayout(baseMap, BoxLayout.Y_AXIS));
 
@@ -115,7 +132,7 @@ public class GuiGamePage extends GuiCustomPage {
 
 		// --- Reset inventory si nécessaire ---
 		if (baseInventory != null)
-			refreshInventory(rpg, baseInventory);
+			refreshInventory(rpg, baseInventory, icon);
 
 		baseMap.revalidate();
 		baseMap.repaint();
@@ -151,7 +168,7 @@ public class GuiGamePage extends GuiCustomPage {
 		baseInventory.add(wrapperStats);
 
 		// Checkboxes
-		createCheckBoxes(rpg, baseInventory);
+		createCheckBoxes(rpg, baseInventory, icon);
 
 		/****************************** TAB 1 — MAP ******************************/
 
@@ -210,7 +227,7 @@ public class GuiGamePage extends GuiCustomPage {
 		// --- Button Potion ---
 		RoundedImageButton btnPotion = new RoundedImageButton("Use Potion", icon);
 		configButtons(btnPotion);
-		btnPotion.addActionListener(e -> usePotion(rpg, baseInventory));
+		btnPotion.addActionListener(e -> usePotion(rpg, baseInventory, icon));
 		// --- Button Menu ---
 		RoundedImageButton btn = new RoundedImageButton("Menu", icon);
 		configButtons(btn);

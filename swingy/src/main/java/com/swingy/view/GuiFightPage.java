@@ -125,7 +125,7 @@ public class GuiFightPage extends GuiCustomPage {
 				GuiEscapePage.showEscapePage(baseMap, listToken, icon, grid, baseInventory, rpg);
 				setShowingPageEscape(false);
 				GuiCustomPage.setShowingPageFight(false);
-				GuiGamePage.resetPage(baseMap, rpg, listToken, grid, baseInventory);
+				GuiGamePage.resetPage(baseMap, rpg, listToken, grid, baseInventory, icon);
 				return;
 			}
 			log(result);

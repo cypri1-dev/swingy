@@ -32,7 +32,7 @@ public class GuiInputController {
 
 	/************************************************************************ CONSTRUCTOR ************************************************************************/
 
-	public GuiInputController(RoundedImageButton btn, JComponent baseMap, GameMovement movement, Characters hero, Maps map, Menu menu, JPanel grid, Game rpg,	Map<String, ImageIcon> listToken, Icon icon, JPanel baseInventory, JPanel bottom) {
+	public GuiInputController(RoundedImageButton btn, JComponent baseMap, GameMovement movement, Characters hero, Maps map, Menu menu, JPanel grid, Game rpg, Map<String, ImageIcon> listToken, Icon icon, JPanel baseInventory, JPanel bottom) {
 
 		this.btn = btn;
 		this.bottom = bottom;
@@ -136,7 +136,7 @@ public class GuiInputController {
 				if (hero.getCoordinates().getX() == healingPotion.getCoordinates().getX() && hero.getCoordinates().getY() == healingPotion.getCoordinates().getY()) {
 					GuiPotionPage.showPotionPage(baseMap, healingPotion, listToken, icon, grid, baseInventory, rpg);
 					map.getListConsommable().remove(healingPotion);
-					GuiGamePage.refreshInventory(rpg, baseInventory);
+					GuiGamePage.refreshInventory(rpg, baseInventory, icon);
 					return;
 				}
 			}

@@ -52,7 +52,7 @@ public class GuiPotionPage extends GuiCustomPage {
 			if (rpg.getMainHero().getCoordinates().getX() == 0 || rpg.getMainHero().getCoordinates().getX() == rpg.getMap().getSize() - 1 || rpg.getMainHero().getCoordinates().getY() == 0 || rpg.getMainHero().getCoordinates().getY() == rpg.getMap().getSize() - 1)
 				GuiEndLevelPage.showLevelCompletePage(panel, rpg.getMainHero(), rpg);
 			else
-				GuiGamePage.resetPage((JPanel)panel, rpg, listToken, grid, baseInventory);
+				GuiGamePage.resetPage((JPanel)panel, rpg, listToken, grid, baseInventory, icon);
 		});
 
 		JPanel container = new JPanel();
