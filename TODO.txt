@@ -1,4 +1,5 @@
-+ add delete option for items in GUI
++BUG: no menu btn after fight with no item in map border
++BUG: bu with potion in gui mode
 
 /******************  OK  ***********************/
 
@@ -14,3 +15,4 @@
 + No btn menu with fight no loot and end level OK
 + add btn block and run OK
 + add all tokens in GuiMapTab OK
++ add delete option for items in GUI OK
