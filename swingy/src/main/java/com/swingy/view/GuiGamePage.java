@@ -34,6 +34,8 @@ public class GuiGamePage extends GuiCustomPage {
 	private static void usePotion(Game rpg, JPanel baseInventory, Icon icon) {
 		GuiInventoryController.checkPotion(rpg, baseInventory);
 		refreshInventory(rpg, baseInventory, icon);
+		if (GuiCustomPage.getShowingPageFight())
+			GuiFightPage.refreshHeroHP(rpg.getMainHero());
 	}
 
 	/************************************************************************ METHOD REFRESH CHECKBOXES ************************************************************************/
