@@ -13,6 +13,9 @@ import com.swingy.view.GuiFightPage;
 import com.swingy.view.GuiGameOverPage;
 
 import javax.swing.*;
+
+import static com.swingy.utils.Constants.DEBUG_BOLD;
+
 import java.awt.event.ActionEvent;
 import java.util.Map;
 
@@ -151,6 +154,7 @@ public class GuiInputController {
 
 			/* ---------------- LEVEL COMPLETED ---------------- */
 			if (map.getLevelCompleted()) {
+				System.out.println(DEBUG_BOLD + "coming from: private void update() - GuiInputController");
 				btn.setVisible(true);
 				bottom.revalidate();
 				bottom.repaint();

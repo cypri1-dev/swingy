@@ -1,6 +1,9 @@
 package com.swingy.view;
 
 import java.awt.Font;
+
+import static com.swingy.utils.Constants.DEBUG_BOLD;
+
 import java.awt.Component;
 import java.util.Map;
 
@@ -74,8 +77,13 @@ public class GuiFightPage extends GuiCustomPage {
 
 			if ("DEAD ENEMY".equals(result)) {
 				setShowingPageFight(false);
-				if (hero.getCoordinates().getX() == 0 || hero.getCoordinates().getX() == rpg.getMap().getSize() - 1 || hero.getCoordinates().getY() == 0 || hero.getCoordinates().getY() == rpg.getMap().getSize() - 1)
+				if (hero.getCoordinates().getX() == 0 || hero.getCoordinates().getX() == rpg.getMap().getSize() - 1 || hero.getCoordinates().getY() == 0 || hero.getCoordinates().getY() == rpg.getMap().getSize() - 1) {
+					System.out.println(DEBUG_BOLD + "coming from: showFightPage() - GuiFightPage");
+					btn.setVisible(true);
+					bottom.revalidate();
+					bottom.repaint();
 					GuiEndLevelPage.showLevelCompletePage(baseMap, hero, rpg);
+				}
 				else
 					GuiWinPage.showWinPage(baseMap, listToken, rpg.getMap(), rpg, icon, grid, baseInventory);
 				return;

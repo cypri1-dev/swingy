@@ -9,6 +9,8 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import static com.swingy.utils.Constants.DEBUG_BOLD;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -48,8 +50,10 @@ public class GuiEscapePage extends GuiCustomPage {
 
 		backButton.addActionListener(e -> {
 		    GuiCustomPage.setShowingPagePotion(false);
-			if (rpg.getMainHero().getCoordinates().getX() == 0 || rpg.getMainHero().getCoordinates().getX() == rpg.getMap().getSize() - 1 || rpg.getMainHero().getCoordinates().getY() == 0 || rpg.getMainHero().getCoordinates().getY() == rpg.getMap().getSize() - 1)
+			if (rpg.getMainHero().getCoordinates().getX() == 0 || rpg.getMainHero().getCoordinates().getX() == rpg.getMap().getSize() - 1 || rpg.getMainHero().getCoordinates().getY() == 0 || rpg.getMainHero().getCoordinates().getY() == rpg.getMap().getSize() - 1) {
+				System.out.println(DEBUG_BOLD + "coming from: showEscapePage() - GuiEscapePage");
 				GuiEndLevelPage.showLevelCompletePage(panel, rpg.getMainHero(), rpg);
+			}
 			else
 				GuiGamePage.resetPage((JPanel)panel, rpg, listToken, grid, baseInventory, icon);
 		});

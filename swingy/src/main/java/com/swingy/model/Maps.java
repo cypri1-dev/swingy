@@ -150,50 +150,74 @@ public class Maps {
 
 			switch(tmpEnemy.getCharacterClass()) {
 				// ---- Tier 1 : basiques ----
-				case ENEMY_CLASS_RAT: 
-					symbol = "r";
+				case ENEMY_CLASS_RAT:
+					if (tmpEnemy.getArtefacts().isEmpty())
+						symbol = "!";
+					else
+						symbol = "r";
 					if (listToken != null)
 						tmpEnemy.setToken(listToken.get("rat"));
 					break;
 
 				case ENEMY_CLASS_SLIME:
-					symbol = "s";
+					if (tmpEnemy.getArtefacts().isEmpty())
+						symbol = "!";
+					else
+						symbol = "s";
 					if (listToken != null)
 						tmpEnemy.setToken(listToken.get("slime"));
 					break;
 
 				case ENEMY_CLASS_GOBLIN: {
-					symbol = "g";
+					if (tmpEnemy.getArtefacts().isEmpty())
+						symbol = "!";
+					else
+						symbol = "g";
 					if (listToken != null)
 						tmpEnemy.setToken(listToken.get("gobelin"));
 					break;
 				}
 				case ENEMY_CLASS_BANDIT: {
-					symbol = "b";
+					if (tmpEnemy.getArtefacts().isEmpty())
+						symbol = "!";
+					else
+						symbol = "b";
 					if (listToken != null)
 						tmpEnemy.setToken(listToken.get("bandit"));
 					break;
 				}
 				case ENEMY_CLASS_BAT: {
-					symbol = "v";
+					if (tmpEnemy.getArtefacts().isEmpty())
+						symbol = "!";
+					else
+						symbol = "v";
 					if (listToken != null)
 						tmpEnemy.setToken(listToken.get("bat"));
 					break;
 				}
 				case ENEMY_CLASS_SPIDERLING: {
-					symbol = "x";
+					if (tmpEnemy.getArtefacts().isEmpty())
+						symbol = "!";
+					else
+						symbol = "x";
 					if (listToken != null)
 						tmpEnemy.setToken(listToken.get("spider"));
 					break;
 				}
 				case ENEMY_CLASS_SKELETAL_HAND: {
-					symbol = "h";
+					if (tmpEnemy.getArtefacts().isEmpty())
+						symbol = "!";
+					else
+						symbol = "h";
 					if (listToken != null)
 						tmpEnemy.setToken(listToken.get("skeletal_hand"));
 					break;
 				}
 				case ENEMY_CLASS_MUDLING: {
-					symbol = "m"; // boueux
+					if (tmpEnemy.getArtefacts().isEmpty())
+						symbol = "!";
+					else
+						symbol = "m"; // boueux
 					if (listToken != null)
 						tmpEnemy.setToken(listToken.get("mudling"));
 					break;
