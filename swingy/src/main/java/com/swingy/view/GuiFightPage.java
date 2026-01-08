@@ -1,6 +1,9 @@
 package com.swingy.view;
 
 import java.awt.Font;
+
+import static com.swingy.utils.Constants.DEBUG_BOLD;
+
 import java.awt.Component;
 import java.util.Map;
 
@@ -18,14 +21,12 @@ import com.swingy.controller.Game;
 import com.swingy.controller.GuiFightController;
 import com.swingy.utils.TypeWriterEffect;
 
-import static com.swingy.utils.Constants.DEBUG_BOLD;
-
 public class GuiFightPage extends GuiCustomPage {
 
 	private static FightLogPanel logPanel;
-	private static JLabel currentHeroHPLabel;
 
-	/* ==================== MAIN ENTRY ==================== */
+	/* 🔥 AJOUT UNIQUE : référence au HP du héros */
+	private static JLabel heroHPLabelRef;
 
 	public static void showFightPage(
 			JPanel baseMap,
@@ -45,28 +46,30 @@ public class GuiFightPage extends GuiCustomPage {
 		baseMap.removeAll();
 		baseMap.setLayout(new BoxLayout(baseMap, BoxLayout.Y_AXIS));
 
-		/* -------------------- TITLE -------------------- */
+		/****************************** TITLE ******************************/
 		JLabel titleLabel = new JLabel("Fight");
 		setCustomFont(titleLabel, Font.BOLD, 45);
 		JPanel wrapperTitle = wrapperLabelGeneratorInventory(titleLabel, 0, 0, 20, 0, true);
 		baseMap.add(wrapperTitle);
 
-		/* ------------------ FIGHTERS ------------------- */
+		/****************************** FIGHTERS ******************************/
 		JPanel fightersPanel = new JPanel();
 		fightersPanel.setLayout(new BoxLayout(fightersPanel, BoxLayout.X_AXIS));
 		fightersPanel.setOpaque(false);
 		fightersPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 		Characters hero = rpg.getMainHero();
+		Icon tokenH = hero.getToken();
+		Icon tokenE = enemy.getToken();
 
-		JPanel heroPanel = buildCharacterPanel(hero, hero.getToken());
-		JPanel enemyPanel = buildCharacterPanel(enemy, enemy.getToken());
+		JPanel heroPanel = buildCharacterPanel(hero, tokenH);
+		JPanel enemyPanel = buildCharacterPanel(enemy, tokenE);
 
 		JLabel heroHPLabel = (JLabel) heroPanel.getClientProperty("hpLabel");
 		JLabel enemyHPLabel = (JLabel) enemyPanel.getClientProperty("hpLabel");
 
-		// 🔥 Stockage pour refresh externe (potion)
-		currentHeroHPLabel = heroHPLabel;
+		/* 🔥 stockage pour refresh potion */
+		heroHPLabelRef = heroHPLabel;
 
 		fightersPanel.add(Box.createHorizontalGlue());
 		fightersPanel.add(heroPanel);
@@ -74,7 +77,7 @@ public class GuiFightPage extends GuiCustomPage {
 		fightersPanel.add(enemyPanel);
 		fightersPanel.add(Box.createHorizontalGlue());
 
-		/* ------------------ BUTTONS -------------------- */
+		/****************************** BUTTONS ******************************/
 		RoundedImageButton attackButton = new RoundedImageButton("Attack", icon);
 		configButtons(attackButton);
 		attackButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -82,11 +85,39 @@ public class GuiFightPage extends GuiCustomPage {
 		attackButton.addActionListener(e -> {
 			String result = GuiFightController.attackAction();
 
-			if (handleFightEnd(result, hero, enemy, baseMap, listToken, grid, baseInventory, rpg, btn, bottom))
+			if ("DEAD HERO".equals(result)) {
+				rpg.getHeroesNameList().remove(hero.getName());
+				rpg.getListAvaible().remove(hero);
+				GuiGameOverPage.showGameOverPage(baseMap, listToken, rpg.getMap(), rpg);
 				return;
+			}
+
+			if ("DEAD ENEMY".equals(result)) {
+				setShowingPageFight(false);
+				if (hero.getCoordinates().getX() == 0
+					|| hero.getCoordinates().getX() == rpg.getMap().getSize() - 1
+					|| hero.getCoordinates().getY() == 0
+					|| hero.getCoordinates().getY() == rpg.getMap().getSize() - 1) {
+
+					System.out.println(DEBUG_BOLD + "coming from: showFightPage() - GuiFightPage");
+					btn.setVisible(true);
+					bottom.revalidate();
+					bottom.repaint();
+					GuiEndLevelPage.showLevelCompletePage(baseMap, hero, rpg);
+				} else {
+					GuiWinPage.showWinPage(baseMap, listToken, rpg.getMap(), rpg, icon, grid, baseInventory);
+				}
+				return;
+			}
+
+			if ("LOOT".equals(result)) {
+				setShowingPageFight(false);
+				GuiLootPage.showLootPage(baseMap, listToken, rpg.getMap(), rpg, icon, grid, baseInventory, enemy, btn, bottom);
+			}
 
 			log(result);
-			refreshHP(hero, enemy, heroHPLabel, enemyHPLabel);
+			heroHPLabel.setText(buildHPText(hero));
+			enemyHPLabel.setText(buildHPText(enemy));
 		});
 
 		RoundedImageButton blockButton = new RoundedImageButton("Block", icon);
@@ -96,11 +127,15 @@ public class GuiFightPage extends GuiCustomPage {
 		blockButton.addActionListener(e -> {
 			String result = GuiFightController.blockAction();
 
-			if (handleHeroDeath(result, hero, baseMap, listToken, rpg))
+			if ("DEAD HERO".equals(result)) {
+				rpg.getHeroesNameList().remove(hero.getName());
+				rpg.getListAvaible().remove(hero);
+				GuiGameOverPage.showGameOverPage(baseMap, listToken, rpg.getMap(), rpg);
 				return;
-
+			}
 			log(result);
-			refreshHP(hero, enemy, heroHPLabel, enemyHPLabel);
+			heroHPLabel.setText(buildHPText(hero));
+			enemyHPLabel.setText(buildHPText(enemy));
 		});
 
 		RoundedImageButton runButton = new RoundedImageButton("Run", icon);
@@ -110,14 +145,25 @@ public class GuiFightPage extends GuiCustomPage {
 		runButton.addActionListener(e -> {
 			String result = GuiFightController.runAction();
 
-			if (handleRun(result, hero, baseMap, listToken, icon, grid, baseInventory, rpg))
+			if ("DEAD HERO".equals(result)) {
+				rpg.getHeroesNameList().remove(hero.getName());
+				rpg.getListAvaible().remove(hero);
+				GuiGameOverPage.showGameOverPage(baseMap, listToken, rpg.getMap(), rpg);
 				return;
-
+			}
+			if ("ESCAPE".equals(result)) {
+				GuiEscapePage.showEscapePage(baseMap, listToken, icon, grid, baseInventory, rpg);
+				setShowingPageEscape(false);
+				GuiCustomPage.setShowingPageFight(false);
+				GuiGamePage.resetPage(baseMap, rpg, listToken, grid, baseInventory, icon);
+				return;
+			}
 			log(result);
-			refreshHP(hero, enemy, heroHPLabel, enemyHPLabel);
+			heroHPLabel.setText(buildHPText(hero));
+			enemyHPLabel.setText(buildHPText(enemy));
 		});
 
-		/* -------------------- LOG ---------------------- */
+		/****************************** LOG ******************************/
 		JLabel historyLabel = new JLabel("Fight History:");
 		setCustomFont(historyLabel, Font.ITALIC, 20);
 
@@ -130,7 +176,7 @@ public class GuiFightPage extends GuiCustomPage {
 
 		logPanel = new FightLogPanel();
 
-		/* -------------------- ADD ---------------------- */
+		/****************************** ADD ******************************/
 		baseMap.add(fightersPanel);
 		baseMap.add(Box.createVerticalStrut(10));
 		baseMap.add(attackButton);
@@ -146,7 +192,7 @@ public class GuiFightPage extends GuiCustomPage {
 		baseMap.repaint();
 	}
 
-	/* ==================== HELPERS ==================== */
+	/****************************** HELPERS ******************************/
 
 	private static JPanel buildCharacterPanel(Characters c, Icon iconToken) {
 		JPanel panel = new JPanel();
@@ -162,14 +208,9 @@ public class GuiFightPage extends GuiCustomPage {
 
 		panel.add(token);
 		panel.add(hpLabel);
-
 		panel.putClientProperty("hpLabel", hpLabel);
-		return panel;
-	}
 
-	private static void refreshHP(Characters hero, Characters enemy, JLabel heroLabel, JLabel enemyLabel) {
-		heroLabel.setText(buildHPText(hero));
-		enemyLabel.setText(buildHPText(enemy));
+		return panel;
 	}
 
 	private static String buildHPText(Characters c) {
@@ -183,83 +224,16 @@ public class GuiFightPage extends GuiCustomPage {
 	}
 
 	public static void refreshHeroHP(Characters hero) {
-		if (currentHeroHPLabel != null) {
-			currentHeroHPLabel.setText(buildHPText(hero));
-			currentHeroHPLabel.revalidate();
-			currentHeroHPLabel.repaint();
+		if (heroHPLabelRef != null) {
+			heroHPLabelRef.setText(buildHPText(hero));
+			heroHPLabelRef.revalidate();
+			heroHPLabelRef.repaint();
 		}
 	}
-
-	/* ==================== FIGHT OUTCOMES ==================== */
-
-	private static boolean handleHeroDeath(String result, Characters hero, JPanel baseMap, Map<String, ImageIcon> listToken, Game rpg) {
-		if ("DEAD HERO".equals(result)) {
-			rpg.getHeroesNameList().remove(hero.getName());
-			rpg.getListAvaible().remove(hero);
-			GuiGameOverPage.showGameOverPage(baseMap, listToken, rpg.getMap(), rpg);
-			return true;
-		}
-		return false;
-	}
-
-	private static boolean handleFightEnd(
-			String result,
-			Characters hero,
-			Characters enemy,
-			JPanel baseMap,
-			Map<String, ImageIcon> listToken,
-			JPanel grid,
-			JPanel baseInventory,
-			Game rpg,
-			RoundedImageButton btn,
-			JPanel bottom
-	) {
-		if (handleHeroDeath(result, hero, baseMap, listToken, rpg))
-			return true;
-
-		if ("DEAD ENEMY".equals(result)) {
-			setShowingPageFight(false);
-			btn.setVisible(true);
-			bottom.revalidate();
-			bottom.repaint();
-			GuiWinPage.showWinPage(baseMap, listToken, rpg.getMap(), rpg, null, grid, baseInventory);
-			return true;
-		}
-
-		if ("LOOT".equals(result)) {
-			setShowingPageFight(false);
-			GuiLootPage.showLootPage(baseMap, listToken, rpg.getMap(), rpg, null, grid, baseInventory, enemy, btn, bottom);
-			return true;
-		}
-		return false;
-	}
-
-	private static boolean handleRun(
-			String result,
-			Characters hero,
-			JPanel baseMap,
-			Map<String, ImageIcon> listToken,
-			Icon icon,
-			JPanel grid,
-			JPanel baseInventory,
-			Game rpg
-	) {
-		if (handleHeroDeath(result, hero, baseMap, listToken, rpg))
-			return true;
-
-		if ("ESCAPE".equals(result)) {
-			GuiEscapePage.showEscapePage(baseMap, listToken, icon, grid, baseInventory, rpg);
-			setShowingPageFight(false);
-			GuiGamePage.resetPage(baseMap, rpg, listToken, grid, baseInventory, icon);
-			return true;
-		}
-		return false;
-	}
-
-	/* ==================== LOG ==================== */
 
 	public static void log(String text) {
-		if (logPanel != null)
-			TypeWriterEffect.appendAnimated(logPanel.getLogArea(), text, 25);
+		if (logPanel == null)
+			return;
+		TypeWriterEffect.appendAnimated(logPanel.getLogArea(), text, 25);
 	}
 }
