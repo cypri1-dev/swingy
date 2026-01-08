@@ -1,4 +1,3 @@
-+ BUG: btn after fight as no longer bg image !
 + remove debug print
 + CLEAN
 
@@ -19,3 +18,4 @@
 + add delete option for items in GUI OK
 + BUG: no menu btn after fight with no item in map border OK
 + BUG: bug with potion in gui mode -> too much heal and no synchro in the fight OK
++ BUG: btn after fight as no longer bg image ! OK
