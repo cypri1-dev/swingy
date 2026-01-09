@@ -7,6 +7,8 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 import com.swingy.controller.Game;
 import com.swingy.controller.GuiInputController;
@@ -43,27 +45,27 @@ public class GuiGamePage extends GuiCustomPage {
 	public static void refreshInventory(Game rpg, JPanel baseInventory, Icon icon) {
 		baseInventory.removeAll();
 
-		/************** TITLE **************/
 		JLabel titleInventory = new JLabel("Inventory");
 		setCustomFont(titleInventory, Font.BOLD, 45);
-
-		JPanel wrapperTitleInventory = wrapperLabelGeneratorInventory(titleInventory, 0, 0, 40, 0, true);
+		JPanel wrapperTitleInventory =
+			wrapperLabelGeneratorInventory(titleInventory, 0, 0, 40, 0, true);
 		baseInventory.add(wrapperTitleInventory);
 
-		/************** STATS **************/
-		JLabel statsLabel = new JLabel(GuiInventoryController.buildFormattedStats(rpg));
-
-		JPanel wrapperStats = wrapperLabelGeneratorInventory(statsLabel, 0, 0, 20, 0, true);
+		JLabel statsLabel =
+			new JLabel(GuiInventoryController.buildFormattedStats(rpg));
+		JPanel wrapperStats =
+			wrapperLabelGeneratorInventory(statsLabel, 0, 0, 20, 0, true);
 		baseInventory.add(wrapperStats);
 
-		/************** ITEMS **************/
 		createCheckBoxes(rpg, baseInventory, icon);
 
-		/************** DELETE BUTTON **************/
-		RoundedImageButton deleteButton = new RoundedImageButton("Supprimer", icon);
+		RoundedImageButton deleteButton =
+			new RoundedImageButton("Supprimer", icon);
 		configButtons(deleteButton);
 		deleteButton.addActionListener(e -> {
-			GuiInventoryController.deleteSelectedItem(baseInventory, rpg.getMainHero(), rpg);
+			GuiInventoryController.deleteSelectedItem(
+				baseInventory, rpg.getMainHero(), rpg
+			);
 			refreshInventory(rpg, baseInventory, icon);
 		});
 
@@ -72,11 +74,9 @@ public class GuiGamePage extends GuiCustomPage {
 		deleteWrapper.add(deleteButton);
 		baseInventory.add(deleteWrapper);
 
-		/************** FINAL REFRESH **************/
 		baseInventory.revalidate();
 		baseInventory.repaint();
 	}
-
 
 	/************************************************************************ METHOD TO SET CHECKBOXES ************************************************************************/
 
@@ -85,54 +85,59 @@ public class GuiGamePage extends GuiCustomPage {
 		Map<String, List<JCheckBox>> checkBoxesByType = new HashMap<>();
 
 		for (Artefact items : hero.getArtefacts()) {
-			String checkboxText = GuiInventoryController.buildFormattedItem(items);
-
-			final Artefact currentItem = items;  // **Important** : variable finale locale pour la lambda
+			String checkboxText =
+				GuiInventoryController.buildFormattedItem(items);
 
 			JCheckBox checkBox = new JCheckBox(checkboxText);
 			checkBox.setOpaque(false);
-			checkBox.setSelected(currentItem.getIsEquipped());
+			checkBox.setSelected(items.getIsEquipped());
 			setCustomFont(checkBox, Font.PLAIN, 25);
 
-			// Remplissage des maps
-			checkBoxesByType.computeIfAbsent(currentItem.getType(), k -> new ArrayList<>()).add(checkBox);
-			checkBox.putClientProperty("artefact", currentItem);
+			checkBoxesByType
+				.computeIfAbsent(items.getType(), k -> new ArrayList<>())
+				.add(checkBox);
+
+			checkBox.putClientProperty("artefact", items);
 
 			checkBox.addItemListener(e -> {
-				GuiInventoryController.inventoryManager(checkBox, checkBoxesByType, hero, e);
+				GuiInventoryController.inventoryManager(
+					checkBox, checkBoxesByType, hero, e
+				);
 				refreshInventory(rpg, baseInventory, icon);
 			});
-			
-			JPanel wrapperCheckBox = wrapperCheckboxGenerator(checkBox, 0, 0, 0, 0);
+
+			JPanel wrapperCheckBox =
+				wrapperCheckboxGenerator(checkBox, 0, 0, 0, 0);
 			baseInventory.add(wrapperCheckBox);
 		}
 	}
-	
+
 	/************************************************************************ RESET PAGE METHOD ************************************************************************/
-	
-	public static void resetPage(JPanel baseMap, Game rpg, Map<String, ImageIcon> listToken, JPanel grid, JPanel baseInventory, Icon icon) {
+
+	public static void resetPage(
+		JPanel baseMap,
+		Game rpg,
+		Map<String, ImageIcon> listToken,
+		JPanel grid,
+		JPanel baseInventory,
+		Icon icon
+	) {
 		baseMap.removeAll();
 		baseMap.setLayout(new BoxLayout(baseMap, BoxLayout.Y_AXIS));
 
-		// --- Title ---
 		JLabel titleMap = new JLabel("Map");
 		setCustomFont(titleMap, Font.BOLD, 45);
-		JPanel wrapperTitleMap = wrapperLabelGeneratorInventory(titleMap, 0, 0, 20, 0, true);
+		JPanel wrapperTitleMap =
+			wrapperLabelGeneratorInventory(titleMap, 0, 0, 20, 0, true);
 		baseMap.add(wrapperTitleMap);
 
-		// --- Nouveau background ---
 		BufferedImage newBg = selectRandomBackground();
 		grid.putClientProperty("background", newBg);
 
-		// --- Reset contenu de la grille ---
 		grid.removeAll();
-
-		// --- Redessine la map ---
 		GuiMapTab.updateMap(rpg, listToken, grid);
-
 		baseMap.add(grid);
 
-		// --- Reset inventory si nécessaire ---
 		if (baseInventory != null)
 			refreshInventory(rpg, baseInventory, icon);
 
@@ -140,108 +145,135 @@ public class GuiGamePage extends GuiCustomPage {
 		baseMap.repaint();
 		grid.repaint();
 	}
-	
+
 	/************************************************************************ GAME PAGE BUILDER ************************************************************************/
 
-	public static JPanel createGamePage(Game rpg, CardLayout cardLayout, JPanel cardPanel, Map<String, ImageIcon> listToken, ImageIcon icon) {
+	public static JPanel createGamePage(
+		Game rpg,
+		CardLayout cardLayout,
+		JPanel cardPanel,
+		Map<String, ImageIcon> listToken,
+		ImageIcon icon
+	) {
 
-		// Main panel
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.setOpaque(false);
 
-		// Tabs container
 		JTabbedPane tabPanel = new JTabbedPane();
 		configureTabPanel(tabPanel);
 
-		/****************************** TAB 2 — INVENTORY ******************************/
+		/************************ TAB — INVENTORY ************************/
 
 		JPanel baseInventory = createBaseStructure();
 
-		// Title
 		JLabel titleInventory = new JLabel("Inventory");
 		setCustomFont(titleInventory, Font.BOLD, 45);
-
-		JPanel wrapperTitleInventory = wrapperLabelGeneratorInventory(titleInventory, 0, 0, 40, 0, true);
+		JPanel wrapperTitleInventory =
+			wrapperLabelGeneratorInventory(titleInventory, 0, 0, 40, 0, true);
 		baseInventory.add(wrapperTitleInventory);
 
-		// Stats
-		JLabel statsLabel = new JLabel(GuiInventoryController.buildFormattedStats(rpg));
-		JPanel wrapperStats = wrapperLabelGeneratorInventory(statsLabel, 0, 0, 20, 0, true);
+		JLabel statsLabel =
+			new JLabel(GuiInventoryController.buildFormattedStats(rpg));
+		JPanel wrapperStats =
+			wrapperLabelGeneratorInventory(statsLabel, 0, 0, 20, 0, true);
 		baseInventory.add(wrapperStats);
 
-		// Checkboxes
 		createCheckBoxes(rpg, baseInventory, icon);
 
-		/****************************** TAB 1 — MAP ******************************/
+		// 🔥 SEULE VRAIE MODIFICATION : SCROLLPANE 🔥
+		JScrollPane inventoryScroll = new JScrollPane(baseInventory);
+		inventoryScroll.setBorder(null);
+		inventoryScroll.setOpaque(false);
+		inventoryScroll.getViewport().setOpaque(false);
+		inventoryScroll.setHorizontalScrollBarPolicy(
+			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER
+		);
+		inventoryScroll.getVerticalScrollBar().setUnitIncrement(18);
+
+		/************************ TAB — MAP ************************/
 
 		JPanel baseMap = createBaseStructure();
 
-		// Title
 		JLabel titleMap = new JLabel("Map");
 		setCustomFont(titleMap, Font.BOLD, 45);
-
-		JPanel wrapperTitleMap = wrapperLabelGeneratorInventory(titleMap, 0, 0, 20, 0, true);
+		JPanel wrapperTitleMap =
+			wrapperLabelGeneratorInventory(titleMap, 0, 0, 20, 0, true);
 		baseMap.add(wrapperTitleMap);
 
-		// Création de la grille unique
 		int viewportSize = 9;
-
 		BufferedImage initialBg = selectRandomBackground();
 
 		JPanel grid = new JPanel(new GridLayout(viewportSize, viewportSize)) {
 			@Override
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
-
-				BufferedImage bg = (BufferedImage) getClientProperty("background");
+				BufferedImage bg =
+					(BufferedImage) getClientProperty("background");
 				if (bg != null)
 					g.drawImage(bg, 0, 0, getWidth(), getHeight(), null);
 			}
 		};
 
-		// Stocke le background dans une propriété
 		grid.putClientProperty("background", initialBg);
-
 		grid.setOpaque(false);
 		baseMap.add(grid);
+
 		rpg.placeHero(rpg.getMainHero());
-		
-		// Dessine la map initiale
 		GuiMapTab.drawMap(rpg, listToken, grid);
 
+		/************************ ADD TABS ************************/
 
-		/****************************** ADD TABS ******************************/
-		
 		JLabel mapTabLabel = new JLabel("Map");
 		setCustomFont(mapTabLabel, Font.PLAIN, 20);
 
 		JLabel inventoryTabLabel = new JLabel("Inventory");
 		setCustomFont(inventoryTabLabel, Font.PLAIN, 20);
-		
+
 		tabPanel.addTab("Map", baseMap);
 		tabPanel.setTabComponentAt(0, mapTabLabel);
-		
-		tabPanel.addTab("Inventory", baseInventory);
+
+		tabPanel.addTab("Inventory", inventoryScroll);
 		tabPanel.setTabComponentAt(1, inventoryTabLabel);
-		
+
 		panel.add(tabPanel, BorderLayout.CENTER);
 
-		// --- Button Potion ---
-		RoundedImageButton btnPotion = new RoundedImageButton("Use Potion", icon);
+		/************************ BOTTOM ************************/
+
+		RoundedImageButton btnPotion =
+			new RoundedImageButton("Use Potion", icon);
 		configButtons(btnPotion);
-		btnPotion.addActionListener(e -> usePotion(rpg, baseInventory, icon));
-		// --- Button Menu ---
-		RoundedImageButton btn = new RoundedImageButton("Menu", icon);
+		btnPotion.addActionListener(
+			e -> usePotion(rpg, baseInventory, icon)
+		);
+
+		RoundedImageButton btn =
+			new RoundedImageButton("Menu", icon);
 		configButtons(btn);
-		btn.addActionListener(e -> cardLayout.show(cardPanel, "main_menu"));
-		
+		btn.addActionListener(
+			e -> cardLayout.show(cardPanel, "main_menu")
+		);
+
 		JPanel bottom = new JPanel();
 		bottom.add(btn);
 		configureBottomPanel(bottom, btnPotion);
 		panel.add(bottom, BorderLayout.SOUTH);
 
-		GuiInputController inputController = new GuiInputController(btn, baseMap, rpg.getMainHero().getMovement(), rpg.getMainHero(), rpg.getMap(), rpg.getMenu(), grid, rpg, listToken, icon, baseInventory, bottom);
+		new GuiInputController(
+			btn,
+			baseMap,
+			rpg.getMainHero().getMovement(),
+			rpg.getMainHero(),
+			rpg.getMap(),
+			rpg.getMenu(),
+			grid,
+			rpg,
+			listToken,
+			icon,
+			baseInventory,
+			bottom
+		);
 
 		return panel;
 	}
 }
+

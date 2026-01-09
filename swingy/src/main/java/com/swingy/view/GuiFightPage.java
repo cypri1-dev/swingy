@@ -24,8 +24,7 @@ import com.swingy.utils.TypeWriterEffect;
 public class GuiFightPage extends GuiCustomPage {
 
 	private static FightLogPanel logPanel;
-
-	/* 🔥 AJOUT UNIQUE : référence au HP du héros */
+	private static boolean actionLocked = false;
 	private static JLabel heroHPLabelRef;
 
 	public static void showFightPage(
@@ -83,6 +82,8 @@ public class GuiFightPage extends GuiCustomPage {
 		attackButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 		attackButton.addActionListener(e -> {
+			if (actionLocked) return;
+
 			String result = GuiFightController.attackAction();
 
 			if ("DEAD HERO".equals(result)) {
@@ -113,11 +114,13 @@ public class GuiFightPage extends GuiCustomPage {
 			if ("LOOT".equals(result)) {
 				setShowingPageFight(false);
 				GuiLootPage.showLootPage(baseMap, listToken, rpg.getMap(), rpg, icon, grid, baseInventory, enemy, btn, bottom);
+				return;
 			}
 
-			log(result);
-			heroHPLabel.setText(buildHPText(hero));
-			enemyHPLabel.setText(buildHPText(enemy));
+			log(result, () -> {
+				heroHPLabel.setText(buildHPText(hero));
+				enemyHPLabel.setText(buildHPText(enemy));
+			});
 		});
 
 		RoundedImageButton blockButton = new RoundedImageButton("Block", icon);
@@ -125,6 +128,8 @@ public class GuiFightPage extends GuiCustomPage {
 		blockButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 		blockButton.addActionListener(e -> {
+			if (actionLocked) return;
+
 			String result = GuiFightController.blockAction();
 
 			if ("DEAD HERO".equals(result)) {
@@ -133,9 +138,11 @@ public class GuiFightPage extends GuiCustomPage {
 				GuiGameOverPage.showGameOverPage(baseMap, listToken, rpg.getMap(), rpg);
 				return;
 			}
-			log(result);
-			heroHPLabel.setText(buildHPText(hero));
-			enemyHPLabel.setText(buildHPText(enemy));
+
+			log(result, () -> {
+				heroHPLabel.setText(buildHPText(hero));
+				enemyHPLabel.setText(buildHPText(enemy));
+			});
 		});
 
 		RoundedImageButton runButton = new RoundedImageButton("Run", icon);
@@ -143,6 +150,8 @@ public class GuiFightPage extends GuiCustomPage {
 		runButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 		runButton.addActionListener(e -> {
+			if (actionLocked) return;
+
 			String result = GuiFightController.runAction();
 
 			if ("DEAD HERO".equals(result)) {
@@ -158,9 +167,11 @@ public class GuiFightPage extends GuiCustomPage {
 				GuiGamePage.resetPage(baseMap, rpg, listToken, grid, baseInventory, icon);
 				return;
 			}
-			log(result);
-			heroHPLabel.setText(buildHPText(hero));
-			enemyHPLabel.setText(buildHPText(enemy));
+
+			log(result, () -> {
+				heroHPLabel.setText(buildHPText(hero));
+				enemyHPLabel.setText(buildHPText(enemy));
+			});
 		});
 
 		/****************************** LOG ******************************/
@@ -231,9 +242,21 @@ public class GuiFightPage extends GuiCustomPage {
 		}
 	}
 
-	public static void log(String text) {
-		if (logPanel == null)
+	public static void log(String text, Runnable onFinish) {
+		if (logPanel == null || actionLocked)
 			return;
-		TypeWriterEffect.appendAnimated(logPanel.getLogArea(), text, 25);
+
+		actionLocked = true;
+
+		TypeWriterEffect.appendAnimated(
+			logPanel.getLogArea(),
+			text,
+			25,
+			() -> {
+				actionLocked = false;
+				if (onFinish != null)
+					onFinish.run();
+			}
+		);
 	}
 }
