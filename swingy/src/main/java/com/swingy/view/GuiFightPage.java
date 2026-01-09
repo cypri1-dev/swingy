@@ -2,8 +2,6 @@ package com.swingy.view;
 
 import java.awt.Font;
 
-import static com.swingy.utils.Constants.DEBUG_BOLD;
-
 import java.awt.Component;
 import java.util.Map;
 
@@ -148,8 +146,19 @@ public class GuiFightPage extends GuiCustomPage {
 		configButtons(runButton);
 		runButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+		// Désactive le bouton Run si l'ennemi est sur la bordure
+		int mapSize = rpg.getMap().getSize();
+		int enemyX = enemy.getCoordinates().getX();
+		int enemyY = enemy.getCoordinates().getY();
+
+		if (enemyX == 0 || enemyX == mapSize - 1 || enemyY == 0 || enemyY == mapSize - 1) {
+			runButton.setEnabled(false);
+			runButton.setToolTipText("Cannot run from enemy on map border.");
+		}
+
 		runButton.addActionListener(e -> {
-			if (actionLocked) return;
+			if (actionLocked)
+				return;
 
 			String result = GuiFightController.runAction();
 
