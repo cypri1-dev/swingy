@@ -154,7 +154,6 @@ public class GuiInputController {
 
 			/* ---------------- LEVEL COMPLETED ---------------- */
 			if (map.getLevelCompleted()) {
-				System.out.println(DEBUG_BOLD + "coming from: private void update() - GuiInputController");
 				btn.setVisible(true);
 				bottom.revalidate();
 				bottom.repaint();

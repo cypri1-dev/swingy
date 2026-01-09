@@ -23,7 +23,6 @@ public class GameMovement {
 		while (iterator.hasNext()) {
 			Characters enemy = iterator.next();
 			if (hero.getCoordinates().getX() == enemy.getCoordinates().getX() && hero.getCoordinates().getY() == enemy.getCoordinates().getY()) {
-				// System.out.println("[DEBUG]: token in checkFight: " + enemy.getToken());
 				
 				if (gui) {
 					return;

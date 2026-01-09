@@ -19,7 +19,6 @@ public class GuiFightController {
 
 	public static String runAction() {
 		int luck = ThreadLocalRandom.current().nextInt(0, 2);
-		System.out.println("LUCK: " + luck);
 		if (luck == 0) {
 			int rawDamage = ThreadLocalRandom.current().nextInt(1, enemy.getAttack() + 1);
 			hero.setHitPoint(-rawDamage);

@@ -100,7 +100,6 @@ public class GuiFightPage extends GuiCustomPage {
 					|| hero.getCoordinates().getY() == 0
 					|| hero.getCoordinates().getY() == rpg.getMap().getSize() - 1) {
 
-					System.out.println(DEBUG_BOLD + "coming from: showFightPage() - GuiFightPage");
 					btn.setVisible(true);
 					bottom.revalidate();
 					bottom.repaint();

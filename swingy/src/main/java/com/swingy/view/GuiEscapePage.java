@@ -49,9 +49,8 @@ public class GuiEscapePage extends GuiCustomPage {
 		backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 		backButton.addActionListener(e -> {
-		    GuiCustomPage.setShowingPagePotion(false);
+			GuiCustomPage.setShowingPagePotion(false);
 			if (rpg.getMainHero().getCoordinates().getX() == 0 || rpg.getMainHero().getCoordinates().getX() == rpg.getMap().getSize() - 1 || rpg.getMainHero().getCoordinates().getY() == 0 || rpg.getMainHero().getCoordinates().getY() == rpg.getMap().getSize() - 1) {
-				System.out.println(DEBUG_BOLD + "coming from: showEscapePage() - GuiEscapePage");
 				GuiEndLevelPage.showLevelCompletePage(panel, rpg.getMainHero(), rpg);
 			}
 			else

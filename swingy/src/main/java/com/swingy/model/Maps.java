@@ -151,73 +151,49 @@ public class Maps {
 			switch(tmpEnemy.getCharacterClass()) {
 				// ---- Tier 1 : basiques ----
 				case ENEMY_CLASS_RAT:
-					if (tmpEnemy.getArtefacts().isEmpty())
-						symbol = "!";
-					else
-						symbol = "r";
+					symbol = "r";
 					if (listToken != null)
 						tmpEnemy.setToken(listToken.get("rat"));
 					break;
 
 				case ENEMY_CLASS_SLIME:
-					if (tmpEnemy.getArtefacts().isEmpty())
-						symbol = "!";
-					else
-						symbol = "s";
+					symbol = "s";
 					if (listToken != null)
 						tmpEnemy.setToken(listToken.get("slime"));
 					break;
 
 				case ENEMY_CLASS_GOBLIN: {
-					if (tmpEnemy.getArtefacts().isEmpty())
-						symbol = "!";
-					else
-						symbol = "g";
+					symbol = "g";
 					if (listToken != null)
 						tmpEnemy.setToken(listToken.get("gobelin"));
 					break;
 				}
 				case ENEMY_CLASS_BANDIT: {
-					if (tmpEnemy.getArtefacts().isEmpty())
-						symbol = "!";
-					else
-						symbol = "b";
+					symbol = "b";
 					if (listToken != null)
 						tmpEnemy.setToken(listToken.get("bandit"));
 					break;
 				}
 				case ENEMY_CLASS_BAT: {
-					if (tmpEnemy.getArtefacts().isEmpty())
-						symbol = "!";
-					else
-						symbol = "v";
+					symbol = "v";
 					if (listToken != null)
 						tmpEnemy.setToken(listToken.get("bat"));
 					break;
 				}
 				case ENEMY_CLASS_SPIDERLING: {
-					if (tmpEnemy.getArtefacts().isEmpty())
-						symbol = "!";
-					else
-						symbol = "x";
+					symbol = "x";
 					if (listToken != null)
 						tmpEnemy.setToken(listToken.get("spider"));
 					break;
 				}
 				case ENEMY_CLASS_SKELETAL_HAND: {
-					if (tmpEnemy.getArtefacts().isEmpty())
-						symbol = "!";
-					else
-						symbol = "h";
+					symbol = "h";
 					if (listToken != null)
 						tmpEnemy.setToken(listToken.get("skeletal_hand"));
 					break;
 				}
 				case ENEMY_CLASS_MUDLING: {
-					if (tmpEnemy.getArtefacts().isEmpty())
-						symbol = "!";
-					else
-						symbol = "m"; // boueux
+					symbol = "m"; // boueux
 					if (listToken != null)
 						tmpEnemy.setToken(listToken.get("mudling"));
 					break;
@@ -436,7 +412,6 @@ public class Maps {
 				this.map[tmpX][tmpY] = symbol;
 			else
 				this.map[tmpX][tmpY] = "*";
-			// System.out.println("[DEBUG]: add enemy: " + tmpEnemy.getCharacterClass());
 		}
 		return occupiedCoords;
 	}
