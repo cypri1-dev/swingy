@@ -65,7 +65,7 @@ public class GuiFightPage extends GuiCustomPage {
 		JLabel heroHPLabel = (JLabel) heroPanel.getClientProperty("hpLabel");
 		JLabel enemyHPLabel = (JLabel) enemyPanel.getClientProperty("hpLabel");
 
-		/* 🔥 stockage pour refresh potion */
+		/* stockage pour refresh potion */
 		heroHPLabelRef = heroHPLabel;
 
 		fightersPanel.add(Box.createHorizontalGlue());
@@ -93,11 +93,7 @@ public class GuiFightPage extends GuiCustomPage {
 
 			if ("DEAD ENEMY".equals(result)) {
 				setShowingPageFight(false);
-				if (hero.getCoordinates().getX() == 0
-					|| hero.getCoordinates().getX() == rpg.getMap().getSize() - 1
-					|| hero.getCoordinates().getY() == 0
-					|| hero.getCoordinates().getY() == rpg.getMap().getSize() - 1) {
-
+				if (hero.getCoordinates().getX() == 0 || hero.getCoordinates().getX() == rpg.getMap().getSize() - 1 || hero.getCoordinates().getY() == 0 || hero.getCoordinates().getY() == rpg.getMap().getSize() - 1) {
 					btn.setVisible(true);
 					bottom.revalidate();
 					bottom.repaint();
@@ -146,7 +142,6 @@ public class GuiFightPage extends GuiCustomPage {
 		configButtons(runButton);
 		runButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-		// Désactive le bouton Run si l'ennemi est sur la bordure
 		int mapSize = rpg.getMap().getSize();
 		int enemyX = enemy.getCoordinates().getX();
 		int enemyY = enemy.getCoordinates().getY();
@@ -212,7 +207,6 @@ public class GuiFightPage extends GuiCustomPage {
 	}
 
 	/****************************** HELPERS ******************************/
-
 	private static JPanel buildCharacterPanel(Characters c, Icon iconToken) {
 		JPanel panel = new JPanel();
 		configureJPanelFight(panel);
@@ -256,14 +250,10 @@ public class GuiFightPage extends GuiCustomPage {
 
 		actionLocked = true;
 
-		TypeWriterEffect.appendAnimated(
-			logPanel.getLogArea(),
-			text,
-			25,
-			() -> {
-				actionLocked = false;
-				if (onFinish != null)
-					onFinish.run();
+		TypeWriterEffect.appendAnimated(logPanel.getLogArea(), text,25, () -> {
+			actionLocked = false;
+			if (onFinish != null)
+				onFinish.run();
 			}
 		);
 	}

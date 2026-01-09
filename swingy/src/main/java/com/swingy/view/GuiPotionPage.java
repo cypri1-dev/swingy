@@ -48,7 +48,7 @@ public class GuiPotionPage extends GuiCustomPage {
 		backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 		backButton.addActionListener(e -> {
-		    GuiCustomPage.setShowingPagePotion(false);
+			GuiCustomPage.setShowingPagePotion(false);
 			if (rpg.getMainHero().getCoordinates().getX() == 0 || rpg.getMainHero().getCoordinates().getX() == rpg.getMap().getSize() - 1 || rpg.getMainHero().getCoordinates().getY() == 0 || rpg.getMainHero().getCoordinates().getY() == rpg.getMap().getSize() - 1)
 				GuiEndLevelPage.showLevelCompletePage(panel, rpg.getMainHero(), rpg);
 			else

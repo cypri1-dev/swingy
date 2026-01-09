@@ -3,11 +3,11 @@ package com.swingy.view;
 import com.swingy.view.components.RoundedImageButton;
 import com.swingy.controller.GuiCreationController;
 import com.swingy.controller.Game;
+import com.swingy.controller.HeroCreationRequest;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
-
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 
@@ -16,19 +16,21 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.Dimension;
 
-
 public class GuiCreationPage extends GuiCustomPage {
 
 	/************************************************************************ CONFIGURATION CONFIRM BUTTON ************************************************************************/
 
-	private static void configureConfirmButton (RoundedImageButton elem, JTextField inputName, JComboBox<String> choiceComboBox, JLabel hiddenNameLabel, JPanel hiddenNameLabelWrapper, JPanel base, Game rpg) {
+	private static void configureConfirmButton(RoundedImageButton elem, JTextField inputName, JComboBox<String> choiceComboBox, JLabel hiddenNameLabel, JPanel hiddenNameLabelWrapper, JPanel base, Game rpg) {
 		setCustomFont(elem, Font.BOLD, 25);
 		elem.setPreferredSize(new Dimension(150, 48));
 
 		elem.addActionListener(e -> {
 			String name = inputName.getText().trim();
 			String selectedClass = (String) choiceComboBox.getSelectedItem();
-			String txt = GuiCreationController.createHero(rpg, name, selectedClass);
+
+			HeroCreationRequest request = new HeroCreationRequest(name, selectedClass);
+
+			String txt = GuiCreationController.createHero(rpg, request);
 
 			GuiHeroManagerPage.updateHeroComboBox(rpg);
 			GuiPlayPage.updateHeroComboBox(rpg);
@@ -41,11 +43,11 @@ public class GuiCreationPage extends GuiCustomPage {
 		});
 	}
 
-	/************************************************************************ CREATION PAGE BUIDER METHOD ************************************************************************/
+	/************************************************************************ CREATION PAGE BUILDER METHOD ************************************************************************/
 
 	public static JPanel createCreationPage(String title, CardLayout cardLayout, JPanel cardPanel, ImageIcon icon, Game rpg) {
 
-		// --- Panel/Card a return ---
+		// --- Panel/Card à retourner ---
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.setOpaque(false);
 

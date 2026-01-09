@@ -99,14 +99,14 @@ public class GuiLootPage extends GuiCustomPage {
 			GuiGamePage.refreshInventory(rpg, baseInventory, icon);
 			GuiGamePage.resetPage((JPanel) panel, rpg, listToken, grid, baseInventory, icon);
 			if (rpg.getMainHero().getCoordinates().getX() == 0 || rpg.getMainHero().getCoordinates().getX() == rpg.getMap().getSize() - 1 || rpg.getMainHero().getCoordinates().getY() == 0 || rpg.getMainHero().getCoordinates().getY() == rpg.getMap().getSize() - 1)
-					GuiEndLevelPage.showLevelCompletePage(panel, rpg.getMainHero(), rpg);
+				GuiEndLevelPage.showLevelCompletePage(panel, rpg.getMainHero(), rpg);
 		});
 
 		noButton.addActionListener(e -> {
 			rpg.getMap().getListEnemies().remove(enemy);
 			GuiGamePage.resetPage((JPanel) panel, rpg, listToken, grid, baseInventory, icon);
 			if (rpg.getMainHero().getCoordinates().getX() == 0 || rpg.getMainHero().getCoordinates().getX() == rpg.getMap().getSize() - 1 || rpg.getMainHero().getCoordinates().getY() == 0 || rpg.getMainHero().getCoordinates().getY() == rpg.getMap().getSize() - 1)
-					GuiEndLevelPage.showLevelCompletePage(panel, rpg.getMainHero(), rpg);
+				GuiEndLevelPage.showLevelCompletePage(panel, rpg.getMainHero(), rpg);
 		});
 
 		JPanel buttonRow = new JPanel();

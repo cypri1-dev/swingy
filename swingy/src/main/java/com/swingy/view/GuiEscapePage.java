@@ -9,8 +9,6 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import static com.swingy.utils.Constants.DEBUG_BOLD;
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;

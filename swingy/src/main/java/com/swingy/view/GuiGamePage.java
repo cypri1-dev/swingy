@@ -100,9 +100,7 @@ public class GuiGamePage extends GuiCustomPage {
 			checkBox.putClientProperty("artefact", items);
 
 			checkBox.addItemListener(e -> {
-				GuiInventoryController.inventoryManager(
-					checkBox, checkBoxesByType, hero, e
-				);
+				GuiInventoryController.inventoryManager(checkBox, checkBoxesByType, hero, e);
 				refreshInventory(rpg, baseInventory, icon);
 			});
 
@@ -180,7 +178,6 @@ public class GuiGamePage extends GuiCustomPage {
 
 		createCheckBoxes(rpg, baseInventory, icon);
 
-		// 🔥 SEULE VRAIE MODIFICATION : SCROLLPANE 🔥
 		JScrollPane inventoryScroll = new JScrollPane(baseInventory);
 		inventoryScroll.setBorder(null);
 		inventoryScroll.setOpaque(false);
@@ -258,21 +255,7 @@ public class GuiGamePage extends GuiCustomPage {
 		configureBottomPanel(bottom, btnPotion);
 		panel.add(bottom, BorderLayout.SOUTH);
 
-		new GuiInputController(
-			btn,
-			baseMap,
-			rpg.getMainHero().getMovement(),
-			rpg.getMainHero(),
-			rpg.getMap(),
-			rpg.getMenu(),
-			grid,
-			rpg,
-			listToken,
-			icon,
-			baseInventory,
-			bottom
-		);
-
+		new GuiInputController(btn, baseMap, rpg.getMainHero().getMovement(), rpg.getMainHero(), rpg.getMap(), rpg.getMenu(), grid, rpg, listToken, icon, baseInventory, bottom);
 		return panel;
 	}
 }

@@ -46,7 +46,7 @@ public class GuiMapTab extends GuiCustomPage {
 		int heroX = rpg.getMainHero().getCoordinates().getX();
 		int heroY = rpg.getMainHero().getCoordinates().getY();
 
-		// Calcul bornes du viewport dans la map, en limitant aux bords
+		// Calcul bornes du viewport dans la map en limitant aux bords
 		int startX = Math.max(0, heroX - halfViewport);
 		int startY = Math.max(0, heroY - halfViewport);
 		int endX = Math.min(mapSize - 1, heroX + halfViewport);
