@@ -24,9 +24,8 @@ public class GameMovement {
 			Characters enemy = iterator.next();
 			if (hero.getCoordinates().getX() == enemy.getCoordinates().getX() && hero.getCoordinates().getY() == enemy.getCoordinates().getY()) {
 				
-				if (gui) {
+				if (gui)
 					return;
-				}
 				else
 					FightLogic.fight(enemy, hero, menu);
 				iterator.remove();
@@ -76,7 +75,7 @@ public class GameMovement {
 		hero.getCoordinates().setPrevY(hero.getCoordinates().getY());
 
 		if (hero.getCoordinates().getX() > 0) {
-			hero.getCoordinates().setX(-1); // x += -1
+			hero.getCoordinates().setX(-1);
 		}
 
 		checkFight(hero, map, menu, gui);
@@ -89,7 +88,7 @@ public class GameMovement {
 		hero.getCoordinates().setPrevY(hero.getCoordinates().getY());
 
 		if (hero.getCoordinates().getY() < map.getSize() - 1) {
-			hero.getCoordinates().setY(1); // y += 1
+			hero.getCoordinates().setY(1);
 		}
 
 		checkFight(hero, map, menu, gui);
@@ -102,7 +101,7 @@ public class GameMovement {
 		hero.getCoordinates().setPrevY(hero.getCoordinates().getY());
 
 		if (hero.getCoordinates().getX() < map.getSize() - 1) {
-			hero.getCoordinates().setX(1); // x += 1
+			hero.getCoordinates().setX(1);
 		}
 
 		checkFight(hero, map, menu, gui);
@@ -115,7 +114,7 @@ public class GameMovement {
 		hero.getCoordinates().setPrevY(hero.getCoordinates().getY());
 
 		if (hero.getCoordinates().getY() > 0) {
-			hero.getCoordinates().setY(-1); // y += -1
+			hero.getCoordinates().setY(-1);
 		}
 
 		checkFight(hero, map, menu, gui);

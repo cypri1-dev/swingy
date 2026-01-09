@@ -1,5 +1,7 @@
 package com.swingy.controller;
 
+import static com.swingy.utils.Constants.*;
+
 import java.util.concurrent.ThreadLocalRandom;
 
 import com.swingy.model.Characters;
@@ -23,7 +25,7 @@ public class GuiFightController {
 			int rawDamage = ThreadLocalRandom.current().nextInt(1, enemy.getAttack() + 1);
 			hero.setHitPoint(-rawDamage);
 			if (hero.getHitPoint() <= 0)
-				return "DEAD HERO";
+				return DEAD_HERO_CASE;
 			return "💨 The hero tries to escape... but fails!\n🗡️ " + enemy.getCharacterClass() + " hits " + hero.getName() + " for " + rawDamage + " damage!";
 		}
 		else {
@@ -31,8 +33,8 @@ public class GuiFightController {
 			map.getListEnemies().remove(enemy);
 			hero.getCoordinates().setXBack(hero.getCoordinates().getPrevX());
 			hero.getCoordinates().setYBack(hero.getCoordinates().getPrevY());
-			map.getMapTab()[hero.getCoordinates().getX()][hero.getCoordinates().getY()] = "\u001b[34m@\u001b[0m";
-			return "ESCAPE";
+			map.getMapTab()[hero.getCoordinates().getX()][hero.getCoordinates().getY()] = SYMBOL_MAIN_HERO;
+			return ESCAPE_CASE;
 		}
 	}
 
@@ -43,7 +45,7 @@ public class GuiFightController {
 			fullBlock = 0;
 		hero.setHitPoint(-fullBlock);
 		if (hero.getHitPoint() <= 0)
-			return "DEAD ENEMY";
+			return DEAD_ENEMY_CASE;
 		return "🛡️ The hero blocks it! Not today, villain! You took " + fullBlock + " damage!";
 	}
 
@@ -57,7 +59,7 @@ public class GuiFightController {
 		int initE = (diceEnemy1 + diceEnemy2) + enemy.getAttack();
 
 		if (initE == initH)
-			return "Both fighters clash with equal strength! No one was hurt!";
+			return EQUAL_CASE;
 		if (initH > initE) {
 			int rawDamage = ThreadLocalRandom.current().nextInt(1, hero.getAttack() + 1);
 			int damage = rawDamage - (enemy.getDefense() / 2);
@@ -70,9 +72,9 @@ public class GuiFightController {
 				hero.getKnowledge().addKnowledge(enemy);
 				tmp[enemy.getCoordinates().getX()][enemy.getCoordinates().getY()] = "\u001b[34m@\u001b[0m";
 				if (!enemy.getArtefacts().isEmpty())
-					return "LOOT";
+					return LOOT_CASE;
 				map.getListEnemies().remove(enemy);
-				return "DEAD ENEMY";
+				return DEAD_ENEMY_CASE;
 			}
 			return hero.getName() +  " hits " + enemy.getCharacterClass() +  " for " + damage + " damage!";
 		}
@@ -83,7 +85,7 @@ public class GuiFightController {
 				damage = 0;
 			hero.setHitPoint(-damage);
 			if (hero.getHitPoint() <= 0)
-				return "DEAD HERO";
+				return DEAD_HERO_CASE;
 			return enemy.getCharacterClass() + " hits " + hero.getName() + " for " + damage + " damage!";
 		}
 	}

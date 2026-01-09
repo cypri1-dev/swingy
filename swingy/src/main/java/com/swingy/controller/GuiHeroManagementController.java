@@ -1,24 +1,16 @@
 package com.swingy.controller;
 
-import static com.swingy.utils.Constants.ARMOR_TYPE;
-import static com.swingy.utils.Constants.COMMON;
-import static com.swingy.utils.Constants.CONSOMMABLE_TYPE;
-import static com.swingy.utils.Constants.EPIC;
-import static com.swingy.utils.Constants.HELM_TYPE;
-import static com.swingy.utils.Constants.LEGENDARY;
-import static com.swingy.utils.Constants.RARE;
-import static com.swingy.utils.Constants.WEAPON_TYPE;
+import static com.swingy.utils.Constants.*;
 
 import com.swingy.model.Characters;
 
 public class GuiHeroManagementController {
 
 	public static String displaySelectedHero(String selectedHeroName, Game rpg) {
-		String txt = "";
-		if (selectedHeroName == null) {
-			txt = "<html><div style='color:red; text-align:center;'>No hero selected!</div></html>";
-			return txt;
-		}
+
+		if (selectedHeroName == null)
+			return NO_SELECTION;
+
 		Characters hero = null;
 		for (Characters target : rpg.getListAvaible()) {
 			if (target.getName().equals(selectedHeroName)) {
@@ -26,10 +18,8 @@ public class GuiHeroManagementController {
 				break;
 			}
 		}
-		if (hero == null) {
-			txt = "<html><div style='color:red; text-align:center;'>Hero not found!</div></html>";
-			return txt;
-		}
+		if (hero == null)
+			return HERO_NOT_FOUND;
 
 		StringBuilder sb = new StringBuilder("<html><div style='font-family: Ancient Modern Tales; font-size: 17px; color: #444444;'>");
 
@@ -108,7 +98,7 @@ public class GuiHeroManagementController {
 	}
 
 	public static String deleteHero(String selectedHeroName, Game rpg) {
-		String txt = "<html><div style='color:red; text-align:center;'>Hero deleted!</div></html>";
+
 		if (selectedHeroName != null) {
 			Characters target = null;
 			for (Characters elem : rpg.getListAvaible()) {
@@ -122,6 +112,6 @@ public class GuiHeroManagementController {
 				rpg.getListAvaible().remove(target);
 			}
 		}
-		return (txt);
+		return HERO_DELETED;
 	}
 }

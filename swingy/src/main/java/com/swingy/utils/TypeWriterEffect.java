@@ -7,12 +7,7 @@ public class TypeWriterEffect {
 
 	private static Timer currentTimer;
 
-	public static void appendAnimated(
-		JTextArea area,
-		String text,
-		int delayMs,
-		Runnable onFinish
-	) {
+	public static void appendAnimated(JTextArea area, String text, int delayMs, Runnable onFinish) {
 		if (currentTimer != null && currentTimer.isRunning()) {
 			currentTimer.stop();
 		}

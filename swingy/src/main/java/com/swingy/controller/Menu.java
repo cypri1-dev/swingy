@@ -12,7 +12,7 @@ import com.swingy.model.Characters;
 public class Menu {
 
 	private Game ref;
-	private static DisplayController display = DisplayController.getInstance();;
+	private static DisplayController display = DisplayController.getInstance();
 
 	Menu(Game game) {
 		this.ref = game;
@@ -231,9 +231,7 @@ public class Menu {
 
 		do {
 			inputName = display.getUserInput().trim();
-
 			boolean hasForbiddenChar = forbiddenChars.stream().anyMatch(inputName::contains);
-
 			invalidName = inputName.isEmpty() || ref.heroExists(inputName) || hasForbiddenChar;
 
 			if (invalidName)

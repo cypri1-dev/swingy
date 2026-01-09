@@ -20,7 +20,6 @@ public class GuiLaunchGameController {
 		}
 
 		txt = "<html><div style='text-align: center;'>" + selectedHeroName + "<br/>" + "<b>Level </b> " + level + "<br/>" + "</div></html>";
-
 		return txt;
 	}
 }

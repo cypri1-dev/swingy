@@ -14,8 +14,6 @@ import com.swingy.view.GuiGameOverPage;
 
 import javax.swing.*;
 
-import static com.swingy.utils.Constants.DEBUG_BOLD;
-
 import java.awt.event.ActionEvent;
 import java.util.Map;
 
@@ -117,7 +115,6 @@ public class GuiInputController {
 					btn.setVisible(false);
 					bottom.revalidate();
 					bottom.repaint();
-
 					inFight = true;
 				}
 
@@ -143,7 +140,6 @@ public class GuiInputController {
 					return;
 				}
 			}
-
 			/* ------------------- GAME OVER ------------------- */
 			if (hero.getHitPoint() <= 0) {
 				rpg.getHeroesNameList().remove(hero.getName());
@@ -151,7 +147,6 @@ public class GuiInputController {
 				GuiGameOverPage.showGameOverPage(baseMap, listToken, map, rpg);
 				return;
 			}
-
 			/* ---------------- LEVEL COMPLETED ---------------- */
 			if (map.getLevelCompleted()) {
 				btn.setVisible(true);
@@ -161,7 +156,6 @@ public class GuiInputController {
 				map.setLevelCompleted(true);
 				return;
 			}
-
 			/* -------------------- UPDATE --------------------- */
 			GuiMapTab.updateMap(rpg, listToken, grid);
 		}

@@ -21,7 +21,6 @@ public class TokenAnimator {
 			if (alpha >= 1f) {
 				token.setAlpha(1f);
 				((Timer)e.getSource()).stop();
-				// Quand le token est terminé, on lance le suivant
 				fadeToken(tokens, index + 1);
 			} else {
 				token.setAlpha(alpha);

@@ -58,12 +58,7 @@ public class GuiInventoryController {
 		return "<html><span style='color:" + hexColor + "'>" + name + bonus + "</span></html>";
 	}
 
-	public static void inventoryManager(
-		JCheckBox checkBox,
-		Map<String, List<JCheckBox>> checkBoxesByType,
-		Characters hero,
-		ItemEvent e
-	) {
+	public static void inventoryManager(JCheckBox checkBox, Map<String, List<JCheckBox>> checkBoxesByType, Characters hero, ItemEvent e) {
 		Artefact artefact = (Artefact) checkBox.getClientProperty("artefact");
 		if (artefact == null)
 			return;
@@ -104,11 +99,7 @@ public class GuiInventoryController {
 
 	/******************************** DELETE ITEM ********************************/
 
-	public static void deleteSelectedItem(
-		JPanel baseInventory,
-		Characters hero,
-		Game rpg
-	) {
+	public static void deleteSelectedItem(JPanel baseInventory, Characters hero, Game rpg) {
 		JCheckBox selected = null;
 
 		for (Component comp : baseInventory.getComponents()) {
@@ -125,10 +116,7 @@ public class GuiInventoryController {
 		}
 
 		if (selected == null) {
-			JOptionPane.showMessageDialog(null,
-				"Aucun objet sélectionné.",
-				"Erreur",
-				JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "No items selected.", "Error", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 
@@ -136,13 +124,7 @@ public class GuiInventoryController {
 		if (artefact == null)
 			return;
 
-		int confirm = JOptionPane.showConfirmDialog(
-			null,
-			"Voulez-vous vraiment supprimer " + artefact.getName() + " ?",
-			"Confirmation",
-			JOptionPane.YES_NO_OPTION
-		);
-
+		int confirm = JOptionPane.showConfirmDialog(null, "Do you really want to delete " + artefact.getName() + " ?", "Confirm", JOptionPane.YES_NO_OPTION);
 		if (confirm != JOptionPane.YES_OPTION)
 			return;
 
@@ -150,7 +132,6 @@ public class GuiInventoryController {
 			hero.unequipArtefact(artefact);
 			artefact.setIsEquipped(false);
 		}
-
 		hero.removeArtefact(artefact);
 	}
 }

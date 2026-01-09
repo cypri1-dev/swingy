@@ -19,12 +19,10 @@ public class Export {
 
 		if (avaibleHeros.isEmpty()) {
 
-			if (file.exists()) {
+			if (file.exists())
 				file.setWritable(true);
-			}
-
-			try (PrintWriter pw = new PrintWriter(file)) {
-			} catch (FileNotFoundException e) {
+			try (PrintWriter pw = new PrintWriter(file)) {}
+			catch (FileNotFoundException e) {
 				DisplayController.getInstance().printNormal(RED_BOLD + "Error: impossible de tronquer save.txt" + RESET);
 				e.printStackTrace();
 			}
@@ -36,14 +34,11 @@ public class Export {
 
 			DisplayController.getInstance().printNormal("No characters created yet! Save cleared.");
 			return;
-		} else {
-
-			if (file.exists()) {
+		}
+		else {
+			if (file.exists())
 				file.setWritable(true);
-			}
-
 			try (PrintWriter out = new PrintWriter(file)) {
-				// parcours des personnages et écriture (comme avant)
 				for (Characters c : avaibleHeros) {
 					out.print(c.getName());
 					out.print(",");
@@ -64,7 +59,6 @@ public class Export {
 					out.print("|");
 					if (!c.getArtefacts().isEmpty()) {
 						for (Artefact item : c.getArtefacts()) {
-							// out.print("(");
 							out.print(item.getName());
 							out.print(",");
 							out.print(item.getIsEquipped());
@@ -84,14 +78,12 @@ public class Export {
 					}
 					out.print("*");
 				}
-				// try-with-resources s'occupe du close()
-			} catch (FileNotFoundException e) {
+			}
+			catch (FileNotFoundException e) {
 				DisplayController.getInstance().printNormal(
 					RED_BOLD + "Error: an error occurred while exporting save.txt file...");
-				e.printStackTrace();
 			}
-
-			// définir permissions si besoin (facultatif)
+			
 			if (file.exists()) {
 				file.setWritable(false);
 				file.setReadable(true);

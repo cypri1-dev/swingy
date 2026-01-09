@@ -78,15 +78,6 @@ public final class Constants {
 
 	/* ENEMY ARCHETYPES */
 
-	// ==================
-	// ENEMY NAMES
-	// ==================
-
-
-	// ==================
-	// ENEMY CLASS STRINGS
-	// ==================
-		
 	public static final String ENEMY_CLASS_RAT = "Rat";
 	public static final String ENEMY_CLASS_SLIME = "Slime";
 	public static final String ENEMY_CLASS_GOBLIN = "Goblin";
@@ -618,8 +609,6 @@ public final class Constants {
 	public static final String SYMBOL_ENEMY_COSMIC_DRAGON = "∞";
 
 
-
-
 	/* MAPS DATA */
 	public static final double DENSITY = 0.23;
 	public static final double DENSITY_CONSOMMABLE = 0.10;
@@ -633,6 +622,12 @@ public final class Constants {
 	public static final int ONLY_HERO = 1;
 	public static final int HERO_BAG = 2;
 	public static final int HERO_KNOWLDGE_OR_HERO_BAG_KNOWLEDGE = 3;
+
+	/* FIGHT CHOICE */
+	public static final String ATTACK = "1";
+	public static final String BLOCK = "2";
+	public static final String RUN = "3";
+	public static final String INVENTORY = "4";
 
 	/* DISPLAY */
 	public static final String NO_LOAD = " The character will not be loaded and will be deleted to preserve the integrity of the game and its files. Press ENTER to continue...";
@@ -968,11 +963,30 @@ public final class Constants {
 			""";
 
 
-		public static final String WELCOME_MSG = """
-		<html style='text-align:center'>
-		Welcome, brave adventurer!<br>
-		Your journey through the world of Swingy begins now!<br>
-		Where courage, strategy, and fate will decide your legend...
-		</html>
-		""";
+	// ==================
+	//      GUI DATA
+	// ==================
+
+	public static final String WELCOME_MSG = """
+	<html style='text-align:center'>
+	Welcome, brave adventurer!<br>
+	Your journey through the world of Swingy begins now!<br>
+	Where courage, strategy, and fate will decide your legend...
+	</html>
+	""";
+
+	public static String FORBIDDEN_CHAR = "<html><div align='center' style='color: red;'>"
+		+ "Name already exists or contains Forbidden characters!<br/>"
+		+ "<b>Try again</b>"
+		+ "</div></html>";
+
+	public static String DEAD_HERO_CASE = "DEAD HERO";
+	public static String DEAD_ENEMY_CASE = "DEAD ENEMY";
+	public static String ESCAPE_CASE = "ESCAPE";
+	public static String LOOT_CASE = "LOOT";
+	public static String EQUAL_CASE = "Both fighters clash with equal strength! No one was hurt!";
+
+	public static String NO_SELECTION = "<html><div style='color:red; text-align:center;'>No hero selected!</div></html>";
+	public static String HERO_NOT_FOUND = "<html><div style='color:red; text-align:center;'>Hero not found!</div></html>";
+	public static String HERO_DELETED = "<html><div style='color:red; text-align:center;'>Hero deleted!</div></html>";
 }

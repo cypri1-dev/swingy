@@ -35,8 +35,7 @@ public class FightLogic {
 			display.printNormal(FIGHT_MENU);
 			option = display.getUserInput();
 			switch (option) {
-				/* -------- ATTACK -------- */
-				case "1":
+				case ATTACK:
 					int diceHero1 = ThreadLocalRandom.current().nextInt(1, 7);
 					int diceHero2 = ThreadLocalRandom.current().nextInt(1, 7);
 					int diceEnemy1 = ThreadLocalRandom.current().nextInt(1, 7);
@@ -69,8 +68,7 @@ public class FightLogic {
 					display.sleepTime(1400);
 					break;
 
-				case "2":
-					/* -------- BLOCK -------- */
+				case BLOCK:
 					int dmg = ThreadLocalRandom.current().nextInt(1, enemy.getAttack() + 1);
 					int fullBlock = dmg - hero.getDefense();
 					if (fullBlock <= 0)
@@ -80,8 +78,7 @@ public class FightLogic {
 					display.sleepTime(1400);
 					break;
 
-				case "3":
-					/* -------- RUN -------- */
+				case RUN:
 					int luck = ThreadLocalRandom.current().nextInt(0, 2);
 					if (luck == 0) {
 						int rawDamage = ThreadLocalRandom.current().nextInt(1, enemy.getAttack() + 1);
@@ -99,8 +96,7 @@ public class FightLogic {
 						return;
 					}
 			
-					case "4":
-					/* -------- INVENTORY -------- */
+					case INVENTORY:
 						menu.inventoryMenu();
 						break;
 				}

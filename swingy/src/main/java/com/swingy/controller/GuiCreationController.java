@@ -17,10 +17,7 @@ public class GuiCreationController {
 		boolean invalidName = inputName.isEmpty() || rpg.heroExists(inputName) || hasForbiddenChar;
 	
 		if (invalidName || inputName.equalsIgnoreCase("x")) {
-			txt = "<html><div align='center' style='color: red;'>"
-				+ "Name already exists or contains Forbidden characters!<br/>"
-				+ "<b>Try again</b>"
-				+ "</div></html>";
+			txt = FORBIDDEN_CHAR;
 		}
 		else {
 			rpg.registerHeroName(inputName);
